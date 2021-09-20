@@ -15,13 +15,14 @@
 
 ## Tech Stack
 
-**Client:**  <img src="https://avatars.githubusercontent.com/u/139426?s=200&v=4" width="20" height="20"> Angular, <img src="https://raw.githubusercontent.com/dnfield/flutter_svg/7d374d7107561cbd906d7c0ca26fef02cc01e7c8/example/assets/flutter_logo.svg?sanitize=true" width="20" height="20"> Flutter
+**Client:**  <img src="https://avatars.githubusercontent.com/u/139426?s=200&v=4" height="20"> Angular, <img src="https://raw.githubusercontent.com/dnfield/flutter_svg/7d374d7107561cbd906d7c0ca26fef02cc01e7c8/example/assets/flutter_logo.svg?sanitize=true" height="20"> Flutter
 
-**Server:** <img src="https://github.com/ealflm/tools/blob/main/NET_Core_Logo.svg.png?raw=true" width="20" height="20"> .NET
+**Server:** <img src="https://github.com/ealflm/tools/blob/main/dot-net-core-7.png?raw=true" height="20"> .NET Core
 
   
 ## Authors
 
+- [@ealflm](https://www.github.com/ealflm)
 - [@basic-zero](https://www.github.com/basic-zero)
 - [@datnlm](https://www.github.com/datnlm)
 - [@dtsangnttq](https://www.github.com/dtsangnttq)
