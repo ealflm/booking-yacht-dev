@@ -1,12 +1,8 @@
 
 # Booking Yacht
 
+![Logo](https://github.com/ealflm/tools/blob/main/Booking%20Yacht.png?raw=true)
 
-
-
-![Logo](https://lh3.google.com/u/0/d/17_uEJkLBhueo6DxVAZ2KtLO6utiuKK0G=w2880-h1633-iv1)
-
-    
 ## Infomation
 
 - WebApi: http://booking-yacht-dev.eastasia.cloudapp.azure.com/index.html
