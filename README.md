@@ -1,8 +1,8 @@
 # Booking-yacht-dev
 
-- WebApi: https://swd391g5.azurewebsites.net/
+- WebApi: http://booking-yacht-dev.eastasia.cloudapp.azure.com/index.html
 - WebApp: https://orange-field-0ffcb7d00.azurestaticapps.net/
 - Database: 
-    + Server name: swd391gr5.database.windows.net
+    + Server name: booking-yacht-dev.eastasia.cloudapp.azure.com
     + Login: swd391gr5
-    + Password: swd391@gr5
+    + Password: swd391@team5

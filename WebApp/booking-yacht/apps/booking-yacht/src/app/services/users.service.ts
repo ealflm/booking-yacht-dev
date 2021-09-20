@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class UsersService {
   //apiURL = environment.apiURL;
-  apiURL = 'https://swd391g5.azurewebsites.net/api/member';
+  apiURL = 'http://booking-yacht-dev.eastasia.cloudapp.azure.com/api/member';
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
