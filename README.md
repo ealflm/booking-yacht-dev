@@ -6,7 +6,7 @@
 ## Infomation
 
 - WebApi: http://booking-yacht-dev.eastasia.cloudapp.azure.com/index.html
-- WebApp: https://delightful-meadow-073ab2a00.azurestaticapps.net/
+- WebApp: https://www.bookingyacht.site/
 - Database: 
     + Server name: booking-yacht-dev.eastasia.cloudapp.azure.com
     + Login: swd391gr5
