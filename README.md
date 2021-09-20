@@ -5,8 +5,8 @@
 
 ## Infomation
 
-- WebApi: http://booking-yacht-dev.eastasia.cloudapp.azure.com/index.html
-- WebApp: https://www.bookingyacht.site/
+- WebApi: http://booking-yacht-dev.eastasia.cloudapp.azure.com
+- WebApp: https://www.bookingyacht.site
 - Database: 
     + Server name: booking-yacht-dev.eastasia.cloudapp.azure.com
     + Login: swd391gr5
