@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace BookingYacht.Model
+{
+    public partial class BusinessTour
+    {
+        public Guid Id { get; set; }
+        public Guid? IdBusiness { get; set; }
+        public Guid? IdTicketType { get; set; }
+        public Guid? IdTour { get; set; }
+
+        public virtual Business IdBusinessNavigation { get; set; }
+        public virtual TicketType IdTicketTypeNavigation { get; set; }
+        public virtual Tour IdTourNavigation { get; set; }
+    }
+}
