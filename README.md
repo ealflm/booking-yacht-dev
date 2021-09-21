@@ -30,7 +30,7 @@
 - [@sumo6842](https://www.github.com/sumo6842)
 
 <p align="center">
-<img src="https://octodex.github.com/images/surftocat.png" width="400" height="400">
+<img src="https://octodex.github.com/images/surftocat.png" width="400">
 </p>
   
 ## License
