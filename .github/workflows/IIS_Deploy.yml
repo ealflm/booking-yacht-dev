@@ -7,14 +7,6 @@ on:
   push:
     branches:
       - develop
-    paths:
-      - WebAPI/BookingYacht
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - develop
-    paths:
-      - WebAPI/BookingYacht
   workflow_dispatch:
 
 jobs:
