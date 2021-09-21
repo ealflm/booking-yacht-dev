@@ -160,6 +160,10 @@ namespace BookingYacht.Model
                 entity.ToTable("PlaceType");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<Ticket>(entity =>
