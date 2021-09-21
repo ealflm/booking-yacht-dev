@@ -32,9 +32,3 @@
 <p align="center">
 <img src="https://octodex.github.com/images/surftocat.png" width="400">
 </p>
-  
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-  
