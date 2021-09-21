@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UsersService {
 
-  private basePath = 'https://booking-yacht-dev.eastasia.cloudapp.azure.com/api/member';
+  private basePath = 'https://booking-yacht-dev.southeastasia.cloudapp.azure.com/api/member';
   constructor(private http: HttpClient) {}
   
   public getUsers(): Observable<any> {
