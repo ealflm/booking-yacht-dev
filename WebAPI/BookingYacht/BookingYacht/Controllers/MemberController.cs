@@ -32,5 +32,11 @@ namespace BookingYacht.Controllers
             }
             return Ok(member);
         }
+
+        [HttpGet("Vip")]
+        public ActionResult<string> GetVip()
+        {
+            return Ok("Tested");
+        }
     }
 }
