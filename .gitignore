@@ -1,3 +1,7 @@
 /WebAPI/BookingYacht/.vs/BookingYacht/DesignTimeBuild/.dtbcache.v2
 /WebAPI/BookingYacht/.vs/BookingYacht/v16/.suo
 *.csproj.AssemblyReference.cache
+/WebAPI/BookingYacht/BookingYacht.API/bin/Debug/net5.0/BookingYacht.API.dll
+/WebAPI/BookingYacht/BookingYacht.API/bin/Debug/net5.0/BookingYacht.API.pdb
+/WebAPI/BookingYacht/BookingYacht.API/obj/Debug/net5.0/BookingYacht.API.dll
+/WebAPI/BookingYacht/BookingYacht.API/obj/Debug/net5.0/BookingYacht.API.pdb
