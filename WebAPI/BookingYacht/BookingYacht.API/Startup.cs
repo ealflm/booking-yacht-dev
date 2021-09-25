@@ -25,6 +25,11 @@ namespace BookingYacht.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             services.AddDbContext<BookingYachtContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("BookingYacht")));
 
@@ -59,6 +64,8 @@ namespace BookingYacht.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(options => options.AllowAnyOrigin()); // Add CORS
 
             app.UseAuthorization();
 
