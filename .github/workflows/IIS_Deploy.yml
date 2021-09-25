@@ -26,4 +26,4 @@ jobs:
         run: dotnet build WebAPI/BookingYacht --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish WebAPI/BookingYacht -p:PublishProfile=WebAPI\BookingYacht\BookingYacht\Properties\PublishProfiles\ISSDeploy.pubxml
+        run: dotnet publish WebAPI/BookingYacht -p:PublishProfile=WebAPI\BookingYacht\BookingYacht.API\Properties\PublishProfiles\ISSDeploy.pubxml
