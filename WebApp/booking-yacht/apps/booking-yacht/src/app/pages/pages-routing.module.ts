@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: HomePagesComponent },
       { path: 'manage-place-type', component: ManagePlaceComponent },
     ],
