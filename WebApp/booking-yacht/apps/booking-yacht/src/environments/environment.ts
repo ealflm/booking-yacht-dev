@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://swd391g5.azurewebsites.net/api/member',
+  apiURL: 'https://booking-yacht-dev.southeastasia.cloudapp.azure.com/api/member',
 };
 
 /*
