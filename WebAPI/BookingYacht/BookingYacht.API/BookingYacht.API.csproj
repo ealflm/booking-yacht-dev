@@ -17,4 +17,10 @@
     <ProjectReference Include="..\BookingYacht.Data\BookingYacht.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Admin\" />
+    <Folder Include="Controllers\Business\" />
+    <Folder Include="Controllers\Agency\" />
+  </ItemGroup>
+
 </Project>

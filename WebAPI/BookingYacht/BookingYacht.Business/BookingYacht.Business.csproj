@@ -8,4 +8,13 @@
     <ProjectReference Include="..\BookingYacht.Data\BookingYacht.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implement\Admin\" />
+    <Folder Include="Implement\Agency\" />
+    <Folder Include="Implement\Business\" />
+    <Folder Include="Interfaces\Admin\" />
+    <Folder Include="Interfaces\Agency\" />
+    <Folder Include="Interfaces\Business\" />
+  </ItemGroup>
+
 </Project>
