@@ -1,3 +1,4 @@
+import { ManagePlaceComponent } from './manage-place/manage-place.component';
 import { HomePagesComponent } from './home-pages/home-pages.component';
 
 import { NgModule } from '@angular/core';
@@ -10,8 +11,9 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      { path: 'dashboard', component: HomePagesComponent },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: HomePagesComponent },
+      { path: 'manage-place-type', component: ManagePlaceComponent },
     ],
   },
 ];

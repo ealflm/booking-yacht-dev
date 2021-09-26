@@ -14,12 +14,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material/material.module';
 import { ComponentsModule } from './components/components.module';
+import { ManagePlaceComponent } from './pages/manage-place/manage-place.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePagesComponent,
     PagesComponent,
     LoginComponent,
+    ManagePlaceComponent,
   ],
   imports: [
     BrowserModule,
