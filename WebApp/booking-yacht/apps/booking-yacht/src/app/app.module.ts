@@ -7,36 +7,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FooterComponent } from './shared/footer/footer.component';
-import { HeaderComponent } from './shared/header/header.component';
 import { PagesComponent } from './pages/pages.component';
 import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { PagesRoutingModule } from './pages/pages-routing.module';
-import { GalleryComponent } from './pages/gallery/gallery.component';
-import { AboutUsComponent } from './pages/about-us/about-us.component';
-import { ServicesComponent } from './pages/services/services.component';
-import { DestinationsComponent } from './pages/destinations/destinations.component';
-import { DestinationsDetailsComponent } from './pages/destinations/destinations-details/destinations-details.component';
-import { BookingNowComponent } from './pages/booking-now/booking-now.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material/material.module';
+import { ComponentsModule } from './components/components.module';
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    HeaderComponent,
     HomePagesComponent,
     PagesComponent,
     LoginComponent,
-    RegisterComponent,
-    GalleryComponent,
-    AboutUsComponent,
-    ServicesComponent,
-    DestinationsComponent,
-    DestinationsDetailsComponent,
-    BookingNowComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +27,7 @@ import { MaterialModule } from './material/material.module';
     PagesRoutingModule,
     BrowserAnimationsModule,
     // MaterialModule,
+    ComponentsModule,
     PrimengModule,
     HttpClientModule,
   ],
