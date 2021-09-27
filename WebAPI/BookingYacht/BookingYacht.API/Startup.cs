@@ -1,5 +1,7 @@
 using BookingYacht.Business.Implement;
+using BookingYacht.Business.Implement.Admin;
 using BookingYacht.Business.Interfaces;
+using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Data.Context;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Repositories;
@@ -45,6 +47,7 @@ namespace BookingYacht.API
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<IManageBusinessAccountService, ManageBusinessAccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
