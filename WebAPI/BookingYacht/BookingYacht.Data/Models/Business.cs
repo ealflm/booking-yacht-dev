@@ -20,7 +20,6 @@ namespace BookingYacht.Data.Models
         public string EmailAddress { get; set; }
         public string Address { get; set; }
         public int Status { get; set; }
-        public string Token { get; set; }
 
         public virtual ICollection<BusinessTour> BusinessTours { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }

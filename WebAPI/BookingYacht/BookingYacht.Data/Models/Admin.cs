@@ -11,6 +11,5 @@ namespace BookingYacht.Data.Models
         public string Name { get; set; }
         public string EmailAddress { get; set; }
         public int Status { get; set; }
-        public string Token { get; set; }
     }
 }

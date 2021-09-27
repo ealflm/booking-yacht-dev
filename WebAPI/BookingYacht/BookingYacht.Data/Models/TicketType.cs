@@ -17,6 +17,7 @@ namespace BookingYacht.Data.Models
         public double Price { get; set; }
         public Guid IdTour { get; set; }
         public int Status { get; set; }
+        public double? ServiceFeePercentage { get; set; }
 
         public virtual Tour IdTourNavigation { get; set; }
         public virtual ICollection<BusinessTour> BusinessTours { get; set; }

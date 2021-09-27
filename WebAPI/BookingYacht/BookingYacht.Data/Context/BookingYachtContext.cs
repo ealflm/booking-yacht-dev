@@ -56,11 +56,6 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.Token)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Agency>(entity =>
@@ -69,9 +64,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Address)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Address).HasMaxLength(100);
 
                 entity.Property(e => e.EmailAddress)
                     .IsRequired()
@@ -80,16 +73,10 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(11)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Token)
-                    .IsRequired()
-                    .HasMaxLength(100)
                     .IsUnicode(false);
             });
 
@@ -99,9 +86,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Address)
-                    .HasMaxLength(25)
-                    .IsUnicode(false);
+                entity.Property(e => e.Address).HasMaxLength(100);
 
                 entity.Property(e => e.EmailAddress)
                     .IsRequired()
@@ -110,16 +95,10 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(11)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Token)
-                    .IsRequired()
-                    .HasMaxLength(100)
                     .IsUnicode(false);
             });
 
@@ -155,8 +134,8 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Address)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsRequired()
+                    .HasMaxLength(100);
 
                 entity.HasOne(d => d.IdPlaceTypeNavigation)
                     .WithMany(p => p.Destinations)
@@ -196,8 +175,8 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.AgencyName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.IdAgencyNavigation)
                     .WithMany(p => p.Orders)
@@ -224,8 +203,8 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.NameCustomer)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(11)
@@ -269,14 +248,11 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Descriptions)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Descriptions).HasMaxLength(255);
 
                 entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasMaxLength(25)
-                    .IsUnicode(false);
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<Trip>(entity =>
@@ -315,8 +291,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.IdBusinessNavigation)
                     .WithMany(p => p.Vehicles)
@@ -339,8 +314,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);
