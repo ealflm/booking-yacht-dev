@@ -21,6 +21,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { AccordionModule } from 'primeng/accordion';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [],
@@ -45,6 +46,7 @@ import { AccordionModule } from 'primeng/accordion';
     MessagesModule,
     MessageModule,
     AccordionModule,
+    SkeletonModule,
   ],
   exports: [
     CardModule,
@@ -67,6 +69,7 @@ import { AccordionModule } from 'primeng/accordion';
     MessagesModule,
     MessageModule,
     AccordionModule,
+    SkeletonModule,
   ],
 })
 export class PrimengModule {}

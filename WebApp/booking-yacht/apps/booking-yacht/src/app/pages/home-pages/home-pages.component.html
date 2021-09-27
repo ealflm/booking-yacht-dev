@@ -24,13 +24,23 @@
               <th>Address</th>
             </tr>
           </ng-template>
+
           <ng-template pTemplate="body" let-user>
-            <tr>
+            <tr *ngIf="loading">
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+            </tr>
+            <tr *ngIf="!loading">
               <td>{{ user.code }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.age }}</td>
               <td>{{ user.phone }}</td>
-              <td>{{ user.address }}</td>
+              <td>
+                {{ user.address }}
+              </td>
             </tr>
           </ng-template>
         </p-table>

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "booking-yacht-dev-94139": {
+      "hosting": {
+        "booking-yacht": [
+          "booking-yacht-dev-94139"
+        ]
+      }
+    }
+  }
+}
