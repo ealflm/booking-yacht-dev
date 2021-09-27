@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "529055819848",
+    "project_id": "login-43f30",
+    "storage_bucket": "login-43f30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529055819848:android:9380a2244e85e9a4c3907d",
+        "android_client_info": {
+          "package_name": "com.example.owners_yacht"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529055819848-nn70q3mqaqq0m85s6qmjb2q5rl465qgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ609pq1kIU-ZhxH3VynxUyyY2Aeadl_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529055819848-nn70q3mqaqq0m85s6qmjb2q5rl465qgn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
