@@ -28,8 +28,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Address = model.Address,
                 EmailAddress = model.EmailAddress,
                 Phone = model.Phone,
-                Status = model.Status,
-                Token="abc123"
+                Status = model.Status
             };
             await _unitOfWork.BusinessRepository.Add(business);
             await _unitOfWork.SaveChangesAsync();
@@ -102,8 +101,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Address = model.Address,
                 EmailAddress = model.EmailAddress,
                 Phone = model.Phone,
-                Status = model.Status,
-                Token="abc123"
+                Status = model.Status
             };
             _unitOfWork.BusinessRepository.Update(business);
             await _unitOfWork.SaveChangesAsync();
