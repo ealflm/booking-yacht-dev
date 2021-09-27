@@ -23,7 +23,11 @@ export class LoginComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.localStorageService.getToken()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
   loginWithGoogle(): void {
     this.authService.googleLogin();
   }

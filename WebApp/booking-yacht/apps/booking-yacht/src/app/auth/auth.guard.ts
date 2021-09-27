@@ -29,6 +29,7 @@ export class AuthGuardService implements CanActivate {
     if (token) {
       // const tokenDecode = JSON.parse(atob(token.split('.')[1]));
       // console.log(tokenDecode);
+
       return true;
     } else {
       this.router.navigate(['login']);
