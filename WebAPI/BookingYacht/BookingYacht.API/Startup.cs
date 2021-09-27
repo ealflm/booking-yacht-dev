@@ -33,9 +33,19 @@ namespace BookingYacht.API
 
             services.AddControllers();
 
+            /*
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+            */
+
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
             });
 
             services.AddSwaggerGen(c =>
@@ -69,7 +79,8 @@ namespace BookingYacht.API
 
             app.UseRouting();
 
-            app.UseCors(options => options.AllowAnyOrigin()); // Add CORS
+            //app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthorization();
 
