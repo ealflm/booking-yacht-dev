@@ -1,3 +1,4 @@
+import { AccountBusinessFormComponent } from './pages/home-pages/account-business-form/account-business-form.component';
 import { ManagePlaceComponent } from './pages/manage-place/manage-place.component';
 import { LoginComponent } from './auth/login/login.component';
 
@@ -20,6 +21,10 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       { path: 'dashboard', component: HomePagesComponent },
+      {
+        path: 'dashboard/new-business-account',
+        component: AccountBusinessFormComponent,
+      },
       { path: 'manage-place-type', component: ManagePlaceComponent },
     ],
   },

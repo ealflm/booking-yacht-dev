@@ -1,10 +1,23 @@
 <div class="admin-page">
-  <p-card header="Dashboard" subheader="List of all account">
+  <p-card header="Dashboard" subheader="List of all Business Account">
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success p-mr-2"
+          (click)="newBusiness()"
+        ></button>
+      </ng-template>
+    </p-toolbar>
+    <hr />
     <div class="grid">
       <div class="col-12">
         <p-table
           #dt
-          [value]="users"
+          [value]="businessAcount"
           [rows]="10"
           [showCurrentPageReport]="true"
           [rowsPerPageOptions]="[10, 20, 50]"
@@ -13,20 +26,23 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th>Code</th>
+              <th>ID</th>
               <th pSortableColumn="name">
                 Name <p-sortIcon field="name"></p-sortIcon>
               </th>
-              <th pSortableColumn="age">
-                Age<p-sortIcon field="age"></p-sortIcon>
-              </th>
+
               <th>Phone</th>
               <th>Address</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
           </ng-template>
 
-          <ng-template pTemplate="body" let-user>
+          <ng-template pTemplate="body" let-businessAcount>
             <tr *ngIf="loading">
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
@@ -34,12 +50,39 @@
               <td><p-skeleton></p-skeleton></td>
             </tr>
             <tr *ngIf="!loading">
-              <td>{{ user.code }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.age }}</td>
-              <td>{{ user.phone }}</td>
+              <td>{{ businessAcount.id }}</td>
+              <td>{{ businessAcount.name }}</td>
               <td>
-                {{ user.address }}
+                {{ businessAcount.phone }}
+              </td>
+
+              <td>
+                {{ businessAcount.address }}
+              </td>
+              <td>
+                {{ businessAcount.emailAddress }}
+              </td>
+              <td class="p-ai-center">
+                <p-tag
+                  [value]="businessStatus[businessAcount.status]?.lable"
+                  [severity]="businessStatus[businessAcount.status]?.color"
+                ></p-tag>
+              </td>
+              <td>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success p-mr-2"
+                  (click)="editBusiness(businessAcount.id)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deleteBusiness(businessAcount.id)"
+                ></button>
               </td>
             </tr>
           </ng-template>
@@ -48,3 +91,8 @@
     </div>
   </p-card>
 </div>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>
