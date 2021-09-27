@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { JwtInterceptor } from './auth/jwt.interceptor';
+import { AccountBusinessFormComponent } from './pages/home-pages/account-business-form/account-business-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { JwtInterceptor } from './auth/jwt.interceptor';
     PagesComponent,
     LoginComponent,
     ManagePlaceComponent,
+    AccountBusinessFormComponent,
   ],
   imports: [
     // MaterialModule,
