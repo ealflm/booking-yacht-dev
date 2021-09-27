@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePagesComponent implements OnInit {
   users: any = [];
+  loading?: boolean = true;
   constructor(private userService: UsersService) {}
 
   ngOnInit(): void {
@@ -18,6 +19,9 @@ export class HomePagesComponent implements OnInit {
   getUsers(): any {
     this.userService.getUsers().subscribe((responseData) => {
       this.users = responseData;
+      setInterval(() => {
+        this.loading = false;
+      }, 1000);
     });
   }
 }

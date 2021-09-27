@@ -15,6 +15,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { ComponentsModule } from './components/components.module';
 import { ManagePlaceComponent } from './pages/manage-place/manage-place.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+//firebase services
+
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +35,7 @@ import { ManagePlaceComponent } from './pages/manage-place/manage-place.componen
     PagesRoutingModule,
     BrowserAnimationsModule,
     // MaterialModule,
+    ReactiveFormsModule,
     ComponentsModule,
     PrimengModule,
     HttpClientModule,
