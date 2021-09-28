@@ -7,6 +7,7 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { LocalStorageService } from './localstorage.service';
 
 @Injectable()
@@ -14,9 +15,9 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private localstorageService: LocalStorageService) {}
 
   intercept(
-    request: HttpRequest<unknown>,
+    request: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  ): Observable<HttpEvent<any>> {
     const token = this.localstorageService.getToken();
     const isAPIUrl = request.url.startsWith(environment.apiURL);
     if (token && isAPIUrl) {

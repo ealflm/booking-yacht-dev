@@ -1,3 +1,4 @@
+import { BusinessAccountService } from './services/business-account.service';
 import { AuthModule } from './auth/auth.module';
 import { PrimengModule } from './primeng/primeng/primeng.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
