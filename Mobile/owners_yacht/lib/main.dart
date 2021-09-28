@@ -11,9 +11,11 @@ class OwnersYacht extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "2",
-        debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
-      );
+      title: 'Manager Yacht',
+      theme: ThemeData(
+        //  primarySwatch: Colors.,
+      ),
+      home: LoginScreen(),
+    );
   }
 }
