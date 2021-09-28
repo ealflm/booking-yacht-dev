@@ -56,6 +56,6 @@ export class HomePagesComponent implements OnInit {
     });
   }
   newBusiness() {
-    this.router.navigate(['dashboard/new-business-account']);
+    this.router.navigate(['dashboard/business-account-form']);
   }
 }

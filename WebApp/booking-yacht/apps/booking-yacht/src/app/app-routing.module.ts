@@ -22,7 +22,11 @@ const routes: Routes = [
       },
       { path: 'dashboard', component: HomePagesComponent },
       {
-        path: 'dashboard/new-business-account',
+        path: 'dashboard/business-account-form',
+        component: AccountBusinessFormComponent,
+      },
+      {
+        path: 'dashboard/business-account-form/:id',
         component: AccountBusinessFormComponent,
       },
       { path: 'manage-place-type', component: ManagePlaceComponent },
