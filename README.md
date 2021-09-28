@@ -5,7 +5,7 @@
 
 ## Infomation
 
-- WebApi: https://booking-yacht-dev.southeastasia.cloudapp.azure.com
+- WebApi: https://booking-yacht.azurewebsites.net
 - WebApp: https://www.bookingyacht.site
 - Database: 
     + Server name: booking-yacht-dev.database.windows.net
