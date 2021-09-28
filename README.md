@@ -8,7 +8,7 @@
 - WebApi: https://booking-yacht-dev.southeastasia.cloudapp.azure.com
 - WebApp: https://www.bookingyacht.site
 - Database: 
-    + Server name: booking-yacht-dev.southeastasia.cloudapp.azure.com
+    + Server name: booking-yacht-dev.database.windows.net
     + Login: swd391gr5
     + Password: Password@3915
 
