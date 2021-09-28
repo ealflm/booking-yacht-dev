@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import 'providers/login_google.dart';
 import 'screens/login_screen.dart';
-import 'screens/main_screen.dart';
 
 void main() => runApp(const OwnersYacht());
 
@@ -14,9 +13,9 @@ class OwnersYacht extends StatelessWidget {
     return MaterialApp(
       title: 'Manager Yacht',
       theme: ThemeData(
-         primarySwatch: Colors.purple,
+        //  primarySwatch: Colors.,
       ),
-      home: MainScreen(),
+      home: LoginScreen(),
     );
   }
 }

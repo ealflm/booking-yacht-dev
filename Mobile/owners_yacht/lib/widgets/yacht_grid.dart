@@ -1,6 +1,7 @@
 
+
+import '/providers/yacht.dart';
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/providers/yacht.dart';
 import 'yacht_item.dart';
 
 class YachtGrid extends StatelessWidget {
