@@ -1,4 +1,7 @@
 
+
+import 'package:flutter/material.dart';
+
 import './yacht.dart';
 
 class Yachts{

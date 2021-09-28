@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import 'providers/login_google.dart';
 import 'screens/login_screen.dart';
+import 'screens/main_screen.dart';
 
 void main() => runApp(const OwnersYacht());
 
@@ -11,9 +12,11 @@ class OwnersYacht extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "2",
-        debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
-      );
+      title: 'Manager Yacht',
+      theme: ThemeData(
+         primarySwatch: Colors.purple,
+      ),
+      home: MainScreen(),
+    );
   }
 }

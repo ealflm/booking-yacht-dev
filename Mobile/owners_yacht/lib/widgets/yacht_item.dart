@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../providers/yacht.dart';
 
 class YachtItem extends StatelessWidget {
   final String id;
@@ -30,12 +29,12 @@ class YachtItem extends StatelessWidget {
           ),
           trailing: IconButton(
             icon: Icon(
-              Icons.shopping_cart,
+              Icons.edit,
             ),
             onPressed: () {
               null;
             },
-            color: Theme.of(context).accentColor,
+            color: Colors.white,
           ),
         ),
       ),
