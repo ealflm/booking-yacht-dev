@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   apiURL:
-    'https://booking-yacht-dev.southeastasia.cloudapp.azure.com/api/',
+    'https://booking-yacht.azurewebsites.net/api/',
 };
 export const firebaseConfig = {
   apiKey: 'AIzaSyCjq8bm1liCjyzOmTcmoAk2VZ_mXBcUdGo',

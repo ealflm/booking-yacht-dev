@@ -1,3 +1,4 @@
+import { BusinessAccount } from './../../../models/businessAcount';
 import { MessageService } from 'primeng/api';
 import { BusinessAccountService } from './../../../services/business-account.service';
 import { BUSINESS_STATUS } from './../../../constants/BUSINESS_STATUS';
@@ -17,6 +18,7 @@ export class AccountBusinessFormComponent implements OnInit {
   form!: FormGroup;
   isSubmit = false;
   editMode = false;
+  loading = true;
   constructor(
     private formBuider: FormBuilder,
     private businessAccountService: BusinessAccountService,
@@ -27,16 +29,15 @@ export class AccountBusinessFormComponent implements OnInit {
   ngOnInit(): void {
     this._initBusinessForm();
     this._mapBusinessStatus();
+    setInterval(() => {
+      this.loading = false;
+    }, 500);
   }
 
   private _initBusinessForm() {
     this.form = this.formBuider.group({
       name: ['', Validators.required],
-      phone: [
-        '',
-        Validators.required,
-        Validators.pattern('/(09|01[2|6|8|9])+([0-9]{8})\b/'),
-      ],
+      phone: ['', Validators.required],
       email: ['', Validators.required, Validators.email],
       address: ['', Validators.required],
       status: ['', Validators.required],
@@ -51,8 +52,31 @@ export class AccountBusinessFormComponent implements OnInit {
       };
     });
   }
-  onSubmit() {}
+  selected(event: Event) {
+    console.log(event);
+  }
+  onSubmit() {
+    this.isSubmit = true;
+    if (this.form.invalid) {
+      return;
+    }
+    const businessAccount: BusinessAccount = {
+      name: this.businessForm.name.value,
+      phone: this.businessForm.phone.value,
+      emailAddress: this.businessForm.email.value,
+      address: this.businessForm.address.value,
+      status: this.businessForm.status.value,
+    };
+    this.businessAccountService
+      .createBusinessAccount(businessAccount)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
   onCancle() {
     this.location.back();
+  }
+  get businessForm() {
+    return this.form.controls;
   }
 }

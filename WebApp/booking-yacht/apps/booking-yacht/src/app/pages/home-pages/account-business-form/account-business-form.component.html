@@ -22,13 +22,13 @@
       </div>
     </p-toolbar>
 
-    <div class="p-grid">
+    <div class="p-grid" *ngIf="!loading">
       <div class="col-12">
         <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
             <div class="p-field col-4">
               <label for="id">ID</label>
-              <input id="id" type="text" pInputText />
+              <input id="id" type="text" pInputText disabled />
             </div>
             <div class="p-field col-4">
               <label for="name">Name</label>
@@ -42,6 +42,11 @@
                 mask="(+84)99-999-9999"
                 formControlName="phone"
               ></p-inputMask>
+              <small
+                *ngIf="businessForm.phone.invalid && isSubmit"
+                class="p-error"
+                >phone is required</small
+              >
             </div>
           </div>
 
@@ -50,7 +55,7 @@
               <label for="email">Email</label>
               <input
                 id="email"
-                type="email"
+                type="text"
                 pInputText
                 formControlName="email"
               />
@@ -72,7 +77,44 @@
                 optionValue="id"
                 [options]="businessStatus"
                 formControlName="status"
+                (onChange)="selected($event)"
               ></p-dropdown>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="p-grid" *ngIf="loading">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid formgrid grid">
+            <div class="p-field col-4">
+              <label for="id">ID</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4">
+              <label for="name">Name</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4">
+              <label for="phone">Phone</label>
+              <p-skeleton></p-skeleton>
+            </div>
+          </div>
+
+          <div class="p-fluid formgrid grid mt-5">
+            <div class="p-field col-4">
+              <label for="email">Email</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4">
+              <label for="address">Address</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4">
+              <label for="status">Status</label>
+              <p-skeleton></p-skeleton>
             </div>
           </div>
         </form>
