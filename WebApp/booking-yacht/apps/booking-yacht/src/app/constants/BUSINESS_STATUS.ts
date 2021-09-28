@@ -1,10 +1,10 @@
 export const BUSINESS_STATUS: any = {
   1: {
-    lable: 'enable',
+    lable: 'Enable',
     color: 'primary',
   },
   2: {
-    lable: 'disable',
+    lable: 'Disable',
     color: 'warning',
   },
 };

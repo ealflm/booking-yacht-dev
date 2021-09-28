@@ -1,3 +1,4 @@
+<p-toast position="top-right"></p-toast>
 <div class="admin-page">
   <p-card header="Dashboard" subheader="List of all Business Account">
     <p-toolbar styleClass="p-mb-4">
@@ -35,7 +36,7 @@
               <th>Address</th>
               <th>Email</th>
               <th>Status</th>
-              <th>Action</th>
+              <th></th>
             </tr>
           </ng-template>
 
@@ -52,17 +53,11 @@
             <tr *ngIf="!loading">
               <td>{{ businessAcount.id }}</td>
               <td>{{ businessAcount.name }}</td>
-              <td>
-                {{ businessAcount.phone }}
-              </td>
+              <td>{{ businessAcount.phone }}</td>
 
-              <td>
-                {{ businessAcount.address }}
-              </td>
-              <td>
-                {{ businessAcount.emailAddress }}
-              </td>
-              <td class="p-ai-center">
+              <td>{{ businessAcount.address }}</td>
+              <td>{{ businessAcount.emailAddress }}</td>
+              <td class="p-ai-center p-pl-2">
                 <p-tag
                   [value]="businessStatus[businessAcount.status]?.lable"
                   [severity]="businessStatus[businessAcount.status]?.color"
@@ -76,6 +71,7 @@
                   class="p-button-rounded p-button-success p-mr-2"
                   (click)="editBusiness(businessAcount.id)"
                 ></button>
+
                 <button
                   pButton
                   pRipple
