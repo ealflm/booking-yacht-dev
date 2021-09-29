@@ -13,19 +13,19 @@ namespace BookingYacht.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ManageBusinessAccountController : ControllerBase
+    public class BusinessAccountsController : ControllerBase
     {
         private readonly IManageBusinessAccountService _manageBusinessAccountService;
 
-        public ManageBusinessAccountController(IManageBusinessAccountService manageBusinessAccountService)
+        public BusinessAccountsController(IManageBusinessAccountService manageBusinessAccountService)
         {
             _manageBusinessAccountService = manageBusinessAccountService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] BusinessSearchModel model)
         {
-            var businesses = await _manageBusinessAccountService.GetBusinesses();
+            var businesses = await _manageBusinessAccountService.SearchBusinessed(model);
             return Ok(businesses);
         }
 
@@ -38,15 +38,6 @@ namespace BookingYacht.API.Controllers.Admin
             return Ok(member);
         }
 
-        // GET api/<ManageBusinessAccountController>/5
-        [HttpGet("Paging/{page}")]
-        public async Task<IActionResult> Get(int page)
-        {
-            var member = await _manageBusinessAccountService.SearchBusinessed(page: page);
-
-            return Ok(member);
-        }
-
         // POST api/<ManageBusinessAccountController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] BusinessViewModel model)
@@ -55,20 +46,7 @@ namespace BookingYacht.API.Controllers.Admin
             return Ok(id);
         }
 
-        // POST api/<ManageBusinessAccountController>
-        [HttpPost("search")]
-        public async Task<IActionResult> Post([FromBody] BusinessSearchModel model)
-        {
-            var businesses = await _manageBusinessAccountService.SearchBusinessed(model);
-            return Ok(businesses);
-        }
 
-        [HttpPost("search/{page}")]
-        public async Task<IActionResult> Post(int page ,[FromBody] BusinessSearchModel model)
-        {
-            var businesses = await _manageBusinessAccountService.SearchBusinessed(model, page);
-            return Ok(businesses);
-        }
 
         // PUT api/<ManageBusinessAccountController>/5
         [HttpPut("{id}")]

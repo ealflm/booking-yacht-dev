@@ -37,7 +37,19 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task DeleteBusiness(Guid id)
         {
-            await _unitOfWork.BusinessRepository.Remove(id);
+            var business = await _unitOfWork.BusinessRepository.Query()
+                .Where(x => x.Id.Equals(id))
+                .Select(x => new Data.Models.Business()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Address = x.Address,
+                    EmailAddress = x.EmailAddress,
+                    Phone = x.Phone,
+                    Status = x.Status
+                }).FirstOrDefaultAsync();
+            business.Status =(int) Status.DISABLE;
+            _unitOfWork.BusinessRepository.Update(business);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -65,8 +77,8 @@ namespace BookingYacht.Business.Implement.Admin
             }).ToListAsync();
             return businesses;
         }
-        private int itemsQuantity = 10;
-        public async Task<List<BusinessViewModel>> SearchBusinessed(BusinessSearchModel model=null, int page=0)
+
+        public async Task<List<BusinessViewModel>> SearchBusinessed(BusinessSearchModel model=null)
         {
             if(model== null)
             {
@@ -77,7 +89,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.Phone == null | x.Phone.Contains(model.Phone))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.EmailAddress == null | x.EmailAddress.Contains(model.EmailAddress))
-                .Where(x => model.Status==0|x.Status == model.Status)
+                .Where(x => model.Status==Status.ALL|x.Status == (int)model.Status)
                 .Select(x => new BusinessViewModel()
                 {
                     Id = x.Id,
@@ -87,8 +99,9 @@ namespace BookingYacht.Business.Implement.Admin
                     Phone = x.Phone,
                     Status = x.Status
                 })
-                .Skip(itemsQuantity* ((page!=0)?(page-1):page))
-                .Take((page!=0)? itemsQuantity: _unitOfWork.BusinessRepository.Query().Count()).ToListAsync();
+                .Skip(model.AmountItem * ((model.Page!=0)?(model.Page-1):model.Page))
+                .Take((model.Page!=0)? model.AmountItem: _unitOfWork.BusinessRepository.Query().Count())
+                .OrderBy(x=> x.Name).ToListAsync();
             return businesses;
         }
 
