@@ -49,6 +49,7 @@ export class HomePagesComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Successfull',
+            detail: 'Delete successfull',
           });
           this.getBusinessAccount();
         });
@@ -57,5 +58,8 @@ export class HomePagesComponent implements OnInit {
   }
   newBusiness() {
     this.router.navigate(['dashboard/business-account-form']);
+  }
+  getValue(event: Event): string {
+    return (event.target as HTMLInputElement).value;
   }
 }

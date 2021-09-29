@@ -12,6 +12,16 @@
           (click)="newBusiness()"
         ></button>
       </ng-template>
+
+      <span class="p-input-icon-right">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal(getValue($event), 'contains')"
+          placeholder="Global Search"
+        />
+      </span>
     </p-toolbar>
     <hr />
     <div class="grid">
@@ -24,6 +34,7 @@
           [rowsPerPageOptions]="[10, 20, 50]"
           [paginator]="true"
           [filterDelay]="0"
+          [globalFilterFields]="['name']"
         >
           <ng-template pTemplate="header">
             <tr>
