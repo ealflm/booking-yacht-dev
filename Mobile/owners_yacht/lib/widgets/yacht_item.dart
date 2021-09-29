@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/screens/yacht_detail_screen.dart';
 
 class YachtItem extends StatelessWidget {
   final String id;
@@ -29,12 +30,14 @@ class YachtItem extends StatelessWidget {
           ),
           trailing: IconButton(
             icon: Icon(
-              Icons.edit,
+              Icons.circle,
+              size: 20,
             ),
             onPressed: () {
-              null;
+              Navigator.push(
+                context, MaterialPageRoute(builder: (context) => YachtDetail()));
             },
-            color: Colors.white,
+            color: Colors.orange[800],
           ),
         ),
       ),

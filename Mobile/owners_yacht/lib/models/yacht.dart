@@ -13,8 +13,5 @@ class Yacht {
     required this.description,
     required this.price,
     required this.imageUrl,
-  });
-
-
-    
+  }); 
 }

@@ -13,7 +13,7 @@ class LoginGoogleButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ElevatedButton.icon(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.white70),
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white70),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),

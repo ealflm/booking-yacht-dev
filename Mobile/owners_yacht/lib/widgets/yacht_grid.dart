@@ -1,6 +1,6 @@
 
 
-import '/providers/yacht.dart';
+import '../models/yacht.dart';
 import 'package:flutter/material.dart';
 import 'yacht_item.dart';
 
