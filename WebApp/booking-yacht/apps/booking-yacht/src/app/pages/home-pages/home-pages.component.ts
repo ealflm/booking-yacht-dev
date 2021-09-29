@@ -27,7 +27,7 @@ export class HomePagesComponent implements OnInit {
   ngOnInit(): void {
     this.getBusinessAccount();
     this._mapBusinessStatus();
-    console.log(this.status);
+    // console.log(this.status);
   }
 
   private getBusinessAccount() {

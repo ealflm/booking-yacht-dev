@@ -39,12 +39,13 @@
             </div>
             <div class="p-field col-4">
               <label for="phone">Phone</label>
-              <p-inputMask
+              <input
                 id="phone"
                 formControlName="phone"
                 type="text"
-                mask="9999999999"
-              ></p-inputMask>
+                pInputText
+                maxlength="10"
+              />
               <small
                 *ngIf="businessForm.phone.invalid && isSubmit"
                 class="p-error"

@@ -51,7 +51,7 @@ export class AccountBusinessFormComponent implements OnInit {
   private _initBusinessForm() {
     this.form = this.formBuider.group({
       name: ['', Validators.required],
-      phone: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(9)]],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
       status: ['', Validators.required],
