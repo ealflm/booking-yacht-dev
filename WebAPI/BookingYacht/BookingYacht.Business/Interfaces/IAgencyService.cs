@@ -12,7 +12,7 @@ namespace BookingYacht.Business.Interfaces
         Task<List<AgencyModel>> SearchAgency(string model);
         public Task<List<AgencyModel>> SearchAgenciesString(string search);
         
-        Task<bool> AddAgency(AgencyModel model);
+        Task<bool> AddAgency(Guid id, AgencyModel model);
         
         Task<AgencyModel> UpdateAgency(Guid id, AgencyModel model);
 

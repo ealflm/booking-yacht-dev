@@ -42,10 +42,5 @@ namespace BookingYacht.Data.Repositories
             _dbSet.Remove(entity);
         }
 
-        public async Task<TEntity> Find(Guid id)
-        {
-            return await _dbSet.FindAsync(id);
-        }
-
     }
 }

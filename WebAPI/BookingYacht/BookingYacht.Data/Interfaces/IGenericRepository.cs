@@ -16,8 +16,6 @@ namespace BookingYacht.Data.Interfaces
 
         Task Remove(Guid id);
 
-        Task<TEntity> Find(Guid guid);
-
     }
 
 }

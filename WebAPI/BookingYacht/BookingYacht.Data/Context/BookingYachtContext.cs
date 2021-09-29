@@ -86,11 +86,12 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Phone)
                     .HasMaxLength(11)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Token)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                
+                // TODO lack of token
+                // entity.Property(e => e.Token)
+                //     .IsRequired()
+                //     .HasMaxLength(100)
+                //     .IsUnicode(false);
             });
 
             modelBuilder.Entity<Business>(entity =>

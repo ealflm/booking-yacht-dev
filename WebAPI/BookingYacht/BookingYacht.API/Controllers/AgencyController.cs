@@ -36,6 +36,7 @@ namespace BookingYacht.API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateAgency([FromBody] AgencyModel model, [FromRoute] Guid id)
         {
+            
             var updateAgency = await _agencyService.UpdateAgency(id, model);
             if (updateAgency != null)
             {
@@ -46,10 +47,10 @@ namespace BookingYacht.API.Controllers
         }
           
         //TODO UPDATE AGENCY
-        [HttpPost("")]
-        public async Task<IActionResult> AddAgency([FromBody] AgencyModel model)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddAgency([FromBody] AgencyModel model, [FromRoute] Guid id)
         {
-            var updateAgency = await _agencyService.AddAgency(model);
+            var updateAgency = await _agencyService.AddAgency(id, model);
             return updateAgency ? Ok() : NotFound();
         }
         

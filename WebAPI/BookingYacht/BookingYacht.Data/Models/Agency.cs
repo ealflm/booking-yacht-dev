@@ -18,7 +18,7 @@ namespace BookingYacht.Data.Models
         public string Address { get; set; }
         public string Phone { get; set; }
         public int Status { get; set; }
-        public string Token { get; set; }
+        // public string Token { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }
