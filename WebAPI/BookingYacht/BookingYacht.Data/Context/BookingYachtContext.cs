@@ -327,7 +327,7 @@ namespace BookingYacht.Data.Context
 
                 entity.HasOne(d => d.IdVehicleNavigation)
                     .WithMany(p => p.Vehicles)
-                    .HasForeignKey(d => d.IdVehicle)
+                    .HasForeignKey(d => d.IdVehicleType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vehicle__IdVehic__5DCAEF64");
             });
