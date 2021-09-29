@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '/widgets/login_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const routeName = '/auth';
 
   LoginScreen({Key? key}) : super(key: key);
 
