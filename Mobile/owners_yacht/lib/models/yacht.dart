@@ -6,6 +6,7 @@ class Yacht {
   final String description;
   final double price;
   final String imageUrl;
+  final String status;
 
   Yacht({
     required this.id,
@@ -13,5 +14,6 @@ class Yacht {
     required this.description,
     required this.price,
     required this.imageUrl,
+    required this.status,
   }); 
 }
