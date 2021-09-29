@@ -25,26 +25,26 @@ namespace BookingYacht.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //Config Connect Database
             services.AddDbContext<BookingYachtContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("BookingYacht")));
 
             services.AddControllers();
 
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
+            //Handler Cors
+            services.AddCors(c => { c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()); });
 
+            //Config Swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingYacht.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "BookingYacht.API", Version = "v1"});
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<IAgencyService, AgencyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,10 +70,7 @@ namespace BookingYacht.API
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
