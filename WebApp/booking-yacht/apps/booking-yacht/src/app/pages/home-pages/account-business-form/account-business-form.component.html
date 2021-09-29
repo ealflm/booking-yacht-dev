@@ -5,14 +5,14 @@
     [subheader]="editMode ? '' : 'Create A new Business Account'"
   >
     <p-toolbar>
-      <div class="p-toolbar-group-left">
-       
-      </div>
+      <div class="p-toolbar-group-left"></div>
       <div class="p-toolbar-group-right">
         <p-button
-          label="Save"
+          [label]="editMode ? 'Update' : 'Save'"
           icon="pi pi-check"
-          styleClass="p-button-warning mr-2"
+          [styleClass]="
+            editMode ? 'p-button-warning mr-2' : 'p-button-info mr-2'
+          "
           (click)="onSubmit()"
         ></p-button>
 
@@ -29,21 +29,22 @@
         <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
             <div class="p-field col-4">
-              <label for="id">ID</label>
-              <input id="id" type="text" pInputText disabled />
-            </div>
-            <div class="p-field col-4">
               <label for="name">Name</label>
               <input id="name" type="text" pInputText formControlName="name" />
+              <small
+                *ngIf="businessForm.name.invalid && isSubmit"
+                class="p-error"
+                >Name is required</small
+              >
             </div>
             <div class="p-field col-4">
               <label for="phone">Phone</label>
-              <input
+              <p-inputMask
                 id="phone"
                 formControlName="phone"
-                pInputText
                 type="text"
-              />
+                mask="9999999999"
+              ></p-inputMask>
               <small
                 *ngIf="businessForm.phone.invalid && isSubmit"
                 class="p-error"
@@ -59,8 +60,14 @@
                 formControlName="email"
                 id="email"
                 type="email"
+                placeholder="myemail@gmail.com"
                 pInputText
               />
+              <small
+                *ngIf="businessForm.email.invalid && isSubmit"
+                class="p-error"
+                >Email is required</small
+              >
             </div>
             <div class="p-field col-4">
               <label for="address">Address</label>
@@ -70,18 +77,28 @@
                 pInputText
                 formControlName="address"
               />
+              <small
+                *ngIf="businessForm.address.invalid && isSubmit"
+                class="p-error"
+                >Address is required</small
+              >
             </div>
             <div class="p-field col-4">
               <label for="status">Status</label>
               <p-dropdown
-                [(ngModel)]="selectedStatus"
                 optionLabel="name"
                 optionValue="id"
                 [options]="businessStatus"
                 formControlName="status"
-                placeholder="Select a City"
+                [(ngModel)]="selectedStatus"
+                placeholder="Select Status"
                 [showClear]="true"
               ></p-dropdown>
+              <small
+                *ngIf="businessForm.status.invalid && isSubmit"
+                class="p-error"
+                >Status is required</small
+              >
             </div>
           </div>
         </form>
@@ -92,10 +109,6 @@
       <div class="col-12">
         <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
-            <div class="p-field col-4">
-              <label for="id">ID</label>
-              <p-skeleton></p-skeleton>
-            </div>
             <div class="p-field col-4">
               <label for="name">Name</label>
               <p-skeleton></p-skeleton>

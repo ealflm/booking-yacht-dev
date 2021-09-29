@@ -34,7 +34,7 @@
           [rowsPerPageOptions]="[10, 20, 50]"
           [paginator]="true"
           [filterDelay]="0"
-          [globalFilterFields]="['name']"
+          [globalFilterFields]="['name', 'email', 'phone', 'status']"
         >
           <ng-template pTemplate="header">
             <tr>
@@ -46,7 +46,30 @@
               <th>Phone</th>
               <th>Address</th>
               <th>Email</th>
-              <th>Status</th>
+              <th>
+                <p-columnFilter
+                  field="status"
+                  matchMode="equals"
+                  [showMenu]="false"
+                >
+                  <ng-template
+                    pTemplate="filter"
+                    let-value
+                    let-filter="filterCallback"
+                  >
+                    <p-dropdown
+                      [ngModel]="value"
+                      [options]="status"
+                      (onChange)="filter($event.value)"
+                      placeholder="Status"
+                      [showClear]="true"
+                      optionValue="id"
+                      optionLabel="name"
+                    >
+                    </p-dropdown>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
               <th></th>
             </tr>
           </ng-template>
@@ -79,14 +102,14 @@
                   pButton
                   pRipple
                   icon="pi pi-pencil"
-                  class="p-button-rounded p-button-success p-mr-2"
+                  class="p-button-rounded p-button-success mr-2"
                   (click)="editBusiness(businessAcount.id)"
                 ></button>
 
                 <button
                   pButton
                   pRipple
-                  icon="pi pi-trash"
+                  icon="pi pi-ban"
                   class="p-button-rounded p-button-warning"
                   (click)="deleteBusiness(businessAcount.id)"
                 ></button>
