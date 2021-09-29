@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class BusinessAccountService {
-  private apiURLBusiness = environment.apiURL + 'ManageBusinessAccount';
+  private apiURLBusiness = environment.apiURL + 'BusinessAccounts';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +23,7 @@ export class BusinessAccountService {
     );
   }
   getBusinessAccountByID(id: string): Observable<BusinessAccount> {
-    return this.http.post<BusinessAccount>(this.apiURLBusiness, id);
+    return this.http.get<BusinessAccount>(`${this.apiURLBusiness}/${id}`);
   }
   updateBusinessAccount(
     id: string,

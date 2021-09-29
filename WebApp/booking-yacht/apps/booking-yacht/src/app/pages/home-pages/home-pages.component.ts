@@ -16,6 +16,7 @@ export class HomePagesComponent implements OnInit {
   businessAcount: BusinessAccount[] = [];
   loading?: boolean = true;
   businessStatus = BUSINESS_STATUS;
+  status: any[] = [];
   constructor(
     private businessService: BusinessAccountService,
     private confirmationService: ConfirmationService,
@@ -25,6 +26,8 @@ export class HomePagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBusinessAccount();
+    this._mapBusinessStatus();
+    console.log(this.status);
   }
 
   private getBusinessAccount() {
@@ -37,11 +40,20 @@ export class HomePagesComponent implements OnInit {
       }, 1000);
     });
   }
-
-  editBusiness(id: string) {}
+  _mapBusinessStatus() {
+    this.status = Object.keys(BUSINESS_STATUS).map((key) => {
+      return {
+        id: key,
+        name: BUSINESS_STATUS[key].lable,
+      };
+    });
+  }
+  editBusiness(id: string) {
+    return this.router.navigate([`dashboard/business-account-form/${id}`]);
+  }
   deleteBusiness(id: string) {
     this.confirmationService.confirm({
-      message: 'Are you sure want to delete?',
+      message: 'Are you sure want to disable user ?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
