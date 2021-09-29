@@ -29,6 +29,7 @@ export class AccountBusinessFormComponent implements OnInit {
   ngOnInit(): void {
     this._initBusinessForm();
     this._mapBusinessStatus();
+
     setInterval(() => {
       this.loading = false;
     }, 500);
@@ -38,7 +39,7 @@ export class AccountBusinessFormComponent implements OnInit {
     this.form = this.formBuider.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.required],
       address: ['', Validators.required],
       status: ['', Validators.required],
     });
@@ -52,9 +53,7 @@ export class AccountBusinessFormComponent implements OnInit {
       };
     });
   }
-  selected(event: Event) {
-    console.log(event);
-  }
+
   onSubmit() {
     this.isSubmit = true;
     if (this.form.invalid) {
@@ -67,6 +66,8 @@ export class AccountBusinessFormComponent implements OnInit {
       address: this.businessForm.address.value,
       status: this.businessForm.status.value,
     };
+    console.log(businessAccount);
+
     this.businessAccountService
       .createBusinessAccount(businessAccount)
       .subscribe((res) => {
