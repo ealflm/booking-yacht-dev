@@ -5,7 +5,7 @@ using BookingYacht.Business.ViewModels;
 
 namespace BookingYacht.Business.Interfaces
 {
-    public interface IVehicle
+    public interface IVehicleService
     {
         Task<List<VehicleModel>> GetVehicle();
         

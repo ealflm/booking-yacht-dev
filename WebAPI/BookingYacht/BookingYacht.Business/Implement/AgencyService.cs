@@ -14,6 +14,9 @@ namespace BookingYacht.Business.Implement
 {
     public class AgencyService : BaseService, IAgencyService
     {
+        public AgencyService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
         private static Expression<Func<Agency, AgencyModel>> ToAgencyModel()
         {
             return x => new AgencyModel
@@ -36,9 +39,7 @@ namespace BookingYacht.Business.Implement
             agency.Status = model.Status ?? 0;
         }
 
-        public AgencyService(IUnitOfWork unitOfWork) : base(unitOfWork)
-        {
-        }
+        
         
         //Get List Agency
         public async Task<List<AgencyModel>> GetAgency()
