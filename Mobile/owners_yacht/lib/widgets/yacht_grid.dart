@@ -1,8 +1,6 @@
-
-
 import '../models/yacht.dart';
 import 'package:flutter/material.dart';
-import 'yacht_item.dart';
+import 'yacht_grid_title.dart';
 
 class YachtGrid extends StatelessWidget {
   final List<Yacht> _list = [
@@ -11,6 +9,7 @@ class YachtGrid extends StatelessWidget {
       title: 'Tau du lich 1',
       description: 'Tau du lich 1Tau du lich 1',
       price: 29.99,
+      status: 'available',
       imageUrl:
           'https://www.ferretti-yachts.com/uploadB2B/Models/Images/Main/Ferretti/medium/47591.jpg',
     ),
@@ -19,6 +18,7 @@ class YachtGrid extends StatelessWidget {
       title: 'Tau du lich 2',
       description: 'Tau du lich 1Tau du lich 2',
       price: 59.99,
+      status: 'available',
       imageUrl:
           'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1',
     ),
@@ -28,7 +28,7 @@ class YachtGrid extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: _list.length,
-      itemBuilder: (ctx, i) => YachtItem(
+      itemBuilder: (ctx, i) => YachtTitle(
         _list[i].id,
         _list[i].title,
         _list[i].imageUrl,
