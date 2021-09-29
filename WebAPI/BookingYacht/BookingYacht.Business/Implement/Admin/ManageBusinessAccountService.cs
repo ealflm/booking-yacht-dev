@@ -2,7 +2,6 @@
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
-using BookingYacht.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -30,6 +29,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Phone = model.Phone,
                 Status = model.Status
             };
+            business.Status = (int)Status.ENABLE;
             await _unitOfWork.BusinessRepository.Add(business);
             await _unitOfWork.SaveChangesAsync();
             return business.Id;
@@ -69,15 +69,6 @@ namespace BookingYacht.Business.Implement.Admin
             return business;
         }
 
-        public async Task<List<BusinessViewModel>> GetBusinesses()
-        {
-            var businesses = await _unitOfWork.BusinessRepository.Query().Select(x => new BusinessViewModel()
-            {
-                Id = x.Id, Name= x.Name, Address= x.Address, EmailAddress=x.EmailAddress, Phone= x.Phone, Status= x.Status
-            }).ToListAsync();
-            return businesses;
-        }
-
         public async Task<List<BusinessViewModel>> SearchBusinessed(BusinessSearchModel model=null)
         {
             if(model== null)
@@ -99,9 +90,10 @@ namespace BookingYacht.Business.Implement.Admin
                     Phone = x.Phone,
                     Status = x.Status
                 })
+                .OrderBy(x => x.Name)
                 .Skip(model.AmountItem * ((model.Page!=0)?(model.Page-1):model.Page))
                 .Take((model.Page!=0)? model.AmountItem: _unitOfWork.BusinessRepository.Query().Count())
-                .OrderBy(x=> x.Name).ToListAsync();
+                .ToListAsync();
             return businesses;
         }
 
@@ -116,6 +108,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Phone = model.Phone,
                 Status = model.Status
             };
+            business.Status = (int)Status.ENABLE;
             _unitOfWork.BusinessRepository.Update(business);
             await _unitOfWork.SaveChangesAsync();
         }
