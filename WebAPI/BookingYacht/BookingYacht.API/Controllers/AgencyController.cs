@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BookingYacht.Business.Implement;
 using BookingYacht.Business.Interfaces;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -34,11 +33,16 @@ namespace BookingYacht.API.Controllers
 
         
         //TODO UPDATE AGENCY
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateAgency([FromBody] AgencyModel model, [FromRoute] Guid id)
         {
             var updateAgency = await _agencyService.UpdateAgency(id, model);
-            return Ok(updateAgency);
+            if (updateAgency != null)
+            {
+                return Ok(updateAgency);
+            }
+
+            return NotFound();
         }
           
         //TODO UPDATE AGENCY
@@ -46,7 +50,7 @@ namespace BookingYacht.API.Controllers
         public async Task<IActionResult> AddAgency([FromBody] AgencyModel model)
         {
             var updateAgency = await _agencyService.AddAgency(model);
-            return Ok(updateAgency);
+            return updateAgency ? Ok() : NotFound();
         }
         
     }
