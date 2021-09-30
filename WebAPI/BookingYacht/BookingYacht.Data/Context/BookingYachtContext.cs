@@ -113,6 +113,10 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("BusinessTour");
 
+                entity.HasIndex(e => e.IdBusiness, "IX_BusinessTour_IdBusiness");
+
+                entity.HasIndex(e => e.IdTour, "IX_BusinessTour_IdTour");
+
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.HasOne(d => d.IdBusinessNavigation)
@@ -120,12 +124,6 @@ namespace BookingYacht.Data.Context
                     .HasForeignKey(d => d.IdBusiness)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BusinessT__IdBus__787EE5A0");
-
-                entity.HasOne(d => d.IdTicketTypeNavigation)
-                    .WithMany(p => p.BusinessTours)
-                    .HasForeignKey(d => d.IdTicketType)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BusinessT__IdTic__797309D9");
 
                 entity.HasOne(d => d.IdTourNavigation)
                     .WithMany(p => p.BusinessTours)
@@ -137,6 +135,8 @@ namespace BookingYacht.Data.Context
             modelBuilder.Entity<Destination>(entity =>
             {
                 entity.ToTable("Destination");
+
+                entity.HasIndex(e => e.IdPlaceType, "IX_Destination_IdPlaceType");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
@@ -154,6 +154,10 @@ namespace BookingYacht.Data.Context
             modelBuilder.Entity<DestinationTour>(entity =>
             {
                 entity.ToTable("DestinationTour");
+
+                entity.HasIndex(e => e.IdPier, "IX_DestinationTour_IdPier");
+
+                entity.HasIndex(e => e.IdTour, "IX_DestinationTour_IdTour");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
@@ -179,6 +183,8 @@ namespace BookingYacht.Data.Context
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.HasIndex(e => e.IdAgency, "IX_Orders_IdAgency");
+
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.AgencyName)
@@ -206,6 +212,12 @@ namespace BookingYacht.Data.Context
             modelBuilder.Entity<Ticket>(entity =>
             {
                 entity.ToTable("Ticket");
+
+                entity.HasIndex(e => e.IdOrder, "IX_Ticket_IdOrder");
+
+                entity.HasIndex(e => e.IdTicketType, "IX_Ticket_IdTicketType");
+
+                entity.HasIndex(e => e.IdTrip, "IX_Ticket_IdTrip");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
@@ -242,11 +254,11 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.HasOne(d => d.IdTourNavigation)
+                entity.HasOne(d => d.IdBusinessTourNavigation)
                     .WithMany(p => p.TicketTypes)
-                    .HasForeignKey(d => d.IdTour)
+                    .HasForeignKey(d => d.IdBusinessTour)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__TicketTyp__IdTou__571DF1D5");
+                    .HasConstraintName("FK_TicketType_BusinessTour");
             });
 
             modelBuilder.Entity<Tour>(entity =>
@@ -265,6 +277,10 @@ namespace BookingYacht.Data.Context
             modelBuilder.Entity<Trip>(entity =>
             {
                 entity.ToTable("Trip");
+
+                entity.HasIndex(e => e.IdBusiness, "IX_Trip_IdBusiness");
+
+                entity.HasIndex(e => e.IdVehicle, "IX_Trip_IdVehicle");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
@@ -290,6 +306,10 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("Vehicle");
 
+                entity.HasIndex(e => e.IdBusiness, "IX_Vehicle_IdBusiness");
+
+                entity.HasIndex(e => e.IdVehicleType, "IX_Vehicle_IdVehicle");
+
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Descriptions)
@@ -306,9 +326,9 @@ namespace BookingYacht.Data.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vehicle__IdBusin__5EBF139D");
 
-                entity.HasOne(d => d.IdVehicleNavigation)
+                entity.HasOne(d => d.IdVehicleTypeNavigation)
                     .WithMany(p => p.Vehicles)
-                    .HasForeignKey(d => d.IdVehicle)
+                    .HasForeignKey(d => d.IdVehicleType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vehicle__IdVehic__5DCAEF64");
             });

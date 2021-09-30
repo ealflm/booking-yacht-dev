@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/screens/yacht_detail_screen.dart';
 
-class YachtItem extends StatelessWidget {
+class YachtTitle extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
 
-  YachtItem(this.id, this.title, this.imageUrl);
+  YachtTitle(this.id, this.title, this.imageUrl);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,8 @@ class YachtItem extends StatelessWidget {
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-            null;
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => YachtDetail()));
           },
           child: Image.network(
             imageUrl,
@@ -33,10 +34,7 @@ class YachtItem extends StatelessWidget {
               Icons.circle,
               size: 20,
             ),
-            onPressed: () {
-              Navigator.push(
-                context, MaterialPageRoute(builder: (context) => YachtDetail()));
-            },
+            onPressed: () {},
             color: Colors.orange[800],
           ),
         ),

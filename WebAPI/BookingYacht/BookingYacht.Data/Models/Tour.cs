@@ -11,7 +11,6 @@ namespace BookingYacht.Data.Models
         {
             BusinessTours = new HashSet<BusinessTour>();
             DestinationTours = new HashSet<DestinationTour>();
-            TicketTypes = new HashSet<TicketType>();
         }
 
         public Guid Id { get; set; }
@@ -21,6 +20,5 @@ namespace BookingYacht.Data.Models
 
         public virtual ICollection<BusinessTour> BusinessTours { get; set; }
         public virtual ICollection<DestinationTour> DestinationTours { get; set; }
-        public virtual ICollection<TicketType> TicketTypes { get; set; }
     }
 }

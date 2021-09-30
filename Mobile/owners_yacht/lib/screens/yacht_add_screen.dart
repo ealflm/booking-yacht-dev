@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/widgets/app_drawer.dart';
 
-class ManagerYacht extends StatelessWidget {
-  const ManagerYacht({Key? key}) : super(key: key);
+class AddYacht extends StatelessWidget {
+  const AddYacht({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,6 @@ class ManagerYacht extends StatelessWidget {
         ],
         backgroundColor: Colors.black,
       ),
-      drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/screens/home_screen.dart';
-import 'package:owners_yacht/screens/manager_yacht_screen.dart';
+import 'package:owners_yacht/screens/yacht_add_screen.dart';
+import 'package:owners_yacht/screens/yacht_manager_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -28,11 +29,11 @@ class AppDrawer extends StatelessWidget {
                 }),
             Divider(),
             ListTile(
-                leading: Icon(Icons.precision_manufacturing_rounded),
-                title: Text('Manage yacht'),
+                leading: Icon(Icons.home),
+                title: Text('Yacht Manager'),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ManagerYacht()));
+                      MaterialPageRoute(builder: (context) => YachtManager()));
                 }),
             Divider(),
             ListTile(
