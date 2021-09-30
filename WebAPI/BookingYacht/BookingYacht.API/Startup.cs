@@ -6,6 +6,7 @@ using BookingYacht.Data.Context;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,6 @@ namespace BookingYacht.API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
-
 
             services.AddControllers();
 
@@ -103,7 +103,10 @@ namespace BookingYacht.API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                if (env.IsDevelopment())
+                    endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute());
+                else
+                    endpoints.MapControllers();
             });
         }
     }
