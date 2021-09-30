@@ -53,7 +53,7 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("Admin");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.EmailAddress)
                     .IsRequired()
@@ -63,6 +63,8 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Agency>(entity =>
