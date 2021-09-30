@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { UsersService } from './../../services/users.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -22,12 +23,14 @@ export class LoginComponent implements OnInit {
   userForm!: FormGroup;
   user: any;
   isSubmit = false;
+  loading = false;
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private userService: UsersService
+    private userService: UsersService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -44,13 +47,25 @@ export class LoginComponent implements OnInit {
     });
   }
   onSignIn() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
     this.isSubmit = true;
     this.userService
       .signIn(this.usersForm.email.value, this.usersForm.password.value)
-      .subscribe((res) => {
-        this.localStorageService.setToken(res);
-        this.router.navigate(['dashboard']);
-      });
+      .subscribe(
+        (res) => {
+          this.localStorageService.setToken(res);
+          this.router.navigate(['dashboard']);
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'email or password incorect',
+          });
+        }
+      );
   }
 
   loginWithGoogle(): void {
