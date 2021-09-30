@@ -5,13 +5,17 @@ using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Data.Context;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace BookingYacht.API
 {
@@ -31,14 +35,24 @@ namespace BookingYacht.API
             services.AddDbContext<BookingYachtContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("BookingYacht")));
 
-            services.AddControllers();
-
-            /*
-            services.AddCors(c =>
+            services.AddAuthentication(option =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(option =>
+            {
+                option.SaveToken = true;
+                option.RequireHttpsMetadata = false;
+                option.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
             });
-            */
+
+            services.AddControllers();
 
             services.AddCors(option =>
             {
@@ -60,6 +74,7 @@ namespace BookingYacht.API
             services.AddTransient<IManageBusinessAccountService, ManageBusinessAccountService>();
             services.AddTransient<IPlaceTypeService, PlaceTypeService>();
             services.AddTransient<ITicketTypeService, TicketTypeService>();
+            services.AddTransient<IAdminService, AdminService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,14 +96,18 @@ namespace BookingYacht.API
 
             app.UseRouting();
 
-            //app.UseCors(options => options.AllowAnyOrigin());
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                if (env.IsDevelopment())
+                    endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute());
+                else
+                    endpoints.MapControllers();
             });
         }
     }
