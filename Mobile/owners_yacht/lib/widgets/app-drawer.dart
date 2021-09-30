@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/screens/home_screen.dart';
-import 'package:owners_yacht/screens/yacht_add_screen.dart';
-import 'package:owners_yacht/screens/yacht_manager_screen.dart';
+import 'package:owners_yacht/screens/verification.dart';
+import 'package:owners_yacht/screens/history.dart';
+import 'package:owners_yacht/screens/home.dart';
+import 'package:owners_yacht/screens/tour-detail.dart';
+import 'package:owners_yacht/screens/tour.dart';
+import 'package:owners_yacht/screens/yacht-modify.dart';
+import 'package:owners_yacht/screens/yacht-manager.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -29,8 +34,11 @@ class AppDrawer extends StatelessWidget {
                 }),
             Divider(),
             ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Yacht Manager'),
+                leading: FaIcon(
+                  FontAwesomeIcons.ship,
+                  size: 20,
+                ),
+                title: Text('Yacht'),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => YachtManager()));
@@ -38,8 +46,11 @@ class AppDrawer extends StatelessWidget {
             Divider(),
             ListTile(
               leading: Icon(Icons.tour),
-              title: Text('Add tour'),
-              onTap: () {},
+              title: Text('Tour'),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Tour()));
+              },
             ),
             Divider(),
             ListTile(
@@ -49,15 +60,21 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.view_list_rounded),
-              title: Text('Manage trip'),
-              onTap: () {},
+              leading: Icon(Icons.checklist_rtl),
+              title: Text('Verification'),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Verification()));
+              },
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Profile'),
-              onTap: () {},
+              leading: Icon(Icons.history),
+              title: Text('History'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => History()));
+              },
             ),
             Divider(),
             ListTile(

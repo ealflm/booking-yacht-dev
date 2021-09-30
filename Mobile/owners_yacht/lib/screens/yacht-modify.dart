@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/widgets/app_drawer.dart';
+import 'package:owners_yacht/widgets/app-drawer.dart';
 
-class AddYacht extends StatelessWidget {
-  const AddYacht({Key? key}) : super(key: key);
+class ModifyYacht extends StatelessWidget {
+  ModifyYacht(this.title) : super();
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add yacht'),
+        title: Text(title),
         actions: <Widget>[
           IconButton(
             icon: Icon(
