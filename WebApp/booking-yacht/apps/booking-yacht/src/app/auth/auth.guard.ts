@@ -27,22 +27,29 @@ export class AuthGuardService implements CanActivate {
   ): Observable<boolean> | boolean {
     const token = this.localStorage.getToken();
     if (token) {
-      // const tokenDecode = JSON.parse(atob(token.split('.')[1]));
-      // console.log(tokenDecode);
-
-      return true;
+      const tokenDecode = JSON.parse(atob(token.split('.')[1]));
+      console.log(tokenDecode.exp);
+      console.log(this._tokenExpired(tokenDecode.exp));
+      if (!this._tokenExpired(tokenDecode.exp)) {
+        return true;
+      } else {
+        this.router.navigate(['login']);
+        return false;
+      }
     } else {
       this.router.navigate(['login']);
       return false;
     }
-
-    // return this.socialAuthService.authState.pipe(
-    //   map((socialUser: SocialUser) => !!socialUser),
-    //   tap((isLoggedIn: boolean) => {
-    //     if (!isLoggedIn) {
-    //       this.router.navigate(['login']);
-    //     }
-    //   })
-    // );
+  }
+  // return this.socialAuthService.authState.pipe(
+  //   map((socialUser: SocialUser) => !!socialUser),
+  //   tap((isLoggedIn: boolean) => {
+  //     if (!isLoggedIn) {
+  //       this.router.navigate(['login']);
+  //     }
+  //   })
+  // );
+  private _tokenExpired(exp: number): boolean {
+    return Math.floor(new Date().getTime() / 1000) >= exp;
   }
 }
