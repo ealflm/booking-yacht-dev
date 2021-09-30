@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../auth/localstorage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -50,12 +51,15 @@ export class SidebarComponent implements OnInit {
   public menuItems?: any[];
   public isCollapsed = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private local: LocalStorageService) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
     });
+  }
+  logout() {
+    this.local.removeToken();
   }
 }
