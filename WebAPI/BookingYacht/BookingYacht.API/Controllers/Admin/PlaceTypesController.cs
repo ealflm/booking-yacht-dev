@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Business.SearchModels;
+using Microsoft.AspNetCore.Authorization;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookingYacht.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlaceTypesController : ControllerBase
     {
         private readonly IPlaceTypeService _placeTypeService;
