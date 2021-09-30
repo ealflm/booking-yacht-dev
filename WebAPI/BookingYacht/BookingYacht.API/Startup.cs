@@ -73,6 +73,7 @@ namespace BookingYacht.API
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<IManageBusinessAccountService, ManageBusinessAccountService>();
             services.AddTransient<IPlaceTypeService, PlaceTypeService>();
+            services.AddTransient<ITicketTypeService, TicketTypeService>();
             services.AddTransient<IAdminService, AdminService>();
         }
 
