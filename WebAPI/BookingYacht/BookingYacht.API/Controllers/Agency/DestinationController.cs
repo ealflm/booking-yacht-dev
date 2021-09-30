@@ -26,7 +26,7 @@ namespace BookingYacht.API.Controllers.Agency
         [HttpGet("{search}")]
         public async Task<IActionResult> SearchDestinations(string search)
         {
-            var list = _service.SearchByAddress(search);
+            var list = await _service.SearchByAddress(search);
             return Ok(list);
         }
         

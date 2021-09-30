@@ -10,7 +10,7 @@ namespace BookingYacht.Business.Interfaces.Agency
     {
         public Task<List<DestinationModel>> GetAll();
         
-        public Task<List<Destination>> SearchByAddress(string search);
+        public Task<List<DestinationModel>> SearchByAddress(string search);
         
         public Task<List<DestinationModel>> GetDestinationByPlaceType (Guid placetype);
         

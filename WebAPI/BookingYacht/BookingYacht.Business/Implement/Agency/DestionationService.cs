@@ -57,15 +57,15 @@ namespace BookingYacht.Business.Implement.Agency
             return destination.Select(Mapper.MappingToModel).ToList();
         }
 
-        public async Task<List<Destination>> SearchByAddress(string search)
+        public async Task<List<DestinationModel>> SearchByAddress(string search)
         {
-            var sql = "SELECT Id, Address, Status FROM Destination Where Address Like @search";
+            var sql = "SELECT Id, Address, IdPlaceType ,Status FROM Destination Where Address Like @search";
             var destinies = await _unitOfWork.DestinationRepository.Query()
                 .FromSqlRaw(sql, new SqlParameter("@search", "%" + search + "%"))
                 .Select(x => Mapper.GetDestinies(x))
                 .ToListAsync();
-            // return destinies.Select(Mapper.MappingToModel).ToList();
-            return destinies;
+            return destinies.Select(Mapper.MappingToModel).ToList();
+            // return destinies;
         }
 
         public async Task<List<DestinationModel>> GetDestinationByPlaceType(Guid placetype)
