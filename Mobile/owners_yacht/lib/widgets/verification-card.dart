@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class YachtCard extends StatelessWidget {
+class VerificationCard extends StatelessWidget {
   final String title;
   final String status;
   final String imgUrl;
-  YachtCard(this.title, this.status, this.imgUrl);
+  VerificationCard(this.title, this.status, this.imgUrl);
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
       child: ListTile(
         leading: CircleAvatar(
-            backgroundImage: NetworkImage(imgUrl),
-            ),
+          backgroundImage: NetworkImage(imgUrl),
+        ),
         title: Text(title),
         subtitle: Text(status),
         trailing: Container(
@@ -21,11 +21,17 @@ class YachtCard extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.edit),
+                icon: Icon(
+                  Icons.check,
+                  color: Colors.greenAccent,
+                ),
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.delete),
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.redAccent,
+                ),
               ),
             ],
           ),

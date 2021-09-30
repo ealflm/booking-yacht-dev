@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/models/yacht.dart';
-import 'package:owners_yacht/screens/yacht_add_screen.dart';
-import 'package:owners_yacht/widgets/app_drawer.dart';
-import 'package:owners_yacht/widgets/yacht_card.dart';
+import 'package:owners_yacht/widgets/app-drawer.dart';
+import 'package:owners_yacht/widgets/tour-card.dart';
 
-class YachtManager extends StatelessWidget {
+class Tour extends StatelessWidget {
+  // const ManagerTour({Key? key}) : super(key: key);
   List<Yacht> _list = [
     Yacht(
       id: 'a',
-      title: 'Tau du lich 1',
+      title: 'Tour 1',
       description: 'Tau du lich 1Tau du lich 1',
       price: 29.99,
       status: 'available',
@@ -17,7 +17,7 @@ class YachtManager extends StatelessWidget {
     ),
     Yacht(
       id: 'b',
-      title: 'Tau du lich 2',
+      title: 'Tour 2',
       description: 'Tau du lich 1Tau du lich 2',
       price: 59.99,
       status: 'available',
@@ -30,7 +30,7 @@ class YachtManager extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manager Yacht'),
+        title: Text('Tour'),
         backgroundColor: Colors.black,
       ),
       drawer: AppDrawer(),
@@ -38,18 +38,9 @@ class YachtManager extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
           itemBuilder: (ctx, i) =>
-              YachtCard(_list[i].title, _list[i].status, _list[i].imageUrl),
+              TourCard(_list[i].title, _list[i].status, _list[i].imageUrl),
           itemCount: _list.length,
         ),
-      ),
-        floatingActionButton: FloatingActionButton(
-        tooltip: 'Add',
-        child: Icon(Icons.add, color: Colors.black),
-        onPressed: (){
-         Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddYacht()));
-        },
-        backgroundColor: Colors.white,
       ),
     );
   }
