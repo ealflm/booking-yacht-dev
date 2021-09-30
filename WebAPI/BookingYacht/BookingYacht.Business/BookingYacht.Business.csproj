@@ -15,4 +15,8 @@
     <Folder Include="Interfaces\Business\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FirebaseAdmin" Version="2.2.0" />
+  </ItemGroup>
+
 </Project>

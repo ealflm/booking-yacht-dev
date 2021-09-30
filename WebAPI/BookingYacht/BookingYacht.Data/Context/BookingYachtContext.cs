@@ -1,7 +1,5 @@
-﻿using System;
+﻿using BookingYacht.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using BookingYacht.Data.Models;
 
 #nullable disable
 
@@ -65,6 +63,8 @@ namespace BookingYacht.Data.Context
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Password).HasMaxLength(50);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
             });
 
             modelBuilder.Entity<Agency>(entity =>

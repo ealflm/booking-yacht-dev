@@ -5,6 +5,8 @@ using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Data.Context;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Repositories;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -66,6 +68,12 @@ namespace BookingYacht.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingYacht.API", Version = "v1" });
             });
+
+            services.AddSingleton(FirebaseApp.Create(new AppOptions()
+                {
+                    Credential = GoogleCredential.FromFile(Configuration["Firebase:Admin"]),
+                })
+            );
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
