@@ -1,5 +1,6 @@
 ﻿using BookingYacht.Business.Interfaces;
 using BookingYacht.Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace BookingYacht.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MemberController : ControllerBase
     {
         private readonly IMemberService _memberService;
