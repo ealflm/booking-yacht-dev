@@ -41,5 +41,6 @@ namespace BookingYacht.Data.Repositories
             var entity = await GetById(id);
             _dbSet.Remove(entity);
         }
+
     }
 }

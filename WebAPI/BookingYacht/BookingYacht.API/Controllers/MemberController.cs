@@ -22,6 +22,7 @@ namespace BookingYacht.API.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetMembers()
         {
+            Console.WriteLine("i'm here");
             var members = await _memberService.GetMembers();
             return Ok(members);
         }
