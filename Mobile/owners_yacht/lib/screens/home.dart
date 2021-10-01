@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/app_drawer.dart';
-import '/widgets/yacht_grid.dart';
+import '../widgets/app-drawer.dart';
+import '../widgets/yacht-grid.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Yacht Manager',
+          'Manager',
         ),
         
         backgroundColor: Colors.black,

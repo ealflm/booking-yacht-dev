@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/screens/yacht_detail_screen.dart';
+import 'package:owners_yacht/screens/yacht-detail.dart';
 
 class YachtTitle extends StatelessWidget {
   final String id;
@@ -16,7 +16,7 @@ class YachtTitle extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => YachtDetail()));
+                MaterialPageRoute(builder: (context) => YachtDetail(title)));
           },
           child: Image.network(
             imageUrl,
@@ -29,12 +29,9 @@ class YachtTitle extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
           ),
-          trailing: IconButton(
-            icon: Icon(
-              Icons.circle,
-              size: 20,
-            ),
-            onPressed: () {},
+          trailing: Icon(
+            Icons.circle,
+            size: 20,
             color: Colors.orange[800],
           ),
         ),

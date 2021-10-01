@@ -43,7 +43,7 @@ export class AccountBusinessFormComponent implements OnInit {
 
     this._mapBusinessStatus();
     this._checkEditMode();
-    setInterval(() => {
+    setTimeout(() => {
       this.loading = false;
     }, 500);
   }
@@ -51,8 +51,18 @@ export class AccountBusinessFormComponent implements OnInit {
   private _initBusinessForm() {
     this.form = this.formBuider.group({
       name: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(9)]],
-      email: ['', [Validators.required, Validators.email]],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(9),
+        ],
+      ],
+      email: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.email],
+      ],
       address: ['', Validators.required],
       status: ['', Validators.required],
     });

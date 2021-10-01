@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/widgets/padding_yacht.dart';
+import 'package:owners_yacht/widgets/information.dart';
 
 class YachtDetail extends StatelessWidget {
-  final String title = 'price';
+
+
+  YachtDetail(this.title) : super();
+  final String title;
   final String value = '111';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Details',
+          title,
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,
@@ -31,10 +34,6 @@ class YachtDetail extends StatelessWidget {
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(13)),
-                  // borderRadius: BorderRadius.only(
-                  //   topLeft: Radius.circular(13.0),
-                  //   topRight: Radius.circular(13.0),
-                  // ),
                 ),
                 margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.04,
@@ -54,7 +53,7 @@ class YachtDetail extends StatelessWidget {
                           children: [
                             Image.network(
                                 'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
-                            YachtInformation(title, value),
+                            YachtInformation('price', value),
                             YachtInformation("Status", "bussy"),
                             YachtInformation("Description", "hihihi"),
                           ],

@@ -3,14 +3,14 @@
   <p-card header="Dashboard" subheader="List of all Business Account">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
-        <button
+        <!-- <button
           pButton
           pRipple
           label="New"
           icon="pi pi-plus"
           class="p-button-success p-mr-2"
           (click)="newBusiness()"
-        ></button>
+        ></button> -->
       </ng-template>
 
       <span class="p-input-icon-right">
@@ -82,7 +82,18 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
-              <td><p-skeleton></p-skeleton></td>
+              <td class="flex">
+                <p-skeleton
+                  shape="circle"
+                  size="3rem"
+                  styleClass="p-mr-2"
+                ></p-skeleton>
+                <p-skeleton
+                  shape="circle"
+                  size="3rem"
+                  styleClass="p-mr-2"
+                ></p-skeleton>
+              </td>
             </tr>
             <tr *ngIf="!loading">
               <td>{{ businessAcount.id }}</td>

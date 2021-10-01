@@ -35,7 +35,7 @@ export class HomePagesComponent implements OnInit {
       this.businessAcount = responseData;
       // console.log(this.businessAcount);
 
-      setInterval(() => {
+      setTimeout(() => {
         this.loading = false;
       }, 1000);
     });

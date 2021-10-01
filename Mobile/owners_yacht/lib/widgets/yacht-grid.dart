@@ -1,6 +1,6 @@
 import '../models/yacht.dart';
 import 'package:flutter/material.dart';
-import 'yacht_grid_title.dart';
+import 'yacht-grid-title.dart';
 
 class YachtGrid extends StatelessWidget {
   final List<Yacht> _list = [
