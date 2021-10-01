@@ -85,6 +85,7 @@ export class AccountBusinessFormComponent implements OnInit {
     const businessAccount: BusinessAccount = {
       name: this.businessForm.name.value,
       phone: this.businessForm.phone.value,
+      emailAddress: this.businessForm.email.value,
       address: this.businessForm.address.value,
       status: this.businessForm.status.value,
     };
