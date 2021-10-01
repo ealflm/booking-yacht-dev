@@ -1,6 +1,6 @@
-﻿namespace BookingYacht.Business.ViewModels
+﻿namespace BookingYacht.Business.SearchModels
 {
-    public class DestinationModel
+    public class DestinySearchModel
     {
         public string Address { get; set; }
         public int Status { get; set; }
