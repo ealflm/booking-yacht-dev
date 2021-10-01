@@ -33,7 +33,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     Status = x.Status,
                     Price= x.Price,
-                    ServiceFeePecentage= x.ServiceFeePercentage,
+                    ServiceFeePercentage= x.ServiceFeePercentage,
                     IdBusinessTour= x.IdBusinessTour
                 })
                 .OrderBy(x => x.Status)
@@ -56,7 +56,7 @@ namespace BookingYacht.Business.Implement.Admin
                     ServiceFeePercentage=x.ServiceFeePercentage
                 }).FirstOrDefaultAsync();
             ticketType.Status = model.Status;
-            ticketType.ServiceFeePercentage = model.ServiceFeePecentage;
+            ticketType.ServiceFeePercentage = model.ServiceFeePercentage;
             _unitOfWork.TicketTypeRepository.Update(ticketType);
             await _unitOfWork.SaveChangesAsync();
         }
