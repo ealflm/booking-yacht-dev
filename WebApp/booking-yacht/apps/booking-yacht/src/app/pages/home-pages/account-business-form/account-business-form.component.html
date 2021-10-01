@@ -1,0 +1,141 @@
+<p-toast position="top-right"></p-toast>
+<div class="admin-page p-3">
+  <p-card
+    [header]="editMode ? 'Edit Business Account' : 'New Business Account'"
+    [subheader]="editMode ? '' : 'Create A new Business Account'"
+  >
+    <p-toolbar>
+      <div class="p-toolbar-group-left"></div>
+      <div class="p-toolbar-group-right">
+        <p-button
+          [label]="editMode ? 'Update' : 'Save'"
+          icon="pi pi-check"
+          [styleClass]="
+            editMode ? 'p-button-warning mr-2' : 'p-button-info mr-2'
+          "
+          (click)="onSubmit()"
+        ></p-button>
+
+        <p-button
+          icon="pi pi-times"
+          styleClass="p-button-danger"
+          (click)="onCancle()"
+        ></p-button>
+      </div>
+    </p-toolbar>
+
+    <div class="p-grid" *ngIf="!loading">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid formgrid grid">
+            <div class="p-field col-4">
+              <label for="name">Name</label>
+              <input id="name" type="text" pInputText formControlName="name" />
+              <small
+                *ngIf="businessForm.name.invalid && isSubmit"
+                class="p-error"
+                >Name is required</small
+              >
+            </div>
+            <div class="p-field col-4">
+              <label for="phone">Phone</label>
+              <input
+                id="phone"
+                formControlName="phone"
+                type="text"
+                pInputText
+                maxlength="10"
+              />
+              <small
+                *ngIf="businessForm.phone.invalid && isSubmit"
+                class="p-error"
+                >phone is required</small
+              >
+            </div>
+          </div>
+
+          <div class="p-fluid formgrid grid mt-5">
+            <div class="p-field col-4">
+              <label for="email">Email</label>
+              <input
+                formControlName="email"
+                id="email"
+                type="email"
+                placeholder="myemail@gmail.com"
+                pInputText
+              />
+              <small
+                *ngIf="businessForm.email.invalid && isSubmit"
+                class="p-error"
+                >Email is required</small
+              >
+            </div>
+            <div class="p-field col-4">
+              <label for="address">Address</label>
+              <input
+                id="address"
+                type="text"
+                pInputText
+                formControlName="address"
+              />
+              <small
+                *ngIf="businessForm.address.invalid && isSubmit"
+                class="p-error"
+                >Address is required</small
+              >
+            </div>
+            <div class="p-field col-4">
+              <label for="status">Status</label>
+              <p-dropdown
+                optionLabel="name"
+                optionValue="id"
+                [options]="businessStatus"
+                formControlName="status"
+                [(ngModel)]="selectedStatus"
+                placeholder="Select Status"
+                [showClear]="true"
+              ></p-dropdown>
+              <small
+                *ngIf="businessForm.status.invalid && isSubmit"
+                class="p-error"
+                >Status is required</small
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="p-grid" *ngIf="loading">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid formgrid grid">
+            <div class="p-field col-4">
+              <label for="name">Name</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4">
+              <label for="phone">Phone</label>
+              <p-skeleton></p-skeleton>
+            </div>
+          </div>
+
+          <div class="p-fluid formgrid grid mt-5">
+            <div class="p-field col-4">
+              <label for="email">Email</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4">
+              <label for="address">Address</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4">
+              <label for="status">Status</label>
+              <p-skeleton></p-skeleton>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

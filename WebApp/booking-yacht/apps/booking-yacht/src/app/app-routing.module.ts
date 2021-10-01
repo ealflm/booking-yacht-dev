@@ -1,17 +1,48 @@
+import { AccountBusinessFormComponent } from './pages/home-pages/account-business-form/account-business-form.component';
+import { ManagePlaceComponent } from './pages/manage-place/manage-place.component';
 import { LoginComponent } from './auth/login/login.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { PagesComponent } from './pages/pages.component';
+import { AuthGuardService } from './auth/auth.guard';
+import { HomePagesComponent } from './pages/home-pages/home-pages.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: LoginComponent },
+  {
+    path: '',
+    component: PagesComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      { path: 'dashboard', component: HomePagesComponent },
+      {
+        path: 'dashboard/business-account-form',
+        component: AccountBusinessFormComponent,
+      },
+      {
+        path: 'dashboard/business-account-form/:id',
+        component: AccountBusinessFormComponent,
+      },
+      { path: 'manage-place-type', component: ManagePlaceComponent },
+    ],
+  },
 ];
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forRoot(routes)],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes, {
+      useHash: true,
+      initialNavigation: 'enabled',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

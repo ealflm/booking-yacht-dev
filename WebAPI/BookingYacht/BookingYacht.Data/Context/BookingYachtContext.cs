@@ -86,12 +86,11 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Phone)
                     .HasMaxLength(11)
                     .IsUnicode(false);
-                
-                // TODO lack of token
-                // entity.Property(e => e.Token)
-                //     .IsRequired()
-                //     .HasMaxLength(100)
-                //     .IsUnicode(false);
+
+                entity.Property(e => e.Token)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Business>(entity =>
@@ -327,7 +326,7 @@ namespace BookingYacht.Data.Context
 
                 entity.HasOne(d => d.IdVehicleNavigation)
                     .WithMany(p => p.Vehicles)
-                    .HasForeignKey(d => d.IdVehicleType)
+                    .HasForeignKey(d => d.IdVehicle)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vehicle__IdVehic__5DCAEF64");
             });

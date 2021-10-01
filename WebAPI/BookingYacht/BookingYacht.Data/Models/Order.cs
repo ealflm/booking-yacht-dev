@@ -14,7 +14,7 @@ namespace BookingYacht.Data.Models
 
         public Guid Id { get; set; }
         public string AgencyName { get; set; }
-        public int? QuantityOfPerson { get; set; }
+        public int QuantityOfPerson { get; set; }
         public double? TotalPrice { get; set; }
         public Guid IdAgency { get; set; }
         public int Status { get; set; }

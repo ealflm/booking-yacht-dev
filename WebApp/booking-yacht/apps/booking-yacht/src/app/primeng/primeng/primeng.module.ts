@@ -20,6 +20,9 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { AccordionModule } from 'primeng/accordion';
+import { SkeletonModule } from 'primeng/skeleton';
+import {SplitButtonModule} from 'primeng/splitbutton';
 
 @NgModule({
   declarations: [],
@@ -43,6 +46,10 @@ import { MessageModule } from 'primeng/message';
     FileUploadModule,
     MessagesModule,
     MessageModule,
+    AccordionModule,
+    SkeletonModule,
+    ToolbarModule,
+    SplitButtonModule
   ],
   exports: [
     CardModule,
@@ -64,6 +71,10 @@ import { MessageModule } from 'primeng/message';
     FileUploadModule,
     MessagesModule,
     MessageModule,
+    AccordionModule,
+    SkeletonModule,
+    ToolbarModule,
+    SplitButtonModule
   ],
 })
 export class PrimengModule {}

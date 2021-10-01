@@ -21,7 +21,7 @@ namespace BookingYacht.Data.Models
         public int Status { get; set; }
 
         public virtual Business IdBusinessNavigation { get; set; }
-        public virtual VehicleType IdVehicleNavigation { get; set; }
+        public virtual VehicleType IdVehicleTypeNavigation { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
     }
 }
