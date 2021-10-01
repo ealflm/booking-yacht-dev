@@ -1,6 +1,5 @@
 ﻿using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
-using FirebaseAdmin;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -22,12 +21,25 @@ namespace BookingYacht.API.Controllers.Admin
         {
             var result = await _adminService.Login(model);
 
-            if (string.IsNullOrEmpty(result))
+            if (result.Data == null)
             {
-                return Unauthorized();
+                return Fail(result.Message);
             }
 
-            return Ok(result);
+            return Success(result.Data);
+        }
+
+        [HttpPost("open-login")]
+        public async Task<IActionResult> OpenLogin([FromBody] OpenLoginSearchModel model)
+        {
+            var result = await _adminService.OpenLogin(model);
+
+            if (result.Data == null)
+            {
+                return Fail(result.Message);
+            }
+
+            return Success(result.Data);
         }
 
         [HttpPost("register")]
@@ -35,11 +47,11 @@ namespace BookingYacht.API.Controllers.Admin
         {
             var result = await _adminService.Register(model);
 
-            if (result == false)
+            if (result == null)
             {
-                return NotFound();
+                return Fail("This email address has already been registered");
             }
-            return Ok(result);
+            return Success(result);
         }
 
     }

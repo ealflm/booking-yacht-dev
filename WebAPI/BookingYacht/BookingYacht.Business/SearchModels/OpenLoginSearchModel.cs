@@ -2,10 +2,8 @@
 
 namespace BookingYacht.Business.SearchModels
 {
-    public class RegisterSearchModel
+    public class LoginSearchModel
     {
-        public string Name { get; set; }
-
         [Required, EmailAddress]
         public string EmailAddress { get; set; }
 

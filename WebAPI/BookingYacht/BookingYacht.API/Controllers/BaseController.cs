@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers
 {
-    public class BaseApiVer1Controller : ControllerBase
+    public class BaseController : ControllerBase
     {
-        protected const string ApiVer1Route = "api/v1/[controller]";
-
         [NonAction]
         public virtual OkObjectResult Success(object value)
         {

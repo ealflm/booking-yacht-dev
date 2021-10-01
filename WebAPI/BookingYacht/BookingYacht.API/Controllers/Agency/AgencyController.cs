@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Agency
 {
-    [Route("api/[controller]")]
+    [Route(ApiVer2Route)]
     [ApiController]
-    public class AgencyController : ControllerBase
+    public class AgencyController : BaseApiVer2Controller
     {
         public AgencyController(IAgencyService agencyService)
         {

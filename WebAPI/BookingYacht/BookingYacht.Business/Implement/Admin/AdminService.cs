@@ -1,5 +1,6 @@
 ﻿using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
+using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
 using FirebaseAdmin;
 using FirebaseAdmin.Auth;
@@ -11,9 +12,9 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using AdminModel = BookingYacht.Data.Models.Admin;
 
 namespace BookingYacht.Business.Implement.Admin
 {
@@ -21,6 +22,7 @@ namespace BookingYacht.Business.Implement.Admin
     {
         private readonly IConfiguration _configuration;
         private readonly FirebaseApp _firebaseApp;
+        private readonly FirebaseAuth _firebaseAuth;
 
         public AdminService(IUnitOfWork unitOfWork,
             IConfiguration configuration,
@@ -28,86 +30,209 @@ namespace BookingYacht.Business.Implement.Admin
         {
             _configuration = configuration;
             _firebaseApp = firebaseApp;
+            _firebaseAuth = FirebaseAuth.GetAuth(_firebaseApp);
         }
 
-        public async Task<string> Login(LoginSearchModel model)
+        public async Task<MessageResult> Login(LoginSearchModel loginModel)
         {
-            bool ok = false;
+            MessageResult model = null;
+            string result = null;
+            string message;
 
-            if (!string.IsNullOrEmpty(model.IdToken))
+            if (!string.IsNullOrEmpty(loginModel.EmailAddress) && !string.IsNullOrEmpty(loginModel.Password))
             {
-                ok = await LoginGoogle(model.IdToken);
+                model = await LoginEmailPassword(loginModel.EmailAddress, loginModel.Password);
             }
 
-            if (!ok)
+            if (model != null && model.Data != null)
             {
-                if (!string.IsNullOrEmpty(model.EmailAddress) && !string.IsNullOrEmpty(model.Password))
+                result = GetToken((AdminViewModel)model.Data);
+            }
+
+            message = model.Message;
+
+            return new MessageResult(result, message);
+        }
+
+        private async Task<MessageResult> LoginEmailPassword(string email, string password)
+        {
+            AdminViewModel result = null;
+            string message = null;
+            var user = await _unitOfWork.AdminRepository.Query()
+                .Where(x => x.EmailAddress == email && x.Password != null)
+                .FirstOrDefaultAsync();
+
+            if (user != null && VerifyPassword(password, user.Password, user.Salt))
+            {
+                if (user.Status == 1)
                 {
-                    ok = await LoginEmailPassword(model.EmailAddress, model.Password);
+                    result = new AdminViewModel()
+                    {
+                        Id = user.Id,
+                        Uid = user.Uid,
+                        Name = user.Name,
+                        EmailAddress = user.EmailAddress,
+                        Password = user.Password,
+                        PhoneNumber = user.PhoneNumber,
+                        PhotoUrl = user.PhotoUrl,
+                        Status = user.Status
+                    };
+                }
+                else
+                {
+                    message = "The user doesn't have permission to access this resource";
                 }
             }
+            else
+            {
+                message = "Invalid user name or password";
+            }
 
-            return ok ? GetToken(model) : null;
+            return new MessageResult(result, message);
         }
 
-        private async Task<bool> LoginEmailPassword(string email, string password)
+
+        public async Task<MessageResult> OpenLogin(OpenLoginSearchModel loginModel)
         {
-            var user = await _unitOfWork.AdminRepository.Query()
-                .Where(x => x.EmailAddress == email && x.Password == password && x.Status == 1)
-                .FirstOrDefaultAsync();
-            return user != null;
+            MessageResult model = null;
+            string token = null;
+            string message;
+
+            if (!string.IsNullOrEmpty(loginModel.IdToken))
+            {
+                model = await LoginGoogle(loginModel.IdToken);
+            }
+
+            if (model != null && model.Data != null)
+            {
+                token = GetToken((AdminViewModel)model.Data);
+            }
+            message = model.Message;
+
+            return new MessageResult(token, message);
         }
 
-        private async Task<bool> LoginGoogle(string idToken)
+        private async Task<MessageResult> LoginGoogle(string idToken)
         {
-            bool result = false;
-            var firebaseAuth = FirebaseAuth.GetAuth(_firebaseApp);
+            AdminViewModel result = null;
+            string message = null;
 
             string uid = null;
-            try {
-                var decodedToken = await firebaseAuth
+            try
+            {
+                var decodedToken = await _firebaseAuth
                     .VerifyIdTokenAsync(idToken);
                 uid = decodedToken.Uid;
-            } catch
+            }
+            catch
             {
             }
 
-            if (uid != null) {
+            if (uid != null)
+            {
                 var user = await _unitOfWork.AdminRepository.Query()
-                    .Where(x => x.Uid == uid && x.Status == 1)
+                    .Where(x => x.Uid == uid)
                     .FirstOrDefaultAsync();
 
                 if (user != null)
                 {
-                    result = true;
-                } else
-                {
-                    var userInfo = await firebaseAuth.GetUserAsync(uid);
-
-                    var model = new Data.Models.Admin()
+                    if (user.Status == 1)
                     {
-                        Uid = userInfo.Uid,
-                        Name = userInfo.DisplayName,
-                        EmailAddress = userInfo.Email,
-                        PhoneNumber = userInfo.PhoneNumber,
-                        PhotoUrl = userInfo.PhotoUrl,
-                        Status = 0
-                    };
+                        result = new AdminViewModel()
+                        {
+                            Id = user.Id,
+                            Uid = user.Uid,
+                            Name = user.Name,
+                            EmailAddress = user.EmailAddress,
+                            Password = user.Password,
+                            PhoneNumber = user.PhoneNumber,
+                            PhotoUrl = user.PhotoUrl,
+                            Status = user.Status
+                        };
+                    }
+                    else
+                    {
+                        message = "The user doesn't have permission to access this resource";
+                    }
+                }
+                else
+                {
+                    var adminModel = await GetUserInfo(uid);
+                    var status = 0;
 
-                    await _unitOfWork.AdminRepository.Add(model);
+                    var model = await _unitOfWork.AdminRepository.Query()
+                    .Where(x => x.EmailAddress == adminModel.EmailAddress)
+                    .FirstOrDefaultAsync();
+
+                    if (model != null)
+                    {
+                        model.Uid = adminModel.Uid;
+                        model.Name = adminModel.Name;
+                        model.EmailAddress = adminModel.EmailAddress;
+                        model.PhoneNumber = adminModel.PhoneNumber;
+                        model.PhotoUrl = adminModel.PhotoUrl;
+                        status = model.Status;
+
+                        _unitOfWork.AdminRepository.Update(model);
+                    } else
+                    {
+                        await _unitOfWork.AdminRepository.Add(adminModel);
+                    }
+
+                    if (status != 1) { 
+                        message = "The user doesn't have permission to access this resource";
+                    } else
+                    {
+                        result = new AdminViewModel()
+                        {
+                            Id = model.Id,
+                            Uid = model.Uid,
+                            Name = model.Name,
+                            EmailAddress = model.EmailAddress,
+                            Password = model.Password,
+                            PhoneNumber = model.PhoneNumber,
+                            PhotoUrl = model.PhotoUrl,
+                            Status = model.Status
+                        };
+                    }
+
                     await _unitOfWork.SaveChangesAsync();
                 }
             }
+            else
+            {
+                message = "Invalid ID token";
+            }
 
-            return result;
+            return new MessageResult(result, message);
+        }
+
+        private async Task<AdminModel> GetUserInfo(string uid)
+        {
+            var userInfo = await _firebaseAuth.GetUserAsync(uid);
+
+            var model = new AdminModel
+            {
+                Uid = userInfo.Uid,
+                Name = userInfo.DisplayName,
+                EmailAddress = userInfo.Email,
+                PhoneNumber = userInfo.PhoneNumber,
+                PhotoUrl = userInfo.PhotoUrl,
+                Status = 0
+            };
+
+            return model;
         }
 
 
-        private string GetToken(LoginSearchModel model)
+        private string GetToken(AdminViewModel model)
         {
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.EmailAddress),
+                new Claim("Name", model.Name ?? ""),
+                new Claim("EmailAdress", model.EmailAddress ?? ""),
+                new Claim("PhoneNumber", model.PhoneNumber ?? ""),
+                new Claim("Role", model.Status == 1 ? "admin" : "non-admin"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var authSigninKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
@@ -121,24 +246,46 @@ namespace BookingYacht.Business.Implement.Admin
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<bool> Register(RegisterSearchModel model)
+        public async Task<Guid?> Register(RegisterSearchModel model)
         {
-            bool result = false;
+            Guid? result = null;
             bool isExist = await _unitOfWork.AdminRepository.Query()
                                     .AnyAsync(x => x.EmailAddress == model.EmailAddress);
             if (!isExist)
             {
-                var admin = new Data.Models.Admin()
+                CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+                var admin = new AdminModel
                 {
+                    Name = model.Name,
                     EmailAddress = model.EmailAddress,
-                    Password = model.Password
+                    Password = passwordHash,
+                    Salt = passwordSalt
                 };
 
                 await _unitOfWork.AdminRepository.Add(admin);
                 await _unitOfWork.SaveChangesAsync();
-                result = true;
+                result = admin.Id;
             }
             return result;
+        }
+
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+        }
+
+        private static bool VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)); 
+            for (int i = 0; i < computedHash.Length; i++)
+            { 
+                if (computedHash[i] != passwordHash[i]) return false; 
+            }
+            return true; 
         }
     }
 }

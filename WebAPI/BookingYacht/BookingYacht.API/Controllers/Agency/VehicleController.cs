@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
-using BookingYacht.Business.Interfaces;
-using BookingYacht.Business.Interfaces.Agency;
+﻿using BookingYacht.Business.Interfaces.Agency;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Agency
 {
-    [Route("api/[controller]")]
+    [Route(ApiVer2Route)]
     [ApiController]
-    public class VehicleController : ControllerBase
+    public class VehicleController : BaseApiVer2Controller
     {
         public VehicleController(IVehicleService service)
         {

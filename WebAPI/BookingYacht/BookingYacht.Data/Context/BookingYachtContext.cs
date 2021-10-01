@@ -1,5 +1,7 @@
-﻿using BookingYacht.Data.Models;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using BookingYacht.Data.Models;
 
 #nullable disable
 
@@ -32,17 +34,6 @@ namespace BookingYacht.Data.Context
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VehicleType> VehicleTypes { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#pragma warning disable CS1030 // #warning directive
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=booking-yacht-dev.database.windows.net;Database=BookingYacht;User Id=swd391gr5;Password=Password@3915");
-#pragma warning restore CS1030 // #warning directive
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -58,13 +49,17 @@ namespace BookingYacht.Data.Context
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.Password).HasMaxLength(50);
+                entity.Property(e => e.Password)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<Agency>(entity =>
@@ -87,6 +82,8 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Phone)
                     .HasMaxLength(11)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Token).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Business>(entity =>
