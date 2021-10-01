@@ -11,11 +11,11 @@ namespace BookingYacht.API.Controllers.Agency
     
     [Route("api/[controller]")]
     [ApiController]
-    public class DestinationController : ControllerBase
+    public class DestinationsController : ControllerBase
     {
         private readonly IDestinationService _service;
 
-        public DestinationController(IDestinationService manageBusinessAccountService)
+        public DestinationsController(IDestinationService manageBusinessAccountService)
         {
             _service = manageBusinessAccountService;
         }
@@ -24,7 +24,7 @@ namespace BookingYacht.API.Controllers.Agency
         public async Task<IActionResult> Get([FromQuery] DestinySearchModel model)
         {
             var businesses = await _service.SearchDestinies(model);
-            return Ok(businesses);
+            return businesses.Count > 0 ? Ok(businesses) : NotFound();
         }
 
         // GET api/<ManageBusinessAccountController>/5
