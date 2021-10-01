@@ -47,11 +47,11 @@ namespace BookingYacht.API.Controllers.Agency
         }
           
         //TODO UPDATE AGENCY
-        [HttpPost("{id}")]
+        [HttpPost("{id:guid}")]
         public async Task<IActionResult> AddAgency([FromBody] AgencyModel model, [FromRoute] Guid id)
         {
             var updateAgency = await _agencyService.AddAgency(id, model);
-            return updateAgency ? Ok() : NotFound();
+            return Ok(updateAgency);
         }
         
     }
