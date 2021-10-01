@@ -13,10 +13,10 @@ using Microsoft.AspNetCore.Authorization;
 namespace BookingYacht.API.Controllers.Admin
 {
 
-    [Route("api/[controller]")]
+    [Route(ApiVer1Route)]
     [ApiController]
     [Authorize]
-    public class TicketTypesController : ControllerBase
+    public class TicketTypesController : BaseApiVer1Controller
     {
         private readonly ITicketTypeService _ticketTypeService;
 

@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Admin
 {
-    [Route("api/[controller]")]
+    [Route(ApiVer1Route)]
     [ApiController]
-    public class AdminsController : ControllerBase
+    public class AdminsController : BaseApiVer1Controller
     {
         private readonly IAdminService _adminService;
-        private readonly FirebaseApp _firebaseApp;
 
-        public AdminsController(IAdminService adminService, FirebaseApp firebaseApp)
+        public AdminsController(IAdminService adminService)
         {
             _adminService = adminService;
-            _firebaseApp = firebaseApp;
         }
 
         [HttpPost("login")]
