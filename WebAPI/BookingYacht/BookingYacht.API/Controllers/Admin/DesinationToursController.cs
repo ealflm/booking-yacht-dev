@@ -15,12 +15,12 @@ namespace BookingYacht.API.Controllers.Admin
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class DesinationTourController : ControllerBase
+    public class DesinationToursController : ControllerBase
     {
 
         private readonly IDestinationTourService _destinationTourService;
 
-        public DesinationTourController(IDestinationTourService destinationTourService)
+        public DesinationToursController(IDestinationTourService destinationTourService)
         {
             _destinationTourService = destinationTourService;
         }
