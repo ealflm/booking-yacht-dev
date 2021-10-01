@@ -20,6 +20,21 @@ namespace BookingYacht.Business.Implement.Admin
 
         }
 
+        public async Task<TicketTypeViewModel> GetTicketType(Guid id)
+        {
+            var ticketType = await _unitOfWork.TicketTypeRepository.Query()
+                .Where(x => x.Id.Equals(id))
+                .Select(x => new TicketTypeViewModel()
+                {
+                    Id = x.Id,
+                    Price = x.Price,
+                    ServiceFeePercentage = x.ServiceFeePercentage,
+                    IdBusinessTour = x.IdBusinessTour,
+                    Status = x.Status
+                }).FirstOrDefaultAsync();
+            return ticketType;
+        }
+
         public async Task<List<TicketTypeViewModel>> SearchTicketTypes(TicketTypeSearchModel model = null)
         {
             if (model == null)

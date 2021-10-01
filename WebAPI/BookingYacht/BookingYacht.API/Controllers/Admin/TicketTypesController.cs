@@ -34,6 +34,14 @@ namespace BookingYacht.API.Controllers.Admin
             return Ok(ticketType);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var ticketType = await _ticketTypeService.GetTicketType(id);
+
+            return Ok(ticketType);
+        }
+
         // PUT api/<TicketTypesController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] TicketTypeViewModel model)
