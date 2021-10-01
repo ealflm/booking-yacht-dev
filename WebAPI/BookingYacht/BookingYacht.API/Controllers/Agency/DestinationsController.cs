@@ -27,7 +27,6 @@ namespace BookingYacht.API.Controllers.Agency
             return Ok(businesses);
         }
 
-        // GET api/<ManageBusinessAccountController>/5
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -36,7 +35,6 @@ namespace BookingYacht.API.Controllers.Agency
             return Ok(business);
         }
 
-        // POST api/<ManageBusinessAccountController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] DestinyViewModel model)
         {
@@ -44,9 +42,6 @@ namespace BookingYacht.API.Controllers.Agency
             return Ok(id);
         }
 
-
-
-        // PUT api/<ManageBusinessAccountController>/5
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] DestinyViewModel model)
         {
@@ -54,7 +49,6 @@ namespace BookingYacht.API.Controllers.Agency
             return Ok();
         }
 
-        // DELETE api/<ManageBusinessAccountController>/5
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
