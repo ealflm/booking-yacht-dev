@@ -60,7 +60,9 @@ namespace BookingYacht.Data.Context
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 

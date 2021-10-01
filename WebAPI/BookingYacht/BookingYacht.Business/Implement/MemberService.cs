@@ -19,7 +19,8 @@ namespace BookingYacht.Business.Implement
 
         public async Task<List<MemberViewModel>> GetMembers()
         {
-            var members = await _unitOfWork.MemberRepository.Query().Select(x => new MemberViewModel
+            var members = await _unitOfWork.MemberRepository
+                .Query().Select(x => new MemberViewModel
             {
                 Id = x.Id,
                 Code = x.Code,
