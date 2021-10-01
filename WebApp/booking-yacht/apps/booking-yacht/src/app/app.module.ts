@@ -23,6 +23,7 @@ import { AccountBusinessFormComponent } from './components/account-business-form
 import { PagesComponent } from './pages/pages.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ApartmentsComponent } from './pages/apartments/apartments.component';
+import { DestinationTourComponent } from './pages/destination-tour/destination-tour.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { ApartmentsComponent } from './pages/apartments/apartments.component';
     AccountBusinessFormComponent,
     ApartmentsComponent,
     AparmentFormComponent,
+    DestinationTourComponent,
   ],
   imports: [
     // MaterialModule,

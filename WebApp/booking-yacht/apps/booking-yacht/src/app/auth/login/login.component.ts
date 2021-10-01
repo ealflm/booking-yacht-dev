@@ -10,6 +10,7 @@ import {
 import { AuthService } from '../auth.service';
 import { LocalStorageService } from '../localstorage.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'booking-yacht-login',
@@ -47,7 +48,6 @@ export class LoginComponent implements OnInit {
     });
   }
   onSignIn() {
-
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
@@ -60,11 +60,13 @@ export class LoginComponent implements OnInit {
           this.localStorageService.setToken(res);
           this.router.navigate(['dashboard']);
         },
-        (error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'email or password incorect',
-          });
+        (error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'email or password incorect',
+            });
+          }
         }
       );
   }
