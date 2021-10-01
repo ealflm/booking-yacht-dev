@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookingYacht.Business.ViewModels;
 
-namespace BookingYacht.Business.Interfaces
+namespace BookingYacht.Business.Interfaces.Agency
 {
     public interface IAgencyService : IBaseService 
     {
