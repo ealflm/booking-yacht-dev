@@ -78,8 +78,10 @@ namespace BookingYacht.API
             services.AddTransient<ITicketTypeService, TicketTypeService>();
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<IDestinationTourService, DestinationTourService>();
+            services.AddTransient<ITourService, TourService>();
             services.AddTransient<IDestinationService, DestinationService>();
             
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
