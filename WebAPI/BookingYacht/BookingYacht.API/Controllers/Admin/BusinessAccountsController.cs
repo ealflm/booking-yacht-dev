@@ -34,7 +34,6 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
             var business = await _manageBusinessAccountService.GetBusiness(id);
-           
             return Ok(business);
         }
 
