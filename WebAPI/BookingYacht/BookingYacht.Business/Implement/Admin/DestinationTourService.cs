@@ -69,7 +69,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 model = new DestinationTourSearchModel();
             }
-            var businesses = await _unitOfWork.DestinationTourRepository.Query()
+            var destinationTour = await _unitOfWork.DestinationTourRepository.Query()
                 .Where(x => model.IdPier == null | x.IdPier.Equals(model.IdPier))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
@@ -84,12 +84,20 @@ namespace BookingYacht.Business.Implement.Admin
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.DestinationTourRepository.Query().Count())
                 .ToListAsync();
-            return businesses;
+            return destinationTour;
         }
 
         public async Task UpdateDestinationTour(Guid id, DestinationTourViewModel model)
         {
-            throw new NotImplementedException();
+            var destinationTour = new DestinationTour()
+            {
+                Id = id,
+                IdPier = model.IdPier,
+                IdTour = model.IdTour,
+                Status = model.Status
+            };
+            _unitOfWork.DestinationTourRepository.Update(destinationTour);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }
