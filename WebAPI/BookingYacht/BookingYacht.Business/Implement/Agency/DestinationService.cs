@@ -63,8 +63,10 @@ namespace BookingYacht.Business.Implement.Agency
         {
             model ??= new DestinySearchModel();
             var destiny = await _unitOfWork.DestinationRepository.Query()
+                .Where(x => model.Id == null | x.Address.Contains(model.Address))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
-                .Where(x => model.Status == (int)Status.ALL |x.Status == model.Status)
+                .Where(x => model.Status == null |x.Status == model.Status)
+                .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
