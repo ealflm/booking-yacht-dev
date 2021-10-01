@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingYacht.Business.Enum;
 
 namespace BookingYacht.Business.Implement.Admin
 {
@@ -20,7 +21,22 @@ namespace BookingYacht.Business.Implement.Admin
 
         }
 
-        public async Task<List<TicketTypeViewModel>> SearchTicketTypesForAdmin(TicketTypeSearchModel model = null)
+        public async Task<TicketTypeViewModel> GetTicketType(Guid id)
+        {
+            var ticketType = await _unitOfWork.TicketTypeRepository.Query()
+                .Where(x => x.Id.Equals(id))
+                .Select(x => new TicketTypeViewModel()
+                {
+                    Id = x.Id,
+                    Price = x.Price,
+                    ServiceFeePercentage = x.ServiceFeePercentage,
+                    IdBusinessTour = x.IdBusinessTour,
+                    Status = x.Status
+                }).FirstOrDefaultAsync();
+            return ticketType;
+        }
+
+        public async Task<List<TicketTypeViewModel>> SearchTicketTypes(TicketTypeSearchModel model = null)
         {
             if (model == null)
             {
@@ -33,19 +49,13 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     Status = x.Status,
                     Price= x.Price,
-                    ServiceFeePecentage= x.ServiceFeePercentage,
+                    ServiceFeePercentage= x.ServiceFeePercentage,
                     IdBusinessTour= x.IdBusinessTour
                 })
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .ToListAsync();
-            foreach(TicketTypeViewModel ticketType in ticketTypes)
-            {
-                var businessTour = _unitOfWork.BusinessTourRepository.Query().Where(x => x.Id.Equals(ticketType.IdBusinessTour)).Select(x => new BusinessTour() { IdBusiness = x.IdBusiness, IdTour = x.IdTour }).FirstOrDefault();
-                ticketType.IdBusiness = businessTour.IdBusiness;
-                ticketType.IdTour = businessTour.IdTour;
-            }
             return ticketTypes;
         }
 
@@ -62,7 +72,7 @@ namespace BookingYacht.Business.Implement.Admin
                     ServiceFeePercentage=x.ServiceFeePercentage
                 }).FirstOrDefaultAsync();
             ticketType.Status = model.Status;
-            ticketType.ServiceFeePercentage = model.ServiceFeePecentage;
+            ticketType.ServiceFeePercentage = model.ServiceFeePercentage;
             _unitOfWork.TicketTypeRepository.Update(ticketType);
             await _unitOfWork.SaveChangesAsync();
         }

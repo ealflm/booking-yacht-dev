@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingYacht.Business.Enum;
 
 namespace BookingYacht.Business.Implement.Admin
 {
@@ -69,7 +70,7 @@ namespace BookingYacht.Business.Implement.Admin
             return business;
         }
 
-        public async Task<List<BusinessViewModel>> SearchBusinessed(BusinessSearchModel model=null)
+        public async Task<List<BusinessViewModel>> SearchBusinesses(BusinessSearchModel model=null)
         {
             if(model== null)
             {
@@ -108,7 +109,6 @@ namespace BookingYacht.Business.Implement.Admin
                 Phone = model.Phone,
                 Status = model.Status
             };
-            business.Status = (int)Status.ENABLE;
             _unitOfWork.BusinessRepository.Update(business);
             await _unitOfWork.SaveChangesAsync();
         }

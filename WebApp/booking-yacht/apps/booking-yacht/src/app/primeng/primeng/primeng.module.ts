@@ -22,7 +22,8 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { AccordionModule } from 'primeng/accordion';
 import { SkeletonModule } from 'primeng/skeleton';
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [],
@@ -49,7 +50,8 @@ import {SplitButtonModule} from 'primeng/splitbutton';
     AccordionModule,
     SkeletonModule,
     ToolbarModule,
-    SplitButtonModule
+    SplitButtonModule,
+    ProgressSpinnerModule,
   ],
   exports: [
     CardModule,
@@ -74,7 +76,8 @@ import {SplitButtonModule} from 'primeng/splitbutton';
     AccordionModule,
     SkeletonModule,
     ToolbarModule,
-    SplitButtonModule
+    SplitButtonModule,
+    ProgressSpinnerModule,
   ],
 })
 export class PrimengModule {}

@@ -23,6 +23,8 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using BookingYacht.Business.Implement.Agency;
+using BookingYacht.Business.Interfaces.Agency;
 
 namespace BookingYacht.API
 {
@@ -123,6 +125,10 @@ namespace BookingYacht.API
             services.AddTransient<IPlaceTypeService, PlaceTypeService>();
             services.AddTransient<ITicketTypeService, TicketTypeService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IDestinationTourService, DestinationTourService>();
+            services.AddTransient<ITourService, TourService>();
+            services.AddTransient<IDestinationService, DestinationService>();
+            
 
         }
 

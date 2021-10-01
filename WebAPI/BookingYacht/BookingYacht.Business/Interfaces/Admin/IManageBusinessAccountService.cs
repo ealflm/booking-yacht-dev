@@ -10,7 +10,7 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IManageBusinessAccountService
     {
-        Task<List<BusinessViewModel>> SearchBusinessed(BusinessSearchModel model=null);
+        Task<List<BusinessViewModel>> SearchBusinesses(BusinessSearchModel model=null);
         Task<BusinessViewModel> GetBusiness(Guid id);
         Task<Guid> AddBusiness(BusinessViewModel model);
         Task UpdateBusiness(Guid id, BusinessViewModel model);

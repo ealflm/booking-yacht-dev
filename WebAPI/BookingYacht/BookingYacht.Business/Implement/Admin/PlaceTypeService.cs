@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingYacht.Business.Enum;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Data.Interfaces;
@@ -91,7 +92,6 @@ namespace BookingYacht.Business.Implement.Admin
                 Name = model.Name,
                 Status = model.Status
             };
-            placeType.Status = (int)Status.ENABLE;
             _unitOfWork.PlaceTypeRepository.Update(placeType);
             await _unitOfWork.SaveChangesAsync();
         }
