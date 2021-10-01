@@ -10,7 +10,7 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface ITicketTypeService
     {
-        Task<List<TicketTypeViewModel>> SearchTicketTypesForAdmin(TicketTypeSearchModel model = null);
+        Task<List<TicketTypeViewModel>> SearchTicketTypes(TicketTypeSearchModel model = null);
         Task SetStatusTicketType(Guid id, TicketTypeViewModel model);
     }
 }

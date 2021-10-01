@@ -20,7 +20,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         }
 
-        public async Task<List<TicketTypeViewModel>> SearchTicketTypesForAdmin(TicketTypeSearchModel model = null)
+        public async Task<List<TicketTypeViewModel>> SearchTicketTypes(TicketTypeSearchModel model = null)
         {
             if (model == null)
             {
@@ -40,12 +40,6 @@ namespace BookingYacht.Business.Implement.Admin
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .ToListAsync();
-            foreach(TicketTypeViewModel ticketType in ticketTypes)
-            {
-                var businessTour = _unitOfWork.BusinessTourRepository.Query().Where(x => x.Id.Equals(ticketType.IdBusinessTour)).Select(x => new BusinessTour() { IdBusiness = x.IdBusiness, IdTour = x.IdTour }).FirstOrDefault();
-                ticketType.IdBusiness = businessTour.IdBusiness;
-                ticketType.IdTour = businessTour.IdTour;
-            }
             return ticketTypes;
         }
 
