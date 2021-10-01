@@ -24,7 +24,7 @@ namespace BookingYacht.API.Controllers.Agency
         public async Task<IActionResult> Get([FromQuery] DestinySearchModel model)
         {
             var businesses = await _service.SearchDestinies(model);
-            return businesses.Count > 0 ? Ok(businesses) : NotFound();
+            return Ok(businesses);
         }
 
         // GET api/<ManageBusinessAccountController>/5
