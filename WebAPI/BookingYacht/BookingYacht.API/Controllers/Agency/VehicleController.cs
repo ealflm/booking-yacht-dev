@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces;
+using BookingYacht.Business.Interfaces.Agency;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Agency
