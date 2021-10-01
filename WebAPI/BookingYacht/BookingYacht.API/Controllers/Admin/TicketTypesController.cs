@@ -30,7 +30,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TicketTypeSearchModel model)
         {
-            var ticketType = await _ticketTypeService.SearchTicketTypesForAdmin(model);
+            var ticketType = await _ticketTypeService.SearchTicketTypes(model);
             return Ok(ticketType);
         }
 
