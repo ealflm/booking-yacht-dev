@@ -16,8 +16,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using BookingYacht.Business.Implement.Agency;
-using BookingYacht.Business.Interfaces.Agency;
 
 namespace BookingYacht.API
 {
@@ -77,7 +75,7 @@ namespace BookingYacht.API
             services.AddTransient<IPlaceTypeService, PlaceTypeService>();
             services.AddTransient<ITicketTypeService, TicketTypeService>();
             services.AddTransient<IAdminService, AdminService>();
-            services.AddTransient<IDestinationService, DestionationService>();
+            services.AddTransient<IDestinationTourService, DestinationTourService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

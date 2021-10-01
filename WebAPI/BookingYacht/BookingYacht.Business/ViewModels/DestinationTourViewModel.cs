@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.Business.ViewModels
 {
-    public class TicketTypeViewModel
+    public class DestinationTourViewModel
     {
         public Guid Id { get; set; }
-        public double Price { get; set; }
+        public Guid IdPier { get; set; }
+        public Guid IdTour { get; set; }
         public int Status { get; set; }
-        public double? ServiceFeePercentage { get; set; }
-        public Guid IdBusinessTour { get; set; }
+        public int Way { get; set; }
     }
 }
