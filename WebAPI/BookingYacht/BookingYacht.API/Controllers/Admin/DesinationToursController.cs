@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Admin
 {
-    [Route("api/[controller]")]
+    [Route(ApiVer1Route)]
     [ApiController]
     [Authorize]
-    public class DesinationToursController : ControllerBase
+    public class DesinationToursController : BaseApiVer1Controller
     {
 
         private readonly IDestinationTourService _destinationTourService;
