@@ -63,7 +63,7 @@ namespace BookingYacht.Business.Implement.Agency
         {
             model ??= new DestinySearchModel();
             var destiny = await _unitOfWork.DestinationRepository.Query()
-                .Where(x => model.Id == null | x.Address.Contains(model.Address))
+                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.Status == null |x.Status == model.Status)
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
@@ -75,8 +75,6 @@ namespace BookingYacht.Business.Implement.Agency
                     IdPlaceType = x.IdPlaceType
                 })
                 .OrderBy(x => x.Address)
-                // .Skip(model.AmountItem * ((model.Page!=0)?(model.Page-1):model.Page))
-                // .Take((model.Page!=0)? model.AmountItem: _unitOfWork.DestinyRepository.Query().Count())
                 .ToListAsync();
             return destiny;
         }

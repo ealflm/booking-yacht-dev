@@ -15,9 +15,9 @@ namespace BookingYacht.API.Controllers.Agency
     {
         private readonly IDestinationService _service;
 
-        public DestinationsController(IDestinationService manageBusinessAccountService)
+        public DestinationsController(IDestinationService service)
         {
-            _service = manageBusinessAccountService;
+            _service = service;
         }
 
         [HttpGet]
