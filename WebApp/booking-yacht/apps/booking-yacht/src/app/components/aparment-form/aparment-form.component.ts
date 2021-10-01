@@ -64,7 +64,9 @@ export class AparmentFormComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmit = true;
-    if (this.apartmentForm.invalid) return;
+    if (this.form.invalid) {
+      return;
+    }
     if (!this.editMode) {
       const apartment: any = {
         name: this.apartmentForm.name.value,
