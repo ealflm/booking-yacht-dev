@@ -29,6 +29,7 @@ export class BusinessAccountService {
     id: string,
     businessAccount: BusinessAccount
   ): Observable<any> {
+    // console.log(businessAccount);
     return this.http.put<BusinessAccount>(
       `${this.apiURLBusiness}/${id}`,
       businessAccount

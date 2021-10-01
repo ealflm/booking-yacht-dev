@@ -16,8 +16,8 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   {
-    path: '/manage-place-type',
-    title: 'Manage place',
+    path: '/apartments',
+    title: 'Apartments',
     icon: 'ni-planet text-blue',
     class: '',
   },

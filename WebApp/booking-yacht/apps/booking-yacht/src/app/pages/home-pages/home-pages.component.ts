@@ -61,7 +61,7 @@ export class HomePagesComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Successfull',
-            detail: 'Delete successfull',
+            detail: 'Update successfull',
           });
           this.getBusinessAccount();
         });
