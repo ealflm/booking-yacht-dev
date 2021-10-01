@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
-using BookingYacht.Data.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingYacht.Business.Implement
+namespace BookingYacht.Business.Implement.Agency
 {
     public class AgencyService : BaseService, IAgencyService
     {
         public AgencyService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
-        private static Expression<Func<Agency, AgencyModel>> ToAgencyModel()
+        private static Expression<Func<Data.Models.Agency, AgencyModel>> ToAgencyModel()
         {
             return x => new AgencyModel
             {
@@ -30,7 +29,7 @@ namespace BookingYacht.Business.Implement
             };
         }
         
-        private static void ToAgency(AgencyModel model, Agency agency)
+        private static void ToAgency(AgencyModel model, Data.Models.Agency agency)
         {
             agency.Name = model.Name;
             agency.Address = model.Address;
@@ -80,7 +79,7 @@ namespace BookingYacht.Business.Implement
             if (byId == null)
             {
                 
-                var temp = new Agency()
+                var temp = new Data.Models.Agency()
                 {
                     Name = model.Name,
                     Address = model.Address,

@@ -4,7 +4,7 @@ using BookingYacht.Business.Interfaces;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingYacht.API.Controllers
+namespace BookingYacht.API.Controllers.Agency
 {
     [Route("api/[controller]")]
     [ApiController]

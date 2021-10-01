@@ -9,10 +9,9 @@ using BookingYacht.Data.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingYacht.Business.Implement
+namespace BookingYacht.Business.Implement.Agency
 {
-
-    class Mapper
+    internal static class Mapper
     {
         public static Vehicle MappingToVehicle(VehicleModel model)
         {
