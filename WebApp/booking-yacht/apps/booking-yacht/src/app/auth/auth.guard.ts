@@ -28,8 +28,8 @@ export class AuthGuardService implements CanActivate {
     const token = this.localStorage.getToken();
     if (token) {
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
-      console.log(tokenDecode.exp);
-      console.log(this._tokenExpired(tokenDecode.exp));
+      // console.log(tokenDecode.exp);
+      // console.log(this._tokenExpired(tokenDecode.exp));
       if (!this._tokenExpired(tokenDecode.exp)) {
         return true;
       } else {
