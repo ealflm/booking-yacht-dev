@@ -25,7 +25,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BusinessSearchModel model)
         {
-            var businesses = await _manageBusinessAccountService.SearchBusinessed(model);
+            var businesses = await _manageBusinessAccountService.SearchBusinesses(model);
             return Ok(businesses);
         }
 

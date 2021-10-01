@@ -91,7 +91,6 @@ namespace BookingYacht.Business.Implement.Admin
                 Name = model.Name,
                 Status = model.Status
             };
-            placeType.Status = (int)Status.ENABLE;
             _unitOfWork.PlaceTypeRepository.Update(placeType);
             await _unitOfWork.SaveChangesAsync();
         }
