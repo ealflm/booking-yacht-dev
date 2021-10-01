@@ -1,5 +1,4 @@
-import { AccountBusinessFormComponent } from './pages/home-pages/account-business-form/account-business-form.component';
-import { ManagePlaceComponent } from './pages/manage-place/manage-place.component';
+import { AccountBusinessFormComponent } from './components/account-business-form/account-business-form.component';
 import { LoginComponent } from './auth/login/login.component';
 
 import { NgModule } from '@angular/core';
@@ -8,6 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages/pages.component';
 import { AuthGuardService } from './auth/auth.guard';
 import { HomePagesComponent } from './pages/home-pages/home-pages.component';
+import { ApartmentsComponent } from './pages/apartments/apartments.component';
+import { AparmentFormComponent } from './components/aparment-form/aparment-form.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,9 @@ const routes: Routes = [
         path: 'dashboard/business-account-form/:id',
         component: AccountBusinessFormComponent,
       },
-      { path: 'manage-place-type', component: ManagePlaceComponent },
+      { path: 'apartments', component: ApartmentsComponent },
+      { path: 'apartments/form', component: AparmentFormComponent },
+      { path: 'apartments/form/:id', component: AparmentFormComponent },
     ],
   },
 ];

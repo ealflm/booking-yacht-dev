@@ -1,3 +1,4 @@
+import { AparmentFormComponent } from './components/aparment-form/aparment-form.component';
 import { AuthModule } from './auth/auth.module';
 import { PrimengModule } from './primeng/primeng/primeng.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,18 +19,19 @@ import { CommonModule } from '@angular/common';
 import { ComponentsModule } from './components/components.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { JwtInterceptor } from './auth/jwt.interceptor';
-import { AccountBusinessFormComponent } from './pages/home-pages/account-business-form/account-business-form.component';
-import { ManagePlaceComponent } from './pages/manage-place/manage-place.component';
+import { AccountBusinessFormComponent } from './components/account-business-form/account-business-form.component';
 import { PagesComponent } from './pages/pages.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ApartmentsComponent } from './pages/apartments/apartments.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePagesComponent,
     PagesComponent,
     LoginComponent,
-    ManagePlaceComponent,
     AccountBusinessFormComponent,
+    ApartmentsComponent,
+    AparmentFormComponent,
   ],
   imports: [
     // MaterialModule,

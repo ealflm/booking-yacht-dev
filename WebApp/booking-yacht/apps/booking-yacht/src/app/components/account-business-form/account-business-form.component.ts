@@ -1,8 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusinessAccount } from './../../../models/businessAcount';
+import { BusinessAccount } from '../../models/businessAcount';
 import { MessageService } from 'primeng/api';
-import { BusinessAccountService } from './../../../services/business-account.service';
-import { BUSINESS_STATUS } from './../../../constants/BUSINESS_STATUS';
+import { BusinessAccountService } from '../../services/business-account.service';
+import { BUSINESS_STATUS } from '../../constants/BUSINESS_STATUS';
 import { Component, OnInit } from '@angular/core';
 import {
   EmailValidator,
@@ -39,10 +39,10 @@ export class AccountBusinessFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._initBusinessForm();
-
-    this._mapBusinessStatus();
     this._checkEditMode();
+    this._initBusinessForm();
+    this._mapBusinessStatus();
+
     setTimeout(() => {
       this.loading = false;
     }, 500);
@@ -68,7 +68,7 @@ export class AccountBusinessFormComponent implements OnInit {
     });
   }
 
-  _mapBusinessStatus() {
+  private _mapBusinessStatus() {
     this.businessStatus = Object.keys(BUSINESS_STATUS).map((key) => {
       return {
         id: key,
@@ -144,9 +144,8 @@ export class AccountBusinessFormComponent implements OnInit {
             this.businessForm.phone.setValue(res.phone);
             this.businessForm.email.setValue(res.emailAddress);
             this.businessForm.address.setValue(res.address);
-            this.businessForm.status.setValue(res.status);
+            this.businessForm.status.setValue(res.status?.toString());
             this.selectedStatus = res.status;
-            // console.log(this.selectedStatus);
           });
       }
     });

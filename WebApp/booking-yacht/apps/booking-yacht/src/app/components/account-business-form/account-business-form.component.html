@@ -52,6 +52,22 @@
                 >phone is required</small
               >
             </div>
+            <div class="p-field col-4">
+              <label for="status">Status</label>
+              <p-dropdown
+                optionLabel="name"
+                optionValue="id"
+                [options]="businessStatus"
+                formControlName="status"
+                placeholder="Select Status"
+                [showClear]="true"
+              ></p-dropdown>
+              <small
+                *ngIf="businessForm.status.invalid && isSubmit"
+                class="p-error"
+                >Status is required</small
+              >
+            </div>
           </div>
 
           <div class="p-fluid formgrid grid mt-5">
@@ -70,7 +86,7 @@
                 >Email is required</small
               >
             </div>
-            <div class="p-field col-4">
+            <div class="p-field col-8">
               <label for="address">Address</label>
               <input
                 id="address"
@@ -82,23 +98,6 @@
                 *ngIf="businessForm.address.invalid && isSubmit"
                 class="p-error"
                 >Address is required</small
-              >
-            </div>
-            <div class="p-field col-4">
-              <label for="status">Status</label>
-              <p-dropdown
-                optionLabel="name"
-                optionValue="id"
-                [options]="businessStatus"
-                formControlName="status"
-                [(ngModel)]="selectedStatus"
-                placeholder="Select Status"
-                [showClear]="true"
-              ></p-dropdown>
-              <small
-                *ngIf="businessForm.status.invalid && isSubmit"
-                class="p-error"
-                >Status is required</small
               >
             </div>
           </div>
