@@ -23,9 +23,10 @@ namespace BookingYacht.Business.Implement.Admin
             var destinationTour = new DestinationTour()
             {
                 Id = model.Id,
-                IdPier= model.IdPier,
-                IdTour= model.IdTour,
-                Status = model.Status
+                IdPier = model.IdPier,
+                IdTour = model.IdTour,
+                Status = model.Status,
+                Way = model.Way
             };
             destinationTour.Status = (int)Status.ENABLE;
             await _unitOfWork.DestinationTourRepository.Add(destinationTour);
@@ -42,7 +43,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdPier = x.IdPier,
                     IdTour = x.IdTour,
-                    Status = x.Status
+                    Status = x.Status,
+                    Way=x.Way
                 }).FirstOrDefaultAsync();
             destinationTour.Status = (int)Status.DISABLE;
             _unitOfWork.DestinationTourRepository.Update(destinationTour);
@@ -58,7 +60,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdPier = x.IdPier,
                     IdTour = x.IdTour,
-                    Status = x.Status
+                    Status = x.Status,
+                    Way=x.Way
                 }).FirstOrDefaultAsync();
             return destinationTour;
         }
@@ -73,12 +76,14 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdPier == null | x.IdPier.Equals(model.IdPier))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
+                .Where(x => model.Way == 0 | x.Way == model.Way)
                 .Select(x => new DestinationTourViewModel()
                 {
                     Id = x.Id,
                     IdPier = x.IdPier,
                     IdTour = x.IdTour,
-                    Status = x.Status
+                    Status = x.Status,
+                    Way= x.Way
                 })
                 .OrderBy(x => x.Id)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
@@ -94,7 +99,8 @@ namespace BookingYacht.Business.Implement.Admin
                 Id = id,
                 IdPier = model.IdPier,
                 IdTour = model.IdTour,
-                Status = model.Status
+                Status = model.Status,
+                Way= model.Way
             };
             _unitOfWork.DestinationTourRepository.Update(destinationTour);
             await _unitOfWork.SaveChangesAsync();

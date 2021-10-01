@@ -12,5 +12,6 @@ namespace BookingYacht.Business.ViewModels
         public Guid IdPier { get; set; }
         public Guid IdTour { get; set; }
         public int Status { get; set; }
+        public int Way { get; set; }
     }
 }
