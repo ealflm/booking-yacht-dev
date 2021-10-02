@@ -1,0 +1,107 @@
+<p-toast position="top-right"></p-toast>
+<div class="admin-page p-3">
+  <p-card
+    [header]="editMode ? 'Update Tour' : 'New Tour'"
+    [subheader]="editMode ? '' : 'Create A new Tour'"
+  >
+    <p-toolbar>
+      <div class="p-toolbar-group-left"></div>
+      <div class="p-toolbar-group-right">
+        <p-button
+          [label]="editMode ? 'Update' : 'Save'"
+          icon="pi pi-check"
+          [styleClass]="
+            editMode ? 'p-button-warning mr-2' : 'p-button-info mr-2'
+          "
+          (click)="onSubmit()"
+        ></p-button>
+
+        <p-button
+          icon="pi pi-times"
+          styleClass="p-button-danger"
+          (click)="onCancle()"
+        ></p-button>
+      </div>
+    </p-toolbar>
+
+    <div class="p-grid" *ngIf="!loading">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid formgrid grid">
+            <div class="p-field col-4" [class]="editMode ? 'hidden' : ''">
+              <label for="id">ID</label>
+              <input id="id" type="text" pInputText formControlName="id" />
+            </div>
+            <div class="p-field col-8">
+              <label for="tittle">Tittle</label>
+
+              <input
+                id="tittle"
+                formControlName="tittle"
+                type="text"
+                pInputText
+              />
+              <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
+                >Tittle is required</small
+              >
+            </div>
+            <div class="p-field col-4" *ngIf="editMode">
+              <label for="status">Status</label>
+              <p-dropdown
+                optionLabel="name"
+                optionValue="id"
+                [options]="status"
+                placeholder="Select Status"
+                formControlName="status"
+                [showClear]="true"
+              ></p-dropdown>
+              <small *ngIf="tourForm.status.invalid && isSubmit" class="p-error"
+                >Status is required</small
+              >
+            </div>
+            <div class="p-field col-12 mt-3">
+              <label for="status">Descriptions</label>
+              <p-editor
+                formControlName="descriptions"
+                [style]="{ height: '320px' }"
+              ></p-editor>
+
+              <small
+                *ngIf="tourForm.descriptions.invalid && isSubmit"
+                class="p-error"
+                >Descriptions is required</small
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="p-grid" *ngIf="loading">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid formgrid grid">
+            <div class="p-field col-4" [class]="editMode ? 'hidden' : ''">
+              <label for="id">ID</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-8">
+              <label for="name">Tittle</label>
+
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-4" *ngIf="editMode">
+              <label for="status">Status</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-12">
+              <label for="status">Descriptions</label>
+              <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+              <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+              <p-skeleton height=".5rem"></p-skeleton>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

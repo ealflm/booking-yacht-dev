@@ -38,14 +38,14 @@ export class AuthService {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const accessToken = credential?.accessToken;
         // The signed-in user info.
-        console.log();
+        // console.log(result);
 
         this.loginWithGoogle(result._tokenResponse.idToken).subscribe((res) => {
           // console.log(res.data);
           if (res.data !== undefined) {
             this.localStorage.setToken(res.data);
-            // console.log(res.data);
             this.router.navigate(['dashboard']);
+            // console.log(res.data);
           } else {
             this.messageService.add({
               severity: 'error',

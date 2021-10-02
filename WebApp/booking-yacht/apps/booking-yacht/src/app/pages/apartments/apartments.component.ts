@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ApartmentsService } from './../../services/apartments.service';
 import { Apartment } from './../../models/apartment_models';
-import { APARTMENT_STATUS } from './../../constants/BUSINESS_STATUS';
+import { APARTMENT_STATUS } from '../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 import { ThrowStmt } from '@angular/compiler';
 import { pipe } from 'rxjs';
