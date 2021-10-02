@@ -26,7 +26,7 @@ export class AuthGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
     const token = this.localStorage.getToken();
-    if (token) {
+    if (token && token != null) {
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
       // console.log(tokenDecode.exp);
       // console.log(this._tokenExpired(tokenDecode.exp));

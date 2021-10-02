@@ -8,10 +8,10 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root',
 })
 export class ApartmentsService {
-  apiURL = environment.apiURL + 'PlaceTypes';
+  apiURL = environment.apiURL + '/api/v1/place-types';
   constructor(private http: HttpClient) {}
-  getApartments(): Observable<Apartment[]> {
-    return this.http.get<Apartment[]>(`${this.apiURL}`);
+  getApartments(): Observable<any> {
+    return this.http.get<any>(`${this.apiURL}`);
   }
   getApartment(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiURL}/${id}`);

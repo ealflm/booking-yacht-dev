@@ -7,12 +7,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class BusinessAccountService {
-  private apiURLBusiness = environment.apiURL + 'BusinessAccounts';
+  private apiURLBusiness = environment.apiURL + '/api/v1/business-accounts';
 
   constructor(private http: HttpClient) {}
 
-  getBusinessAccount(): Observable<BusinessAccount[]> {
-    return this.http.get<BusinessAccount[]>(this.apiURLBusiness);
+  getBusinessAccount(): Observable<any> {
+    return this.http.get<any>(this.apiURLBusiness);
   }
   createBusinessAccount(
     businessAccount: BusinessAccount
@@ -22,8 +22,8 @@ export class BusinessAccountService {
       businessAccount
     );
   }
-  getBusinessAccountByID(id: string): Observable<BusinessAccount> {
-    return this.http.get<BusinessAccount>(`${this.apiURLBusiness}/${id}`);
+  getBusinessAccountByID(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiURLBusiness}/${id}`);
   }
   updateBusinessAccount(
     id: string,

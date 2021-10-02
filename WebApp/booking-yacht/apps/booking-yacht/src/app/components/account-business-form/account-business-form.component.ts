@@ -140,11 +140,11 @@ export class AccountBusinessFormComponent implements OnInit {
         this.businessAccountService
           .getBusinessAccountByID(this.currentUser)
           .subscribe((res) => {
-            this.businessForm.name.setValue(res.name);
-            this.businessForm.phone.setValue(res.phone);
-            this.businessForm.email.setValue(res.emailAddress);
-            this.businessForm.address.setValue(res.address);
-            this.businessForm.status.setValue(res.status?.toString());
+            this.businessForm.name.setValue(res.data.name);
+            this.businessForm.phone.setValue(res.data.phone);
+            this.businessForm.email.setValue(res.data.emailAddress);
+            this.businessForm.address.setValue(res.data.address);
+            this.businessForm.status.setValue(res.data.status?.toString());
             this.selectedStatus = res.status;
           });
       }

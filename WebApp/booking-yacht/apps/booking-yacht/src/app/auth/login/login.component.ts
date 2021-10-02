@@ -53,18 +53,32 @@ export class LoginComponent implements OnInit {
       this.loading = false;
     }, 1000);
     this.isSubmit = true;
+    if (this.userForm.invalid) {
+      return;
+    }
+
     this.userService
       .signIn(this.usersForm.email.value, this.usersForm.password.value)
       .subscribe(
         (res) => {
-          this.localStorageService.setToken(res);
-          this.router.navigate(['dashboard']);
+          if (res.data !== undefined) {
+            this.localStorageService.setToken(res.data);
+            this.router.navigate(['dashboard']);
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: res.error,
+            });
+          }
         },
         (error: HttpErrorResponse) => {
-          if (error.status === 401) {
+          console.log(error);
+          if (error.status === 400) {
             this.messageService.add({
               severity: 'error',
               summary: 'email or password incorect',
+              detail: error.message,
             });
           }
         }
