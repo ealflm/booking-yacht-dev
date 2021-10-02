@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './localstorage.service';
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private localStorage: LocalStorageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private messageService: MessageService
   ) {}
 
   get isLoggedIn(): boolean {
@@ -39,9 +41,18 @@ export class AuthService {
         console.log();
 
         this.loginWithGoogle(result._tokenResponse.idToken).subscribe((res) => {
-          this.localStorage.setToken(res.data);
           // console.log(res.data);
-          this.router.navigate(['dashboard']);
+          if (res.data !== undefined) {
+            this.localStorage.setToken(res.data);
+            // console.log(res.data);
+            this.router.navigate(['dashboard']);
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: res.error,
+            });
+          }
 
           // this.userData = result.user;
         });
