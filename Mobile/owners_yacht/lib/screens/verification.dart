@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/models/yacht.dart';
+import 'package:owners_yacht/widgets/app-bar.dart';
 import 'package:owners_yacht/widgets/app-drawer.dart';
 import 'package:owners_yacht/widgets/verification-card.dart';
 
@@ -21,7 +22,7 @@ class Verification extends StatelessWidget {
       title: 'Tour du lich 2',
       description: 'Tau du lich 1Tau du lich 2',
       price: 59.99,
-        status: 'Khởi hành lúc 12h',
+      status: 'Khởi hành lúc 12h',
       imageUrl:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzjIwk8J6HySnA4Lbq4GgKv_og10cX0fBVbg&usqp=CAU',
     ),
@@ -29,16 +30,15 @@ class Verification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Verification'),
-        backgroundColor: Colors.black,
+      appBar: NavBar(
+        title: 'Verfication',
       ),
       drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemBuilder: (ctx, i) =>
-              VerificationCard(_list[i].title, _list[i].status, _list[i].imageUrl),
+          itemBuilder: (ctx, i) => VerificationCard(
+              _list[i].title, _list[i].status, _list[i].imageUrl),
           itemCount: _list.length,
         ),
       ),

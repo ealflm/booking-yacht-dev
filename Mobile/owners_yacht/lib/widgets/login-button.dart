@@ -20,7 +20,7 @@ class LoginGoogleButton extends StatelessWidget {
                       side: BorderSide(color: Colors.white)))),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                context, MaterialPageRoute(builder: (context) => Home()));
           },
           icon: FaIcon(FontAwesomeIcons.google),
           label: const Text('Login with Google'),

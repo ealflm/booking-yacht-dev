@@ -29,8 +29,8 @@ class AppDrawer extends StatelessWidget {
                 leading: Icon(Icons.home),
                 title: Text('Home'),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
                 }),
             Divider(),
             ListTile(
@@ -63,8 +63,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.checklist_rtl),
               title: Text('Verification'),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Verification()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Verification()));
               },
             ),
             Divider(),
