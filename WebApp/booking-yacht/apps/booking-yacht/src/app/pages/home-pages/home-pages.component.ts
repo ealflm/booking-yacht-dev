@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BUSINESS_STATUS } from './../../constants/BUSINESS_STATUS';
@@ -31,10 +33,9 @@ export class HomePagesComponent implements OnInit {
   }
 
   private getBusinessAccount() {
-    this.businessService.getBusinessAccount().subscribe((responseData) => {
-      this.businessAcount = responseData;
-      // console.log(this.businessAcount);
-
+    this.businessService.getBusinessAccount().subscribe((res) => {
+      // console.log(res);
+      this.businessAcount = res.data;
       setTimeout(() => {
         this.loading = false;
       }, 1000);

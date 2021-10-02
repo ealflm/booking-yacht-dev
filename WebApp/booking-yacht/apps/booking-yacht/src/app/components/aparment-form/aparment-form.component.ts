@@ -48,8 +48,8 @@ export class AparmentFormComponent implements OnInit {
         this.apartmentService
           .getApartment(this.currentUser)
           .subscribe((res) => {
-            this.apartmentForm.name.setValue(res.name);
-            this.apartmentForm.status.setValue(res.status.toString());
+            this.apartmentForm.name.setValue(res.data.name);
+            this.apartmentForm.status.setValue(res.data.status.toString());
           });
       }
     });

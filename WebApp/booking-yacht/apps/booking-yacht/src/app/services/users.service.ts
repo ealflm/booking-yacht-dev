@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class UsersService {
-  apiURL = environment.apiURL + 'Admins/login';
+  apiURL = environment.apiURL + '/api/v1/admins/login';
 
   constructor(private http: HttpClient) {}
 
@@ -16,15 +16,10 @@ export class UsersService {
   }
 
   signIn(email: string, password: string): Observable<any> {
-    return this.http.post(
-      this.apiURL,
-      {
-        emailAddress: email,
-        password: password,
-        token: 'string',
-      },
-      { responseType: 'text' }
-    );
+    return this.http.post(this.apiURL, {
+      emailAddress: email,
+      password: password,
+    });
   }
   handleError(error: HttpErrorResponse) {
     return throwError(error);
