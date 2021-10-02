@@ -27,7 +27,6 @@ namespace BookingYacht.Business.Implement.Agency
                 .Where(x => model.Phone == null | x.Phone.Equals(model.Phone))
                 .Where(x => model.EmailAddress == null | x.EmailAddress.Equals(model.EmailAddress))
                 .Where(x => model.Status == null | x.Status == model.Status)
-                .Where(x => model.Token == null | x.Token.Equals(model.Token))
                 .Select(x => new AgencyViewModels
                 {
                     Id = x.Id,
@@ -36,7 +35,6 @@ namespace BookingYacht.Business.Implement.Agency
                     Name = x.Name,
                     Phone = x.Phone,
                     Status = x.Status,
-                    Token = x.Token
                 })
                 .ToListAsync();
             return agency;
@@ -54,7 +52,6 @@ namespace BookingYacht.Business.Implement.Agency
                     Name = x.Name,
                     Phone = x.Phone,
                     Status = x.Status,
-                    Token = x.Token
                 })
                 .FirstOrDefaultAsync();
             return agency;
@@ -69,7 +66,6 @@ namespace BookingYacht.Business.Implement.Agency
                 Name = model.Name,
                 Phone = model.Phone,
                 Status = (int) Status.ENABLE,
-                Token = model.Token
             };
             await _unitOfWork.AgencyRepository.Add(agency);
             await _unitOfWork.SaveChangesAsync();
