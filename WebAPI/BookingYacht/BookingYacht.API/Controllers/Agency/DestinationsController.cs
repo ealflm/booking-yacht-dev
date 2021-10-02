@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Agency;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,6 +12,7 @@ namespace BookingYacht.API.Controllers.Agency
     
     [Route(ApiVer2Route)]
     [ApiController]
+    [Authorize]
     public class DestinationsController : BaseApiVer2Controller
     {
         private readonly IDestinationService _service;

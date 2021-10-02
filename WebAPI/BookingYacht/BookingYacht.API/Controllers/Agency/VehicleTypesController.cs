@@ -1,17 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Xml;
-using BookingYacht.Business.Interfaces.Agency;
+﻿using BookingYacht.Business.Interfaces.Agency;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Agency
 {
-    [Route("api/[controller]")]
+    [Route(ApiVer2Route)]
     [ApiController]
-    public class VehicleTypesController : ControllerBase
+    [Authorize]
+    public class VehicleTypesController : BaseApiVer2Controller
     {
         private readonly IVehicleTypeService _service;
         public VehicleTypesController(IVehicleTypeService service)
