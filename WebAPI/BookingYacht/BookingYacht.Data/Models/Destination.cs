@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -15,7 +14,6 @@ namespace BookingYacht.Data.Models
 
         public Guid Id { get; set; }
         public string Address { get; set; }
-        
         public Guid IdPlaceType { get; set; }
         public int Status { get; set; }
 

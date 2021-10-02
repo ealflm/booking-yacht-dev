@@ -1,13 +1,13 @@
 ﻿using BookingYacht.Business.Interfaces.Admin;
-using BookingYacht.Business.ViewModels;
+using BookingYacht.Business.SearchModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Admin
 {
-    [Route("api/[controller]")]
+    [Route(ApiVer1Route)]
     [ApiController]
-    public class AdminsController : ControllerBase
+    public class AdminsController : BaseApiVer1Controller
     {
         private readonly IAdminService _adminService;
 
@@ -17,16 +17,42 @@ namespace BookingYacht.API.Controllers.Admin
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] AdminViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginSearchModel model)
         {
             var result = await _adminService.Login(model);
 
-            if (string.IsNullOrEmpty(result))
+            if (result.Data == null)
             {
-                return Unauthorized();
+                return Fail(result.Message);
             }
 
-            return Ok(result);
+            return Success(result.Data);
         }
+
+        [HttpPost("open-login")]
+        public async Task<IActionResult> OpenLogin([FromBody] OpenLoginSearchModel model)
+        {
+            var result = await _adminService.OpenLogin(model);
+
+            if (result.Data == null)
+            {
+                return Fail(result.Message);
+            }
+
+            return Success(result.Data);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterSearchModel model)
+        {
+            var result = await _adminService.Register(model);
+
+            if (result == null)
+            {
+                return Fail("This email address has already been registered");
+            }
+            return Success(result);
+        }
+
     }
 }

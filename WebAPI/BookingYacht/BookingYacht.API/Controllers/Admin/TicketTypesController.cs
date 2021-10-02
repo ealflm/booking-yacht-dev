@@ -1,22 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BookingYacht.Business.Interfaces.Admin;
-using BookingYacht.Business.ViewModels;
+﻿using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
+using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookingYacht.API.Controllers.Admin
 {
 
-    [Route("api/[controller]")]
+    [Route(ApiVer1Route)]
     [ApiController]
     [Authorize]
-    public class TicketTypesController : ControllerBase
+    public class TicketTypesController : BaseApiVer1Controller
     {
         private readonly ITicketTypeService _ticketTypeService;
 
