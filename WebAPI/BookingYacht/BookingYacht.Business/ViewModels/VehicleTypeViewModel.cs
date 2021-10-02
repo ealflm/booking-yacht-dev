@@ -1,4 +1,6 @@
-﻿namespace BookingYacht.Business.ViewModels
+﻿using System;
+
+namespace BookingYacht.Business.ViewModels
 {
     public class VehicleTypeViewModel
     {
