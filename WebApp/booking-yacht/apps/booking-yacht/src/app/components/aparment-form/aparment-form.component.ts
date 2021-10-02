@@ -1,7 +1,7 @@
 import { Apartment } from './../../models/apartment_models';
 import { ActivatedRoute } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
-import { APARTMENT_STATUS } from './../../constants/BUSINESS_STATUS';
+import { APARTMENT_STATUS } from '../../constants/STATUS';
 import { ApartmentsService } from './../../services/apartments.service';
 import { MessageService } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

@@ -50,3 +50,17 @@ export const APARTMENT_STATUS: any = {
     color: 'danger',
   },
 };
+export const TOUR_STATUS: any = {
+  0: {
+    lable: 'WAITING',
+    color: 'Primary',
+  },
+  1: {
+    lable: 'ACCEPTED',
+    color: 'success',
+  },
+  2: {
+    lable: 'REJECT',
+    color: 'danger',
+  },
+};

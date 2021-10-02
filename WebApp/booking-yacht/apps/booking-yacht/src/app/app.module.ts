@@ -1,3 +1,4 @@
+import { TourFormComponent } from './components/tour-form/tour-form.component';
 import { AparmentFormComponent } from './components/aparment-form/aparment-form.component';
 import { AuthModule } from './auth/auth.module';
 import { PrimengModule } from './primeng/primeng/primeng.module';
@@ -24,6 +25,7 @@ import { PagesComponent } from './pages/pages.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ApartmentsComponent } from './pages/apartments/apartments.component';
 import { DestinationTourComponent } from './pages/destination-tour/destination-tour.component';
+import { ToursComponent } from './pages/tours/tours.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,8 @@ import { DestinationTourComponent } from './pages/destination-tour/destination-t
     ApartmentsComponent,
     AparmentFormComponent,
     DestinationTourComponent,
+    ToursComponent,
+    TourFormComponent,
   ],
   imports: [
     // MaterialModule,

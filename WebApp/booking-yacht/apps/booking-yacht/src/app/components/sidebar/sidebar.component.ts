@@ -22,24 +22,27 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   {
-    path: '/desination-tour',
+    path: '/desination-tours',
     title: 'Desinations',
     icon: 'ni-app text-red',
     class: '',
   },
   {
-    path: '/user-profile',
-    title: 'User profile',
-    icon: 'ni-single-02 text-yellow',
+    path: '/tours',
+    title: 'Tours',
+    icon: 'ni-send text-yellow',
     class: '',
   },
-  { path: '/maps', title: 'Maps', icon: 'ni-pin-3 text-orange', class: '' },
-
-  { path: '/login', title: 'Login', icon: 'ni-key-25 text-info', class: '' },
   {
-    path: '/register',
-    title: 'Register',
-    icon: 'ni-circle-08 text-pink',
+    path: '/vehicle-types',
+    title: 'Vehicle Types',
+    icon: 'ni-delivery-fast text-orange',
+    class: '',
+  },
+  {
+    path: '/ticket-types',
+    title: 'Ticket Types',
+    icon: 'ni-paper-diploma text-info',
     class: '',
   },
 ];

@@ -24,6 +24,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DataViewModule } from 'primeng/dataview';
 
 @NgModule({
   declarations: [],
@@ -52,6 +53,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToolbarModule,
     SplitButtonModule,
     ProgressSpinnerModule,
+    DataViewModule,
   ],
   exports: [
     CardModule,
@@ -78,6 +80,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToolbarModule,
     SplitButtonModule,
     ProgressSpinnerModule,
+    DataViewModule,
   ],
 })
 export class PrimengModule {}

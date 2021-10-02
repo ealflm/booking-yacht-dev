@@ -1,3 +1,5 @@
+import { TourFormComponent } from './components/tour-form/tour-form.component';
+import { ToursComponent } from './pages/tours/tours.component';
 import { AccountBusinessFormComponent } from './components/account-business-form/account-business-form.component';
 import { LoginComponent } from './auth/login/login.component';
 
@@ -33,6 +35,9 @@ const routes: Routes = [
       { path: 'apartments', component: ApartmentsComponent },
       { path: 'apartments/form', component: AparmentFormComponent },
       { path: 'apartments/form/:id', component: AparmentFormComponent },
+      { path: 'tours', component: ToursComponent },
+      { path: 'tours/form', component: TourFormComponent },
+      { path: 'tours/form/:id', component: TourFormComponent },
     ],
   },
 ];

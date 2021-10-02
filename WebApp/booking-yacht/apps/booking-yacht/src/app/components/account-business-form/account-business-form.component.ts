@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessAccount } from '../../models/businessAcount';
 import { MessageService } from 'primeng/api';
 import { BusinessAccountService } from '../../services/business-account.service';
-import { BUSINESS_STATUS } from '../../constants/BUSINESS_STATUS';
+import { BUSINESS_STATUS } from '../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 import {
   EmailValidator,
