@@ -24,7 +24,7 @@ namespace BookingYacht.API.Controllers.Agency
         public async Task<IActionResult> Get([FromQuery] AgencySearchModel model)
         {
             var agencies = await _service.SearchAgencies(model);
-            return Ok(agencies);
+            return Success(agencies);
         }
 
         [HttpGet("{id:guid}")]
@@ -32,28 +32,28 @@ namespace BookingYacht.API.Controllers.Agency
         {
             var agencies = await _service.GetAgency(id);
            
-            return Ok(agencies);
+            return Success(agencies);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AgencyViewModels model)
         {
             var id = await _service.AddAgency(model);
-            return Ok(id);
+            return Success(id);
         }
 
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] AgencyViewModels model)
         {
             await _service.UpdateAgency(id, model);
-            return Ok();
+            return Success();
         }
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _service.DeleteAgency(id);
-            return Ok();
+            return Success();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get([FromQuery] TicketTypeSearchModel model)
         {
             var ticketType = await _ticketTypeService.SearchTicketTypes(model);
-            return Ok(ticketType);
+            return Success(ticketType);
         }
 
         [HttpGet("{id}")]
@@ -37,7 +37,7 @@ namespace BookingYacht.API.Controllers.Admin
         {
             var ticketType = await _ticketTypeService.GetTicketType(id);
 
-            return Ok(ticketType);
+            return Success(ticketType);
         }
 
         // PUT api/<TicketTypesController>/5
@@ -45,7 +45,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Put(Guid id, [FromBody] TicketTypeViewModel model)
         {
             await _ticketTypeService.SetStatusTicketType(id, model);
-            return Ok();
+            return Success();
         }
     }
 }

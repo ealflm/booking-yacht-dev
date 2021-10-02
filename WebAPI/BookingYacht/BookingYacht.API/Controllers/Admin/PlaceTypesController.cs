@@ -27,7 +27,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get([FromQuery] PlaceTypeSearchModel model)
         {
             var placeType = await _placeTypeService.SearchPlaceTypes(model);
-            return Ok(placeType);
+            return Success(placeType);
         }
 
         // GET api/<PlaceTypesController>/5
@@ -36,7 +36,7 @@ namespace BookingYacht.API.Controllers.Admin
         {
             var placType = await _placeTypeService.GetPlaceType(id);
 
-            return Ok(placType);
+            return Success(placType);
         }
 
         // POST api/<PlaceTypesController>
@@ -44,7 +44,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Post([FromBody] PlaceTypeViewModel model)
         {
             var id = await _placeTypeService.AddPlaceType(model);
-            return Ok(id);
+            return Success(id);
         }
 
         // PUT api/<PlaceTypesController>/5
@@ -52,7 +52,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Put(Guid id, [FromBody] PlaceTypeViewModel model)
         {
             await _placeTypeService.UpdatePlaceType(id, model);
-            return Ok();
+            return Success();
         }
 
         // DELETE api/<PlaceTypesController>/5
@@ -60,7 +60,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Delete(Guid id)
         {
             await _placeTypeService.DeletePlaceType(id);
-            return Ok();
+            return Success();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get([FromQuery] BusinessSearchModel model)
         {
             var businesses = await _manageBusinessAccountService.SearchBusinesses(model);
-            return Ok(businesses);
+            return Success(businesses);
         }
 
         // GET api/<ManageBusinessAccountController>/5
@@ -34,7 +34,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
             var business = await _manageBusinessAccountService.GetBusiness(id);
-            return Ok(business);
+            return Success(business);
         }
 
         // POST api/<ManageBusinessAccountController>
@@ -42,7 +42,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Post([FromBody] BusinessViewModel model)
         {
             var id = await _manageBusinessAccountService.AddBusiness(model);
-            return Ok(id);
+            return Success(id);
         }
 
 
@@ -52,7 +52,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Put(Guid id, [FromBody] BusinessViewModel model)
         {
             await _manageBusinessAccountService.UpdateBusiness(id, model);
-            return Ok();
+            return Success();
         }
 
         // DELETE api/<ManageBusinessAccountController>/5
@@ -60,7 +60,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Delete(Guid id)
         {
             await _manageBusinessAccountService.DeleteBusiness(id);
-            return Ok();
+            return Success();
         }
     }
 }

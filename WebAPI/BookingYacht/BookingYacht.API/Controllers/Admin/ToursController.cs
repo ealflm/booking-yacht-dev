@@ -28,7 +28,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get([FromQuery] TourSearchModel model)
         {
             var tours = await _tourService.SearchTours(model);
-            return Ok(tours);
+            return Success(tours);
         }
 
         // GET api/<ToursController>/5
@@ -36,7 +36,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
             var tour = await _tourService.GetTour(id);
-            return Ok(tour);
+            return Success(tour);
         }
 
         // POST api/<ToursController>
@@ -44,7 +44,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Post([FromBody] TourViewModel model)
         {
             var id = await _tourService.AddTour(model);
-            return Ok(id);
+            return Success(id);
         }
 
         // PUT api/<ToursController>/5
@@ -52,7 +52,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Put(Guid id, [FromBody] TourViewModel model)
         {
             await _tourService.UpdateTour(id, model);
-            return Ok();
+            return Success();
         }
 
         // DELETE api/<ToursController>/5
@@ -60,7 +60,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Delete(Guid id)
         {
             await _tourService.DeleteTour(id);
-            return Ok();
+            return Success();
         }
     }
 }

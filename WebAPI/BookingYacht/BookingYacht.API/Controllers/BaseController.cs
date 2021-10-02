@@ -16,6 +16,17 @@ namespace BookingYacht.API.Controllers
         }
 
         [NonAction]
+        public virtual OkObjectResult Success()
+        {
+            var model = new SuccessModel()
+            {
+                Data = "Success"
+            };
+            return Ok(model);
+        }
+
+
+        [NonAction]
         public virtual OkObjectResult Fail(string value)
         {
             var model = new ErrorModel()
