@@ -80,7 +80,7 @@ namespace BookingYacht.API
             services.AddTransient<IDestinationTourService, DestinationTourService>();
             services.AddTransient<ITourService, TourService>();
             services.AddTransient<IDestinationService, DestinationService>();
-            
+            services.AddTransient<IAgencyService, AgencyService>();
 
         }
 
