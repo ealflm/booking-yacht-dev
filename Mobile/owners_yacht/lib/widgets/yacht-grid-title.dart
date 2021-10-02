@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/screens/yacht-detail.dart';
 
+
 class YachtTitle extends StatelessWidget {
   final String id;
   final String title;

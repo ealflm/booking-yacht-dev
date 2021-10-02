@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:owners_yacht/widgets/information.dart';
 
 class YachtDetail extends StatelessWidget {
-
-
   YachtDetail(this.title) : super();
   final String title;
   final String value = '111';
@@ -53,9 +51,10 @@ class YachtDetail extends StatelessWidget {
                           children: [
                             Image.network(
                                 'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
-                            YachtInformation('price', value),
+                            // YachtInformation('price', value),
                             YachtInformation("Status", "bussy"),
-                            YachtInformation("Description", "hihihi"),
+                            YachtInformation("Description", ""),
+                      
                           ],
                         ),
                       ),

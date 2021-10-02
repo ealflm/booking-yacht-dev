@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/models/yacht.dart';
+import 'package:owners_yacht/widgets/app-bar.dart';
 import 'package:owners_yacht/widgets/app-drawer.dart';
 import 'package:owners_yacht/widgets/tour-card.dart';
 
@@ -46,16 +47,15 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('History'),
-        backgroundColor: Colors.black,
+      appBar: NavBar(
+        title: 'History',
       ),
       drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemBuilder: (ctx, i) =>
-              TourCard(_list[i].title, _list[i].status, _list[i].imageUrl),
+          itemBuilder: (ctx, i) => TourCard(_list[i].title, _list[i].status,
+              _list[i].imageUrl, _list[i].price),
           itemCount: _list.length,
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/models/yacht.dart';
 import 'package:owners_yacht/screens/yacht-modify.dart';
+import 'package:owners_yacht/widgets/app-bar.dart';
 import 'package:owners_yacht/widgets/app-drawer.dart';
 import 'package:owners_yacht/widgets/yacht-card.dart';
 
@@ -29,9 +30,8 @@ class YachtManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Yacht'),
-        backgroundColor: Colors.black,
+      appBar: NavBar(
+        title: 'Yacht',
       ),
       drawer: AppDrawer(),
       body: Padding(

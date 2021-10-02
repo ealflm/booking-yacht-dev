@@ -9,8 +9,9 @@ class TourCard extends StatelessWidget {
   final String title;
   final String status;
   final String imgUrl;
+  final double price;
 
-  TourCard(this.title, this.status, this.imgUrl);
+  TourCard(this.title, this.status, this.imgUrl, this.price);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +27,7 @@ class TourCard extends StatelessWidget {
           ),
           title: Text(title),
           subtitle: Text(status),
-          trailing: Text('Price: \$33'),
+          trailing: Text('Price: \$${price}'),
         ),
       ),
     );

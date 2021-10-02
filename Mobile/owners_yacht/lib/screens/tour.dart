@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/models/yacht.dart';
+import 'package:owners_yacht/widgets/app-bar.dart';
 import 'package:owners_yacht/widgets/app-drawer.dart';
 import 'package:owners_yacht/widgets/tour-card.dart';
 
 class Tour extends StatelessWidget {
   // const ManagerTour({Key? key}) : super(key: key);
-  List<Yacht> _list = [
+  final List<Yacht> _list = [
     Yacht(
       id: 'a',
       title: 'Tour 1',
@@ -29,16 +30,15 @@ class Tour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tour'),
-        backgroundColor: Colors.black,
+      appBar: NavBar(
+        title: 'Tour',
       ),
       drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
           itemBuilder: (ctx, i) =>
-              TourCard(_list[i].title, _list[i].status, _list[i].imageUrl),
+              TourCard(_list[i].title, _list[i].status, _list[i].imageUrl, _list[i].price),
           itemCount: _list.length,
         ),
       ),
