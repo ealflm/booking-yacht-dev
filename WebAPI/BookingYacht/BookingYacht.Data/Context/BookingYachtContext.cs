@@ -24,7 +24,6 @@ namespace BookingYacht.Data.Context
         public virtual DbSet<BusinessTour> BusinessTours { get; set; }
         public virtual DbSet<Destination> Destinations { get; set; }
         public virtual DbSet<DestinationTour> DestinationTours { get; set; }
-        public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PlaceType> PlaceTypes { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
@@ -82,8 +81,6 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Phone)
                     .HasMaxLength(11)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Token).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Business>(entity =>
@@ -171,13 +168,6 @@ namespace BookingYacht.Data.Context
                     .HasForeignKey(d => d.IdTour)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Destinati__IdTou__6A30C649");
-            });
-
-            modelBuilder.Entity<Member>(entity =>
-            {
-                entity.ToTable("Member");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             });
 
             modelBuilder.Entity<Order>(entity =>
