@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
-using BookingYacht.Data.Models;
 
-namespace BookingYacht.Business.Interfaces.Agency
+namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IDestinationService
     {
