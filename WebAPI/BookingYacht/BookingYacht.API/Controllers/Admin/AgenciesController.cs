@@ -53,8 +53,8 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _service.DeleteAgency(id);
-            return Success();
+            var res = await _service.DeleteAgency(id);
+            return res ? Success() : Fail("Cant Disable");
         }
     }
 }

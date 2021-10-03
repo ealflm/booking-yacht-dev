@@ -7,10 +7,56 @@ using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
+using BookingYacht.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
 {
+    internal static class Mapper
+    {
+        public static async Task<AgencyViewModels> CreateEntity(Agency x)
+        {
+            return await Task.Run(() => new AgencyViewModels
+            {
+                Id = x.Id,
+                Address = x.Address,
+                EmailAddress = x.EmailAddress,
+                Name = x.Name,
+                Phone = x.Phone,
+                Status = x.Status,
+            });
+        }
+        public static async Task<Agency> CreateNewEntity(AgencyViewModels model)
+        {
+            return await Task.Run(() =>
+                new Agency
+                {
+                    Address = model.Address,
+                    EmailAddress = model.EmailAddress,
+                    Name = model.Name,
+                    Phone = model.Phone,
+                    Status = (int) Status.ENABLE,
+                }
+            );
+        }
+        
+        public static async Task<Agency> ModelToEntity(Guid id, AgencyViewModels model)
+        {
+            return await Task.Run(() =>
+                new Agency
+                {
+                    Id = id,
+                    Address = model.Address,
+                    EmailAddress = model.EmailAddress,
+                    Name = model.Name,
+                    Phone = model.Phone,
+                    Status = model.Status ?? 0
+                }
+            );
+        }
+
+        
+    }
     public class AgencyService : BaseService, IAgencyService
     {
         public AgencyService(IUnitOfWork unitOfWork) : base(unitOfWork)
@@ -22,20 +68,12 @@ namespace BookingYacht.Business.Implement.Admin
             model ??= new AgencySearchModel();
             var agency = await _unitOfWork.AgencyRepository.Query()
                 .Where(x => model.Id == null | x.Id.Equals(model.Id))
-                .Where(x => model.Address == null | x.Address.Equals(model.Address))
-                .Where(x => model.Name == null | x.Name.Equals(model.Name))
-                .Where(x => model.Phone == null | x.Phone.Equals(model.Phone))
-                .Where(x => model.EmailAddress == null | x.EmailAddress.Equals(model.EmailAddress))
+                .Where(x => model.Address == null | x.Address.Contains(model.Address))
+                .Where(x => model.Name == null | x.Name.Contains(model.Name))
+                .Where(x => model.Phone == null | x.Phone.Contains(model.Phone))
+                .Where(x => model.EmailAddress == null | x.EmailAddress.Contains(model.EmailAddress))
                 .Where(x => model.Status == null | x.Status == model.Status)
-                .Select(x => new AgencyViewModels
-                {
-                    Id = x.Id,
-                    Address = x.Address,
-                    EmailAddress = x.EmailAddress,
-                    Name = x.Name,
-                    Phone = x.Phone,
-                    Status = x.Status,
-                })
+                .Select(x => Mapper.CreateEntity(x).Result)
                 .ToListAsync();
             return agency;
         }
@@ -44,64 +82,37 @@ namespace BookingYacht.Business.Implement.Admin
         {
             var agency = await _unitOfWork.AgencyRepository.Query()
                 .Where(x => x.Id.Equals(id))
-                .Select(x => new AgencyViewModels
-                {
-                    Id = x.Id,
-                    Address = x.Address,
-                    EmailAddress = x.EmailAddress,
-                    Name = x.Name,
-                    Phone = x.Phone,
-                    Status = x.Status,
-                })
+                .Select(x => Mapper.CreateEntity(x).Result)
                 .FirstOrDefaultAsync();
             return agency;
         }
 
         public async Task<Guid> AddAgency(AgencyViewModels model)
         {
-            var agency = new Data.Models.Agency()
-            {
-                Address = model.Address,
-                EmailAddress = model.EmailAddress,
-                Name = model.Name,
-                Phone = model.Phone,
-                Status = (int) Status.ENABLE,
-            };
-            await _unitOfWork.AgencyRepository.Add(agency);
+            var newEntity = Mapper.CreateNewEntity(model);
+            var viewModel = _unitOfWork.AgencyRepository.Query().Add(newEntity.Result);
             await _unitOfWork.SaveChangesAsync();
-            return agency.Id;
+            return viewModel.Entity.Id;
         }
 
         public async Task UpdateAgency(Guid id, AgencyViewModels model)
         {
-            if (model.Status != null)
-            {
-                var agency = new Data.Models.Agency()
-                {
-                    Id = id,
-                    Address = model.Address,
-                    EmailAddress = model.EmailAddress,
-                    Name = model.Name,
-                    Phone = model.Phone,
-                    Status = (int) model.Status
-                };
-                _unitOfWork.AgencyRepository.Update(agency);
-            }
-
+            var entity = Mapper.ModelToEntity(id, model);
+            _unitOfWork.AgencyRepository.Update(entity.Result);
             await _unitOfWork.SaveChangesAsync();
         }
-
-        public async Task DeleteAgency(Guid id)
+        
+        public async Task<bool> DeleteAgency(Guid id)
         {
             var first = await _unitOfWork.AgencyRepository.Query()
                 .Where(x => x.Id.Equals(id))
                 .FirstOrDefaultAsync();
-            if (first != null)
-            {
-                first.Status = (int)Status.DISABLE;
-            }
-
+            if (first is null) return false;
+            
+            first.Status = (int) Status.DISABLE;
             await _unitOfWork.SaveChangesAsync();
+            
+            return first.Status == 2;
         }
     }
 
