@@ -24,7 +24,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get([FromQuery] AgencySearchModel model)
         {
             var agencies = await _service.SearchAgencies(model);
-            return Success(agencies);
+            return agencies == null ? Fail("Not found") : Success(agencies);
         }
 
         [HttpGet("{id:guid}")]
@@ -32,14 +32,14 @@ namespace BookingYacht.API.Controllers.Admin
         {
             var agencies = await _service.GetAgency(id);
            
-            return Success(agencies);
+            return agencies == null ? Fail("Not Found") : Success(agencies);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AgencyViewModels model)
         {
             var id = await _service.AddAgency(model);
-            return Success(id);
+            return Success(id) ;
         }
 
         [HttpPut("{id:guid}")]
