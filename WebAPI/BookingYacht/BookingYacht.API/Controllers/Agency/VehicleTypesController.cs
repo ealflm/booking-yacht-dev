@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using BookingYacht.Business.Interfaces.Admin;
+﻿using BookingYacht.Business.Interfaces.Agency;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
-namespace BookingYacht.API.Controllers.Admin
+namespace BookingYacht.API.Controllers.Agency
 {
     [Route(ApiVer2Route)]
     [ApiController]
