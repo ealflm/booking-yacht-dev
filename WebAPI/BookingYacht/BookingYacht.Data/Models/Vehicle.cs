@@ -16,12 +16,12 @@ namespace BookingYacht.Data.Models
         public string Name { get; set; }
         public int Seat { get; set; }
         public string Descriptions { get; set; }
-        public Guid IdVehicle { get; set; }
+        public Guid IdVehicleType { get; set; }
         public Guid IdBusiness { get; set; }
         public int Status { get; set; }
 
         public virtual Business IdBusinessNavigation { get; set; }
-        public virtual VehicleType IdVehicleNavigation { get; set; }
+        public virtual VehicleType IdVehicleTypeNavigation { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
     }
 }

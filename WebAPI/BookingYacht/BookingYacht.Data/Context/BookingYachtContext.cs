@@ -24,7 +24,6 @@ namespace BookingYacht.Data.Context
         public virtual DbSet<BusinessTour> BusinessTours { get; set; }
         public virtual DbSet<Destination> Destinations { get; set; }
         public virtual DbSet<DestinationTour> DestinationTours { get; set; }
-        public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PlaceType> PlaceTypes { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
@@ -34,17 +33,6 @@ namespace BookingYacht.Data.Context
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VehicleType> VehicleTypes { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#pragma warning disable CS1030 // #warning directive
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=booking-yacht-dev.database.windows.net;Database=BookingYacht;User Id=swd391gr5;Password=Password@3915");
-#pragma warning restore CS1030 // #warning directive
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -53,16 +41,24 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("Admin");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.EmailAddress)
                     .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<Agency>(entity =>
@@ -113,6 +109,10 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("BusinessTour");
 
+                entity.HasIndex(e => e.IdBusiness, "IX_BusinessTour_IdBusiness");
+
+                entity.HasIndex(e => e.IdTour, "IX_BusinessTour_IdTour");
+
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.HasOne(d => d.IdBusinessNavigation)
@@ -120,12 +120,6 @@ namespace BookingYacht.Data.Context
                     .HasForeignKey(d => d.IdBusiness)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BusinessT__IdBus__787EE5A0");
-
-                entity.HasOne(d => d.IdTicketTypeNavigation)
-                    .WithMany(p => p.BusinessTours)
-                    .HasForeignKey(d => d.IdTicketType)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BusinessT__IdTic__797309D9");
 
                 entity.HasOne(d => d.IdTourNavigation)
                     .WithMany(p => p.BusinessTours)
@@ -137,6 +131,8 @@ namespace BookingYacht.Data.Context
             modelBuilder.Entity<Destination>(entity =>
             {
                 entity.ToTable("Destination");
+
+                entity.HasIndex(e => e.IdPlaceType, "IX_Destination_IdPlaceType");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
@@ -155,6 +151,10 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("DestinationTour");
 
+                entity.HasIndex(e => e.IdPier, "IX_DestinationTour_IdPier");
+
+                entity.HasIndex(e => e.IdTour, "IX_DestinationTour_IdTour");
+
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.HasOne(d => d.IdPierNavigation)
@@ -170,15 +170,10 @@ namespace BookingYacht.Data.Context
                     .HasConstraintName("FK__Destinati__IdTou__6A30C649");
             });
 
-            modelBuilder.Entity<Member>(entity =>
-            {
-                entity.ToTable("Member");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-            });
-
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.HasIndex(e => e.IdAgency, "IX_Orders_IdAgency");
+
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.AgencyName)
@@ -206,6 +201,12 @@ namespace BookingYacht.Data.Context
             modelBuilder.Entity<Ticket>(entity =>
             {
                 entity.ToTable("Ticket");
+
+                entity.HasIndex(e => e.IdOrder, "IX_Ticket_IdOrder");
+
+                entity.HasIndex(e => e.IdTicketType, "IX_Ticket_IdTicketType");
+
+                entity.HasIndex(e => e.IdTrip, "IX_Ticket_IdTrip");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
@@ -242,11 +243,11 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.HasOne(d => d.IdTourNavigation)
+                entity.HasOne(d => d.IdBusinessTourNavigation)
                     .WithMany(p => p.TicketTypes)
-                    .HasForeignKey(d => d.IdTour)
+                    .HasForeignKey(d => d.IdBusinessTour)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__TicketTyp__IdTou__571DF1D5");
+                    .HasConstraintName("FK_TicketType_BusinessTour");
             });
 
             modelBuilder.Entity<Tour>(entity =>
@@ -265,6 +266,10 @@ namespace BookingYacht.Data.Context
             modelBuilder.Entity<Trip>(entity =>
             {
                 entity.ToTable("Trip");
+
+                entity.HasIndex(e => e.IdBusiness, "IX_Trip_IdBusiness");
+
+                entity.HasIndex(e => e.IdVehicle, "IX_Trip_IdVehicle");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
@@ -290,6 +295,10 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("Vehicle");
 
+                entity.HasIndex(e => e.IdBusiness, "IX_Vehicle_IdBusiness");
+
+                entity.HasIndex(e => e.IdVehicleType, "IX_Vehicle_IdVehicle");
+
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Descriptions)
@@ -306,9 +315,9 @@ namespace BookingYacht.Data.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vehicle__IdBusin__5EBF139D");
 
-                entity.HasOne(d => d.IdVehicleNavigation)
+                entity.HasOne(d => d.IdVehicleTypeNavigation)
                     .WithMany(p => p.Vehicles)
-                    .HasForeignKey(d => d.IdVehicle)
+                    .HasForeignKey(d => d.IdVehicleType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Vehicle__IdVehic__5DCAEF64");
             });
