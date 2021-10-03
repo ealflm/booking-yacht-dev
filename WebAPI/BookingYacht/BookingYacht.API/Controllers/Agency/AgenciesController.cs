@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using BookingYacht.Business.Interfaces.Admin;
+﻿using BookingYacht.Business.Interfaces.Agency;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
-namespace BookingYacht.API.Controllers.Admin
+namespace BookingYacht.API.Controllers.Agency
 {
     [Route(ApiVer2Route)]
     [ApiController]
@@ -24,7 +24,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get([FromQuery] AgencySearchModel model)
         {
             var agencies = await _service.SearchAgencies(model);
-            return agencies == null ? Fail("Not found") : Success(agencies);
+            return Success(agencies);
         }
 
         [HttpGet("{id:guid}")]
@@ -32,14 +32,14 @@ namespace BookingYacht.API.Controllers.Admin
         {
             var agencies = await _service.GetAgency(id);
            
-            return agencies == null ? Fail("Not Found") : Success(agencies);
+            return Success(agencies);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AgencyViewModels model)
         {
             var id = await _service.AddAgency(model);
-            return Success(id) ;
+            return Success(id);
         }
 
         [HttpPut("{id:guid}")]
