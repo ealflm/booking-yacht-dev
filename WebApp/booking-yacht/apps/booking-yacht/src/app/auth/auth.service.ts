@@ -45,6 +45,9 @@ export class AuthService {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const accessToken = credential?.accessToken;
         const idToken = await result.user.getIdToken(true);
+
+        // console.log(idToken);
+
         // console.log(idToken);
 
         // console.log(result);

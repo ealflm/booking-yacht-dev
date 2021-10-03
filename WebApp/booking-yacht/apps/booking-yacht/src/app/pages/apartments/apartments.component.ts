@@ -32,10 +32,10 @@ export class ApartmentsComponent implements OnInit {
 
   getAparments() {
     this.apartmentService.getApartments().subscribe((res) => {
-      this.apartments = res.data;
       setTimeout(() => {
         this.loading = false;
       }, 1000);
+      this.apartments = res.data;
     });
   }
   _mapApartmentStatus() {

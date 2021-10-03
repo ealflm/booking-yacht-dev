@@ -76,7 +76,7 @@ export class TourFormComponent implements OnInit {
     if (!this.editMode) {
       const tour: Tour = {
         tittle: this.tourForm.tittle.value,
-        status: this.tourForm.status.value,
+        // status: this.tourForm.status.value,
         descriptions: this.tourForm.descriptions.value,
       };
       console.log(tour);
