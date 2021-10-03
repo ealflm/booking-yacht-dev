@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookingYacht.Business.Enum;
-using BookingYacht.Business.Interfaces.Agency;
+using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingYacht.Business.Implement.Agency
+namespace BookingYacht.Business.Implement.Admin
 {
     public class AgencyService : BaseService, IAgencyService
     {

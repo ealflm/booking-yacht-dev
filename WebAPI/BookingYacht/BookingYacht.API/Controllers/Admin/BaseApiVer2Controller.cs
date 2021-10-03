@@ -1,4 +1,4 @@
-﻿namespace BookingYacht.API.Controllers.Agency
+﻿namespace BookingYacht.API.Controllers.Admin
 {
     public class BaseApiVer2Controller : BaseController
     {
