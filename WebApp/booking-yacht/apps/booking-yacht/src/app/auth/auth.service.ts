@@ -4,8 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './localstorage.service';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithRedirect,
+} from 'firebase/auth';
 import { environment } from '../../environments/environment.prod';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { async } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root',
@@ -37,10 +44,13 @@ export class AuthService {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const accessToken = credential?.accessToken;
+        const idToken = await result.user.getIdToken(true);
+        // console.log(idToken);
+
+        // console.log(result);
+
         // The signed-in user info.
         // console.log(result);
-        
-        const idToken = await result.user.getIdToken(true);
 
         this.loginWithGoogle(idToken).subscribe((res) => {
           // console.log(res.data);
