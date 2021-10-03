@@ -1,8 +1,8 @@
+import { BUSINESS_STATUS } from './../../constants/STATUS';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { BUSINESS_STATUS } from '../../constants/STATUS';
 import { BusinessAccount } from './../../models/businessAcount';
 import { UsersService } from './../../services/users.service';
 

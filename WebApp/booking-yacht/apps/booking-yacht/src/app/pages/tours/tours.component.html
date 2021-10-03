@@ -30,6 +30,7 @@
         />
       </span>
     </p-toolbar>
+    <hr />
     <p-dataView
       #dv
       [value]="tours"
@@ -55,7 +56,60 @@
       </ng-template> -->
 
       <ng-template let-tours pTemplate="gridItem">
-        <div class="col-4 md-4 mt-3">
+        <div class="col-4 md-4 mt-3" *ngIf="loading">
+          <p-card [style]="{ width: '360px' }" styleClass="p-card-shadow">
+            <div class="flex justify-content-between">
+              <div>
+                <p-skeleton width="10rem"></p-skeleton>
+              </div>
+              <div>
+                <p-skeleton width="5rem"></p-skeleton>
+              </div>
+            </div>
+
+            <ng-template pTemplate="content">
+              <p-skeleton
+                width="20rem"
+                height="7rem"
+                styleClass="mt-2"
+              ></p-skeleton>
+              <p-skeleton
+                width="20rem"
+                height="1rem"
+                styleClass="mt-2"
+              ></p-skeleton>
+              <p-skeleton
+                width="20rem"
+                height="1rem"
+                styleClass="mt-2"
+              ></p-skeleton>
+              <p-skeleton
+                width="20rem"
+                height="1rem"
+                styleClass="mt-2"
+              ></p-skeleton>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <div class="flex">
+                <p-skeleton
+                  width="20rem"
+                  height="7rem"
+                  shape="circle"
+                  size="3rem"
+                  styleClass="mt-2"
+                ></p-skeleton
+                ><p-skeleton
+                  width="20rem"
+                  shape="circle"
+                  size="3rem"
+                  height="7rem"
+                  styleClass="mt-2 ml-2"
+                ></p-skeleton>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+        <div class="col-4 md-4 mt-3" *ngIf="!loading">
           <p-card [style]="{ width: '360px' }" styleClass="p-card-shadow">
             <div class="flex justify-content-between">
               <div>
