@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   {
-    path: '/desination-tours',
+    path: '/destinations-tours',
     title: 'Desinations',
     icon: 'ni-app text-red',
     class: '',

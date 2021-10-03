@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { BusinessAccount } from './../../models/businessAcount';
+import { BusinessAccount } from '../../models/business-account';
 import { UsersService } from './../../services/users.service';
 
 import { Component, OnInit } from '@angular/core';

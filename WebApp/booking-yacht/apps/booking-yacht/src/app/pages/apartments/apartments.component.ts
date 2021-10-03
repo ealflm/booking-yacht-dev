@@ -2,7 +2,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ApartmentsService } from './../../services/apartments.service';
-import { Apartment } from './../../models/apartment_models';
+import { Apartment } from '../../models/apartments';
 import { APARTMENT_STATUS } from '../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 import { ThrowStmt } from '@angular/compiler';

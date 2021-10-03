@@ -7,7 +7,7 @@
 ></p-confirmDialog>
 
 <div class="admin-tour p-3">
-  <p-card header="List Tours">
+  <p-card header="Tours" subheader="List all Tours current ">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
         <button
@@ -126,13 +126,13 @@
             <ng-template pTemplate="content">
               <p [innerHTML]="tours.descriptions"></p>
               <p-rating
-                [ngModel]="5"
+                [ngModel]="4"
                 [readonly]="true"
                 [cancel]="false"
               ></p-rating>
             </ng-template>
             <ng-template pTemplate="footer">
-              <div>
+              <div class="pl-9 ml-6">
                 <button
                   pButton
                   pRipple

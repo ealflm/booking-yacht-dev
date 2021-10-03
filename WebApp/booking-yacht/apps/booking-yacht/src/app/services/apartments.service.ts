@@ -1,4 +1,4 @@
-import { Apartment } from './../models/apartment_models';
+import { Apartment } from '../models/apartments';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
