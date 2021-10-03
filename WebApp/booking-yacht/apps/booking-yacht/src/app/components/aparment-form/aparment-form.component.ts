@@ -1,4 +1,4 @@
-import { Apartment } from './../../models/apartment_models';
+import { Apartment } from '../../models/apartments';
 import { ActivatedRoute } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
 import { APARTMENT_STATUS } from '../../constants/STATUS';

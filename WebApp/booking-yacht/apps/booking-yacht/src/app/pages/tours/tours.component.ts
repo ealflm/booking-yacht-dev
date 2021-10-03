@@ -25,13 +25,13 @@ export class ToursComponent implements OnInit {
   ngOnInit(): void {
     this.getTours();
     this._mapTourStatus();
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
   }
   private getTours() {
     this.tourService.getTours().subscribe((res) => {
       this.tours = res.data;
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     });
   }
   _mapTourStatus() {
