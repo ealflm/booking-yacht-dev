@@ -9,8 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Implement\Agency" />
     <Folder Include="Implement\Agency\" />
     <Folder Include="Implement\Business\" />
+    <Folder Include="Interfaces\Agency" />
     <Folder Include="Interfaces\Agency\" />
     <Folder Include="Interfaces\Business\" />
   </ItemGroup>

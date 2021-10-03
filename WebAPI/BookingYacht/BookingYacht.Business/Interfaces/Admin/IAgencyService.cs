@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 
-namespace BookingYacht.Business.Interfaces.Agency
+namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IAgencyService : IBaseService 
     {
