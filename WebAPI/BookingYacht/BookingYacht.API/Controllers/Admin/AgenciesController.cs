@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Admin
 {
-    [Route(ApiVer2Route)]
+    [Route(ApiVer1Route)]
     [ApiController]
     [Authorize]
-    public class AgenciesController : BaseApiVer2Controller
+    public class AgenciesController : BaseApiVer1Controller
     {
         private readonly IAgencyService _service;
 
