@@ -1,7 +1,7 @@
+import { DestinationsToursComponent } from './pages/destinations-tours/destinations-tours.component';
 import { TourFormComponent } from './components/tour-form/tour-form.component';
 import { ToursComponent } from './pages/tours/tours.component';
 import { AccountBusinessFormComponent } from './components/account-business-form/account-business-form.component';
-import { LoginComponent } from './auth/login/login.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -38,6 +38,15 @@ const routes: Routes = [
       { path: 'tours', component: ToursComponent },
       { path: 'tours/form', component: TourFormComponent },
       { path: 'tours/form/:id', component: TourFormComponent },
+      { path: 'destinations-tours', component: DestinationsToursComponent },
+      {
+        path: 'destinations-tours/form',
+        component: DestinationsToursComponent,
+      },
+      {
+        path: 'destinations-tours/form/:id',
+        component: DestinationsToursComponent,
+      },
     ],
   },
 ];
