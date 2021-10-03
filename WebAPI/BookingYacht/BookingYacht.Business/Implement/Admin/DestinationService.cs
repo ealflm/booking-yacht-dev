@@ -9,7 +9,7 @@ using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingYacht.Business.Implement.Agency
+namespace BookingYacht.Business.Implement.Admin
 {
     public class DestinationService : BaseService, IDestinationService
     {

@@ -10,7 +10,7 @@ using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingYacht.Business.Implement.Agency
+namespace BookingYacht.Business.Implement.Admin
 {
     public class VehicleTypeService : BaseService, IVehicleTypeService
     {
