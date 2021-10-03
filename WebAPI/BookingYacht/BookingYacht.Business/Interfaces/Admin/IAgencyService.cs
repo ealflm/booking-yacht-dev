@@ -12,6 +12,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<AgencyViewModels> GetAgency(Guid id);
         Task<Guid> AddAgency(AgencyViewModels model);
         Task UpdateAgency(Guid id, AgencyViewModels model);
-        Task DeleteAgency(Guid id);
+        Task<bool> DeleteAgency(Guid id);
     }
 }
