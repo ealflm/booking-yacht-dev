@@ -1,8 +1,7 @@
 //import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/widgets/app-drawer.dart';
-import 'package:owners_yacht/widgets/dropdown.dart';
-import 'package:owners_yacht/widgets/photo-album.dart';
+import '/widgets/dropdown.dart';
+import '/widgets/photo-album.dart';
 
 List<String> imgArray = [
   "https://focusasiatravel.vn/wp-content/uploads/2019/05/sun-world-hon-thom-nature-park.jpg?fit=crop&w=240&q=80",
