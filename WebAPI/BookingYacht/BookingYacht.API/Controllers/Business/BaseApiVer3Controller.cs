@@ -2,6 +2,6 @@
 {
     public class BaseApiVer3Controller : BaseController
     {
-        protected const string ApiVer1Route = "api/v3/[controller]";
+        protected const string ApiVer3Route = "api/v3/[controller]";
     }
 }
