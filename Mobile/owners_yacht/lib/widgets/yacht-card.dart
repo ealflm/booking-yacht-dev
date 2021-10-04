@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/screens/yacht-detail.dart';
 import 'package:owners_yacht/screens/yacht-modify.dart';
+import 'package:get/get.dart';
 
 class YachtCard extends StatelessWidget {
   final String title;
@@ -17,8 +18,9 @@ class YachtCard extends StatelessWidget {
             backgroundImage: NetworkImage(imgUrl),
           ),
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => YachtDetail(title)));
+            Get.toNamed('/yacht-detail', arguments: title);
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => YachtDetail(title)));
           },
         ),
         title: Text(title),
@@ -29,10 +31,11 @@ class YachtCard extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ModifyYacht('Edit yacht')));
+                  Get.to(ModifyYacht('Edit Yacht'));
+                  // Navigator.push(
+                  //     context,
+                  // MaterialPageRoute(
+                  //     builder: (context) => ModifyYacht('Edit yacht')));
                 },
                 icon: Icon(Icons.edit, color: Colors.blue),
               ),

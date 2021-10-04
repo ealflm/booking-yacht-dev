@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/widgets/information.dart';
+import '/widgets/information.dart';
+import 'package:get/get.dart';
 
 class YachtDetail extends StatelessWidget {
-  YachtDetail(this.title) : super();
-  final String title;
-  final String value = '111';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title,
+          Get.arguments,
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,
       ),
-      //  backgroundColor: MaterialColors.bgColorScreen,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -54,7 +51,6 @@ class YachtDetail extends StatelessWidget {
                             // YachtInformation('price', value),
                             YachtInformation("Status", "bussy"),
                             YachtInformation("Description", ""),
-                      
                           ],
                         ),
                       ),

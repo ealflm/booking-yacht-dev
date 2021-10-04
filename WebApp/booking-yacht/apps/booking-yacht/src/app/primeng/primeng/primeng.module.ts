@@ -26,6 +26,9 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+
 
 @NgModule({
   declarations: [],
@@ -56,6 +59,8 @@ import { RatingModule } from 'primeng/rating';
     ProgressSpinnerModule,
     DataViewModule,
     RatingModule,
+    ToggleButtonModule,
+    SelectButtonModule,
   ],
   exports: [
     CardModule,
@@ -84,6 +89,8 @@ import { RatingModule } from 'primeng/rating';
     ProgressSpinnerModule,
     DataViewModule,
     RatingModule,
+    ToggleButtonModule,
+    SelectButtonModule,
   ],
 })
 export class PrimengModule {}

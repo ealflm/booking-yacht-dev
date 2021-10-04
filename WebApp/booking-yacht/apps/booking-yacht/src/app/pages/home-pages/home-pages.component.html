@@ -3,14 +3,17 @@
   <p-card header="Dashboard" subheader="List of all Business Account">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
-        <!-- <button
-          pButton
-          pRipple
-          label="New"
-          icon="pi pi-plus"
-          class="p-button-success p-mr-2"
-          (click)="newBusiness()"
-        ></button> -->
+        <span *ngFor="let item of status">
+          <button
+            pButton
+            pRipple
+            type="button"
+            [label]="item.lable"
+            [value]="item.id"
+            (click)="onChangeStatus(item.id)"
+            class="p-button-raised p-button-info p-button-text m-1"
+          ></button>
+        </span>
       </ng-template>
 
       <span class="p-input-icon-right">
@@ -19,7 +22,7 @@
           pInputText
           type="text"
           (input)="dt.filterGlobal(getValue($event), 'contains')"
-          placeholder="Global Search"
+          placeholder="Tìm Kiếm..."
         />
       </span>
     </p-toolbar>
@@ -38,7 +41,7 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th>ID</th>
+              <th class="hidden">ID</th>
               <th pSortableColumn="name">
                 Name <p-sortIcon field="name"></p-sortIcon>
               </th>
@@ -47,12 +50,13 @@
               <th>Address</th>
               <th>Email</th>
               <th>
-                <p-columnFilter
+                Status
+                <!-- <p-columnFilter
                   field="status"
                   matchMode="equals"
                   [showMenu]="false"
-                >
-                  <ng-template
+                > -->
+                <!-- <ng-template
                     pTemplate="filter"
                     let-value
                     let-filter="filterCallback"
@@ -67,8 +71,8 @@
                       optionLabel="name"
                     >
                     </p-dropdown>
-                  </ng-template>
-                </p-columnFilter>
+                  </ng-template> -->
+                <!-- </p-columnFilter> -->
               </th>
               <th></th>
             </tr>
@@ -76,7 +80,6 @@
 
           <ng-template pTemplate="body" let-businessAcount>
             <tr *ngIf="loading">
-              <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
@@ -96,7 +99,7 @@
               </td>
             </tr>
             <tr *ngIf="!loading">
-              <td>{{ businessAcount.id }}</td>
+              <td class="hidden">{{ businessAcount.id }}</td>
               <td>{{ businessAcount.name }}</td>
               <td>{{ businessAcount.phone }}</td>
 

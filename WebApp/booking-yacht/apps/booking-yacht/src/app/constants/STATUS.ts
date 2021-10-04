@@ -64,3 +64,18 @@ export const TOUR_STATUS: any = {
     color: 'danger',
   },
 };
+
+export const AGENCY_STATUS: any = {
+  0: {
+    lable: 'NONE',
+    color: 'primary',
+  },
+  1: {
+    lable: 'ENABLE',
+    color: 'primary',
+  },
+  2: {
+    lable: 'DISABLE',
+    color: 'warning',
+  },
+};

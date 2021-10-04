@@ -27,6 +27,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { ApartmentsComponent } from './pages/apartments/apartments.component';
 import { ToursComponent } from './pages/tours/tours.component';
 import { DestinationsToursComponent } from './pages/destinations-tours/destinations-tours.component';
+import { DestinationsComponent } from './pages/destinations/destinations.component';
+import { AgenciesComponent } from './pages/agencies/agencies.component';
+import { TicketTypeComponent } from './pages/ticket-type/ticket-type.component';
+import { VehicleTypeComponent } from './pages/vehicle-type/vehicle-type.component';
+import { DestinationsFormComponent } from './components/destinations-form/destinations-form.component';
+import { AgenciesFormComponent } from './components/agencies-form/agencies-form.component';
+import { VehicleTypeFormComponent } from './components/vehicle-type-form/vehicle-type-form.component';
+import { TicketTypeFormComponent } from './components/ticket-type-form/ticket-type-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +48,14 @@ import { DestinationsToursComponent } from './pages/destinations-tours/destinati
     TourFormComponent,
     DestinationsToursComponent,
     DestinationsToursFormComponent,
+    DestinationsComponent,
+    AgenciesComponent,
+    TicketTypeComponent,
+    VehicleTypeComponent,
+    DestinationsFormComponent,
+    AgenciesFormComponent,
+    VehicleTypeFormComponent,
+    TicketTypeFormComponent,
   ],
   imports: [
     // MaterialModule,

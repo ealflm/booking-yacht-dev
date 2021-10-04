@@ -1,13 +1,26 @@
 <p-toast position="top-right"></p-toast>
 <div class="admin-page p-3">
-  <p-card header="Apartments" subheader="List all Apartments">
+  <p-card header="Loại địa điểm" subheader="Danh sách tất cả loại địa điểm ">
     <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+        <span *ngFor="let item of status">
+          <button
+            pButton
+            pRipple
+            type="button"
+            [label]="item.lable"
+            [value]="item.id"
+            (click)="onChangeStatus(item.id)"
+            class="p-button-raised p-button-info p-button-text m-1"
+          ></button>
+        </span>
+      </ng-template>
       <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
         <input
           pInputText
           type="text"
-          placeholder="Global Search"
+          placeholder="Tìm kiếm ..."
           (input)="dt.filterGlobal(getValue($event), 'contains')"
         />
       </span>
@@ -16,7 +29,7 @@
       <!-- Apartments -->
 
       <p-toolbar>
-        <span class="p-input-icon-right">List all apartments </span>
+        <span class="p-input-icon-right"> </span>
         <ng-template pTemplate="right">
           <button
             pButton
@@ -42,12 +55,13 @@
           >
             <ng-template pTemplate="header">
               <tr>
-                <th>ID</th>
+                <th class="hidden">ID</th>
                 <th pSortableColumn="name">
-                  Bến tàu <p-sortIcon field="name"></p-sortIcon>
+                  Tên loại điểm du lịch <p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th>
-                  <p-columnFilter
+                  Trạng Thái
+                  <!-- <p-columnFilter
                     field="status"
                     matchMode="equals"
                     [showMenu]="false"
@@ -68,7 +82,7 @@
                       >
                       </p-dropdown>
                     </ng-template>
-                  </p-columnFilter>
+                  </p-columnFilter> -->
                 </th>
                 <th></th>
               </tr>
@@ -76,7 +90,6 @@
 
             <ng-template pTemplate="body" let-apartments>
               <tr *ngIf="loading">
-                <td><p-skeleton></p-skeleton></td>
                 <td><p-skeleton></p-skeleton></td>
                 <td><p-skeleton></p-skeleton></td>
                 <td class="flex">
@@ -93,7 +106,7 @@
                 </td>
               </tr>
               <tr *ngIf="!loading">
-                <td>{{ apartments.id }}</td>
+                <td class="hidden">{{ apartments.id }}</td>
                 <td>{{ apartments.name }}</td>
                 <td class="p-ai-center p-pl-2">
                   <p-tag

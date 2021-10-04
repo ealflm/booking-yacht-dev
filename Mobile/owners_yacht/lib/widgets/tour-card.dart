@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-import 'package:owners_yacht/screens/yacht-detail.dart';
-import 'package:owners_yacht/screens/tour-detail.dart';
-import 'package:owners_yacht/screens/yacht-modify.dart';
+import 'package:get/get.dart';
+import '/screens/yacht-detail.dart';
+import '/screens/tour-detail.dart';
+import '/screens/yacht-modify.dart';
 
 class TourCard extends StatelessWidget {
   final String title;
@@ -16,8 +15,7 @@ class TourCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TourDetail()));
+        Get.to(TourDetail());
       },
       child: Card(
         elevation: 2,

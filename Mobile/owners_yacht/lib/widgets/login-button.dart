@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../screens/home.dart';
+import 'package:get/get.dart';
 
 class LoginGoogleButton extends StatelessWidget {
   const LoginGoogleButton({Key? key}) : super(key: key);
@@ -19,8 +20,7 @@ class LoginGoogleButton extends StatelessWidget {
                       borderRadius: BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.white)))),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Home()));
+            Get.off(Home());
           },
           icon: FaIcon(FontAwesomeIcons.google),
           label: const Text('Login with Google'),

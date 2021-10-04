@@ -1,0 +1,112 @@
+<p-toast position="top-right"></p-toast>
+<div class="admin-page p-3">
+  <p-card header="Dashboard" subheader="List of all Business Account">
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+        <span *ngFor="let item of status">
+          <button
+            pButton
+            pRipple
+            type="button"
+            [label]="item.lable"
+            [value]="item.id"
+            (click)="onChangeStatus(item.id)"
+            class="p-button-raised p-button-info p-button-text m-1"
+          ></button>
+        </span>
+      </ng-template>
+
+      <span class="p-input-icon-right">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal(getValue($event), 'contains')"
+          placeholder="Tìm Kiếm..."
+        />
+      </span>
+    </p-toolbar>
+    <hr />
+    <div class="grid">
+      <div class="col-12">
+        <p-table
+          #dt
+          [value]="destinations"
+          [rows]="10"
+          [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[10, 20, 50]"
+          [paginator]="true"
+          [filterDelay]="0"
+          [globalFilterFields]="['address', 'apartmentName']"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="hidden">ID</th>
+              <th pSortableColumn="address">
+                Address <p-sortIcon field="address"></p-sortIcon>
+              </th>
+
+              <th>Loại địa điểm</th>
+
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-destinations>
+            <tr *ngIf="loading">
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td class="flex">
+                <p-skeleton
+                  shape="circle"
+                  size="3rem"
+                  styleClass="p-mr-2"
+                ></p-skeleton>
+                <p-skeleton
+                  shape="circle"
+                  size="3rem"
+                  styleClass="p-mr-2"
+                ></p-skeleton>
+              </td>
+            </tr>
+            <tr *ngIf="!loading">
+              <td class="hidden">{{ destinations.id }}</td>
+              <td>{{ destinations.address }}</td>
+              <td>{{ destinations.apartmentName }}</td>
+              <td class="p-ai-center p-pl-2">
+                <p-tag
+                  [severity]="destinationStatus[destinations.status].color"
+                  [value]="destinationStatus[destinations.status].lable"
+                ></p-tag>
+              </td>
+              <td>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editDes(destinations.id)"
+                ></button>
+
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-ban"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deleteDes(destinations.id)"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>
