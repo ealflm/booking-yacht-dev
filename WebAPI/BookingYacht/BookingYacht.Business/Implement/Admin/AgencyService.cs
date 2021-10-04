@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
 {
-    internal static class Mapper
+    internal static partial class Mapper
     {
         public static async Task<AgencyViewModels> CreateEntity(Agency x)
         {
