@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget implements PreferredSizeWidget {
-  NavBar({this.title = 'Home'});
+  NavBar({required this.title});
   final String title;
 
   @override
@@ -19,7 +19,6 @@ class _NavBarState extends State<NavBar> {
     return AppBar(
       title: Text(widget.title),
       backgroundColor: Colors.black,
-      //  automaticallyImplyLeading: false,
     );
   }
 }

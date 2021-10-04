@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/widgets/app-drawer.dart';
-
 class ModifyYacht extends StatelessWidget {
   ModifyYacht(this.title) : super();
   final String title;

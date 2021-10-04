@@ -1,56 +1,69 @@
 import 'package:flutter/material.dart';
-import '../models/yacht.dart';
-import '../widgets/app-drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
+import '/controller/home.dart';
+
+import 'menu.dart';
 import 'qr-code.dart';
 import 'tour.dart';
 import 'verification.dart';
 import 'yachts.dart';
-import 'yacht-manager.dart';
 
-class Home extends StatefulWidget {
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  int selectedIndex = 0;
-  final List<Widget> screens = [
-    YachtGrid(),
-    Tour(),
-    QRScan(),
-    Verification(),
-  ];
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: AppDrawer(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        onTap: (index) => setState(() => selectedIndex = index),
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.ship, size: 20), label: 'Yacht'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.qr_code_2,
+    return GetBuilder<HomeController>(
+      builder: (controller) {
+        return Scaffold(
+          body: IndexedStack(
+            index: controller.tabIndex,
+            children: [
+              Yachts(),
+              Tour(),
+              QRScan(),
+              Verification(),
+              Menu(),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: [
+              _bottomNavigationBarItem(
+                icon: Icons.home,
+                label: 'Home',
               ),
-              label: 'Scan QR Code'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.checklist_rtl), label: 'Verification'),
-        ],
+              _bottomNavigationBarItem(
+                icon: FontAwesomeIcons.ship,
+                label: 'Yacht',
+              ),
+              _bottomNavigationBarItem(
+                icon: Icons.qr_code_2,
+                label: 'Scan QR Code',
+              ),
+              _bottomNavigationBarItem(
+                icon: Icons.checklist_rtl,
+                label: 'Verification',
+              ),
+              _bottomNavigationBarItem(
+                icon: Icons.menu,
+                label: 'Menu',
+              ),
+            ],
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.grey,
+            currentIndex: controller.tabIndex,
+            onTap: controller.changeTabIndex,
+          ),
+        );
+      },
+    );
+  }
 
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
-        // showUnselectedLabels: false,
-      ),
-      body: IndexedStack(
-        index: selectedIndex,
-        children: screens,
-      ),
+  _bottomNavigationBarItem({required IconData icon, required String label}) {
+    return BottomNavigationBarItem(
+      icon: Icon(icon),
+      label: label,
     );
   }
 }

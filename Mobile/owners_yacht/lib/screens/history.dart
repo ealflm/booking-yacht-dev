@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/models/yacht.dart';
-import 'package:owners_yacht/widgets/app-bar.dart';
-import 'package:owners_yacht/widgets/app-drawer.dart';
-import 'package:owners_yacht/widgets/tour-card.dart';
+import '/models/yacht.dart';
+import '/widgets/app-bar.dart';
+import '/widgets/tour-card.dart';
 
 class History extends StatelessWidget {
   History({Key? key}) : super(key: key);
@@ -50,7 +49,6 @@ class History extends StatelessWidget {
       appBar: NavBar(
         title: 'History',
       ),
-      drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(

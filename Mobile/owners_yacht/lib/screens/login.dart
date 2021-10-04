@@ -1,11 +1,9 @@
-import '../widgets/login-title.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/login-button.dart';
 
-class LoginScreen extends StatelessWidget {
-
-  LoginScreen({Key? key}) : super(key: key);
+class Login extends StatelessWidget {
+  Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,16 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Column(
               children: [
-                LoginTitle(title: 'Manager Yacht'),
+                Padding(
+                  padding: const EdgeInsets.only(top: 80),
+                  child: Text(
+                    'Manager Yacht',
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
                 Spacer(),
                 LoginGoogleButton(),
               ],

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/models/yacht.dart';
-import 'package:owners_yacht/widgets/app-bar.dart';
-import 'package:owners_yacht/widgets/app-drawer.dart';
-import 'package:owners_yacht/widgets/verification-card.dart';
+import 'package:get/get.dart';
+
+import '/models/yacht.dart';
+import '/widgets/app-bar.dart';
+import '/widgets/verification-card.dart';
 
 class Verification extends StatelessWidget {
   Verification({Key? key}) : super(key: key);
@@ -33,7 +34,6 @@ class Verification extends StatelessWidget {
       appBar: NavBar(
         title: 'Verfication',
       ),
-      drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
