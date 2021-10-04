@@ -7,12 +7,12 @@ using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingYacht.API.Controllers.Admin
+namespace BookingYacht.API.Controllers.Business
 {
-    [Route(ApiVer1Route)]
+    [Route(ApiVer3Route)]
     [ApiController]
     [Authorize]
-    public class VehicleController : BaseApiVer1Controller
+    public class VehicleController : BaseApiVer3Controller
     {
         public VehicleController(IVehicleService service)
         {
