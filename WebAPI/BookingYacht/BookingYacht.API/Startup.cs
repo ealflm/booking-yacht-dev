@@ -135,6 +135,7 @@ namespace BookingYacht.API
             services.AddTransient<IVehicleTypeService, VehicleTypeService>();
             services.AddTransient<IDestinationService, DestinationService>();
             services.AddTransient<IAgencyService, AgencyService>();
+            services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<Business.Interfaces.Business.ITicketTypeService, Business.Implement.Business.TicketTypeService>();
 
         }
