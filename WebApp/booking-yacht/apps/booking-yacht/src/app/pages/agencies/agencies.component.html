@@ -1,5 +1,5 @@
 <p-toast position="top-right"></p-toast>
-<div class="admin-page">
+<div class="admin-page p-3">
   <p-card header="Dashboard" subheader="List of all Business Account">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
@@ -31,7 +31,7 @@
       <div class="col-12">
         <p-table
           #dt
-          [value]="businessAcount"
+          [value]="agencies"
           [rows]="10"
           [showCurrentPageReport]="true"
           [rowsPerPageOptions]="[10, 20, 50]"
@@ -46,9 +46,9 @@
                 Name <p-sortIcon field="name"></p-sortIcon>
               </th>
 
-              <th>Phone</th>
               <th>Address</th>
               <th>Email</th>
+              <th>Phone</th>
               <th>
                 Status
                 <!-- <p-columnFilter
@@ -78,7 +78,7 @@
             </tr>
           </ng-template>
 
-          <ng-template pTemplate="body" let-businessAcount>
+          <ng-template pTemplate="body" let-agencies>
             <tr *ngIf="loading">
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
@@ -91,41 +91,27 @@
                   size="3rem"
                   styleClass="p-mr-2"
                 ></p-skeleton>
-                <p-skeleton
-                  shape="circle"
-                  size="3rem"
-                  styleClass="p-mr-2"
-                ></p-skeleton>
               </td>
             </tr>
             <tr *ngIf="!loading">
-              <td class="hidden">{{ businessAcount.id }}</td>
-              <td>{{ businessAcount.name }}</td>
-              <td>{{ businessAcount.phone }}</td>
-
-              <td>{{ businessAcount.address }}</td>
-              <td>{{ businessAcount.emailAddress }}</td>
+              <td class="hidden">{{ agencies.id }}</td>
+              <td>{{ agencies.name }}</td>
+              <td>{{ agencies.address }}</td>
+              <td>{{ agencies.emailAddress }}</td>
+              <td>{{ agencies.phone }}</td>
               <td class="p-ai-center p-pl-2">
                 <p-tag
-                  [value]="businessStatus[businessAcount.status]?.lable"
-                  [severity]="businessStatus[businessAcount.status]?.color"
+                  [value]="agencyStatus[agencies.status]?.lable"
+                  [severity]="agencyStatus[agencies.status]?.color"
                 ></p-tag>
               </td>
               <td>
                 <button
                   pButton
                   pRipple
-                  icon="pi pi-pencil"
-                  class="p-button-rounded p-button-success mr-2"
-                  (click)="editBusiness(businessAcount.id)"
-                ></button>
-
-                <button
-                  pButton
-                  pRipple
                   icon="pi pi-ban"
                   class="p-button-rounded p-button-warning"
-                  (click)="deleteBusiness(businessAcount.id)"
+                  (click)="deleteAgency(agencies.id)"
                 ></button>
               </td>
             </tr>
@@ -139,4 +125,5 @@
   [style]="{ width: '50vw' }"
   [baseZIndex]="10000"
   rejectButtonStyleClass="p-button-text"
+  
 ></p-confirmDialog>

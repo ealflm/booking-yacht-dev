@@ -17,7 +17,11 @@ export class ApartmentsComponent implements OnInit {
   apartments: Apartment[] = [];
   apartmentStatus = APARTMENT_STATUS;
   loading = true;
-  status: any[] = [];
+  status = [
+    { id: '0', lable: 'NONE' },
+    { id: '1', lable: 'ACCEPTED' },
+    { id: '2', lable: 'REJECT' },
+  ];
   constructor(
     private apartmentService: ApartmentsService,
     private confirmationService: ConfirmationService,
@@ -27,27 +31,36 @@ export class ApartmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAparments();
-    this._mapApartmentStatus();
+    // this._mapApartmentStatus();
   }
 
   getAparments() {
-    this.apartmentService.getApartments().subscribe((res) => {
+    this.apartmentService.getApartments('0').subscribe((res) => {
       setTimeout(() => {
         this.loading = false;
       }, 1000);
       this.apartments = res.data;
     });
   }
-  _mapApartmentStatus() {
-    this.status = Object.keys(APARTMENT_STATUS).map((key) => {
-      {
-        return {
-          id: key,
-          name: APARTMENT_STATUS[key].lable,
-        };
-      }
+  onChangeStatus(id: string) {
+    this.loading = true;
+    this.apartmentService.getApartments(id).subscribe((res) => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
+      this.apartments = res.data;
     });
   }
+  // _mapApartmentStatus() {
+  //   this.status = Object.keys(APARTMENT_STATUS).map((key) => {
+  //     {
+  //       return {
+  //         id: key,
+  //         name: APARTMENT_STATUS[key].lable,
+  //       };
+  //     }
+  //   });
+  // }
 
   deleteApartment(id: string) {
     this.confirmationService.confirm({

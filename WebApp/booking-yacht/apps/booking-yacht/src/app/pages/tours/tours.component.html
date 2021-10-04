@@ -10,14 +10,17 @@
   <p-card header="Tours" subheader="List all Tours current ">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
-        <button
-          pButton
-          pRipple
-          label="New"
-          icon="pi pi-plus"
-          class="p-button-success p-mr-2"
-          (click)="newTour()"
-        ></button>
+        <span *ngFor="let item of status">
+          <button
+            pButton
+            pRipple
+            type="button"
+            [label]="item.lable"
+            [value]="item.id"
+            (click)="onChangeStatus(item.id)"
+            class="p-button-raised p-button-info p-button-text m-1"
+          ></button>
+        </span>
       </ng-template>
 
       <span class="p-input-icon-right">
@@ -29,6 +32,19 @@
           placeholder="Global Search"
         />
       </span>
+    </p-toolbar>
+    <p-toolbar styleClass="p-mb-4 mt-4">
+      <span></span>
+      <ng-template pTemplate="left">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success p-mr-2"
+          (click)="newTour()"
+        ></button>
+      </ng-template>
     </p-toolbar>
     <hr />
     <p-dataView
