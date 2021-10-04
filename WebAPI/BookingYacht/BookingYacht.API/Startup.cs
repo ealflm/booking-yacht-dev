@@ -1,5 +1,6 @@
 using BookingYacht.API.Utilities.Response;
 using BookingYacht.API.Utilities.Slugify;
+using BookingYacht.API.Utilities.Swagger;
 using BookingYacht.Business.Implement.Admin;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.Implement.Business;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -110,6 +112,8 @@ namespace BookingYacht.API
                         new List<string>()
                       }
                     });
+
+                c.DocumentFilter<KebabCaseDocumentFilter>();
             });
 
             services.AddSingleton(FirebaseApp.Create(new AppOptions()
@@ -142,6 +146,8 @@ namespace BookingYacht.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseRewriter(new RewriteOptions().Add(new PascalRule()));
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
