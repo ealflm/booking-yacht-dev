@@ -1,3 +1,4 @@
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Apartment } from './../../models/apartments';
 import { async } from '@angular/core/testing';
 import { ApartmentsService } from './../../services/apartments.service';
@@ -23,7 +24,9 @@ export class DestinationsComponent implements OnInit {
   placeType: any;
   constructor(
     private desService: DestinationsService,
-    private apartmentService: ApartmentsService
+    private apartmentService: ApartmentsService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +36,7 @@ export class DestinationsComponent implements OnInit {
   private getDestinations() {
     this.desService.getDestinations().subscribe((res) => {
       this.destinations = res.data;
-      console.log(this.destinations);
+      // console.log(this.destinations);s
 
       this.destinations.map((destination: Destination) => {
         this.apartmentService
@@ -87,7 +90,23 @@ export class DestinationsComponent implements OnInit {
     }
   }
   editDes(id: string) {}
-  deleteDes(id: string) {}
+  deleteDes(id: string) {
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc muốn từ chối tour này ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.desService.deleteDes(id).subscribe((response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successfull',
+            detail: 'Update successfull',
+          });
+          this.getDestinations();
+        });
+      },
+    });
+  }
   getValue(event: Event) {
     return (event.target as HTMLInputElement).value;
   }

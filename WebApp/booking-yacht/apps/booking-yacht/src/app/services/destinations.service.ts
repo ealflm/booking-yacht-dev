@@ -16,4 +16,8 @@ export class DestinationsService {
     }
     return this.http.get<any>(this.apiURL, { params: params });
   }
+  deleteDes(id: string) {
+    return this.http.delete(`${this.apiURL}/${id}`);
+  }
+
 }
