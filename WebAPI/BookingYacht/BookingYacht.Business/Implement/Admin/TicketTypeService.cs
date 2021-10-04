@@ -72,7 +72,6 @@ namespace BookingYacht.Business.Implement.Admin
                     ServiceFeePercentage=x.ServiceFeePercentage
                 }).FirstOrDefaultAsync();
             ticketType.Status = model.Status;
-            ticketType.ServiceFeePercentage = model.ServiceFeePercentage;
             _unitOfWork.TicketTypeRepository.Update(ticketType);
             await _unitOfWork.SaveChangesAsync();
         }

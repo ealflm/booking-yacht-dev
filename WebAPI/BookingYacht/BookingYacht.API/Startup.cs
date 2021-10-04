@@ -2,6 +2,8 @@ using BookingYacht.API.Utilities.Response;
 using BookingYacht.API.Utilities.Slugify;
 using BookingYacht.Business.Implement.Admin;
 using BookingYacht.Business.Interfaces.Admin;
+using BookingYacht.Business.Implement.Business;
+using BookingYacht.Business.Interfaces.Business;
 using BookingYacht.Data.Context;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Repositories;
@@ -121,7 +123,7 @@ namespace BookingYacht.API
 
             services.AddTransient<IManageBusinessAccountService, ManageBusinessAccountService>();
             services.AddTransient<IPlaceTypeService, PlaceTypeService>();
-            services.AddTransient<ITicketTypeService, TicketTypeService>();
+            services.AddTransient<Business.Interfaces.Admin.ITicketTypeService, Business.Implement.Admin.TicketTypeService>();
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<IDestinationTourService, DestinationTourService>();
             services.AddTransient<ITourService, TourService>();
@@ -129,6 +131,7 @@ namespace BookingYacht.API
             services.AddTransient<IVehicleTypeService, VehicleTypeService>();
             services.AddTransient<IDestinationService, DestinationService>();
             services.AddTransient<IAgencyService, AgencyService>();
+            services.AddTransient<Business.Interfaces.Business.ITicketTypeService, Business.Implement.Business.TicketTypeService>();
 
         }
 
