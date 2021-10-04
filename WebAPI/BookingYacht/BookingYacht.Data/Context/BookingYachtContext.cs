@@ -273,10 +273,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Time)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken();
+                entity.Property(e => e.Time).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdBusinessNavigation)
                     .WithMany(p => p.Trips)

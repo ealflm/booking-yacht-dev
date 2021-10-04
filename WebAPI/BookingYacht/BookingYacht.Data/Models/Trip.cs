@@ -13,7 +13,7 @@ namespace BookingYacht.Data.Models
         }
 
         public Guid Id { get; set; }
-        public byte[] Time { get; set; }
+        public DateTime Time { get; set; }
         public Guid IdBusiness { get; set; }
         public Guid IdVehicle { get; set; }
         public int Status { get; set; }
