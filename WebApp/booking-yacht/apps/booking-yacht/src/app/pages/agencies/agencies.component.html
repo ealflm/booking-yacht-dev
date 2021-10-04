@@ -1,6 +1,6 @@
 <p-toast position="top-right"></p-toast>
 <div class="admin-page p-3">
-  <p-card header="Dashboard" subheader="List of all Business Account">
+  <p-card header="Tài khoản đối tác" subheader="Danh sách các đối tác">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
         <span *ngFor="let item of status">
@@ -43,14 +43,14 @@
             <tr>
               <th class="hidden">ID</th>
               <th pSortableColumn="name">
-                Name <p-sortIcon field="name"></p-sortIcon>
+                Họ & Tên <p-sortIcon field="name"></p-sortIcon>
               </th>
 
-              <th>Address</th>
+              <th>Địa chỉ</th>
               <th>Email</th>
-              <th>Phone</th>
+              <th>Số Điện Thoại</th>
               <th>
-                Status
+                Trạng thái
                 <!-- <p-columnFilter
                   field="status"
                   matchMode="equals"
@@ -91,6 +91,11 @@
                   size="3rem"
                   styleClass="p-mr-2"
                 ></p-skeleton>
+                <p-skeleton
+                  shape="circle"
+                  size="3rem"
+                  styleClass="p-mr-2"
+                ></p-skeleton>
               </td>
             </tr>
             <tr *ngIf="!loading">
@@ -99,13 +104,20 @@
               <td>{{ agencies.address }}</td>
               <td>{{ agencies.emailAddress }}</td>
               <td>{{ agencies.phone }}</td>
-              <td class="p-ai-center p-pl-2">
+              <td>
                 <p-tag
                   [value]="agencyStatus[agencies.status]?.lable"
                   [severity]="agencyStatus[agencies.status]?.color"
                 ></p-tag>
               </td>
               <td>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editStatus(agencies.id)"
+                ></button>
                 <button
                   pButton
                   pRipple
@@ -125,5 +137,4 @@
   [style]="{ width: '50vw' }"
   [baseZIndex]="10000"
   rejectButtonStyleClass="p-button-text"
-  
 ></p-confirmDialog>

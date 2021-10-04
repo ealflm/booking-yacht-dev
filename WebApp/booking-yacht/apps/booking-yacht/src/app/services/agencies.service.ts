@@ -21,4 +21,10 @@ export class AgenciesService {
   deleteAgency(id: string): Observable<any> {
     return this.http.delete(`${this.apiURL}/${id}`);
   }
+  getAgency(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiURL}/${id}`);
+  }
+  updateStatus(id: string, status: string) {
+    return this.http.put(`${this.apiURL}/${id}`, { status: status });
+  }
 }

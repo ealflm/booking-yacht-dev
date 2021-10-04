@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { AgenciesService } from './../../services/agencies.service';
 import { AGENCY_STATUS } from './../../constants/STATUS';
@@ -20,19 +21,20 @@ export class AgenciesComponent implements OnInit {
   constructor(
     private agencyService: AgenciesService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getAgencies();
-    console.log(this.agencies);
   }
+
   getAgencies() {
     this.agencyService.getAgencies().subscribe((res) => {
+      this.agencies = res.data;
       setTimeout(() => {
         this.loading = false;
       }, 1000);
-      this.agencies = res.data;
     });
   }
   deleteAgency(id: string) {
@@ -75,5 +77,8 @@ export class AgenciesComponent implements OnInit {
   }
   getValue(event: Event) {
     return (event.target as HTMLInputElement).value;
+  }
+  editStatus(id: string) {
+    this.router.navigate([`agencies/form/${id}`]);
   }
 }

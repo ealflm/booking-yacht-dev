@@ -1,6 +1,6 @@
 <p-toast position="top-right"></p-toast>
 <div class="admin-page p-3">
-  <p-card header="Dashboard" subheader="List of all Business Account">
+  <p-card header="Địa điểm du lịch" subheader="Danh sách các địa điểm du lịch">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
         <span *ngFor="let item of status">
@@ -43,12 +43,12 @@
             <tr>
               <th class="hidden">ID</th>
               <th pSortableColumn="address">
-                Address <p-sortIcon field="address"></p-sortIcon>
+                Địa chỉ <p-sortIcon field="address"></p-sortIcon>
               </th>
 
               <th>Loại địa điểm</th>
 
-              <th>Status</th>
+              <th>Trạng thái</th>
               <th></th>
             </tr>
           </ng-template>
