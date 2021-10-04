@@ -8,40 +8,48 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
+
 export const ROUTES: RouteInfo[] = [
   {
     path: '/dashboard',
-    title: 'Dashboard',
+    title: 'Chủ tàu',
     icon: 'ni-tv-2 text-primary',
     class: '',
   },
   {
+    path: '/agencies',
+    title: 'Đại Lý',
+    icon: 'ni-circle-08 text-primary',
+    class: '',
+  },
+  {
     path: '/apartments',
-    title: 'Apartments',
+    title: 'Loại địa điểm',
     icon: 'ni-planet text-blue',
     class: '',
   },
   {
-    path: '/destinations-tours',
-    title: 'Desinations',
+    path: '/destinations',
+    title: 'Địa điểm du lịch',
     icon: 'ni-app text-red',
     class: '',
   },
+
   {
     path: '/tours',
-    title: 'Tours',
+    title: 'chuyến đi',
     icon: 'ni-send text-yellow',
     class: '',
   },
   {
     path: '/vehicle-types',
-    title: 'Vehicle Types',
+    title: 'Loại tàu',
     icon: 'ni-delivery-fast text-orange',
     class: '',
   },
   {
     path: '/ticket-types',
-    title: 'Ticket Types',
+    title: 'Loại vé',
     icon: 'ni-paper-diploma text-info',
     class: '',
   },
@@ -50,6 +58,7 @@ export const ROUTES: RouteInfo[] = [
 @Component({
   selector: 'booking-yacht-sidebar',
   templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
   public menuItems?: any[];

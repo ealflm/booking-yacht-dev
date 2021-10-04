@@ -18,7 +18,12 @@ export class HomePagesComponent implements OnInit {
   businessAcount: BusinessAccount[] = [];
   loading?: boolean = true;
   businessStatus = BUSINESS_STATUS;
-  status: any[] = [];
+  status = [
+    { id: '0', lable: 'None' },
+    { id: '1', lable: 'Enable' },
+    { id: '2', lable: 'Disable' },
+  ];
+  selectedID?: string;
   constructor(
     private businessService: BusinessAccountService,
     private confirmationService: ConfirmationService,
@@ -28,12 +33,22 @@ export class HomePagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBusinessAccount();
-    this._mapBusinessStatus();
+    // this._mapBusinessStatus();
+
     // console.log(this.status);
   }
 
+  onChangeStatus(id: string) {
+    this.loading = true;
+    this.businessService.getBusinessAccount(id).subscribe((res) => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
+      this.businessAcount = res.data;
+    });
+  }
   private getBusinessAccount() {
-    this.businessService.getBusinessAccount().subscribe((res) => {
+    this.businessService.getBusinessAccount('0').subscribe((res) => {
       // console.log(res);
       this.businessAcount = res.data;
       setTimeout(() => {
@@ -41,14 +56,14 @@ export class HomePagesComponent implements OnInit {
       }, 1000);
     });
   }
-  _mapBusinessStatus() {
-    this.status = Object.keys(BUSINESS_STATUS).map((key) => {
-      return {
-        id: key,
-        name: BUSINESS_STATUS[key].lable,
-      };
-    });
-  }
+  // _mapBusinessStatus() {
+  //   this.status = Object.keys(BUSINESS_STATUS).map((key) => {
+  //     return {
+  //       id: key,
+  //       name: BUSINESS_STATUS[key].lable,
+  //     };
+  //   });
+  // }
   editBusiness(id: string) {
     return this.router.navigate([`dashboard/business-account-form/${id}`]);
   }

@@ -11,7 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToursComponent implements OnInit {
   tours: [] = [];
-  status: any[] = [];
+  status = [
+    { id: '0', lable: 'NONE' },
+    { id: '1', lable: 'ACCEPTED' },
+    { id: '2', lable: 'REJECT' },
+  ];
   loading?: boolean = true;
   tourStatus = TOUR_STATUS;
   constructor(
@@ -24,26 +28,35 @@ export class ToursComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTours();
-    this._mapTourStatus();
+    // this._mapTourStatus();
   }
   private getTours() {
-    this.tourService.getTours().subscribe((res) => {
+    this.tourService.getTours('0').subscribe((res) => {
       this.tours = res.data;
       setTimeout(() => {
         this.loading = false;
       }, 1000);
     });
   }
-  _mapTourStatus() {
-    this.status = Object.keys(TOUR_STATUS).map((key) => {
-      {
-        return {
-          id: key,
-          name: TOUR_STATUS[key].lable,
-        };
-      }
+  onChangeStatus(id: string) {
+    this.loading = true;
+    this.tourService.getTours(id).subscribe((res) => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
+      this.tours = res.data;
     });
   }
+  // _mapTourStatus() {
+  //   this.status = Object.keys(TOUR_STATUS).map((key) => {
+  //     {
+  //       return {
+  //         id: key,
+  //         name: TOUR_STATUS[key].lable,
+  //       };
+  //     }
+  //   });
+  // }
   editTour(id: string) {
     this.router.navigate([`tours/form/${id}`]);
   }

@@ -1,5 +1,5 @@
 <p-toast position="top-right"></p-toast>
-<div class="admin-page">
+<div class="admin-page p-3">
   <p-card header="Dashboard" subheader="List of all Business Account">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
@@ -31,57 +31,30 @@
       <div class="col-12">
         <p-table
           #dt
-          [value]="businessAcount"
+          [value]="destinations"
           [rows]="10"
           [showCurrentPageReport]="true"
           [rowsPerPageOptions]="[10, 20, 50]"
           [paginator]="true"
           [filterDelay]="0"
-          [globalFilterFields]="['name', 'emailAddress', 'phone', 'status']"
+          [globalFilterFields]="['address', 'apartmentName']"
         >
           <ng-template pTemplate="header">
             <tr>
               <th class="hidden">ID</th>
-              <th pSortableColumn="name">
-                Name <p-sortIcon field="name"></p-sortIcon>
+              <th pSortableColumn="address">
+                Address <p-sortIcon field="address"></p-sortIcon>
               </th>
 
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Email</th>
-              <th>
-                Status
-                <!-- <p-columnFilter
-                  field="status"
-                  matchMode="equals"
-                  [showMenu]="false"
-                > -->
-                <!-- <ng-template
-                    pTemplate="filter"
-                    let-value
-                    let-filter="filterCallback"
-                  >
-                    <p-dropdown
-                      [ngModel]="value"
-                      [options]="status"
-                      (onChange)="filter($event.value)"
-                      placeholder="Status"
-                      [showClear]="true"
-                      optionValue="id"
-                      optionLabel="name"
-                    >
-                    </p-dropdown>
-                  </ng-template> -->
-                <!-- </p-columnFilter> -->
-              </th>
+              <th>Loại địa điểm</th>
+
+              <th>Status</th>
               <th></th>
             </tr>
           </ng-template>
 
-          <ng-template pTemplate="body" let-businessAcount>
+          <ng-template pTemplate="body" let-destinations>
             <tr *ngIf="loading">
-              <td><p-skeleton></p-skeleton></td>
-              <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
@@ -99,16 +72,13 @@
               </td>
             </tr>
             <tr *ngIf="!loading">
-              <td class="hidden">{{ businessAcount.id }}</td>
-              <td>{{ businessAcount.name }}</td>
-              <td>{{ businessAcount.phone }}</td>
-
-              <td>{{ businessAcount.address }}</td>
-              <td>{{ businessAcount.emailAddress }}</td>
+              <td class="hidden">{{ destinations.id }}</td>
+              <td>{{ destinations.address }}</td>
+              <td>{{ destinations.apartmentName }}</td>
               <td class="p-ai-center p-pl-2">
                 <p-tag
-                  [value]="businessStatus[businessAcount.status]?.lable"
-                  [severity]="businessStatus[businessAcount.status]?.color"
+                  [severity]="destinationStatus[destinations.status].color"
+                  [value]="destinationStatus[destinations.status].lable"
                 ></p-tag>
               </td>
               <td>
@@ -117,7 +87,7 @@
                   pRipple
                   icon="pi pi-pencil"
                   class="p-button-rounded p-button-success mr-2"
-                  (click)="editBusiness(businessAcount.id)"
+                  (click)="editDes(destinations.id)"
                 ></button>
 
                 <button
@@ -125,7 +95,7 @@
                   pRipple
                   icon="pi pi-ban"
                   class="p-button-rounded p-button-warning"
-                  (click)="deleteBusiness(businessAcount.id)"
+                  (click)="deleteDes(destinations.id)"
                 ></button>
               </td>
             </tr>
