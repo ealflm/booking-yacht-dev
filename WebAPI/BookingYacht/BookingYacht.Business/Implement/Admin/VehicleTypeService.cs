@@ -14,6 +14,8 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class VehicleTypeService : BaseService, IVehicleTypeService
     {
+        private const int Count = (int) CountElement.AtLeast;
+        
         public VehicleTypeService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
@@ -25,7 +27,10 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Name == null | x.Name.Equals(model.Name))
                 .Where(x => model.Status == null | x.Status == model.Status)
-                .Select(x => new VehicleTypeViewModel()
+                .OrderBy(x => x.Name)
+                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
+                .Take(model.Paging != 0 ? Count : _unitOfWork.VehicleTypeRepository.Query().Count())
+                .Select(x => new VehicleTypeViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,

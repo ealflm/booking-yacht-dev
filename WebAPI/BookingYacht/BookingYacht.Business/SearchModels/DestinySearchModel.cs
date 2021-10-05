@@ -9,5 +9,7 @@ namespace BookingYacht.Business.SearchModels
         public Guid? IdPlaceType { get; set; }  
         public int? Status { get; set; }
         
+        public int Paging { get; set; }
+        
     }
 }

@@ -12,7 +12,7 @@ namespace BookingYacht.Business.SearchModels
         public string? Phone { get; set; }
         public int? Status { get; set; }
         
-        public string? Token { get; set; }
+        public int Paging { get; set; }
         
     }
 }

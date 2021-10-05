@@ -13,6 +13,7 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class DestinationService : BaseService, IDestinationService
     {
+        private const int Count = (int) CountElement.AtLeast;
         
         public async Task<Guid> AddDestiny(DestinyViewModel model)
         {
@@ -67,6 +68,9 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.Status == null |x.Status == model.Status)
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
+                .OrderBy(x => x.Address)
+                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
+                .Take(model.Paging != 0 ? Count : _unitOfWork.DestinationRepository.Query().Count())
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
