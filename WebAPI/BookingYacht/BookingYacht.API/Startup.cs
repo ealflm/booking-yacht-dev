@@ -66,7 +66,6 @@ namespace BookingYacht.API
 
             services.AddControllers();
 
-            // Kebab Case Controller
             services.AddControllers(options =>
             {
                 options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
