@@ -84,7 +84,7 @@ export class AccountBusinessFormComponent implements OnInit {
     }
     const businessAccount: BusinessAccount = {
       name: this.businessForm.name.value,
-      phone: this.businessForm.phone.value,
+      phoneNumber: this.businessForm.phone.value,
       emailAddress: this.businessForm.email.value,
       address: this.businessForm.address.value,
       status: this.businessForm.status.value,
@@ -148,7 +148,7 @@ export class AccountBusinessFormComponent implements OnInit {
           .getBusinessAccountByID(this.currentUser)
           .subscribe((res) => {
             this.businessForm.name.setValue(res.data.name);
-            this.businessForm.phone.setValue(res.data.phone);
+            this.businessForm.phone.setValue(res.data.phoneNumber);
             this.businessForm.email.setValue(res.data.emailAddress);
             this.businessForm.address.setValue(res.data.address);
             this.businessForm.status.setValue(res.data.status?.toString());
