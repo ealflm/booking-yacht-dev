@@ -21,14 +21,14 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] OrdersSearchModel model)
         {
-            var order = await _service.Search(model);
+            var order = await _service.SearchNavigation(model);
             return order != null ? Success(order) : Fail("The Order's not exist");
         }
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var order = await _service.Get(id);
+            var order = await _service.GetNavigation(id);
             return order != null ? Success(order) : Fail("The Order's not exist");
         }
 

@@ -9,15 +9,19 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IOrdersService
     {
-        public Task<List<OrdersViewModel>> Search(OrdersSearchModel model);
+        Task<List<OrdersViewModel>> Search(OrdersSearchModel model);
 
-        public Task<OrdersViewModel> Get(Guid id);
+        Task<List<Order>> SearchNavigation(OrdersSearchModel model);
 
-        public Task<Guid> Add(OrdersViewModel model);
+        Task<OrdersViewModel> Get(Guid id);
 
-        public Task<bool> Update(Guid id, OrdersViewModel model);
+        Task<Order> GetNavigation(Guid id);
 
-        public Task<bool> Delete(Guid id);
+        Task<Guid> Add(OrdersViewModel model);
+
+        Task<bool> Update(Guid id, OrdersViewModel model);
+
+        Task<bool> Delete(Guid id);
 
     }
 }

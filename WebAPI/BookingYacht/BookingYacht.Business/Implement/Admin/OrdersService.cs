@@ -70,6 +70,25 @@ namespace BookingYacht.Business.Implement.Admin
             return list;
         }
 
+        public async Task<List<Order>> SearchNavigation(OrdersSearchModel model)
+        {
+            model ??= new OrdersSearchModel();
+            var list = await _unitOfWork.Context().Orders
+                .Include(x => x.IdAgencyNavigation)
+                .Where(x => model.Id == null | x.Id.Equals(model.Id))
+                .Where(x => model.AgencyName == null | x.AgencyName.Contains(model.AgencyName))
+                .Where(x => model.IdAgency == null | x.IdAgency.Equals(model.IdAgency))
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                .Where(x => model.TotalPrice == null | x.TotalPrice == model.TotalPrice)
+                .Where(x => model.QuantityOfPerson == null | x.QuantityOfPerson == model.QuantityOfPerson)
+                .Where(x => model.Status == null | x.Status == (int)model.Status)
+                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
+                .Take(model.Paging != 0 ? Count : _unitOfWork.BusinessRepository.Query().Count())
+                .OrderBy(x => x.AgencyName)
+                .ToListAsync();
+            return list;
+        }
+
         public async Task<OrdersViewModel> Get(Guid id)
         {
             return await _unitOfWork.OrderRepository.Query()
@@ -77,6 +96,15 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => MapperOrder.GetViewModel(x).Result)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<Order> GetNavigation(Guid id)
+        {
+            return await _unitOfWork.Context().Orders
+                .Include(x => x.IdAgencyNavigation)
+                .Where(x => x.Id.Equals(id))
+                .FirstOrDefaultAsync();
+        }
+
 
         public async Task<Guid> Add(OrdersViewModel model)
         {
