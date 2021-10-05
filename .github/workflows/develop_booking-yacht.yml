@@ -9,6 +9,7 @@ on:
       - develop
     paths:
       - 'WebAPI/**'
+      - 'README.md'
   workflow_dispatch:
 
 jobs:

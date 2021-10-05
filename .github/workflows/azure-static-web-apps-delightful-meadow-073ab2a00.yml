@@ -6,6 +6,7 @@ on:
       - develop
     paths:
       - 'WebApp/**'
+      - 'README.md'
   #pull_request:
     #types: [opened, synchronize, reopened, closed]
     #branches:
