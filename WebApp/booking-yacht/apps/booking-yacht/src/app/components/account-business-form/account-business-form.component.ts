@@ -79,7 +79,7 @@ export class AccountBusinessFormComponent implements OnInit {
 
   onSubmit() {
     this.isSubmit = true;
-    if (this.form.invalid) {
+    if (this.form.invalid && this.form.hasValidator) {
       return;
     }
     const businessAccount: BusinessAccount = {
@@ -115,19 +115,26 @@ export class AccountBusinessFormComponent implements OnInit {
   }
 
   private _updateBusiness(business: BusinessAccount, id: string) {
-    this.businessAccountService
-      .updateBusinessAccount(id, business)
-      .subscribe((res) => {
+    this.businessAccountService.updateBusinessAccount(id, business).subscribe(
+      (res) => {
         this.messageService.add({
           severity: 'success',
           summary: 'Successfull',
           detail: 'update successfull',
         });
-        timer(500)
-          .toPromise()
-          .then(() => {
-            this.location.back();
-          });
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'update fail',
+        });
+      }
+    );
+    timer(500)
+      .toPromise()
+      .then(() => {
+        this.location.back();
       });
   }
 

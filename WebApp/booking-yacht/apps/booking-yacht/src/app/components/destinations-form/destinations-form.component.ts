@@ -69,7 +69,7 @@ export class DestinationsFormComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmit = true;
-    if (this.form.invalid) {
+    if (this.form.invalid && this.form.hasValidator) {
       return;
     }
     if (this.editMode) {

@@ -64,7 +64,7 @@ export class AparmentFormComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmit = true;
-    if (this.form.invalid) {
+    if (this.form.invalid && this.form.hasValidator) {
       return;
     }
     if (!this.editMode) {
