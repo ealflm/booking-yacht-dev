@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Apartment } from './../../models/apartments';
 import { async } from '@angular/core/testing';
@@ -26,7 +27,8 @@ export class DestinationsComponent implements OnInit {
     private desService: DestinationsService,
     private apartmentService: ApartmentsService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -36,19 +38,17 @@ export class DestinationsComponent implements OnInit {
   private getDestinations() {
     this.desService.getDestinations().subscribe((res) => {
       this.destinations = res.data;
-      // console.log(this.destinations);s
-
       this.destinations.map((destination: Destination) => {
         this.apartmentService
           .getApartment(destination.idPlaceType)
           .subscribe((res) => {
             destination.apartmentName = res.data.name;
             destination.apartmentId = res.data.id;
-            setTimeout(() => {
-              this.loading = false;
-            }, 1000);
           });
       });
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     });
   }
 
@@ -56,7 +56,7 @@ export class DestinationsComponent implements OnInit {
     if (id == '0') {
       this.desService.getDestinations().subscribe((res) => {
         this.destinations = res.data;
-        console.log(this.destinations);
+        // console.log(this.destinations);
 
         this.destinations.map((destination: Destination) => {
           this.apartmentService
@@ -64,32 +64,33 @@ export class DestinationsComponent implements OnInit {
             .subscribe((res) => {
               destination.apartmentName = res.data.name;
               destination.apartmentId = res.data.id;
-              setTimeout(() => {
-                this.loading = false;
-              }, 1000);
             });
         });
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
       });
     } else {
       this.desService.getDestinations(id).subscribe((res) => {
         this.destinations = res.data;
-        console.log(this.destinations);
-
+        // console.log(this.destinations);
         this.destinations.map((destination: Destination) => {
           this.apartmentService
             .getApartment(destination.idPlaceType)
             .subscribe((res) => {
               destination.apartmentName = res.data.name;
               destination.apartmentId = res.data.id;
-              setTimeout(() => {
-                this.loading = false;
-              }, 1000);
             });
         });
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
       });
     }
   }
-  editDes(id: string) {}
+  editDes(id: string) {
+    this.router.navigate([`destinations/form/${id}`]);
+  }
   deleteDes(id: string) {
     this.confirmationService.confirm({
       message: 'Bạn có chắc muốn từ chối tour này ?',

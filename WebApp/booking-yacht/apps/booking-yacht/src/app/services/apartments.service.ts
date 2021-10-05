@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment.prod';
 export class ApartmentsService {
   apiURL = environment.apiURL + '/api/v1/place-types';
   constructor(private http: HttpClient) {}
-  getApartments(status: string): Observable<any> {
+  getApartments(status?: string): Observable<any> {
     let params = new HttpParams();
     if (status) {
       params = params.append('status', status);
