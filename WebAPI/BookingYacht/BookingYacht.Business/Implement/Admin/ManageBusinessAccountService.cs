@@ -27,7 +27,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Name = model.Name,
                 Address = model.Address,
                 EmailAddress = model.EmailAddress,
-                Phone = model.Phone,
+                PhoneNumber = model.Phone,
                 Status = model.Status
             };
             business.Status = (int)Status.ENABLE;
@@ -46,7 +46,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = x.Name,
                     Address = x.Address,
                     EmailAddress = x.EmailAddress,
-                    Phone = x.Phone,
+                    PhoneNumber = x.PhoneNumber,
                     Status = x.Status
                 }).FirstOrDefaultAsync();
             business.Status =(int) Status.DISABLE;
@@ -64,7 +64,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = x.Name,
                     Address = x.Address,
                     EmailAddress = x.EmailAddress,
-                    Phone = x.Phone,
+                    Phone = x.PhoneNumber,
                     Status = x.Status
                 }).FirstOrDefaultAsync();
             return business;
@@ -78,7 +78,7 @@ namespace BookingYacht.Business.Implement.Admin
             }
             var businesses = await _unitOfWork.BusinessRepository.Query()
                 .Where(x => model.Name == null | x.Name.Contains(model.Name))
-                .Where(x => model.Phone == null | x.Phone.Contains(model.Phone))
+                .Where(x => model.Phone == null | x.PhoneNumber.Contains(model.Phone))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.EmailAddress == null | x.EmailAddress.Contains(model.EmailAddress))
                 .Where(x => model.Status==Status.ALL|x.Status == (int)model.Status)
@@ -88,7 +88,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = x.Name,
                     Address = x.Address,
                     EmailAddress = x.EmailAddress,
-                    Phone = x.Phone,
+                    Phone = x.PhoneNumber,
                     Status = x.Status
                 })
                 .OrderBy(x => x.Name)
@@ -106,7 +106,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Name = model.Name,
                 Address = model.Address,
                 EmailAddress = model.EmailAddress,
-                Phone = model.Phone,
+                PhoneNumber = model.Phone,
                 Status = model.Status
             };
             _unitOfWork.BusinessRepository.Update(business);

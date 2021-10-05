@@ -22,7 +22,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Address = x.Address,
                 EmailAddress = x.EmailAddress,
                 Name = x.Name,
-                Phone = x.Phone,
+                Phone = x.PhoneNumber,
                 Status = x.Status,
             });
         }
@@ -34,7 +34,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Address = model.Address,
                     EmailAddress = model.EmailAddress,
                     Name = model.Name,
-                    Phone = model.Phone,
+                    PhoneNumber = model.Phone,
                     Status = (int) Status.ENABLE,
                 }
             );
@@ -49,7 +49,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Address = model.Address,
                     EmailAddress = model.EmailAddress,
                     Name = model.Name,
-                    Phone = model.Phone,
+                    PhoneNumber = model.Phone,
                     Status = model.Status ?? 0
                 }
             );
@@ -71,7 +71,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.Name == null | x.Name.Contains(model.Name))
-                .Where(x => model.Phone == null | x.Phone.Contains(model.Phone))
+                .Where(x => model.Phone == null | x.PhoneNumber.Contains(model.Phone))
                 .Where(x => model.EmailAddress == null | x.EmailAddress.Contains(model.EmailAddress))
                 .Where(x => model.Status == null | x.Status == model.Status)
                 .OrderBy(x => x.Name)

@@ -74,13 +74,17 @@ namespace BookingYacht.Data.Context
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.Phone)
-                    .HasMaxLength(11)
-                    .IsUnicode(false);
+                entity.Property(e => e.Password)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<Business>(entity =>
@@ -96,13 +100,17 @@ namespace BookingYacht.Data.Context
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.Phone)
-                    .HasMaxLength(11)
-                    .IsUnicode(false);
+                entity.Property(e => e.Password)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(128)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<BusinessTour>(entity =>
