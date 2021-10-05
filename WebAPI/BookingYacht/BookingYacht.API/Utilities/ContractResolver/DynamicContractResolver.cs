@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace BookingYacht.API.Utilities.ContractResolver
 {
-    public class DynamicContractResolver : DefaultContractResolver
+    public class DynamicContractResolver : CamelCasePropertyNamesContractResolver
     {
         private readonly string _propertyTypeToExclude;
 
