@@ -7,6 +7,7 @@ using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
+using BookingYacht.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
@@ -45,7 +46,6 @@ namespace BookingYacht.Business.Implement.Admin
             await _unitOfWork.SaveChangesAsync();
         }
 
-
         public async Task<DestinyViewModel> GetDestiny(Guid id)
         {
             var destiny = await _unitOfWork.DestinationRepository.Query()
@@ -57,6 +57,15 @@ namespace BookingYacht.Business.Implement.Admin
                     Status = x.Status,
                     IdPlaceType = x.IdPlaceType
                 }).FirstOrDefaultAsync();
+            return destiny;
+        }
+
+        public async Task<Destination> GetDestinyNavigation(Guid id)
+        {
+            var destiny = await _unitOfWork.Context().Destinations
+                .Include(x => x.IdPlaceTypeNavigation)
+                .Where(x => x.Id.Equals(id))
+                .FirstOrDefaultAsync();
             return destiny;
         }
 
@@ -78,6 +87,23 @@ namespace BookingYacht.Business.Implement.Admin
                     Status = x.Status,
                     IdPlaceType = x.IdPlaceType
                 })
+                .OrderBy(x => x.Address)
+                .ToListAsync();
+            return destiny;
+        }
+
+        public async Task<List<Destination>> SearchDestiniesNavigation(DestinySearchModel model = null)
+        {
+            model ??= new DestinySearchModel();
+            var destiny = await _unitOfWork.Context().Destinations
+                .Include(x => x.IdPlaceTypeNavigation)
+                .Where(x => model.Id == null | x.Id.Equals(model.Id))
+                .Where(x => model.Address == null | x.Address.Contains(model.Address))
+                .Where(x => model.Status == null | x.Status == model.Status)
+                .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
+                .OrderBy(x => x.Address)
+                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
+                .Take(model.Paging != 0 ? Count : _unitOfWork.DestinationRepository.Query().Count())
                 .OrderBy(x => x.Address)
                 .ToListAsync();
             return destiny;

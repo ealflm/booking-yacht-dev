@@ -24,14 +24,14 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] DestinySearchModel model)
         {
-            var destinies = await _service.SearchDestinies(model);
+            var destinies = await _service.SearchDestiniesNavigation(model);
             return Success(destinies);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var destinies = await _service.GetDestiny(id);
+            var destinies = await _service.GetDestinyNavigation(id);
            
             return Success(destinies);
         }
