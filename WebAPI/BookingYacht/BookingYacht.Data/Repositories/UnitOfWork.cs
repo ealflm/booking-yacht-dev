@@ -62,6 +62,11 @@ namespace BookingYacht.Data.Repositories
             VehicleTypeRepository = vehicleTypeRepository;
         }
 
+        public BookingYachtContext Context()
+        {
+            return _dbContext;
+        }
+
         public DatabaseFacade Database()
         {
             return _dbContext.Database;

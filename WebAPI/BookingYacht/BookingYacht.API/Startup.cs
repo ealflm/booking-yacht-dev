@@ -70,6 +70,11 @@ namespace BookingYacht.API
                 options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
             });
 
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
             services.AddCors(option =>
             {
                 option.AddDefaultPolicy(builder =>
@@ -117,9 +122,9 @@ namespace BookingYacht.API
             });
 
             services.AddSingleton(FirebaseApp.Create(new AppOptions()
-                {
-                    Credential = GoogleCredential.FromFile(Configuration["Firebase:Admin"]),
-                })
+            {
+                Credential = GoogleCredential.FromFile(Configuration["Firebase:Admin"]),
+            })
             );
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

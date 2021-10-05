@@ -1,4 +1,5 @@
-﻿using BookingYacht.Data.Models;
+﻿using BookingYacht.Data.Context;
+using BookingYacht.Data.Models;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Threading.Tasks;
 
@@ -21,6 +22,8 @@ namespace BookingYacht.Data.Interfaces
         IGenericRepository<Trip> TripRepository { get; }
         IGenericRepository<Vehicle> VehicleRepository { get; }
         IGenericRepository<VehicleType> VehicleTypeRepository { get; }
+
+        BookingYachtContext Context();
 
         DatabaseFacade Database();
 
