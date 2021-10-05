@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '/controller/home.dart';
 
 import 'menu.dart';
-import 'qr-code.dart';
+import 'qr_code.dart';
 import 'tour.dart';
 import 'verification.dart';
 import 'yachts.dart';

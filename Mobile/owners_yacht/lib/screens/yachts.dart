@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '/models/yacht.dart';
-import '/screens/yacht-modify.dart';
-import '/widgets/app-bar.dart';
-import '/widgets/yacht-card.dart';
+import 'yacht_modify.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/yacht_card.dart';
 
 class Yachts extends StatelessWidget {
   List<Yacht> _list = [

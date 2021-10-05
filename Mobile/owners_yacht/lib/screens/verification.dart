@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/models/yacht.dart';
-import '/widgets/app-bar.dart';
-import '/widgets/verification-card.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/verification_card.dart';
 
 class Verification extends StatelessWidget {
   Verification({Key? key}) : super(key: key);

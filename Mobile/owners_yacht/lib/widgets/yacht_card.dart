@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/screens/yacht-detail.dart';
-import 'package:owners_yacht/screens/yacht-modify.dart';
+import 'package:owners_yacht/screens/yacht_detail.dart';
+import 'package:owners_yacht/screens/yacht_modify.dart';
 import 'package:get/get.dart';
 
 class YachtCard extends StatelessWidget {

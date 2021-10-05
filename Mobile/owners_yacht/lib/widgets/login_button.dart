@@ -20,7 +20,7 @@ class LoginGoogleButton extends StatelessWidget {
                       borderRadius: BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.white)))),
           onPressed: () {
-            Get.off(Home());
+ 
           },
           icon: FaIcon(FontAwesomeIcons.google),
           label: const Text('Login with Google'),

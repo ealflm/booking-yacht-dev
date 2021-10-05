@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/screens/yacht-detail.dart';
-import '/screens/tour-detail.dart';
-import '/screens/yacht-modify.dart';
+import '../screens/yacht_detail.dart';
+import '../screens/tour_detail.dart';
+import '../screens/yacht_modify.dart';
 
 class TourCard extends StatelessWidget {
   final String title;

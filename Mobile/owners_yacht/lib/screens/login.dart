@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/login-button.dart';
+import 'package:get/get.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '/controller/login.dart';
 
 class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+  final controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,27 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                LoginGoogleButton(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 80.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white70),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(color: Colors.white)))),
+                      onPressed: () {
+                        controller.login();
+                      },
+                      icon: FaIcon(FontAwesomeIcons.google),
+                      label: const Text('Login with Google'),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
