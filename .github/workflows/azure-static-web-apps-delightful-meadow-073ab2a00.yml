@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - develop
+    paths:
+      - 'WebApp'
   #pull_request:
     #types: [opened, synchronize, reopened, closed]
     #branches:
