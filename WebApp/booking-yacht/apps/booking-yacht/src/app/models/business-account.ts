@@ -1,7 +1,7 @@
 export class BusinessAccount {
   id?: string;
   name?: string;
-  phone?: string;
+  phoneNumber?: string;
   emailAddress?: string;
   address?: string;
   status?: string;

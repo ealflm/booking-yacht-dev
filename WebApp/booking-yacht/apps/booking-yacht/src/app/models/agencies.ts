@@ -3,7 +3,7 @@ export class Agency {
   name?: string;
   address?: string;
   emailAddress?: string;
-  phone?: string;
+  phoneNumber?: string;
   status?: string;
   token?: string;
 }

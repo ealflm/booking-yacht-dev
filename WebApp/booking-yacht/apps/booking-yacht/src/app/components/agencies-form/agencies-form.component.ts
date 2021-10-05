@@ -1,3 +1,4 @@
+import { timer } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Agency } from './../../models/agencies';
 import { ActivatedRoute } from '@angular/router';
@@ -52,7 +53,7 @@ export class AgenciesFormComponent implements OnInit {
         });
       },
       (error) => {
-      if (error.status == 500) {
+        if (error.status == 500) {
           this.messageService.add({
             severity: 'error',
             detail: error.message,
@@ -66,6 +67,11 @@ export class AgenciesFormComponent implements OnInit {
         }
       }
     );
+    timer(500)
+      .toPromise()
+      .then(() => {
+        this.location.back();
+      });
   }
   _mapStatus() {
     this.status = Object.keys(AGENCY_STATUS).map((key) => {
