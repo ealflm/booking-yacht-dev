@@ -11,5 +11,7 @@ namespace BookingYacht.Business.SearchModels
         public Guid? IdVehicleType { get; set; }
         public Guid? IdBusiness { get; set; }
         public int? Status { get; set; }
+        
+        public int Paging { get; set; }
     }
 }
