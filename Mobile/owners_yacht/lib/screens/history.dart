@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/models/yacht.dart';
-import '/widgets/app-bar.dart';
-import '/widgets/tour-card.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/tour_card.dart';
 
 class History extends StatelessWidget {
   History({Key? key}) : super(key: key);

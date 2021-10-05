@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/controller/tour.dart';
 import 'package:owners_yacht/models/yacht.dart';
-import 'package:owners_yacht/widgets/app-bar.dart';
-import 'package:owners_yacht/widgets/tour-card.dart';
+import 'package:owners_yacht/widgets/app_bar.dart';
+import 'package:owners_yacht/widgets/tour_card.dart';
 
 class Tour extends StatelessWidget {
   // const ManagerTour({Key? key}) : super(key: key);

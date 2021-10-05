@@ -1,7 +1,7 @@
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/controller/qr-code.dart';
+import '../controller/qr_code.dart';
 
 class QRScan extends StatelessWidget {
   @override

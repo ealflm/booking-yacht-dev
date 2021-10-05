@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "103693639285",
+    "project_id": "signin-bc6a9",
+    "storage_bucket": "signin-bc6a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103693639285:android:9699e41574d07b459ca23c",
+        "android_client_info": {
+          "package_name": "com.example.owners_yacht"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103693639285-riss12qpeh6dtvmt7tvpelmrm2g2l719.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArysDUbJ_VglkirbiKll63M8kheQgwELU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103693639285-riss12qpeh6dtvmt7tvpelmrm2g2l719.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
