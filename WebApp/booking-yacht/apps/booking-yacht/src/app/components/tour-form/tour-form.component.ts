@@ -69,7 +69,7 @@ export class TourFormComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmit = true;
-    if (this.form.invalid) {
+    if (this.form.invalid && this.form.hasValidator) {
       return;
     }
 
