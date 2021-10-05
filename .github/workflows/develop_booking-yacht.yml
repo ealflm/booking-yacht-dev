@@ -8,7 +8,7 @@ on:
     branches:
       - develop
     paths:
-      - 'WebAPI'
+      - 'WebAPI/**'
   workflow_dispatch:
 
 jobs:

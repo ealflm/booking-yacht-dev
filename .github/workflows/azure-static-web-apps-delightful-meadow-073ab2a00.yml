@@ -5,7 +5,7 @@ on:
     branches:
       - develop
     paths:
-      - 'WebApp'
+      - 'WebApp/**'
   #pull_request:
     #types: [opened, synchronize, reopened, closed]
     #branches:
