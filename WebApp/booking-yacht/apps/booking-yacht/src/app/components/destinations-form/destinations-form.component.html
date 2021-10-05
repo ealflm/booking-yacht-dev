@@ -28,40 +28,63 @@
       <div class="col-12">
         <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
-            <div class="p-field col-4" [class]="editMode ? 'hidden' : ''">
+            <div class="p-field col-4" [class]="editMode ? 'hidden' : 'hidden'">
               <label for="id">ID</label>
               <input id="id" type="text" pInputText formControlName="id" />
             </div>
             <div class="p-field col-8">
               <label for="address">Địa chỉ</label>
 
-              <input
+              <textarea
                 id="address"
                 type="text"
                 pInputText
                 formControlName="address"
-              />
+                [rows]="4"
+                [cols]="30"
+              ></textarea>
               <small *ngIf="desForm.address.invalid && isSubmit" class="p-error"
-                >Địa chỉ is required</small
+                >Địa chỉ không được trống</small
               >
             </div>
             <div class="p-field col-4">
-              <label for="address">Loại địa điểm</label>
-              <p-dropdown
-                optionLabel="name"
-                optionValue="id"
-                [options]="status"
-                placeholder="Select Status"
-                formControlName="idPlaceType"
-                [showClear]="true"
-                [filter]="true"
-                filterBy="name"
-              ></p-dropdown>
-              <small
-                *ngIf="desForm.idPlaceType.invalid && isSubmit"
-                class="p-error"
-                >Status is required</small
-              >
+              <div class="gird">
+                <div class="col-12">
+                  <label for="address">Loại địa điểm</label>
+                  <p-dropdown
+                    optionLabel="name"
+                    optionValue="id"
+                    [options]="desStatus"
+                    placeholder="Select Status"
+                    formControlName="idPlaceType"
+                    [showClear]="true"
+                    [filter]="true"
+                    filterBy="name"
+                  ></p-dropdown>
+                  <small
+                    *ngIf="desForm.idPlaceType.invalid && isSubmit"
+                    class="p-error"
+                    >Hãy chọn một loại địa điểm</small
+                  >
+                </div>
+                <div class="col-12">
+                  <label for="status">Trạng thái</label>
+                  <p-dropdown
+                    optionLabel="name"
+                    optionValue="id"
+                    [options]="status"
+                    placeholder="Select Status"
+                    formControlName="status"
+                    [showClear]="true"
+                    filterBy="name"
+                  ></p-dropdown>
+                  <small
+                    *ngIf="desForm.status.invalid && isSubmit"
+                    class="p-error"
+                    >Hãy chọn một Trạng Thái</small
+                  >
+                </div>
+              </div>
             </div>
           </div>
         </form>

@@ -26,6 +26,20 @@
         />
       </span>
     </p-toolbar>
+    <div class="mt-5"></div>
+    <p-toolbar>
+      <span class="p-input-icon-right"> </span>
+      <ng-template pTemplate="right">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success p-mr-2"
+          (click)="newDes()"
+        ></button>
+      </ng-template>
+    </p-toolbar>
     <hr />
     <div class="grid">
       <div class="col-12">

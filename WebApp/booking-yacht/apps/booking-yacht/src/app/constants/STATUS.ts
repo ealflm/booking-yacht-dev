@@ -79,3 +79,9 @@ export const AGENCY_STATUS: any = {
     color: 'warning',
   },
 };
+
+export const STATUS = [
+  { id: '0', name: 'WAITING' },
+  { id: '1', name: 'ACCEPTED' },
+  { id: '2', name: 'REJECT' },
+];

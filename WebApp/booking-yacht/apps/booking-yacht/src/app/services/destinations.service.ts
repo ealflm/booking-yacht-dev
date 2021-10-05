@@ -1,4 +1,4 @@
-import { Destination } from './../models/destinations';
+import { Desti, Destination } from './../models/destinations';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -22,5 +22,12 @@ export class DestinationsService {
   }
   getDes(id: string): Observable<Destination> {
     return this.http.get<Destination>(`${this.apiURL}/${id}`);
+  }
+
+  createDes(des: Desti): Observable<any> {
+    return this.http.post<Desti>(`${this.apiURL}`, des);
+  }
+  updateDes(des: Desti, id: string): Observable<any> {
+    return this.http.put<Desti>(`${this.apiURL}/${id}`, des);
   }
 }

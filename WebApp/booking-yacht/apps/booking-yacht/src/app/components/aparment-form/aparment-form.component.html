@@ -8,7 +8,7 @@
       <div class="p-toolbar-group-left"></div>
       <div class="p-toolbar-group-right">
         <p-button
-          [label]="editMode ? 'Update' : 'Save'"
+          [label]="editMode ? 'Update' : 'Create'"
           icon="pi pi-check"
           [styleClass]="
             editMode ? 'p-button-warning mr-2' : 'p-button-info mr-2'
@@ -33,17 +33,17 @@
               <input id="id" type="text" pInputText formControlName="id" />
             </div>
             <div class="p-field col-8">
-              <label for="name">Bến Tàu</label>
+              <label for="name">Tên loại điểm</label>
 
               <input id="name" formControlName="name" type="text" pInputText />
               <small
                 *ngIf="apartmentForm.name.invalid && isSubmit"
                 class="p-error"
-                >Bến Tàu is required</small
+                >Tên loại điểm không được trống</small
               >
             </div>
             <div class="p-field col-4" *ngIf="editMode">
-              <label for="status">Status</label>
+              <label for="status">Trạng thái</label>
               <p-dropdown
                 optionLabel="name"
                 optionValue="id"
@@ -55,7 +55,7 @@
               <small
                 *ngIf="apartmentForm.status.invalid && isSubmit"
                 class="p-error"
-                >Status is required</small
+                >Trạng thái không được trống</small
               >
             </div>
           </div>
@@ -71,12 +71,12 @@
               <p-skeleton></p-skeleton>
             </div>
             <div class="p-field col-8">
-              <label for="name">Bến Tàu</label>
+              <label for="name">Tên loại điểm</label>
 
               <p-skeleton></p-skeleton>
             </div>
             <div class="p-field col-4" *ngIf="editMode">
-              <label for="status">Status</label>
+              <label for="status">Trạng thái</label>
               <p-skeleton></p-skeleton>
             </div>
           </div>

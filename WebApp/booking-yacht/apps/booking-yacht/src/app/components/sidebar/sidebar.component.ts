@@ -53,6 +53,18 @@ export const ROUTES: RouteInfo[] = [
     icon: 'ni-paper-diploma text-info',
     class: '',
   },
+  {
+    path: '/ticket',
+    title: 'Danh sách vé',
+    icon: 'ni-badge text-orange',
+    class: '',
+  },
+  {
+    path: '/order',
+    title: 'Doanh thu',
+    icon: 'ni-money-coins text-orange',
+    class: '',
+  },
 ];
 
 @Component({
