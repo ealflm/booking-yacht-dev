@@ -44,7 +44,7 @@ namespace BookingYacht.Business.Implement.Admin
     
     public class OrdersService : BaseService, IOrdersService
     {
-        private const int Count = 2;
+        private const int Count = (int)CountElement.Medium;
 
         public OrdersService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {

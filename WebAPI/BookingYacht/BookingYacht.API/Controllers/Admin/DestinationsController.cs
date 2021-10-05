@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BookingYacht.API.Controllers.Agency;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
@@ -25,16 +24,16 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] DestinySearchModel model)
         {
-            var businesses = await _service.SearchDestinies(model);
-            return Success(businesses);
+            var destinies = await _service.SearchDestinies(model);
+            return Success(destinies);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var business = await _service.GetDestiny(id);
+            var destinies = await _service.GetDestiny(id);
            
-            return Success(business);
+            return Success(destinies);
         }
 
         [HttpPost]
