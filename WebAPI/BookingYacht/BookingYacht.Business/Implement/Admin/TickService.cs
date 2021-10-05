@@ -47,6 +47,27 @@ namespace BookingYacht.Business.Implement.Admin
             return list;
         }
 
+        public async Task<List<Ticket>> SearchTicketsNavigation(TicketSearchModel model = null)
+        {
+            model ??= new TicketSearchModel();
+            var list = await _unitOfWork.Context().Tickets
+                .Include(x => x.IdOrderNavigation)
+                .Include(x => x.IdTicketTypeNavigation)
+                .Include(x => x.IdTripNavigation)
+                .Where(x => model.Id == null | x.Id.Equals(model.Id))
+                .Where(x => model.NameCustomer == null | x.NameCustomer.Contains(model.NameCustomer))
+                .Where(x => model.Phone == null | x.Phone.Equals(model.Phone))
+                .Where(x => model.IdOrder == null | x.IdOrder.Equals(model.IdOrder))
+                .Where(x => model.IdTrip == null | x.IdTrip.Equals(model.IdTrip))
+                .Where(x => model.IdTicketType == null | x.IdTicketType.Equals(model.IdTicketType))
+                .Where(x => model.Status == null | x.Status == (int)model.Status)
+                .OrderBy(x => x.NameCustomer)
+                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
+                .Take(model.Paging != 0 ? Count : _unitOfWork.TicketRepository.Query().Count())
+                .ToListAsync();
+            return list;
+        }
+
         public async Task<TicketViewModel> GetTicket(Guid id)
         {
             return await _unitOfWork.TicketRepository.Query()
@@ -63,6 +84,17 @@ namespace BookingYacht.Business.Implement.Admin
                     Status = x.Status
                 }).FirstOrDefaultAsync();
         }
+
+        public async Task<Ticket> GetTicketNavigation(Guid id)
+        {
+            return await _unitOfWork.Context().Tickets
+                .Include(x => x.IdOrderNavigation)
+                .Include(x => x.IdTicketTypeNavigation)
+                .Include(x => x.IdTripNavigation)
+                .Where(x => x.Id.Equals(id))
+                .FirstOrDefaultAsync();
+        }
+
 
         public async Task<Guid> AddTicket(TicketViewModel model)
         {

@@ -22,14 +22,14 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TicketSearchModel model)
         {
-            var tickets = await _service.SearchTickets(model);
+            var tickets = await _service.SearchTicketsNavigation(model);
             return Success(tickets);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var ticket = await _service.GetTicket(id);
+            var ticket = await _service.GetTicketNavigation(id);
            
             return Success(ticket);
         }
