@@ -88,6 +88,9 @@ export class DestinationsComponent implements OnInit {
       });
     }
   }
+  newDes() {
+    this.router.navigate(['destinations/form']);
+  }
   editDes(id: string) {
     this.router.navigate([`destinations/form/${id}`]);
   }

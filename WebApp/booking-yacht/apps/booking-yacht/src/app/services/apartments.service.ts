@@ -17,7 +17,7 @@ export class ApartmentsService {
     }
     return this.http.get<any>(this.apiURL, { params: params });
   }
-  getApartment(id: string): Observable<any> {
+  getApartment(id?: string): Observable<any> {
     return this.http.get<any>(`${this.apiURL}/${id}`);
   }
   createApartment(apartment: Apartment): Observable<any> {
