@@ -27,6 +27,7 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using BookingYacht.API.Utilities.ContractResolver;
 
 namespace BookingYacht.API
 {
@@ -70,10 +71,11 @@ namespace BookingYacht.API
                 options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
             });
 
-            services.AddControllersWithViews()
-                    .AddNewtonsoftJson(options =>
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DynamicContractResolver("ICollection");
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             services.AddCors(option =>
             {
