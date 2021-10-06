@@ -36,6 +36,49 @@
             {{ menuItem.title }}
           </a>
         </li>
+
+        <ul class="navbar-nav pl-4 setting-nav">
+          <li class="nav-item">
+            <a routerLinkActive="active" class="nav-link" (click)="onChange()">
+              <i class="ni ni-ui-04"></i> Setting</a
+            >
+            <ul class="navbar-nav pl-6" [ngClass]="colapse ? 'hidden' : 'show'">
+              <li class="nav-item">
+                <a
+                  routerLinkActive="active"
+                  class="nav-link"
+                  routerLink="/vehicle-type"
+                  ><i class="ni ni-delivery-fast text-orange"></i> Loại tàu</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLinkActive="active"
+                  class="nav-link"
+                  routerLink="/ticket-type"
+                  ><i class="ni ni-paper-diploma text-info"></i> Loại vé</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLinkActive="active"
+                  class="nav-link"
+                  routerLink="/ticket"
+                  ><i class="ni ni-badge text-orange"></i> Danh sách vé</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLinkActive="active"
+                  class="nav-link"
+                  routerLink="/order"
+                  ><i class="ni ni-money-coins text-orange"></i> Doanh thu</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="login" (click)="logout()">
             <i class="ni ni-bold-left text-red"></i>

@@ -28,7 +28,8 @@ import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
-
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { MenuItem } from 'primeng/api';
 
 @NgModule({
   declarations: [],
@@ -61,6 +62,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     RatingModule,
     ToggleButtonModule,
     SelectButtonModule,
+    PanelMenuModule,
   ],
   exports: [
     CardModule,
@@ -91,6 +93,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     RatingModule,
     ToggleButtonModule,
     SelectButtonModule,
+    PanelMenuModule,
   ],
 })
 export class PrimengModule {}
