@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/screens/menu.dart';
 import 'screens/home.dart';
 import 'screens/qr_code.dart';
 import 'screens/tour.dart';
@@ -46,7 +47,7 @@ void main() async {
             binding: Binding()),
         GetPage(
           name: '/menu',
-          page: () => Verification(),
+          page: () => Menu(),
           binding: Binding(),
         ),
       ],

@@ -19,8 +19,6 @@ class YachtCard extends StatelessWidget {
           ),
           onTap: () {
             Get.toNamed('/yacht-detail', arguments: title);
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => YachtDetail(title)));
           },
         ),
         title: Text(title),
@@ -32,10 +30,6 @@ class YachtCard extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   Get.to(ModifyYacht('Edit Yacht'));
-                  // Navigator.push(
-                  //     context,
-                  // MaterialPageRoute(
-                  //     builder: (context) => ModifyYacht('Edit yacht')));
                 },
                 icon: Icon(Icons.edit, color: Colors.blue),
               ),
