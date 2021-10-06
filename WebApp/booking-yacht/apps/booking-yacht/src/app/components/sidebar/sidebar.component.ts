@@ -1,3 +1,4 @@
+import { Route } from '@angular/compiler/src/core';
 import { LocalStorageService } from './../../auth/localstorage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,6 +24,12 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   {
+    path: '/tours',
+    title: 'Chuyến đi',
+    icon: 'ni-send text-yellow',
+    class: '',
+  },
+  {
     path: '/apartments',
     title: 'Loại địa điểm',
     icon: 'ni-planet text-blue',
@@ -34,13 +41,8 @@ export const ROUTES: RouteInfo[] = [
     icon: 'ni-app text-red',
     class: '',
   },
-
-  {
-    path: '/tours',
-    title: 'chuyến đi',
-    icon: 'ni-send text-yellow',
-    class: '',
-  },
+];
+export const KIND_ROUTES: RouteInfo[] = [
   {
     path: '/vehicle-types',
     title: 'Loại tàu',
@@ -74,15 +76,22 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   public menuItems?: any[];
+  public menuItems2?: any[];
   public isCollapsed = true;
-
+  colapse = true;
   constructor(private router: Router, private local: LocalStorageService) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
+    this.menuItems2 = KIND_ROUTES.filter((menuItems2) => {
+      menuItems2;
+    });
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
     });
+  }
+  onChange() {
+    this.colapse = !this.colapse;
   }
   logout() {
     this.local.removeToken();

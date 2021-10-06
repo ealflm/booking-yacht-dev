@@ -3,28 +3,27 @@
   <p-card header="Tài Khoản Chủ Tàu" subheader="Danh sách tài khoản chủ tàu">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal(getValue($event), 'contains')"
+            placeholder="Tìm Kiếm..."
+          />
+        </span>
         <span *ngFor="let item of status">
           <button
             pButton
-            pRipple
             type="button"
             [label]="item.lable"
             [value]="item.id"
             (click)="onChangeStatus(item.id)"
-            class="p-button-raised p-button-info p-button-text m-1"
+            class="p-button-outlined p-button-info p-button-text m-1"
           ></button>
         </span>
       </ng-template>
-
-      <span class="p-input-icon-right">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          (input)="dt.filterGlobal(getValue($event), 'contains')"
-          placeholder="Tìm Kiếm..."
-        />
-      </span>
+      <ng-template pTemplate="right"></ng-template>
     </p-toolbar>
     <hr />
     <div class="grid">
@@ -38,6 +37,8 @@
           [paginator]="true"
           [filterDelay]="0"
           [globalFilterFields]="['name', 'emailAddress', 'phone', 'status']"
+          styleClass="p-datatable-sm"
+          responsiveLayout="scroll"
         >
           <ng-template pTemplate="header">
             <tr>
@@ -48,7 +49,6 @@
 
               <th>Số điện thoại</th>
               <th>Địa chỉ</th>
-              <th>Email</th>
               <th>
                 Trạng thái
                 <!-- <p-columnFilter
@@ -84,7 +84,6 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
-              <td><p-skeleton></p-skeleton></td>
               <td class="flex">
                 <p-skeleton
                   shape="circle"
@@ -101,10 +100,9 @@
             <tr *ngIf="!loading">
               <td class="hidden">{{ businessAcount.id }}</td>
               <td>{{ businessAcount.name }}</td>
-              <td>{{ businessAcount.phone }}</td>
+              <td>{{ businessAcount.phoneNumber }}</td>
 
               <td>{{ businessAcount.address }}</td>
-              <td>{{ businessAcount.emailAddress }}</td>
               <td class="p-ai-center p-pl-2">
                 <p-tag
                   [value]="businessStatus[businessAcount.status]?.lable"

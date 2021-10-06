@@ -3,32 +3,26 @@
   <p-card header="Địa điểm du lịch" subheader="Danh sách các địa điểm du lịch">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal(getValue($event), 'contains')"
+            placeholder="Tìm Kiếm..."
+          />
+        </span>
         <span *ngFor="let item of status">
           <button
             pButton
-            pRipple
             type="button"
             [label]="item.lable"
             [value]="item.id"
             (click)="onChangeStatus(item.id)"
-            class="p-button-raised p-button-info p-button-text m-1"
+            class="p-button-outlined p-button-info p-button-text m-1"
           ></button>
         </span>
       </ng-template>
-
-      <span class="p-input-icon-right">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          (input)="dt.filterGlobal(getValue($event), 'contains')"
-          placeholder="Tìm Kiếm..."
-        />
-      </span>
-    </p-toolbar>
-    <div class="mt-5"></div>
-    <p-toolbar>
-      <span class="p-input-icon-right"> </span>
       <ng-template pTemplate="right">
         <button
           pButton
@@ -40,6 +34,8 @@
         ></button>
       </ng-template>
     </p-toolbar>
+    <div class="mt-5"></div>
+
     <hr />
     <div class="grid">
       <div class="col-12">
@@ -52,6 +48,8 @@
           [paginator]="true"
           [filterDelay]="0"
           [globalFilterFields]="['address', 'apartmentName']"
+          styleClass="p-datatable-sm"
+          responsiveLayout="scroll"
         >
           <ng-template pTemplate="header">
             <tr>
