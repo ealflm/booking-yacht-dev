@@ -47,7 +47,7 @@ namespace BookingYacht.API.Controllers.Admin
             return Success();
         }
         
-        [HttpDelete]
+        [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var res = await _service.DeleteVehicleType(id);

@@ -104,9 +104,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task<bool> DeleteVehicle(Guid id)
         {
-            var vehicle = await _unitOfWork.VehicleRepository.Query()
-                .Where(x => x.Id == id)
-                .FirstOrDefaultAsync();
+            var vehicle = _unitOfWork.VehicleRepository.GetById(id).Result;
             
             if (vehicle == null) return false;
             
