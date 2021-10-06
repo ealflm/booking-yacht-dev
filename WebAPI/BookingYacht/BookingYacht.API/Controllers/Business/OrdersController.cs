@@ -2,14 +2,13 @@
 using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
-using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingYacht.API.Controllers.Admin
+namespace BookingYacht.API.Controllers.Business
 {
-    [Route(ApiVer1Route)]
+    [Route(ApiVer3Route)]
     [ApiController]
-    public class OrdersController: BaseApiVer1Controller
+    public class OrdersController: BaseApiVer3Controller
     {
         private readonly IOrdersService _service;
 
