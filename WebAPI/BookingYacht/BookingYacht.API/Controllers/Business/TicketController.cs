@@ -4,11 +4,11 @@ using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingYacht.API.Controllers.Admin
+namespace BookingYacht.API.Controllers.Business
 {
-    [Route(ApiVer1Route)]
+    [Route(ApiVer3Route)]
     [ApiController]
-    public class TicketController : BaseApiVer1Controller
+    public class TicketController : BaseApiVer3Controller
     {
         
         private readonly ITicketService _service;

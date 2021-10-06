@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BookingYacht.API.Controllers.Admin;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingYacht.API.Controllers.Admin
+namespace BookingYacht.API.Controllers.Agency
 {
-    [Route(ApiVer1Route)]
+    [Route(ApiVer2Route)]
     [ApiController]
-    public class OrdersController: BaseApiVer1Controller
+    public class OrdersController: BaseApiVer2Controller
     {
         private readonly IOrdersService _service;
 
@@ -30,6 +31,27 @@ namespace BookingYacht.API.Controllers.Admin
         {
             var order = await _service.GetNavigation(id);
             return order != null ? Success(order) : Fail("The Order's not exist");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] OrdersViewModel model)
+        {
+            var id = await _service.Add(model);
+            return Success(id);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] OrdersViewModel model)
+        {
+            var update = await _service.Update(id, model);
+            return update ? Success() : Fail("The Order's not exist");
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var delete = await _service.Delete(id);
+            return delete ? Success() : Fail("The Order's not exist");
         }
         
     }

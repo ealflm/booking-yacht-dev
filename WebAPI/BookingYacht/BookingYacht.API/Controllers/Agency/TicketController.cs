@@ -4,11 +4,11 @@ using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingYacht.API.Controllers.Admin
+namespace BookingYacht.API.Controllers.Agency
 {
-    [Route(ApiVer1Route)]
+    [Route(ApiVer2Route)]
     [ApiController]
-    public class TicketController : BaseApiVer1Controller
+    public class TicketController : BaseApiVer2Controller
     {
         
         private readonly ITicketService _service;
@@ -29,9 +29,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
             var ticket = await _service.GetTicketNavigation(id);
-           
             return Success(ticket);
         }
-
     }
 }
