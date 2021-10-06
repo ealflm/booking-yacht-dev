@@ -51,6 +51,11 @@ export class AgenciesFormComponent implements OnInit {
           severity: 'success',
           summary: 'Update status successfull!',
         });
+        timer(500)
+          .toPromise()
+          .then(() => {
+            this.location.back();
+          });
       },
       (error) => {
         if (error.status == 500) {
@@ -65,13 +70,13 @@ export class AgenciesFormComponent implements OnInit {
             detail: error.error,
           });
         }
+        timer(500)
+          .toPromise()
+          .then(() => {
+            this.location.back();
+          });
       }
     );
-    timer(500)
-      .toPromise()
-      .then(() => {
-        this.location.back();
-      });
   }
   _mapStatus() {
     this.status = Object.keys(AGENCY_STATUS).map((key) => {

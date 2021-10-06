@@ -86,6 +86,11 @@ export class DestinationsFormComponent implements OnInit {
             summary: 'SUCCESS',
             detail: 'Update successfull',
           });
+          timer(500)
+            .toPromise()
+            .then(() => {
+              this.location.back();
+            });
         },
         (error) => {
           this.messageService.add({
@@ -93,6 +98,11 @@ export class DestinationsFormComponent implements OnInit {
             summary: 'ERROR',
             detail: error,
           });
+          timer(500)
+            .toPromise()
+            .then(() => {
+              this.location.back();
+            });
         }
       );
     } else if (!this.editMode) {
@@ -109,6 +119,11 @@ export class DestinationsFormComponent implements OnInit {
             summary: 'SUCCESS',
             detail: 'Create successfull',
           });
+          timer(500)
+            .toPromise()
+            .then(() => {
+              this.location.back();
+            });
         },
         (error) => {
           this.messageService.add({
@@ -116,14 +131,14 @@ export class DestinationsFormComponent implements OnInit {
             summary: 'ERROR',
             detail: error,
           });
+          timer(500)
+            .toPromise()
+            .then(() => {
+              this.location.back();
+            });
         }
       );
     }
-    timer(500)
-      .toPromise()
-      .then(() => {
-        this.location.back();
-      });
   }
   onCancle() {
     this.location.back();

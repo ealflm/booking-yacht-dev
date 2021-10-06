@@ -79,7 +79,7 @@ export class TourFormComponent implements OnInit {
         // status: this.tourForm.status.value,
         descriptions: this.tourForm.descriptions.value,
       };
-      console.log(tour);
+      // console.log(tour);
 
       this.tourService.createTour(tour).subscribe(
         (res) => {
