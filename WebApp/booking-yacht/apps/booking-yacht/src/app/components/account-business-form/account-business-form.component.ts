@@ -122,6 +122,11 @@ export class AccountBusinessFormComponent implements OnInit {
           summary: 'Successfull',
           detail: 'update successfull',
         });
+        timer(500)
+        .toPromise()
+        .then(() => {
+          this.location.back();
+        });
       },
       (error) => {
         this.messageService.add({
@@ -129,13 +134,14 @@ export class AccountBusinessFormComponent implements OnInit {
           summary: 'Error',
           detail: 'update fail',
         });
+        timer(500)
+        .toPromise()
+        .then(() => {
+          this.location.back();
+        });
       }
     );
-    timer(500)
-      .toPromise()
-      .then(() => {
-        this.location.back();
-      });
+
   }
 
   _checkEditMode() {
