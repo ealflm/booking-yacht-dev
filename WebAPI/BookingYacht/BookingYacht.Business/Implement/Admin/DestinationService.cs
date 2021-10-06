@@ -21,6 +21,7 @@ namespace BookingYacht.Business.Implement.Admin
             var destiny = new Data.Models.Destination
             {
                 Id = model.Id,
+                Name = model.Name,
                 Address = model.Address,
                 IdPlaceType = model.IdPlaceType,
                 Status = (int) Status.ENABLE
@@ -53,6 +54,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Address = x.Address,
                     Status = x.Status,
                     IdPlaceType = x.IdPlaceType
@@ -83,6 +85,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Address = x.Address,
                     Status = x.Status,
                     IdPlaceType = x.IdPlaceType
@@ -114,6 +117,7 @@ namespace BookingYacht.Business.Implement.Admin
             var destiny = new Data.Models.Destination()
             {
                 Id = id,
+                Name = model.Name,
                 Address = model.Address,
                 Status = model.Status,
                 IdPlaceType = model.IdPlaceType

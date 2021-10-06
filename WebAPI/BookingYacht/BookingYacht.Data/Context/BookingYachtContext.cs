@@ -148,6 +148,8 @@ namespace BookingYacht.Data.Context
                     .IsRequired()
                     .HasMaxLength(100);
 
+                entity.Property(e => e.Name).HasMaxLength(100);
+
                 entity.HasOne(d => d.IdPlaceTypeNavigation)
                     .WithMany(p => p.Destinations)
                     .HasForeignKey(d => d.IdPlaceType)
