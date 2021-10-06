@@ -67,7 +67,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task<bool> UpdateVehicleType(Guid id, VehicleTypeViewModel model)
         {
-            var entity = await GetEntityById(id);
+            var entity = _unitOfWork.VehicleTypeRepository.GetById(id).Result;
             
             if (entity == null) return false;
             
@@ -79,30 +79,17 @@ namespace BookingYacht.Business.Implement.Admin
 
         }
 
-        private async Task<VehicleType> GetEntityById(Guid id)
-        {
-            return await _unitOfWork.VehicleTypeRepository.Query()
-                .Where(x => x.Id.Equals(id))
-                .Select(x => new VehicleType()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Status = x.Status
-                }).FirstOrDefaultAsync();
-        }
+     
 
         public async Task<bool> DeleteVehicleType(Guid id)
         {
-            var entityById = GetEntityById(id).Result;
-            if (entityById != null)
-            {
-                entityById.Status = (int)Status.DISABLE;
-                _unitOfWork.VehicleTypeRepository.Update(entityById);
-                await _unitOfWork.SaveChangesAsync();
-                return true;
-            }
+            var entityById = _unitOfWork.VehicleTypeRepository.GetById(id).Result;
+            if (entityById == null) return false;
+            entityById.Status = (int)Status.DISABLE;
+            _unitOfWork.VehicleTypeRepository.Update(entityById);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
 
-            return false;
         }
     }
 }

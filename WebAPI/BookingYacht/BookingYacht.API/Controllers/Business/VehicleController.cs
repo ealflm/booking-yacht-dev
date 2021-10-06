@@ -49,8 +49,8 @@ namespace BookingYacht.API.Controllers.Business
             return Success();
         }
         
-        [HttpDelete]
-        public async Task<IActionResult> Update([FromQuery] Guid id)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Update(Guid id)
         {
             await _agencyService.DeleteVehicle(id);
             return Success();
