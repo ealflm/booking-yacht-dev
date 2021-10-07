@@ -1,4 +1,4 @@
-package com.example.owners_yacht
+package com.example.owners_Yacht
 
 import io.flutter.embedding.android.FlutterActivity
 

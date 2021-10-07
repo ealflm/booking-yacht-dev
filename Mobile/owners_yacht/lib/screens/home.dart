@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
               ),
               _bottomNavigationBarItem(
                 icon: FontAwesomeIcons.ship,
-                label: 'Yacht',
+                label: 'Tour',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.qr_code_2,

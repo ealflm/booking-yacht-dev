@@ -19,6 +19,7 @@ class _NavBarState extends State<NavBar> {
     return AppBar(
       title: Text(widget.title),
       backgroundColor: Colors.black,
+      automaticallyImplyLeading: false,
     );
   }
 }

@@ -20,23 +20,6 @@ class LoginController extends GetxController {
     firebaseApp = await Firebase.initializeApp();
   }
 
-  Future<Widget> checkUserLoggedIn() async {
-    if (firebaseApp == null) {
-      await initlizeFirebaseApp();
-    }
-    if (firebaseAuth == null) {
-      firebaseAuth = FirebaseAuth.instance;
-      update();
-    }
-    if (firebaseAuth.currentUser == null) {
-      return Login();
-    } else {
-      firebaseUser = firebaseAuth.currentUser!;
-      update();
-      return Home();
-    }
-  }
-
   Future<void> login() async {
     try {
       // Get.dialog(Center(child: LoadingWidget()), barrierDismissible: false);
@@ -105,6 +88,8 @@ class LoginController extends GetxController {
   Future<void> logout() async {
     // final prefs = await SharedPreferences.getInstance();
     // prefs.clear();
+    HomeController controller = Get.find<HomeController>();
+    controller.tabIndex = 0;
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
     Get.to(Login());

@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "239191380948",
-    "project_id": "booking-yacht-dev-94139",
-    "storage_bucket": "booking-yacht-dev-94139.appspot.com"
+    "project_id": "booking-Yacht-dev-94139",
+    "storage_bucket": "booking-Yacht-dev-94139.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:239191380948:android:d4cd00bb6d583e9c46fc41",
         "android_client_info": {
-          "package_name": "com.example.booking_yacht"
+          "package_name": "com.example.booking_Yacht"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "239191380948-of03mnbegv9t6m2kk5e76ikf409s4vfu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.booking_yacht",
+            "package_name": "com.example.booking_Yacht",
             "certificate_hash": "554b922956b87ab99d7f2fe0ba39d221d3b21a93"
           }
         },
@@ -46,7 +46,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:239191380948:android:0a57b024908ba12f46fc41",
         "android_client_info": {
-          "package_name": "com.example.owners_yacht"
+          "package_name": "com.example.owners_Yacht"
         }
       },
       "oauth_client": [
@@ -54,7 +54,7 @@
           "client_id": "239191380948-p7gsm6hc55mqs3ddeemjpuln82rvr43g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.owners_yacht",
+            "package_name": "com.example.owners_Yacht",
             "certificate_hash": "bb2bbbe157c20358f23451d5fed13c75842e6f7e"
           }
         },
