@@ -12,6 +12,7 @@ class Yachts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Yacht> _yachtList = controller.items;
     return Scaffold(
       appBar: NavBar(
         title: 'Home',
@@ -19,12 +20,10 @@ class Yachts extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Obx(
-          () => (controller.isLoading != true)
-              ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
-                  itemCount: controller.items.length,
-                ),
+          () => ListView.builder(
+            itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
+            itemCount: controller.items.length,
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
