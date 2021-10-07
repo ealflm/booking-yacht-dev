@@ -1,9 +1,9 @@
+import { AGENCY_STATUS } from './../../constants/STATUS';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ApartmentsService } from './../../services/apartments.service';
 import { Apartment } from '../../models/apartments';
-import { APARTMENT_STATUS } from '../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 import { ThrowStmt } from '@angular/compiler';
 import { pipe } from 'rxjs';
@@ -15,12 +15,12 @@ import { pipe } from 'rxjs';
 })
 export class ApartmentsComponent implements OnInit {
   apartments: Apartment[] = [];
-  apartmentStatus = APARTMENT_STATUS;
+  apartmentStatus = AGENCY_STATUS;
   loading = true;
   status = [
-    { id: '0', lable: 'NONE' },
-    { id: '1', lable: 'ACCEPTED' },
-    { id: '2', lable: 'REJECT' },
+    { id: '0', lable: 'None' },
+    { id: '1', lable: 'Accepted' },
+    { id: '2', lable: 'Reject' },
   ];
   constructor(
     private apartmentService: ApartmentsService,

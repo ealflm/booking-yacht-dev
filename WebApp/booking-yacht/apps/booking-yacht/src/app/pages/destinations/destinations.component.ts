@@ -1,11 +1,9 @@
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Apartment } from './../../models/apartments';
-import { async } from '@angular/core/testing';
 import { ApartmentsService } from './../../services/apartments.service';
 import { DestinationsService } from './../../services/destinations.service';
 import { Destination } from './../../models/destinations';
-import { TOUR_STATUS } from './../../constants/STATUS';
+import { AGENCY_STATUS } from './../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -15,11 +13,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DestinationsComponent implements OnInit {
   destinations: Destination[] = [];
-  destinationStatus = TOUR_STATUS;
+  destinationStatus = AGENCY_STATUS;
   status = [
-    { id: '0', lable: 'NONE' },
-    { id: '1', lable: 'ACCEPTED' },
-    { id: '2', lable: 'REJECT' },
+    { id: '0', lable: 'None' },
+    { id: '1', lable: 'Accepted' },
+    { id: '2', lable: 'Reject' },
   ];
   loading = true;
   placeType: any;
@@ -38,6 +36,8 @@ export class DestinationsComponent implements OnInit {
   private getDestinations() {
     this.desService.getDestinations().subscribe((res) => {
       this.destinations = res.data;
+      // console.log(this.destinations);
+
       this.destinations.map((destination: Destination) => {
         this.apartmentService
           .getApartment(destination.idPlaceType)

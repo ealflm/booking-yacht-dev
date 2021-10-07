@@ -12,9 +12,9 @@ import { Component, OnInit } from '@angular/core';
 export class ToursComponent implements OnInit {
   tours: [] = [];
   status = [
-    { id: '0', lable: 'NONE' },
-    { id: '1', lable: 'ACCEPTED' },
-    { id: '2', lable: 'REJECT' },
+    { id: '0', lable: 'None' },
+    { id: '1', lable: 'Accepted' },
+    { id: '2', lable: 'Reject' },
   ];
   loading?: boolean = true;
   tourStatus = TOUR_STATUS;

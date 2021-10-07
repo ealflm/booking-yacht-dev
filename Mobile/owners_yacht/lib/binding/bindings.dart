@@ -17,5 +17,6 @@ class Binding implements Bindings {
     Get.lazyPut(() => QRCodeController());
     Get.lazyPut(() => VerificationController());
     Get.lazyPut(() => MenuController());
+    
   }
 }

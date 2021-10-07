@@ -3,6 +3,15 @@
   <p-card header="Loại địa điểm" subheader="Danh sách tất cả loại địa điểm ">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            placeholder="Tìm kiếm ..."
+            (input)="dt.filterGlobal(getValue($event), 'contains')"
+          />
+        </span>
         <span *ngFor="let item of status">
           <button
             pButton
@@ -11,36 +20,25 @@
             [label]="item.lable"
             [value]="item.id"
             (click)="onChangeStatus(item.id)"
-            class="p-button-raised p-button-info p-button-text m-1"
+            class="p-button-outlined p-button-info p-button-text m-1"
           ></button>
         </span>
       </ng-template>
-      <span class="p-input-icon-right">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          placeholder="Tìm kiếm ..."
-          (input)="dt.filterGlobal(getValue($event), 'contains')"
-        />
-      </span>
+
+      <ng-template pTemplate="right">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success p-mr-2"
+          (click)="newApartment()"
+        ></button>
+      </ng-template>
     </p-toolbar>
     <div class="mt-5">
       <!-- Apartments -->
 
-      <p-toolbar>
-        <span class="p-input-icon-right"> </span>
-        <ng-template pTemplate="right">
-          <button
-            pButton
-            pRipple
-            label="New"
-            icon="pi pi-plus"
-            class="p-button-success p-mr-2"
-            (click)="newApartment()"
-          ></button>
-        </ng-template>
-      </p-toolbar>
       <div class="grid mt-1">
         <div class="col-12">
           <p-table
@@ -52,6 +50,8 @@
             [paginator]="true"
             [filterDelay]="0"
             [globalFilterFields]="['name', 'status']"
+            styleClass="p-datatable-sm"
+            responsiveLayout="scroll"
           >
             <ng-template pTemplate="header">
               <tr>
