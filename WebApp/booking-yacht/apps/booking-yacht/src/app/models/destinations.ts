@@ -1,6 +1,7 @@
 import { Apartment } from './apartments';
 export class Destination {
   id?: string;
+  name?: string;
   address?: string;
   idPlaceType?: string;
   status?: string;
@@ -10,6 +11,7 @@ export class Destination {
 }
 export class Desti {
   id?: string;
+  name?: string;
   address?: string;
   idPlaceType?: string;
   status?: string;

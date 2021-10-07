@@ -49,6 +49,7 @@ export class DestinationsFormComponent implements OnInit {
       address: ['', [Validators.required]],
       idPlaceType: ['', [Validators.required]],
       status: ['', [Validators.required]],
+      name: ['', [Validators.required]],
     });
   }
   private _checkEditMode() {
@@ -62,6 +63,8 @@ export class DestinationsFormComponent implements OnInit {
           this.desForm.address.setValue(desData.data.address);
           this.desForm.idPlaceType.setValue(desData.data.idPlaceType);
           this.desForm.status.setValue(desData.data.status.toString());
+          this.desForm.name.setValue(desData.data.name);
+
           // console.log(desData.data.idPlaceType);
         });
       }
@@ -78,6 +81,7 @@ export class DestinationsFormComponent implements OnInit {
         address: this.desForm.address.value,
         idPlaceType: this.desForm.idPlaceType.value,
         status: this.desForm.status.value,
+        name: this.desForm.name.value,
       };
       this.desService.updateDes(des, this.currentUser).subscribe(
         (response) => {
@@ -108,6 +112,7 @@ export class DestinationsFormComponent implements OnInit {
     } else if (!this.editMode) {
       const des: Desti = {
         id: this.currentUser,
+        name: this.desForm.name.value,
         address: this.desForm.address.value,
         idPlaceType: this.desForm.idPlaceType.value,
         status: this.desForm.status.value,
