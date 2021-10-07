@@ -1,46 +1,5 @@
 import 'dart:convert';
 
-// Yacht yachtFromJson(String str) => Yacht.fromJson(json.decode(str));
-
-// String yachtToJson(Yacht data) => json.encode(data.toJson());
-
-// class Yacht {
-//   String id;
-//   String name;
-//   int seat;
-//   String descriptions;
-//   int status;
-//   Yacht({
-//     required this.id,
-//     required this.name,
-//     required this.seat,
-//     required this.descriptions,
-//     required this.status,
-//   });
-
-//   factory Yacht.fromJson(Map<String, dynamic> json) => Yacht(
-//         id: json['id'],
-//         name: json['name'],
-//         seat: json['seat'] as int,
-//         descriptions: json['descriptions'],
-//         status: json['status'] as int,
-//       );
-
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "name": name,
-//         "seat": seat,
-//         "descriptions": descriptions,
-//         "status": status,
-//       };
-// }
-
-// To parse this JSON data, do
-//
-//     final yacht = yachtFromJson(jsonString);
-
-import 'dart:convert';
-
 YachtReponse yachtFromJson(String str) =>
     YachtReponse.fromJson(json.decode(str));
 
