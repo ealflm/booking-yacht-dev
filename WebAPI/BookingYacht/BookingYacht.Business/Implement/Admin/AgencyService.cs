@@ -68,15 +68,14 @@ namespace BookingYacht.Business.Implement.Admin
         {
             model ??= new AgencySearchModel();
             var agency = await _unitOfWork.AgencyRepository.Query()
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.Name == null | x.Name.Contains(model.Name))
                 .Where(x => model.PhoneNumber == null | x.PhoneNumber.Contains(model.PhoneNumber))
                 .Where(x => model.EmailAddress == null | x.EmailAddress.Contains(model.EmailAddress))
-                .Where(x => model.Status == null | x.Status == model.Status)
+                .Where(x => model.Status == null | x.Status == (int)model.Status)
                 .OrderBy(x => x.Name)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.AgencyRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.AgencyRepository.Query().Count())
                 .Select(x => Mapper.CreateEntity(x).Result)
                 .ToListAsync();
             return agency;
