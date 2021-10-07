@@ -54,6 +54,7 @@
           <ng-template pTemplate="header">
             <tr>
               <th class="hidden">ID</th>
+              <th>Tên địa điểm</th>
               <th pSortableColumn="address">
                 Địa chỉ <p-sortIcon field="address"></p-sortIcon>
               </th>
@@ -67,6 +68,7 @@
 
           <ng-template pTemplate="body" let-destinations>
             <tr *ngIf="loading">
+              <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
@@ -85,6 +87,7 @@
             </tr>
             <tr *ngIf="!loading">
               <td class="hidden">{{ destinations.id }}</td>
+              <td>{{ destinations.name }}</td>
               <td>{{ destinations.address }}</td>
               <td>{{ destinations.apartmentName }}</td>
               <td class="p-ai-center p-pl-2">

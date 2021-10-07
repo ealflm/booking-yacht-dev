@@ -33,19 +33,41 @@
               <input id="id" type="text" pInputText formControlName="id" />
             </div>
             <div class="p-field col-8">
-              <label for="address">Địa chỉ</label>
+              <div class="grid">
+                <div class="col-12">
+                  <label for="name">Tên địa điểm</label>
 
-              <textarea
-                id="address"
-                type="text"
-                pInputText
-                formControlName="address"
-                [rows]="4"
-                [cols]="30"
-              ></textarea>
-              <small *ngIf="desForm.address.invalid && isSubmit" class="p-error"
-                >Địa chỉ không được trống</small
-              >
+                  <input
+                    id="name"
+                    type="text"
+                    pInputText
+                    formControlName="name"
+                    pInputText
+                  />
+                  <small
+                    *ngIf="desForm.name.invalid && isSubmit"
+                    class="p-error"
+                    >Tên địa điểm không được trống</small
+                  >
+                </div>
+                <div class="col-12">
+                  <label for="address">Địa chỉ</label>
+
+                  <textarea
+                    id="address"
+                    type="text"
+                    pInputText
+                    formControlName="address"
+                    [rows]="2"
+                    [cols]="30"
+                  ></textarea>
+                  <small
+                    *ngIf="desForm.address.invalid && isSubmit"
+                    class="p-error"
+                    >Địa chỉ không được trống</small
+                  >
+                </div>
+              </div>
             </div>
             <div class="p-field col-4">
               <div class="gird">
