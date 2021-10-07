@@ -11,6 +11,8 @@ class YachtCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('screen');
+    print(yacht.name);
     return Card(
       elevation: 2,
       child: ListTile(
@@ -24,7 +26,7 @@ class YachtCard extends StatelessWidget {
           },
         ),
         title: Text(yacht.name),
-        subtitle: Text(yacht.status as String),
+        subtitle: Text((yacht.status != null) ? '${yacht.status}' : 'No'),
         trailing: Container(
           width: 100,
           child: Row(

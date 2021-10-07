@@ -15,7 +15,7 @@ class YachtController extends GetxController {
   }
 
   Future<List<Yacht>?> fetchYachts() async {
-    isLoading(true);
+    isLoading(false);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     try {
@@ -30,16 +30,18 @@ class YachtController extends GetxController {
         var jsonString = response.body;
         print(jsonString);
         var yachts = yachtFromJson(jsonString);
-        if (yachts != null) {
-          items = yachts as List<Yacht>;
+        print(yachts);
+        if (yachts.data != null) {
+          items = yachts.data as List<Yacht>;
         }
+        print(items[1].name);
       } else {
         return null;
       }
     } catch (error) {
       print('loi r');
     } finally {
-      isLoading(false);
+      // isLoading(false);
     }
     return items;
   }
