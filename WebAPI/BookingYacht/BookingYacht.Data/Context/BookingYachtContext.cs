@@ -45,7 +45,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.EmailAddress)
                     .IsRequired()
-                    .HasMaxLength(30)
+                    .HasMaxLength(128)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -71,7 +71,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.EmailAddress)
                     .IsRequired()
-                    .HasMaxLength(30)
+                    .HasMaxLength(128)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -97,7 +97,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.EmailAddress)
                     .IsRequired()
-                    .HasMaxLength(30)
+                    .HasMaxLength(128)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name).HasMaxLength(50);
