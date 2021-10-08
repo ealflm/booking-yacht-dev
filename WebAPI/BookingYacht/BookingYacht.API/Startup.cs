@@ -30,6 +30,7 @@ using System.Text;
 using BookingYacht.API.Utilities.ContractResolver;
 using System;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using System.Text.RegularExpressions;
 
 namespace BookingYacht.API
 {
@@ -131,12 +132,15 @@ namespace BookingYacht.API
 
                     if (api.GroupName != null)
                     {
-                        return new[] { api.GroupName + controllerName.Replace("Controller", "") };
+                        var name = api.GroupName + controllerName.Replace("Controller", "");
+                        name = Regex.Replace(name, "([a-z])([A-Z])", "$1 $2");
+                        return new[] { name };
                     }
 
                     if (controllerActionDescriptor != null)
                     {
-                        return new[] { controllerActionDescriptor.ControllerName };
+                        controllerName = Regex.Replace(controllerName, "([a-z])([A-Z])", "$1 $2");
+                        return new[] { controllerName };
                     }
 
                     throw new InvalidOperationException("Unable to determine tag for endpoint.");
