@@ -71,7 +71,6 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task<List<Order>> SearchNavigation(OrdersSearchModel model)
         {
-            Console.WriteLine(model.OrderDate.Value);
             model ??= new OrdersSearchModel();
             var list = await _unitOfWork.Context().Orders
                 .Include(x => x.IdAgencyNavigation)
@@ -81,7 +80,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.TotalPrice == null | x.TotalPrice == model.TotalPrice)
                 .Where(x => model.QuantityOfPerson == null | x.QuantityOfPerson == model.QuantityOfPerson)
                 .Where(x => model.Status == null | x.Status == (int)model.Status)
-                .Where(x => model.OrderDate == null | x.DateOrder.Value >= (model.OrderDate).Value)
+                .Where(x => model.OrderDate == null | x.DateOrder.Value == model.OrderDate.Value)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .OrderBy(x => x.AgencyName)
