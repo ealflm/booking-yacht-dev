@@ -8,11 +8,11 @@ namespace BookingYacht.API.Controllers.Admin
     [Route("api/" + Version + "/" + Role)]
     [ApiController]
     [ApiExplorerSettings(GroupName = Role)]
-    public class AuthorizationController : BaseAdminController
+    public class AuthorizationsController : BaseAdminController
     {
         private readonly IAdminService _adminService;
 
-        public AuthorizationController(IAdminService adminService)
+        public AuthorizationsController(IAdminService adminService)
         {
             _adminService = adminService;
         }
