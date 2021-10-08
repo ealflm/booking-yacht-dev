@@ -3,7 +3,6 @@ import { TicketTypeComponent } from './pages/ticket-type/ticket-type.component';
 import { AgenciesComponent } from './pages/agencies/agencies.component';
 import { DestinationsFormComponent } from './components/destinations-form/destinations-form.component';
 import { DestinationsComponent } from './pages/destinations/destinations.component';
-import { DestinationsToursComponent } from './pages/destinations-tours/destinations-tours.component';
 import { TourFormComponent } from './components/tour-form/tour-form.component';
 import { ToursComponent } from './pages/tours/tours.component';
 import { AccountBusinessFormComponent } from './components/account-business-form/account-business-form.component';
@@ -59,16 +58,6 @@ const routes: Routes = [
       {
         path: 'destinations/form/:id',
         component: DestinationsFormComponent,
-      },
-
-      { path: 'destinations-tours', component: DestinationsToursComponent },
-      {
-        path: 'destinations-tours/form',
-        component: DestinationsToursComponent,
-      },
-      {
-        path: 'destinations-tours/form/:id',
-        component: DestinationsToursComponent,
       },
 
       { path: 'ticket-type', component: TicketTypeComponent },

@@ -14,9 +14,9 @@ export class AgenciesComponent implements OnInit {
   agencyStatus = AGENCY_STATUS;
   loading = true;
   status = [
-    { id: '0', lable: 'None' },
-    { id: '1', lable: 'Enable' },
-    { id: '2', lable: 'Disable' },
+    { id: '0', lable: 'Tất cả' },
+    { id: '1', lable: 'Đang hoạt động' },
+    { id: '2', lable: 'Vô Hiệu' },
   ];
   constructor(
     private agencyService: AgenciesService,

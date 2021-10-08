@@ -13,9 +13,9 @@ export class VehicleTypeComponent implements OnInit {
   loading = true;
   vehicleType: any[] = [];
   status = [
-    { id: '', lable: 'NONE' },
-    { id: '1', lable: 'ENABLE' },
-    { id: '2', lable: 'DISABLE' },
+    { id: '', lable: 'Tất cả' },
+    { id: '1', lable: 'Đang hoạt động' },
+    { id: '2', lable: 'Vô hiệu' },
   ];
   vehicleTypeStatus = AGENCY_STATUS;
   constructor(

@@ -40,9 +40,24 @@
         <ul class="navbar-nav pl-4 setting-nav">
           <li class="nav-item">
             <a routerLinkActive="active" class="nav-link" (click)="onChange()">
-              <i class="ni ni-ui-04"></i> Setting</a
-            >
+              <i class="ni ni-ui-04"></i> Phân loại
+              <i
+                [class]="
+                  colapse
+                    ? 'ni ni-bold-right ml-2 mb-1'
+                    : 'ni ni-bold-down ml-2 mb-1'
+                "
+              ></i
+            ></a>
             <ul class="navbar-nav pl-6" [ngClass]="colapse ? 'hidden' : 'show'">
+              <li class="nav-item">
+                <a
+                  routerLinkActive="active"
+                  class="nav-link"
+                  routerLink="/apartments"
+                  ><i class="ni ni-planet text-blue"></i> Loại địa điểm</a
+                >
+              </li>
               <li class="nav-item">
                 <a
                   routerLinkActive="active"
@@ -82,7 +97,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="login" (click)="logout()">
             <i class="ni ni-bold-left text-red"></i>
-            Logout
+            Đăng xuất
           </a>
         </li>
       </ul>
