@@ -11,5 +11,7 @@ namespace BookingYacht.Business.ViewModels
         public double TotalPrice { get; set; }
         public Guid IdAgency { get; set; }
         public Status Status { get; set; }
+        
+        public DateTime OrderDate { get; set; }
     }
 }
