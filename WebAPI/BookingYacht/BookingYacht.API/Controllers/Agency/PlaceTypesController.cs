@@ -12,6 +12,7 @@ namespace BookingYacht.API.Controllers.Agency
     [Route(AgencyRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class PlaceTypesController : BaseAgencyController
     {
         private readonly IPlaceTypeService _placeTypeService;

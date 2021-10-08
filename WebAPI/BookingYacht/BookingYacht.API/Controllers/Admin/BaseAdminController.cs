@@ -2,6 +2,7 @@
 {
     public class BaseAdminController : BaseController
     {
-        protected const string AdminRoute = "api/" + Version + "/admin/[controller]";
+        protected const string Role = "Admin";
+        protected const string AdminRoute = "api/" + Version + "/" + Role + "/[controller]";
     }
 }

@@ -10,6 +10,7 @@ namespace BookingYacht.API.Controllers.Admin
     [Route(AdminRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class TicketController : BaseAdminController
     {
         

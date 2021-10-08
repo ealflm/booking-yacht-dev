@@ -12,6 +12,7 @@ namespace BookingYacht.API.Controllers.Admin
     [Route(AdminRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class AgenciesController : BaseAdminController
     {
         private readonly IAgencyService _service;

@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using BookingYacht.API.Utilities.ContractResolver;
+using System;
+using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace BookingYacht.API
 {
@@ -121,6 +123,26 @@ namespace BookingYacht.API
                     });
 
                 c.DocumentFilter<KebabCaseDocumentFilter>();
+
+                c.TagActionsBy(api =>
+                {
+                    var controllerActionDescriptor = api.ActionDescriptor as ControllerActionDescriptor;
+                    string controllerName = controllerActionDescriptor.ControllerName;
+
+                    if (api.GroupName != null)
+                    {
+                        return new[] { api.GroupName + controllerName.Replace("Controller", "") };
+                    }
+
+                    if (controllerActionDescriptor != null)
+                    {
+                        return new[] { controllerActionDescriptor.ControllerName };
+                    }
+
+                    throw new InvalidOperationException("Unable to determine tag for endpoint.");
+                });
+
+                c.DocInclusionPredicate((name, api) => true);
             });
 
             services.AddSingleton(FirebaseApp.Create(new AppOptions()

@@ -15,6 +15,7 @@ namespace BookingYacht.API.Controllers.Business
     [Route(BusinessRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class TicketTypesController : BaseBusinessController
     {
         private readonly ITicketTypeService _tickettypeService;
