@@ -65,11 +65,11 @@ export const SECONDARY_STATUS: any = {
     color: 'danger',
   },
 };
-export const TICKET_STATUS =[
-  { id: '0', name: 'None' },
-  { id: '1', name: 'Đang hoạt động' },
-  { id: '2', name: 'Vô hiệu' },
-]
+export const TICKET_STATUS = [
+  { id: '3', name: 'Chờ duyệt' },
+  { id: '4', name: 'Chấp nhận' },
+  { id: '5', name: 'Từ chối' },
+];
 
 export const AGENCY_STATUS: any = {
   0: {

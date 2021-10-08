@@ -1,3 +1,4 @@
+import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
 import { TicketComponent } from './pages/ticket/ticket.component';
 import { VehicleTypeComponent } from './pages/vehicle-type/vehicle-type.component';
 import { TicketTypeComponent } from './pages/ticket-type/ticket-type.component';
@@ -83,7 +84,7 @@ const routes: Routes = [
       { path: 'ticket', component: TicketComponent },
       {
         path: 'ticket/form/:id',
-        component: TicketComponent,
+        component: TicketFormComponent,
       },
     ],
   },

@@ -48,7 +48,7 @@
               <th pSortableColumn="name">
                 Tên khách hàng <p-sortIcon field="name"></p-sortIcon>
               </th>
-              <th>Thời gian</th>
+              <th>Ngày đặt</th>
               <th>Số điện thoại</th>
               <th>Giá vé</th>
               <th></th>
@@ -72,7 +72,7 @@
                 {{ tickets.idOrderNavigation.dateOrder | date: 'dd/MM/yyyy' }}
               </td>
               <td>{{ tickets.phone }}</td>
-              <td>{{ tickets.price | currency }}</td>
+              <td>{{ tickets.price | currency: 'VND' }}</td>
 
               <!-- <td class="p-ai-center p-pl-2"> -->
               <!-- <p-tag
@@ -81,7 +81,7 @@
                 ></p-tag> -->
               <!-- </td> -->
               <td>
-                <a [routerLink]="['ticket/form/', tickets.id]">
+                <a [routerLink]="['/ticket/form/', tickets.id]">
                   <i class="ni ni-tag"></i
                 ></a>
               </td>

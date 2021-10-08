@@ -89,8 +89,8 @@
             <tr *ngIf="!loading">
               <td class="hidden">{{ ticketType.id }}</td>
               <td>{{ ticketType.name }}</td>
-              <td>{{ ticketType.price }}</td>
-              <td>{{ ticketType.serviceFeePercentage }}</td>
+              <td>{{ ticketType.price | currency: 'VND' }}</td>
+              <td>{{ ticketType.serviceFeePercentage }}%</td>
               <td class="p-ai-center p-pl-2">
                 <p-tag
                   [severity]="ticketTypeStatus[ticketType.status]?.color"

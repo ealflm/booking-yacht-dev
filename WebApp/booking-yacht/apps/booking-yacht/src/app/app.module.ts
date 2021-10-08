@@ -1,3 +1,4 @@
+import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
 import { TourFormComponent } from './components/tour-form/tour-form.component';
 import { AparmentFormComponent } from './components/aparment-form/aparment-form.component';
 import { AuthModule } from './auth/auth.module';
@@ -56,6 +57,7 @@ import { NavMenuComponent } from './shared/nav-menu/nav-menu.component';
     TicketTypeFormComponent,
     TicketComponent,
     NavMenuComponent,
+    TicketFormComponent
   ],
   imports: [
     // MaterialModule,
