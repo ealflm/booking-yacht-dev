@@ -1,3 +1,8 @@
+import {
+  ConfirmationService,
+  ConfirmEventType,
+  MessageService,
+} from 'primeng/api';
 import { Route } from '@angular/compiler/src/core';
 import { LocalStorageService } from './../../auth/localstorage.service';
 import { Component, OnInit } from '@angular/core';
@@ -29,12 +34,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'ni-send text-yellow',
     class: '',
   },
-  {
-    path: '/apartments',
-    title: 'Loại địa điểm',
-    icon: 'ni-planet text-blue',
-    class: '',
-  },
+
   {
     path: '/destinations',
     title: 'Địa điểm du lịch',
@@ -53,6 +53,12 @@ export const KIND_ROUTES: RouteInfo[] = [
     path: '/ticket-types',
     title: 'Loại vé',
     icon: 'ni-paper-diploma text-info',
+    class: '',
+  },
+  {
+    path: '/apartments',
+    title: 'Loại địa điểm',
+    icon: 'ni-planet text-blue',
     class: '',
   },
   {
@@ -75,11 +81,17 @@ export const KIND_ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
+  position?: string;
   public menuItems?: any[];
   public menuItems2?: any[];
   public isCollapsed = true;
   colapse = true;
-  constructor(private router: Router, private local: LocalStorageService) {}
+  constructor(
+    private router: Router,
+    private local: LocalStorageService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
@@ -95,5 +107,6 @@ export class SidebarComponent implements OnInit {
   }
   logout() {
     this.local.removeToken();
+    this.router.navigate(['login']);
   }
 }

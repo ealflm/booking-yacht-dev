@@ -18,9 +18,9 @@ export class ApartmentsComponent implements OnInit {
   apartmentStatus = AGENCY_STATUS;
   loading = true;
   status = [
-    { id: '0', lable: 'None' },
-    { id: '1', lable: 'Accepted' },
-    { id: '2', lable: 'Reject' },
+    { id: '0', lable: 'Tất cả' },
+    { id: '1', lable: 'Đang hoạt động' },
+    { id: '2', lable: 'Vô hiệu' },
   ];
   constructor(
     private apartmentService: ApartmentsService,

@@ -1,14 +1,14 @@
 export const BUSINESS_STATUS: any = {
   0: {
-    lable: 'NONE',
+    lable: 'None',
     color: 'primary',
   },
   1: {
-    lable: 'ENABLE',
+    lable: 'Đang hoạt động',
     color: 'primary',
   },
   2: {
-    lable: 'DISABLE',
+    lable: 'Vô hiệu',
     color: 'warning',
   },
   // 3: {
@@ -52,36 +52,36 @@ export const BUSINESS_STATUS: any = {
 // };
 export const TOUR_STATUS: any = {
   0: {
-    lable: 'WAITING',
+    lable: 'Chờ duyệt',
     color: 'Primary',
   },
   1: {
-    lable: 'ACCEPTED',
+    lable: 'Chấp nhận',
     color: 'success',
   },
   2: {
-    lable: 'REJECT',
+    lable: 'Từ chối',
     color: 'danger',
   },
 };
 
 export const AGENCY_STATUS: any = {
   0: {
-    lable: 'NONE',
+    lable: 'None',
     color: 'primary',
   },
   1: {
-    lable: 'ENABLE',
+    lable: 'đang hoạt động',
     color: 'primary',
   },
   2: {
-    lable: 'DISABLE',
+    lable: 'Vô hiệu',
     color: 'warning',
   },
 };
 
 export const STATUS = [
-  { id: '0', name: 'WAITING' },
-  { id: '1', name: 'ACCEPTED' },
-  { id: '2', name: 'REJECT' },
+  { id: '0', name: 'None' },
+  { id: '1', name: 'Đang hoạt động' },
+  { id: '2', name: 'Vô hiệu' },
 ];
