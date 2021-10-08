@@ -26,7 +26,7 @@ export class TicketComponent implements OnInit {
     if (!status) {
       this.ticketService.getTickets().subscribe((ticketResponse) => {
         this.tickets = ticketResponse.data;
-        console.log(this.tickets);
+        // console.log(this.tickets);
 
         setTimeout(() => {
           this.loading = false;

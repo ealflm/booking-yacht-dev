@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule],
-  declarations: [SidebarComponent, ],
+  declarations: [SidebarComponent],
   exports: [SidebarComponent],
 })
 export class ComponentsModule {}

@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root',
 })
 export class TicketsService {
-  apiURL = environment.apiURL + 'ticket';
+  apiURL = environment.apiURL + 'tickets';
   constructor(private http: HttpClient) {}
   getTickets(status?: string): Observable<any> {
     let params = new HttpParams();

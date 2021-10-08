@@ -14,81 +14,56 @@
 
     <div class="p-grid" *ngIf="!loading">
       <div class="col-12 mt-4">
-        <form>
+        <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
-            <div class="col-7">
-              <div class="grid">
-                <div class="p-field col-6 mb-3">
-                  <label for="name">Hạng vé</label>
-                  <input
-                    id="name"
-                    type="text"
-                    pInputText
-                    formControlName="name"
-                  />
-                </div>
-                <div class="p-field col-6 mb-3">
-                  <label for="price">Giá vé</label>
-
-                  <input
-                    id="price"
-                    formControlName="price"
-                    type="text"
-                    pInputText
-                  />
-                  <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
-                  >Tittle is required</small
-                > -->
-                </div>
-                <div class="p-field col-6">
-                  <label for="serviceFeePercentage">Phí dịch vụ(%)</label>
-
-                  <input
-                    id="serviceFeePercentage"
-                    formControlName="serviceFeePercentage"
-                    type="text"
-                    pInputText
-                  />
-                  <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
-                  >Tittle is required</small
-                > -->
-                </div>
-                <div class="p-field col-6">
-                  <label for="status">Trạng thái</label>
-                  <p-dropdown
-                    optionLabel="name"
-                    optionValue="id"
-                    placeholder="Select Status"
-                    formControlName="status"
-                    [showClear]="true"
-                  ></p-dropdown>
-                  <!-- <small *ngIf="tourForm.status.invalid && isSubmit" class="p-error"
-                  >Status is required</small
-                > -->
-                </div>
-                <div class="p-field col-6"></div>
-                <div class="p-field col-6 mt-5">
-                  <button
-                    pButton
-                    pRipple
-                    type="button"
-                    icon="pi pi-check"
-                    label="Confirm"
-                    class="p-button-raised p-button-help p-button-text"
-                  ></button>
-                </div>
-              </div>
+            <div class="p-field col-6 mb-3">
+              <label for="name">Hạng vé</label>
+              <p>{{ tickesType.name }}</p>
             </div>
-            <div class="col-5 p-shadow-14">
-              <p-card subheader="Thông tin vé tàu">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Provident repellendus laborum impedit quis cupiditate aliquam
-                  corporis temporibus rerum praesentium tempora perspiciatis
-                  culpa blanditiis quo nesciunt ratione laboriosam quidem, eius
-                  dignissimos.
-                </p>
-              </p-card>
+            <div class="p-field col-6 mb-3">
+              <label for="price">Giá vé</label>
+
+              <p>{{ tickesType.price | currency: 'VND' }}</p>
+              <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
+                  >Tittle is required</small
+                > -->
+            </div>
+            <div class="p-field col-6">
+              <label for="serviceFeePercentage">Phí dịch vụ(%)</label>
+
+              <P>{{ tickesType.serviceFeePercentage }}%</P>
+
+              <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
+                  >Tittle is required</small
+                > -->
+            </div>
+            <div class="p-field col-6">
+              <label for="status">Trạng thái</label>
+              <p-dropdown
+                optionLabel="name"
+                optionValue="id"
+                [options]="status"
+                placeholder="Select Status"
+                formControlName="status"
+                [showClear]="true"
+              ></p-dropdown>
+              <small
+                *ngIf="ticketTypeForm.status.invalid && isSubmit"
+                class="p-error"
+                >Trạng không được trống</small
+              >
+            </div>
+            <div class="p-field col-6"></div>
+            <div class="p-field col-6 mt-5">
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-check"
+                label="Confirm"
+                (click)="onSubmit()"
+                class="p-button-raised p-button-help p-button-text"
+              ></button>
             </div>
           </div>
         </form>
@@ -98,45 +73,36 @@
       <div class="col-12 mt-4">
         <form>
           <div class="p-fluid formgrid grid">
-            <div class="col-7">
-              <div class="grid">
-                <div class="p-field col-6 mb-3">
-                  <label for="name">Hạng vé</label>
-                  <p-skeleton></p-skeleton>
-                </div>
-                <div class="p-field col-6 mb-3">
-                  <label for="price">Giá vé</label>
+            <div class="p-field col-6 mb-3">
+              <label for="name">Hạng vé</label>
+              <p-skeleton></p-skeleton>
+            </div>
+            <div class="p-field col-6 mb-3">
+              <label for="price">Giá vé</label>
 
-                  <p-skeleton></p-skeleton>
-                  <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
+              <p-skeleton></p-skeleton>
+              <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
                   >Tittle is required</small
                 > -->
-                </div>
-                <div class="p-field col-6">
-                  <label for="serviceFeePercentage">Phí dịch vụ(%)</label>
+            </div>
+            <div class="p-field col-6">
+              <label for="serviceFeePercentage">Phí dịch vụ(%)</label>
 
-                  <p-skeleton></p-skeleton>
-                  <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
+              <p-skeleton></p-skeleton>
+              <!-- <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
                   >Tittle is required</small
                 > -->
-                </div>
-                <div class="p-field col-6">
-                  <label for="status">Trạng thái</label>
-                  <p-skeleton></p-skeleton>
-                  <!-- <small *ngIf="tourForm.status.invalid && isSubmit" class="p-error"
+            </div>
+            <div class="p-field col-6">
+              <label for="status">Trạng thái</label>
+              <p-skeleton></p-skeleton>
+              <!-- <small *ngIf="tourForm.status.invalid && isSubmit" class="p-error"
                   >Status is required</small
                 > -->
-                </div>
-                <div class="p-field col-6"></div>
-                <div class="p-field col-6 mt-5">
-                  <p-skeleton></p-skeleton>
-                </div>
-              </div>
             </div>
-            <div class="col-5 p-shadow-14">
-              <p-card subheader="Thông tin vé tàu">
-                <p-skeleton width="24rem" height="10rem"></p-skeleton>
-              </p-card>
+            <div class="p-field col-6"></div>
+            <div class="p-field col-6 mt-5">
+              <p-skeleton></p-skeleton>
             </div>
           </div>
         </form>
