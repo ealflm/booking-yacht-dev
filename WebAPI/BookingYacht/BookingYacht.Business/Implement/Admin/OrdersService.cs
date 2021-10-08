@@ -55,15 +55,14 @@ namespace BookingYacht.Business.Implement.Admin
             
             model ??= new OrdersSearchModel();
             var list = await _unitOfWork.OrderRepository.Query()
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.AgencyName == null | x.AgencyName.Contains(model.AgencyName))
                 .Where(x => model.IdAgency == null | x.IdAgency.Equals(model.IdAgency))
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 .Where(x => model.TotalPrice == null | x.TotalPrice == model.TotalPrice)
                 .Where(x => model.QuantityOfPerson == null | x.QuantityOfPerson == model.QuantityOfPerson)
                 .Where(x => model.Status == null | x.Status == (int) model.Status)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.BusinessRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .OrderBy(x => x.AgencyName)
                 .Select(x => MapperOrder.GetViewModel(x).Result)
                 .ToListAsync();
@@ -75,15 +74,14 @@ namespace BookingYacht.Business.Implement.Admin
             model ??= new OrdersSearchModel();
             var list = await _unitOfWork.Context().Orders
                 .Include(x => x.IdAgencyNavigation)
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.AgencyName == null | x.AgencyName.Contains(model.AgencyName))
                 .Where(x => model.IdAgency == null | x.IdAgency.Equals(model.IdAgency))
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 .Where(x => model.TotalPrice == null | x.TotalPrice == model.TotalPrice)
                 .Where(x => model.QuantityOfPerson == null | x.QuantityOfPerson == model.QuantityOfPerson)
                 .Where(x => model.Status == null | x.Status == (int)model.Status)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.BusinessRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .OrderBy(x => x.AgencyName)
                 .ToListAsync();
             return list;
