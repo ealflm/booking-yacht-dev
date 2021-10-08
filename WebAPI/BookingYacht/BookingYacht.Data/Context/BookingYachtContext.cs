@@ -190,6 +190,8 @@ namespace BookingYacht.Data.Context
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.DateOrder).HasColumnType("datetime");
+
                 entity.HasOne(d => d.IdAgencyNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.IdAgency)
