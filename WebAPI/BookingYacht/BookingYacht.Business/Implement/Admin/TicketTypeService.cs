@@ -21,7 +21,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         }
 
-        public async Task<TicketType> GetTicketType(Guid id)
+        public async Task<TicketType> GetNavigation(Guid id)
         {
             var ticketType = await _unitOfWork.Context().TicketTypes
                 .Include(x => x.IdBusinessTourNavigation)
@@ -30,12 +30,9 @@ namespace BookingYacht.Business.Implement.Admin
             return ticketType;
         }
 
-        public async Task<List<TicketType>> SearchTicketTypes(TicketTypeSearchModel model = null)
+        public async Task<List<TicketType>> SearchNavigation(TicketTypeSearchModel model = null)
         {
-            if (model == null)
-            {
-                model = new TicketTypeSearchModel();
-            }
+            model ??= new TicketTypeSearchModel();
             var ticketTypes = await _unitOfWork.Context().TicketTypes
                 .Include(x => x.IdBusinessTourNavigation)
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
@@ -46,7 +43,7 @@ namespace BookingYacht.Business.Implement.Admin
             return ticketTypes;
         }
 
-        public async Task SetStatusTicketType(Guid id, TicketTypeViewModel model)
+        public async Task Set(Guid id, TicketTypeViewModel model)
         {
             var ticketType = await _unitOfWork.TicketTypeRepository.Query()
                 .Where(x => x.Id.Equals(id))
