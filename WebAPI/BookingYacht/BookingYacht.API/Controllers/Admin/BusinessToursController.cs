@@ -12,11 +12,11 @@ namespace BookingYacht.API.Controllers.Admin
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(GroupName = Role)]
-    public class BusinessTourController : BaseAdminController
+    public class BusinessToursController : BaseAdminController
     {
         private readonly IBusinessTourService _service;
 
-        public BusinessTourController(IBusinessTourService service)
+        public BusinessToursController(IBusinessTourService service)
         {
             _service = service;
         }
