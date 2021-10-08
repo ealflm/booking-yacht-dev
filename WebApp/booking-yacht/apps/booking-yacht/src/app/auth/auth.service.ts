@@ -18,7 +18,7 @@ import { async } from '@angular/core/testing';
   providedIn: 'root',
 })
 export class AuthService {
-  apiURL = environment.apiURL + '/api/v1/admins/open-login';
+  apiURL = environment.apiURL + 'open-login';
   userData: any;
   constructor(
     private router: Router,

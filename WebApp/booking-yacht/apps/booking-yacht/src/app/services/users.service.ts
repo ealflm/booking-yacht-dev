@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class UsersService {
-  apiURL = environment.apiURL + '/api/v1/admins/login';
+  apiURL = environment.apiURL + 'login';
 
   constructor(private http: HttpClient) {}
 

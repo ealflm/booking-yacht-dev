@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root',
 })
 export class DestinationsService {
-  apiURL = environment.apiURL + '/api/v1/destinations';
+  apiURL = environment.apiURL + 'destinations';
   constructor(private http: HttpClient) {}
   getDestinations(status?: string): Observable<any> {
     let params = new HttpParams();

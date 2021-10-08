@@ -1,4 +1,4 @@
-import { TOUR_STATUS } from './../../constants/STATUS';
+import { SECONDARY_STATUS } from './../../constants/STATUS';
 import { timer } from 'rxjs';
 import { Tour } from './../../models/tours';
 import { ActivatedRoute } from '@angular/router';
@@ -60,10 +60,10 @@ export class TourFormComponent implements OnInit {
     });
   }
   _mapTourStatus() {
-    this.status = Object.keys(TOUR_STATUS).map((key) => {
+    this.status = Object.keys(SECONDARY_STATUS).map((key) => {
       return {
         id: key,
-        name: TOUR_STATUS[key].lable,
+        name: SECONDARY_STATUS[key].lable,
       };
     });
   }

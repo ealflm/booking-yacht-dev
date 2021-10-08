@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { VehicleTypeService } from './../../services/vehicle-type.service';
-import { STATUS, TOUR_STATUS, AGENCY_STATUS } from './../../constants/STATUS';
+import { STATUS, AGENCY_STATUS } from './../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,3 +1,4 @@
+import { TicketComponent } from './pages/ticket/ticket.component';
 import { VehicleTypeComponent } from './pages/vehicle-type/vehicle-type.component';
 import { TicketTypeComponent } from './pages/ticket-type/ticket-type.component';
 import { AgenciesComponent } from './pages/agencies/agencies.component';
@@ -31,10 +32,10 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       { path: 'dashboard', component: HomePagesComponent },
-      {
-        path: 'dashboard/business-account-form',
-        component: AccountBusinessFormComponent,
-      },
+      // {
+      //   path: 'dashboard/business-account-form',
+      //   component: AccountBusinessFormComponent,
+      // },
       {
         path: 'dashboard/business-account-form/:id',
         component: AccountBusinessFormComponent,
@@ -61,10 +62,10 @@ const routes: Routes = [
       },
 
       { path: 'ticket-type', component: TicketTypeComponent },
-      {
-        path: 'ticket-type/form',
-        component: TicketTypeFormComponent,
-      },
+      // {
+      //   path: 'ticket-type/form',
+      //   component: TicketTypeFormComponent,
+      // },
       {
         path: 'ticket-type/form/:id',
         component: TicketTypeFormComponent,
@@ -78,6 +79,11 @@ const routes: Routes = [
       {
         path: 'vehicle-type/form/:id',
         component: VehicleTypeFormComponent,
+      },
+      { path: 'ticket', component: TicketComponent },
+      {
+        path: 'ticket/form/:id',
+        component: TicketComponent,
       },
     ],
   },

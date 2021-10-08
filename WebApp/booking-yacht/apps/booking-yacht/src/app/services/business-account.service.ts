@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class BusinessAccountService {
-  private apiURLBusiness = environment.apiURL + '/api/v1/business-accounts';
+  private apiURLBusiness = environment.apiURL + 'business-accounts';
 
   constructor(private http: HttpClient) {}
 

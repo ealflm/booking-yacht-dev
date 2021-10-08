@@ -50,20 +50,26 @@ export const BUSINESS_STATUS: any = {
 //     color: 'danger',
 //   },
 // };
-export const TOUR_STATUS: any = {
-  0: {
+
+export const SECONDARY_STATUS: any = {
+  3: {
     lable: 'Chờ duyệt',
-    color: 'Primary',
+    color: 'primary',
   },
-  1: {
+  4: {
     lable: 'Chấp nhận',
     color: 'success',
   },
-  2: {
+  5: {
     lable: 'Từ chối',
     color: 'danger',
   },
 };
+export const TICKET_STATUS =[
+  { id: '0', name: 'None' },
+  { id: '1', name: 'Đang hoạt động' },
+  { id: '2', name: 'Vô hiệu' },
+]
 
 export const AGENCY_STATUS: any = {
   0: {

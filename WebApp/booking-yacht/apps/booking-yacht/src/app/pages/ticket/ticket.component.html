@@ -23,16 +23,6 @@
           ></button>
         </span>
       </ng-template>
-      <!-- <ng-template pTemplate="right">
-        <button
-          pButton
-          pRipple
-          label="New"
-          icon="pi pi-plus"
-          class="p-button-success p-mr-2"
-          (click)="newVehicleType()"
-        ></button>
-      </ng-template> -->
     </p-toolbar>
     <div class="mt-5"></div>
 
@@ -41,7 +31,7 @@
       <div class="col-12">
         <p-table
           #dt
-          [value]="ticketType"
+          [value]="tickets"
           [rows]="10"
           [showCurrentPageReport]="true"
           [rowsPerPageOptions]="[10, 20, 50]"
@@ -54,65 +44,44 @@
           <ng-template pTemplate="header">
             <tr>
               <th class="hidden">ID</th>
+              <th>Đại lý bán vé</th>
               <th pSortableColumn="name">
-                Hạng vé <p-sortIcon field="name"></p-sortIcon>
+                Tên khách hàng <p-sortIcon field="name"></p-sortIcon>
               </th>
-              <th pSortableColumn="price">
-                Giá vé <p-sortIcon field="price"></p-sortIcon>
-              </th>
-              <th>Phí dịch vụ(%)</th>
-              <th>Trạng thái</th>
+              <th>Thời gian</th>
+              <th>Số điện thoại</th>
+              <th>Giá vé</th>
               <th></th>
             </tr>
           </ng-template>
 
-          <ng-template pTemplate="body" let-ticketType>
+          <ng-template pTemplate="body" let-tickets>
             <tr *ngIf="loading">
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
-
-              <!-- <td class="flex">
-                <p-skeleton
-                  shape="circle"
-                  size="3rem"
-                  styleClass="p-mr-2"
-                ></p-skeleton>
-                <p-skeleton
-                  shape="circle"
-                  size="3rem"
-                  styleClass="p-mr-2"
-                ></p-skeleton>
-              </td> -->
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
             </tr>
             <tr *ngIf="!loading">
-              <td class="hidden">{{ ticketType.id }}</td>
-              <td>{{ ticketType.name }}</td>
-              <td>{{ ticketType.price }}</td>
-              <td>{{ ticketType.serviceFeePercentage }}</td>
-              <td class="p-ai-center p-pl-2">
-                <p-tag
-                  [severity]="ticketTypeStatus[ticketType.status]?.color"
-                  [value]="ticketTypeStatus[ticketType.status]?.lable"
-                ></p-tag>
-              </td>
-              <td>
-                <button
-                  pButton
-                  pRipple
-                  icon="pi pi-search-plus"
-                  class="p-button-rounded p-button-success mr-2"
-                  (click)="editTicketType(ticketType.id)"
-                ></button>
+              <td class="hidden">{{ tickets.id }}</td>
+              <td>{{ tickets.idOrderNavigation.agencyName }}</td>
+              <td>{{ tickets.nameCustomer }}</td>
+              <td>thời gian</td>
+              <td>{{ tickets.phone }}</td>
+              <td>{{ tickets.price | currency }}</td>
 
-                <!-- <button
-                  pButton
-                  pRipple
-                  icon="pi pi-ban"
-                  class="p-button-rounded p-button-warning"
-                  (click)="deleteVehicleType(vehicleType.id)"
-                ></button> -->
+              <!-- <td class="p-ai-center p-pl-2"> -->
+              <!-- <p-tag
+                  [severity]="ticketsStatus[tickets.status]?.color"
+                  [value]="ticketsStatus[tickets.status]?.lable"
+                ></p-tag> -->
+              <!-- </td> -->
+              <td>
+                <a [routerLink]="['ticket/form/', tickets.id]">
+                  <i class="ni ni-tag"></i
+                ></a>
               </td>
             </tr>
           </ng-template>

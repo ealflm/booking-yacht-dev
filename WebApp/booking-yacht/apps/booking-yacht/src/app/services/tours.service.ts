@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root',
 })
 export class ToursService {
-  apiURL = environment.apiURL + '/api/v1/tours';
+  apiURL = environment.apiURL + 'tours';
   constructor(private http: HttpClient) {}
 
   getTours(status: string): Observable<any> {
