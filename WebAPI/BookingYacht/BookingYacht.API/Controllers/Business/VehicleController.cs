@@ -12,6 +12,7 @@ namespace BookingYacht.API.Controllers.Business
     [Route(BusinessRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class VehicleController : BaseBusinessController
     {
         public VehicleController(IVehicleService service)

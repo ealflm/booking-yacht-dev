@@ -2,6 +2,7 @@
 {
     public class BaseAgencyController : BaseController
     {
-        protected const string AgencyRoute = "api/" + Version + "/agency/[controller]";
+        protected const string Role = "Agency";
+        protected const string AgencyRoute = "api/" + Version + "/" + Role + "/[controller]";
     }
 }

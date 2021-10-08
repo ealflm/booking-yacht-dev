@@ -10,6 +10,7 @@ namespace BookingYacht.API.Controllers.Agency
     [Route(AgencyRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class TicketController : BaseAgencyController
     {
         

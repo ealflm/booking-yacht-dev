@@ -13,6 +13,7 @@ namespace BookingYacht.API.Controllers.Business
     [Route(BusinessRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class DestinationsController : BaseBusinessController
     {
         private readonly IDestinationService _service;

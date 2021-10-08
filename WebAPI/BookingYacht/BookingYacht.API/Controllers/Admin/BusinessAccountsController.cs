@@ -13,6 +13,7 @@ namespace BookingYacht.API.Controllers.Admin
     [Route(AdminRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class BusinessAccountsController : BaseAdminController
     {
         private readonly IManageBusinessAccountService _manageBusinessAccountService;

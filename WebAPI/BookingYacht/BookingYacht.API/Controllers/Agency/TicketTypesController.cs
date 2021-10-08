@@ -15,6 +15,7 @@ namespace BookingYacht.API.Controllers.Agency
     [Route(AgencyRoute)]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class TicketTypesController : BaseAgencyController
     {
         private readonly ITicketTypeService _ticketTypeService;
