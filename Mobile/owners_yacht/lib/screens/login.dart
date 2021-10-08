@@ -4,8 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '/controller/login.dart';
 
 class Login extends StatelessWidget {
-  final controller = Get.put(LoginController());
-
+  final LoginController controller = Get.find<LoginController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

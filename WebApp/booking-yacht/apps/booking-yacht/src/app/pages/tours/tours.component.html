@@ -7,9 +7,18 @@
 ></p-confirmDialog>
 
 <div class="admin-tour p-3">
-  <p-card header="Tours" subheader="List all Tours current ">
+  <p-card header="Chuyến đi" subheader="Danh sách các chuyến đi ">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dv.filter(getValue($event), 'contains')"
+            placeholder="Tìm Kiếm"
+          />
+        </span>
         <span *ngFor="let item of status">
           <button
             pButton
@@ -18,24 +27,11 @@
             [label]="item.lable"
             [value]="item.id"
             (click)="onChangeStatus(item.id)"
-            class="p-button-raised p-button-info p-button-text m-1"
+            class="p-button-outlined p-button-info p-button-text m-1"
           ></button>
         </span>
       </ng-template>
-
-      <span class="p-input-icon-right">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          (input)="dv.filter(getValue($event), 'contains')"
-          placeholder="Global Search"
-        />
-      </span>
-    </p-toolbar>
-    <p-toolbar styleClass="p-mb-4 mt-4">
-      <span></span>
-      <ng-template pTemplate="left">
+      <ng-template pTemplate="right">
         <button
           pButton
           pRipple
@@ -46,6 +42,7 @@
         ></button>
       </ng-template>
     </p-toolbar>
+
     <hr />
     <p-dataView
       #dv

@@ -1,7 +1,7 @@
+import { AGENCY_STATUS } from './../../constants/STATUS';
 import { Apartment } from '../../models/apartments';
 import { ActivatedRoute } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
-import { APARTMENT_STATUS } from '../../constants/STATUS';
 import { ApartmentsService } from './../../services/apartments.service';
 import { MessageService } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -134,10 +134,10 @@ export class AparmentFormComponent implements OnInit {
   }
 
   private _mapApartmentStatus() {
-    this.status = Object.keys(APARTMENT_STATUS).map((key) => {
+    this.status = Object.keys(AGENCY_STATUS).map((key) => {
       return {
         id: key,
-        name: APARTMENT_STATUS[key].lable,
+        name: AGENCY_STATUS[key].lable,
       };
     });
   }

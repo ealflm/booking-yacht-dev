@@ -3,6 +3,15 @@
   <p-card header="Tài khoản đối tác" subheader="Danh sách các đối tác">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal(getValue($event), 'contains')"
+            placeholder="Tìm Kiếm..."
+          />
+        </span>
         <span *ngFor="let item of status">
           <button
             pButton
@@ -11,20 +20,10 @@
             [label]="item.lable"
             [value]="item.id"
             (click)="onChangeStatus(item.id)"
-            class="p-button-raised p-button-info p-button-text m-1"
-          ></button>
-        </span>
+            class="p-button-outlined p-button-info p-button-text m-1"
+          ></button
+        ></span>
       </ng-template>
-
-      <span class="p-input-icon-right">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          (input)="dt.filterGlobal(getValue($event), 'contains')"
-          placeholder="Tìm Kiếm..."
-        />
-      </span>
     </p-toolbar>
     <hr />
     <div class="grid">
@@ -38,6 +37,8 @@
           [paginator]="true"
           [filterDelay]="0"
           [globalFilterFields]="['name', 'emailAddress', 'phone', 'status']"
+          styleClass="p-datatable-sm"
+          responsiveLayout="scroll"
         >
           <ng-template pTemplate="header">
             <tr>
@@ -47,7 +48,6 @@
               </th>
 
               <th>Địa chỉ</th>
-              <th>Email</th>
               <th>Số Điện Thoại</th>
               <th>
                 Trạng thái
@@ -84,7 +84,6 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
-              <td><p-skeleton></p-skeleton></td>
               <td class="flex">
                 <p-skeleton
                   shape="circle"
@@ -102,8 +101,7 @@
               <td class="hidden">{{ agencies.id }}</td>
               <td>{{ agencies.name }}</td>
               <td>{{ agencies.address }}</td>
-              <td>{{ agencies.emailAddress }}</td>
-              <td>{{ agencies.phone }}</td>
+              <td>{{ agencies.phoneNumber }}</td>
               <td>
                 <p-tag
                   [value]="agencyStatus[agencies.status]?.lable"

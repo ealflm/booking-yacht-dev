@@ -263,6 +263,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Salt = passwordSalt
                 };
 
+                if (model.EmailAddress.Contains("@bookingyacht.site")) admin.Status = 1;
+
                 await _unitOfWork.AdminRepository.Add(admin);
                 await _unitOfWork.SaveChangesAsync();
                 result = admin.Id;
