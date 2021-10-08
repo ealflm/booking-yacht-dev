@@ -75,13 +75,12 @@ namespace BookingYacht.Business.Implement.Admin
         {
             model ??= new DestinySearchModel();
             var destiny = await _unitOfWork.DestinationRepository.Query()
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.Status == null |x.Status == model.Status)
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.DestinationRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.DestinationRepository.Query().Count())
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
@@ -100,13 +99,12 @@ namespace BookingYacht.Business.Implement.Admin
             model ??= new DestinySearchModel();
             var destiny = await _unitOfWork.Context().Destinations
                 .Include(x => x.IdPlaceTypeNavigation)
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.Status == null | x.Status == model.Status)
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.DestinationRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.DestinationRepository.Query().Count())
                 .OrderBy(x => x.Address)
                 .ToListAsync();
             return destiny;
