@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/models/yacht.dart';
 import '/widgets/information.dart';
 import 'package:get/get.dart';
 
 class YachtDetail extends StatelessWidget {
+  final Yacht yacht;
+  const YachtDetail(this.yacht);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          Get.arguments,
+          yacht.name,
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,
@@ -49,8 +52,9 @@ class YachtDetail extends StatelessWidget {
                             Image.network(
                                 'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
                             // YachtInformation('price', value),
-                            YachtInformation("Status", "bussy"),
-                            YachtInformation("Description", ""),
+                            YachtInformation("Seat", (yacht.seat != null) ? '${yacht.seat}' : 'No'),
+                            YachtInformation("Status", (yacht.status != null) ? '${yacht.status}' : 'No'),
+                            YachtInformation("Description", yacht.descriptions),
                           ],
                         ),
                       ),

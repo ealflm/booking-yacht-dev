@@ -22,7 +22,7 @@ class YachtCard extends StatelessWidget {
                 'https://www.ferretti-yachts.com/uploadB2B/Models/Images/Main/Ferretti/medium/47591.jpg'),
           ),
           onTap: () {
-            Get.toNamed('/yacht-detail', arguments: yacht.name);
+            Get.to(YachtDetail(yacht));
           },
         ),
         title: Text(yacht.name),

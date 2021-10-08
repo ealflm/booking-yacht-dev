@@ -12,7 +12,6 @@ class Yachts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Yacht> _yachtList = controller.items;
     return Scaffold(
       appBar: NavBar(
         title: 'Home',

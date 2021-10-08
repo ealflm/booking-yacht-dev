@@ -15,7 +15,7 @@ class YachtController extends GetxController {
   }
 
   Future<List<Yacht>?> fetchYachts() async {
-    isLoading(false);
+    isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     try {
@@ -41,7 +41,7 @@ class YachtController extends GetxController {
     } catch (error) {
       print('loi r');
     } finally {
-      // isLoading(false);
+      isLoading(false);
     }
     return items;
   }
