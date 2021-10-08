@@ -15,7 +15,6 @@ namespace BookingYacht.Business.Implement.Admin
 
     public class VehicleService : BaseService, IVehicleService
     {
-        private const int Count = (int) CountElement.AtLeast;
         public VehicleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
