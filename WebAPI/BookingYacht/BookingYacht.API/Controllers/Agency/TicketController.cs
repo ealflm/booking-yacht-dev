@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Agency
 {
     [Route(ApiVer2Route)]
     [ApiController]
+    [Authorize]
     public class TicketController : BaseApiVer2Controller
     {
         

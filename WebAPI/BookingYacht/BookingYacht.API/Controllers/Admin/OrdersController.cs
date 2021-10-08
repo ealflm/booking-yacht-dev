@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Admin
 {
     [Route(ApiVer1Route)]
     [ApiController]
+    [Authorize]
     public class OrdersController: BaseApiVer1Controller
     {
         private readonly IOrdersService _service;
