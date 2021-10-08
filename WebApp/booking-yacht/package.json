@@ -25,6 +25,7 @@
     "@ng-bootstrap/ng-bootstrap": "10.0.0",
     "@nrwl/angular": "12.8.0",
     "angularx-social-login": "^4.0.1",
+    "animate.css": "^4.1.1",
     "bootstrap": "4.5.2",
     "firebase": "^9.1.0",
     "font-awesome": "^4.7.0",
