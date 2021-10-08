@@ -76,6 +76,7 @@ namespace BookingYacht.Business.Implement.Admin
             model ??= new DestinySearchModel();
             var destiny = await _unitOfWork.DestinationRepository.Query()
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
+                .Where(x => model.Name == null | x.Name.Contains(model.Name))
                 .Where(x => model.Status == null |x.Status == model.Status)
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)
@@ -100,6 +101,7 @@ namespace BookingYacht.Business.Implement.Admin
             var destiny = await _unitOfWork.Context().Destinations
                 .Include(x => x.IdPlaceTypeNavigation)
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
+                .Where(x => model.Name == null | x.Name.Contains(model.Name))
                 .Where(x => model.Status == null | x.Status == model.Status)
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)

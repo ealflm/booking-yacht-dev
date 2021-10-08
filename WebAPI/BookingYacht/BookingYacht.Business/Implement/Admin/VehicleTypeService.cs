@@ -24,12 +24,11 @@ namespace BookingYacht.Business.Implement.Admin
         {
             model ??= new VehicleTypeSearchModel();
             var list = await _unitOfWork.VehicleTypeRepository.Query()
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Name == null | x.Name.Equals(model.Name))
                 .Where(x => model.Status == null | x.Status == model.Status)
                 .OrderBy(x => x.Name)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.VehicleTypeRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.VehicleTypeRepository.Query().Count())
                 .Select(x => new VehicleTypeViewModel
                 {
                     Id = x.Id,

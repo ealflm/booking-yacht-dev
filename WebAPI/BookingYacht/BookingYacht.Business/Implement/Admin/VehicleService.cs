@@ -24,7 +24,6 @@ namespace BookingYacht.Business.Implement.Admin
         {
             model ??= new VehicleSearchModel();
             var searchVal = await _unitOfWork.VehicleRepository.Query()
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.Name == null | x.Name.Equals(model.Name))
                 .Where(x => model.Descriptions == null | x.Descriptions.Equals(model.Descriptions))
                 .Where(x => model.Seat == null | x.Seat == model.Seat)
@@ -32,8 +31,8 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdVehicleType == null | x.IdVehicleType.Equals(model.IdVehicleType))
                 .Where(x => model.Status == null | x.Status == model.Status)
                 .OrderBy(x => x.Seat)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.VehicleRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.VehicleRepository.Query().Count())
                 .Select(x => new VehicleViewModel()
                 {
                     Id = x.Id,
