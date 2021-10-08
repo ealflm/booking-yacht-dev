@@ -13,9 +13,9 @@ namespace BookingYacht.API.Controllers.Business
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(GroupName = Role)]
-    public class VehicleController : BaseBusinessController
+    public class VehiclesController : BaseBusinessController
     {
-        public VehicleController(IVehicleService service)
+        public VehiclesController(IVehicleService service)
         {
             _agencyService = service;
         }
