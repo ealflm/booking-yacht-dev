@@ -28,7 +28,9 @@ export class TicketTypeComponent implements OnInit {
   getTicketTypes() {
     if (!status) {
       this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {
-        this.loading = false;
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
         this.ticketType = ticketTypeRes.data;
       });
     }
