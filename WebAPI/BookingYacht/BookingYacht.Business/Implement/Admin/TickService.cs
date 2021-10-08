@@ -14,7 +14,6 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class TickService : BaseService, ITicketService
     {
-        private const int Count = (int) CountElement.AtLeast;
         public TickService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
@@ -23,16 +22,16 @@ namespace BookingYacht.Business.Implement.Admin
         {
             model ??= new TicketSearchModel();
             var list = await _unitOfWork.TicketRepository.Query()
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.NameCustomer == null | x.NameCustomer.Contains(model.NameCustomer))
                 .Where(x => model.Phone == null | x.Phone.Equals(model.Phone))
                 .Where(x => model.IdOrder == null | x.IdOrder.Equals(model.IdOrder))
                 .Where(x => model.IdTrip == null | x.IdTrip.Equals(model.IdTrip))
                 .Where(x => model.IdTicketType == null | x.IdTicketType.Equals(model.IdTicketType))
                 .Where(x => model.Status == null | x.Status == (int) model.Status)
+                .Where(x => model.Price == null | x.Price == model.Price)
                 .OrderBy(x => x.NameCustomer)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.TicketRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.TicketRepository.Query().Count())
                 .Select(x => new TicketViewModel
                 {
                     Id = x.Id,
@@ -54,16 +53,16 @@ namespace BookingYacht.Business.Implement.Admin
                 .Include(x => x.IdOrderNavigation)
                 .Include(x => x.IdTicketTypeNavigation)
                 .Include(x => x.IdTripNavigation)
-                .Where(x => model.Id == null | x.Id.Equals(model.Id))
                 .Where(x => model.NameCustomer == null | x.NameCustomer.Contains(model.NameCustomer))
                 .Where(x => model.Phone == null | x.Phone.Equals(model.Phone))
                 .Where(x => model.IdOrder == null | x.IdOrder.Equals(model.IdOrder))
                 .Where(x => model.IdTrip == null | x.IdTrip.Equals(model.IdTrip))
                 .Where(x => model.IdTicketType == null | x.IdTicketType.Equals(model.IdTicketType))
-                .Where(x => model.Status == null | x.Status == (int)model.Status)
+                .Where(x => model.Status == null | x.Status == (int) model.Status)
+                .Where(x => model.Price == null | x.Price == model.Price)
                 .OrderBy(x => x.NameCustomer)
-                .Skip(Count * (model.Paging != 0 ? model.Paging - 1 : 0))
-                .Take(model.Paging != 0 ? Count : _unitOfWork.TicketRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.TicketRepository.Query().Count())
                 .ToListAsync();
             return list;
         }
@@ -139,13 +138,12 @@ namespace BookingYacht.Business.Implement.Admin
             //not found entity:
             if (ticket.Result == null) return false;
             //entity existed:
-            
-            ticket.Result.Status = (int)Status.DISABLE;
+
+            ticket.Result.Status = (int) Status.DISABLE;
 
             _unitOfWork.TicketRepository.Update(ticket.Result);
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }
-
 }

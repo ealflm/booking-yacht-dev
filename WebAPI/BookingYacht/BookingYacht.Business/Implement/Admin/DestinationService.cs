@@ -14,8 +14,6 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class DestinationService : BaseService, IDestinationService
     {
-        private const int Count = (int) CountElement.AtLeast;
-        
         public async Task<Guid> AddDestiny(DestinyViewModel model)
         {
             var destiny = new Data.Models.Destination
