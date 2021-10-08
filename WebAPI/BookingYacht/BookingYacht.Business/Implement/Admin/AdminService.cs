@@ -1,4 +1,5 @@
-﻿using BookingYacht.Business.Interfaces.Admin;
+﻿using BookingYacht.Business.Enum;
+using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
@@ -20,6 +21,7 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class AdminService : BaseService, IAdminService
     {
+
         private readonly IConfiguration _configuration;
         private readonly FirebaseApp _firebaseApp;
         private readonly FirebaseAuth _firebaseAuth;
@@ -32,6 +34,8 @@ namespace BookingYacht.Business.Implement.Admin
             _firebaseApp = firebaseApp;
             _firebaseAuth = FirebaseAuth.GetAuth(_firebaseApp);
         }
+
+        #region Authorization
 
         public async Task<MessageResult> Login(LoginSearchModel loginModel)
         {
@@ -72,7 +76,7 @@ namespace BookingYacht.Business.Implement.Admin
                         Uid = user.Uid,
                         Name = user.Name,
                         EmailAddress = user.EmailAddress,
-                        Password = user.Password,
+                        //Password = user.Password,
                         PhoneNumber = user.PhoneNumber,
                         PhotoUrl = user.PhotoUrl,
                         Status = user.Status
@@ -144,7 +148,7 @@ namespace BookingYacht.Business.Implement.Admin
                             Uid = user.Uid,
                             Name = user.Name,
                             EmailAddress = user.EmailAddress,
-                            Password = user.Password,
+                            //Password = user.Password,
                             PhoneNumber = user.PhoneNumber,
                             PhotoUrl = user.PhotoUrl,
                             Status = user.Status
@@ -189,7 +193,7 @@ namespace BookingYacht.Business.Implement.Admin
                             Uid = model.Uid,
                             Name = model.Name,
                             EmailAddress = model.EmailAddress,
-                            Password = model.Password,
+                            //Password = model.Password,
                             PhoneNumber = model.PhoneNumber,
                             PhotoUrl = model.PhotoUrl,
                             Status = model.Status
@@ -289,5 +293,114 @@ namespace BookingYacht.Business.Implement.Admin
             }
             return true; 
         }
+
+        #endregion
+
+        public async Task<AdminViewModel> GetAdmin(Guid id)
+        {
+            var admin = await _unitOfWork.AdminRepository.Query()
+                .Where(x => x.Id.Equals(id))
+                .Select(x => new AdminViewModel()
+                {
+                    Id  = x.Id,
+                    Uid  = x.Uid,
+                    Name  = x.Name,
+                    EmailAddress  = x.EmailAddress,
+                    //Password  = x.Password,
+                    //Salt  = x.Salt,
+                    PhoneNumber  = x.PhoneNumber,
+                    PhotoUrl  = x.PhotoUrl,
+                    Status  = x.Status
+                }).FirstOrDefaultAsync();
+            return admin;
+        }
+
+        public async Task<List<AdminViewModel>> SearchAdmins(AdminSearchModel model)
+        {
+            var admins = await _unitOfWork.AdminRepository.Query()
+                .Where(x => model.Id == null || x.Id == model.Id)
+                .Where(x => model.Uid == null || x.Uid.Contains(model.Uid))
+                .Where(x => model.Name == null || x.Name.Contains(model.Name))
+                .Where(x => model.EmailAddress == null || x.EmailAddress.Contains(model.EmailAddress))
+                .Where(x => model.PhoneNumber == null || x.PhoneNumber.Contains(model.PhoneNumber))
+                .Where(x => model.Status == Status.ALL || x.Status == (int)model.Status)
+                .Select(x => new AdminViewModel()
+                {
+                    Id = x.Id,
+                    Uid = x.Uid,
+                    Name = x.Name,
+                    EmailAddress = x.EmailAddress,
+                    //Password = x.Password,
+                    //Salt = x.Salt,
+                    PhoneNumber = x.PhoneNumber,
+                    PhotoUrl = x.PhotoUrl,
+                    Status = x.Status
+                })
+                .OrderBy(x => x.Name)
+                .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
+                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+                .ToListAsync();
+            return admins;
+        }
+
+        public async Task<Guid> AddAdmin(AdminViewModel model)
+        {
+            var admin = new AdminModel()
+            {
+                Id = model.Id,
+                Uid = model.Uid,
+                Name = model.Name,
+                EmailAddress = model.EmailAddress,
+                //Password = model.Password,
+                //Salt = model.Salt,
+                PhoneNumber = model.PhoneNumber,
+                PhotoUrl = model.PhotoUrl,
+                Status = model.Status
+            };
+            admin.Status = (int)Status.ENABLE;
+            await _unitOfWork.AdminRepository.Add(admin);
+            await _unitOfWork.SaveChangesAsync();
+            return admin.Id;
+        }
+
+        public async Task DeleteAdmin(Guid id)
+        {
+            var admin = await _unitOfWork.AdminRepository.Query()
+                .Where(x => x.Id.Equals(id))
+                .Select(x => new AdminModel()
+                {
+                    Id = x.Id,
+                    Uid = x.Uid,
+                    Name = x.Name,
+                    EmailAddress = x.EmailAddress,
+                    //Password = x.Password,
+                    //Salt = x.Salt,
+                    PhoneNumber = x.PhoneNumber,
+                    PhotoUrl = x.PhotoUrl,
+                    Status = x.Status
+                }).FirstOrDefaultAsync();
+            admin.Status = (int)Status.DISABLE;
+            _unitOfWork.AdminRepository.Update(admin);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task UpdateAdmin(Guid id, AdminViewModel model)
+        {
+            var admin = new AdminModel()
+            {
+                Id = id,
+                Uid = model.Uid,
+                Name = model.Name,
+                EmailAddress = model.EmailAddress,
+                //Password = model.Password,
+                //Salt = model.Salt,
+                PhoneNumber = model.PhoneNumber,
+                PhotoUrl = model.PhotoUrl,
+                Status = model.Status
+            };
+            _unitOfWork.AdminRepository.Update(admin);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
     }
 }
