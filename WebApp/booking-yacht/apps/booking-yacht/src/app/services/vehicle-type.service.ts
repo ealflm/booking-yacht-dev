@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root',
 })
 export class VehicleTypeService {
-  apiURL = environment.apiURL + '/api/v1/vehicle-types';
+  apiURL = environment.apiURL + 'vehicle-types';
   constructor(private http: HttpClient) {}
   getVehicleTypes(status?: string): Observable<any> {
     let params = new HttpParams();

@@ -16,8 +16,8 @@ export class DestinationsComponent implements OnInit {
   destinationStatus = AGENCY_STATUS;
   status = [
     { id: '0', lable: 'Tất cả' },
-    { id: '1', lable: 'Chấp Nhận' },
-    { id: '2', lable: 'Từ Chối' },
+    { id: '1', lable: 'Đang hoạt động' },
+    { id: '2', lable: 'Vô hiệu' },
   ];
   loading = true;
   placeType: any;

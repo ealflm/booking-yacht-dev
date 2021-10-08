@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root',
 })
 export class AgenciesService {
-  apiURL = environment.apiURL + '/api/v1/agencies';
+  apiURL = environment.apiURL + 'agencies';
 
   constructor(private http: HttpClient) {}
 

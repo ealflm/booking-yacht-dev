@@ -33,6 +33,7 @@ import { DestinationsFormComponent } from './components/destinations-form/destin
 import { AgenciesFormComponent } from './components/agencies-form/agencies-form.component';
 import { VehicleTypeFormComponent } from './components/vehicle-type-form/vehicle-type-form.component';
 import { TicketTypeFormComponent } from './components/ticket-type-form/ticket-type-form.component';
+import { TicketComponent } from './pages/ticket/ticket.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { TicketTypeFormComponent } from './components/ticket-type-form/ticket-ty
     AgenciesFormComponent,
     VehicleTypeFormComponent,
     TicketTypeFormComponent,
+    TicketComponent,
   ],
   imports: [
     // MaterialModule,

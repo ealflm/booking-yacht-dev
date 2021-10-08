@@ -1,7 +1,7 @@
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToursService } from './../../services/tours.service';
-import { TOUR_STATUS } from './../../constants/STATUS';
+import { SECONDARY_STATUS } from './../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,11 +13,11 @@ export class ToursComponent implements OnInit {
   tours: [] = [];
   status = [
     { id: '0', lable: 'Tất cả' },
-    { id: '1', lable: 'Chấp nhận' },
-    { id: '2', lable: 'Từ chối' },
+    { id: '4', lable: 'Chấp nhận' },
+    { id: '5', lable: 'Từ chối' },
   ];
   loading?: boolean = true;
-  tourStatus = TOUR_STATUS;
+  tourStatus = SECONDARY_STATUS;
   constructor(
     private tourService: ToursService,
     private router: Router,
