@@ -2,6 +2,7 @@
 {
     public class BaseBusinessController : BaseController
     {
-        protected const string BusinessRoute = "api/" + Version + "/business/[controller]";
+        protected const string Role = "Business";
+        protected const string BusinessRoute = "api/" + Version + "/" + Role + "/[controller]";
     }
 }

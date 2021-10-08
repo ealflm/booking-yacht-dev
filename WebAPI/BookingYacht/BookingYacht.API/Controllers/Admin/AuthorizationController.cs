@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Admin
 {
-    [Route(AdminRoute)]
+    [Route("api/" + Version + "/" + Role)]
     [ApiController]
-    public class AdminsController : BaseAdminController
+    [ApiExplorerSettings(GroupName = Role)]
+    public class AuthorizationController : BaseAdminController
     {
         private readonly IAdminService _adminService;
 
-        public AdminsController(IAdminService adminService)
+        public AuthorizationController(IAdminService adminService)
         {
             _adminService = adminService;
         }
