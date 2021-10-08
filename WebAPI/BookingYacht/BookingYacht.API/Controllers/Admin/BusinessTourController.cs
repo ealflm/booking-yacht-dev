@@ -28,7 +28,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _service.GetBusinessTour(id);
+            var result = await _service.GetBusinessTourNavigation(id);
             return Success(result);
         }
 

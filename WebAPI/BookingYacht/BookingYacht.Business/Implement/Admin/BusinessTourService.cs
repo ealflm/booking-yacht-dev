@@ -18,40 +18,28 @@ namespace BookingYacht.Business.Implement.Admin
         {
         }
 
-        public async Task<List<BusinessTourViewModel>> SearchAgenciesNavigation(BusinessTourSearchModel model = null)
+        public async Task<List<BusinessTour>> SearchAgenciesNavigation(BusinessTourSearchModel model = null)
         {
             model ??= new BusinessTourSearchModel();
-            var list = await _unitOfWork.BusinessTourRepository.Query()
+            var list = await _unitOfWork.Context().BusinessTours
+                .Include(x => x.IdTourNavigation)
                 .Include(x => x.IdBusinessNavigation)
-                .Include(x => x.IdBusinessNavigation)
-                .Where(x => model == null | x.IdBusiness.Equals(model.idBusiness))
-                .Where(x => model == null | x.IdTour.Equals(model.idTour))
-                .Where(x => model == null | x.Status == (int) model.Status)
+                .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
+                .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
+                .Where(x => model.Status == null | x.Status == (int) model.Status)
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
-                .Select(x => new BusinessTourViewModel()
-                {
-                    id = x.Id,
-                    idBusiness = x.IdBusiness,
-                    idTour = x.IdTour,
-                    Status = x.Status 
-                })
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessTourRepository.Query().Count())
                 .ToListAsync();
             return list;
         }
 
-        public async Task<BusinessTourViewModel> GetBusinessTour(Guid id)
+        public async Task<BusinessTour> GetBusinessTourNavigation(Guid id)
         {
-            return await _unitOfWork.BusinessTourRepository.Query()
+            return await _unitOfWork.Context().BusinessTours
+                .Include(x => x.IdBusinessNavigation) 
+                .Include(x => x.IdTourNavigation) 
                 .Where(x => x.Id.Equals(id))
-                .Select(x => new BusinessTourViewModel()
-                {
-                    id = x.Id,
-                    idBusiness = x.IdBusiness,
-                    idTour = x.IdTour,
-                    Status = x.Status
-                })
                 .FirstOrDefaultAsync();
         }
 
