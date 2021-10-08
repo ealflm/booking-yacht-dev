@@ -21,39 +21,24 @@ namespace BookingYacht.Business.Implement.Admin
 
         }
 
-        public async Task<TicketTypeViewModel> GetTicketType(Guid id)
+        public async Task<TicketType> GetTicketType(Guid id)
         {
-            var ticketType = await _unitOfWork.TicketTypeRepository.Query()
+            var ticketType = await _unitOfWork.Context().TicketTypes
+                .Include(x => x.IdBusinessTourNavigation)
                 .Where(x => x.Id.Equals(id))
-                .Select(x => new TicketTypeViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Price = x.Price,
-                    ServiceFeePercentage = x.ServiceFeePercentage,
-                    IdBusinessTour = x.IdBusinessTour,
-                    Status = x.Status
-                }).FirstOrDefaultAsync();
+                .FirstOrDefaultAsync();
             return ticketType;
         }
 
-        public async Task<List<TicketTypeViewModel>> SearchTicketTypes(TicketTypeSearchModel model = null)
+        public async Task<List<TicketType>> SearchTicketTypes(TicketTypeSearchModel model = null)
         {
             if (model == null)
             {
                 model = new TicketTypeSearchModel();
             }
-            var ticketTypes = await _unitOfWork.TicketTypeRepository.Query()
+            var ticketTypes = await _unitOfWork.Context().TicketTypes
+                .Include(x => x.IdBusinessTourNavigation)
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
-                .Select(x => new TicketTypeViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Status = x.Status,
-                    Price= x.Price,
-                    ServiceFeePercentage= x.ServiceFeePercentage,
-                    IdBusinessTour= x.IdBusinessTour
-                })
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
