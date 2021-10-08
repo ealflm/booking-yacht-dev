@@ -18,6 +18,7 @@ namespace BookingYacht.Data.Models
         public double? TotalPrice { get; set; }
         public Guid IdAgency { get; set; }
         public int Status { get; set; }
+        public DateTime? DateOrder { get; set; }
 
         public virtual Agency IdAgencyNavigation { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
