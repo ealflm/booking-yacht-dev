@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Business
 {
-    [Route(ApiVer3Route)]
+    [Route(BusinessRoute)]
     [ApiController]
     [Authorize]
-    public class TicketController : BaseApiVer3Controller
+    public class TicketController : BaseBusinessController
     {
         
         private readonly ITicketService _service;

@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Business
 {
-    [Route(ApiVer3Route)]
+    [Route(BusinessRoute)]
     [ApiController]
     [Authorize]
-    public class TicketTypesController : BaseApiVer3Controller
+    public class TicketTypesController : BaseBusinessController
     {
         private readonly ITicketTypeService _tickettypeService;
 
