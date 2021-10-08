@@ -30,14 +30,14 @@ namespace BookingYacht.API.Controllers.Agency
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TicketTypeSearchModel model)
         {
-            var ticketType = await _ticketTypeService.SearchTicketTypes(model);
+            var ticketType = await _ticketTypeService.SearchNavigation(model);
             return Success(ticketType);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var ticketType = await _ticketTypeService.GetTicketType(id);
+            var ticketType = await _ticketTypeService.GetNavigation(id);
 
             return Success(ticketType);
         }
