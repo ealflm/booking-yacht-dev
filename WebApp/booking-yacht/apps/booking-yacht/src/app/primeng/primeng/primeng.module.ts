@@ -30,7 +30,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
-
+import { ChipModule } from 'primeng/chip';
 @NgModule({
   declarations: [],
   imports: [
@@ -63,6 +63,7 @@ import { MenuItem } from 'primeng/api';
     ToggleButtonModule,
     SelectButtonModule,
     PanelMenuModule,
+    ChipModule,
   ],
   exports: [
     CardModule,
@@ -94,6 +95,7 @@ import { MenuItem } from 'primeng/api';
     ToggleButtonModule,
     SelectButtonModule,
     PanelMenuModule,
+    ChipModule,
   ],
 })
 export class PrimengModule {}

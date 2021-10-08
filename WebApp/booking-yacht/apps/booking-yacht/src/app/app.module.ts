@@ -34,6 +34,7 @@ import { AgenciesFormComponent } from './components/agencies-form/agencies-form.
 import { VehicleTypeFormComponent } from './components/vehicle-type-form/vehicle-type-form.component';
 import { TicketTypeFormComponent } from './components/ticket-type-form/ticket-type-form.component';
 import { TicketComponent } from './pages/ticket/ticket.component';
+import { NavMenuComponent } from './shared/nav-menu/nav-menu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { TicketComponent } from './pages/ticket/ticket.component';
     VehicleTypeFormComponent,
     TicketTypeFormComponent,
     TicketComponent,
+    NavMenuComponent,
   ],
   imports: [
     // MaterialModule,
