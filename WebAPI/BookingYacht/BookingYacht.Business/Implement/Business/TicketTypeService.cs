@@ -59,6 +59,7 @@ namespace BookingYacht.Business.Implement.Business
                 .Select(x => new TicketTypeViewModel()
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Price = x.Price,
                     ServiceFeePercentage = x.ServiceFeePercentage,
                     IdBusinessTour = x.IdBusinessTour,
@@ -81,6 +82,7 @@ namespace BookingYacht.Business.Implement.Business
                 .Select(x => new TicketTypeViewModel()
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Price = x.Price,
                     ServiceFeePercentage = x.ServiceFeePercentage,
                     IdBusinessTour = x.IdBusinessTour,
@@ -98,6 +100,7 @@ namespace BookingYacht.Business.Implement.Business
             var ticketType = new TicketType()
             {
                 Id = id,
+                Name = model.Name,
                 Price = model.Price,
                 ServiceFeePercentage = model.ServiceFeePercentage,
                 IdBusinessTour = model.IdBusinessTour,

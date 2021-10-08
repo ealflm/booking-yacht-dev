@@ -13,6 +13,7 @@ namespace BookingYacht.Data.Models
         }
 
         public Guid Id { get; set; }
+        public string Name { get; set; }
         public double Price { get; set; }
         public int Status { get; set; }
         public double? ServiceFeePercentage { get; set; }

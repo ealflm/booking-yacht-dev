@@ -28,6 +28,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new TicketTypeViewModel()
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Price = x.Price,
                     ServiceFeePercentage = x.ServiceFeePercentage,
                     IdBusinessTour = x.IdBusinessTour,
@@ -47,6 +48,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new TicketTypeViewModel()
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Status = x.Status,
                     Price= x.Price,
                     ServiceFeePercentage= x.ServiceFeePercentage,
@@ -66,6 +68,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new TicketType()
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Status = x.Status,
                     IdBusinessTour= x.IdBusinessTour,
                     Price= x.Price,

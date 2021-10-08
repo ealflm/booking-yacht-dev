@@ -253,6 +253,8 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
+                entity.Property(e => e.Name).HasMaxLength(64);
+
                 entity.HasOne(d => d.IdBusinessTourNavigation)
                     .WithMany(p => p.TicketTypes)
                     .HasForeignKey(d => d.IdBusinessTour)

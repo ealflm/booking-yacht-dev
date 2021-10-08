@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingYacht.Business.Enum;
+﻿using BookingYacht.Business.Enum;
+using System;
 
 namespace BookingYacht.Business.SearchModels
 {
     public class TicketTypeSearchModel
     {
+        public string Name { get; set; }
         public double? Price { get; set; }
         public double? ServiceFeePercentage { get; set; }
         public Guid? IdBusinessTour { get; set; }
