@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
-import 'package:owners_yacht/controller/yacht.dart';
+import '/controller/yacht.dart';
+import '/widgets/yacht_card.dart';
 import '/models/yacht.dart';
 import 'yacht_modify.dart';
 import '../widgets/app_bar.dart';
@@ -14,16 +15,15 @@ class Yachts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(
-        title: 'Home',
+        title: 'Màn hình chính',
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Obx(
-          () => ListView.builder(
-            itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
-            itemCount: controller.items.length,
-          ),
-        ),
+      body: GetBuilder<YachtController>(
+        builder: (controller) => (controller.isLoading == true)
+            ? Center(child: CircularProgressIndicator())
+            : GetBuilder.builder(
+                itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
+                itemCount: controller.items.length,
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',

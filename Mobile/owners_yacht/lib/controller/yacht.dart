@@ -13,6 +13,7 @@ class YachtController extends GetxController {
     fetchYachts();
     super.onInit();
   }
+  
 
   Future<List<Yacht>?> fetchYachts() async {
     isLoading(true);
@@ -20,7 +21,7 @@ class YachtController extends GetxController {
     final String? token = prefs.getString('token');
     try {
       final response = await http.get(
-        Uri.parse("https://booking-yacht.azurewebsites.net/api/v3/vehicle"),
+        Uri.parse("https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicle"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token"
@@ -35,6 +36,7 @@ class YachtController extends GetxController {
           items = yachts.data as List<Yacht>;
         }
         print(items[1].name);
+        update();
       } else {
         return null;
       }

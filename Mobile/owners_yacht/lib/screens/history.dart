@@ -46,9 +46,9 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //     appBar: NavBar(
-        //       title: 'History',
-        //     ),
+            appBar: NavBar(
+              title: 'History',
+            ),
         //     body: Padding(
         //       padding: const EdgeInsets.all(8.0),
         //       child: ListView.builder(
