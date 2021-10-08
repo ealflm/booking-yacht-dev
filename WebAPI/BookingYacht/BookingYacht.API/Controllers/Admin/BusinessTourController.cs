@@ -3,12 +3,15 @@ using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Admin
 {
     [Route(AdminRoute)]
     [ApiController]
+    [Authorize]
+    [ApiExplorerSettings(GroupName = Role)]
     public class BusinessTourController : BaseAdminController
     {
         private readonly IBusinessTourService _service;
