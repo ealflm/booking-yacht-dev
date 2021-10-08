@@ -5,6 +5,8 @@ namespace BookingYacht.API.Controllers
 {
     public class BaseController : ControllerBase
     {
+        protected const string Version = "v1.0";
+
         [NonAction]
         public virtual OkObjectResult Success(object value)
         {

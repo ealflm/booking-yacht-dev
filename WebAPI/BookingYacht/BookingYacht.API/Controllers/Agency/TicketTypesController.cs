@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookingYacht.API.Controllers.Agency
 {
 
-    [Route(ApiVer2Route)]
+    [Route(AgencyRoute)]
     [ApiController]
     [Authorize]
-    public class TicketTypesController : BaseApiVer2Controller
+    public class TicketTypesController : BaseAgencyController
     {
         private readonly ITicketTypeService _ticketTypeService;
 

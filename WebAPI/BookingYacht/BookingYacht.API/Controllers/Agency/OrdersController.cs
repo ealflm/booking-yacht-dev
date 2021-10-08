@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Agency
 {
-    [Route(ApiVer2Route)]
+    [Route(AgencyRoute)]
     [ApiController]
     [Authorize]
-    public class OrdersController: BaseApiVer2Controller
+    public class OrdersController: BaseAgencyController
     {
         private readonly IOrdersService _service;
 

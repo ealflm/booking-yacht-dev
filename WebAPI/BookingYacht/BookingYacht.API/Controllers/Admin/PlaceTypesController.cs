@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Admin
 {
-    [Route(ApiVer1Route)]
+    [Route(AdminRoute)]
     [ApiController]
     [Authorize]
-    public class PlaceTypesController : BaseApiVer1Controller
+    public class PlaceTypesController : BaseAdminController
     {
         private readonly IPlaceTypeService _placeTypeService;
 
