@@ -57,7 +57,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 Id = model.Id,
                 Name = model.Name,
-                Status = model.Status
+                Status = (int) Status.ENABLE
             };
             var add =  _unitOfWork.VehicleTypeRepository.Query().Add(type);
             await _unitOfWork.SaveChangesAsync();
