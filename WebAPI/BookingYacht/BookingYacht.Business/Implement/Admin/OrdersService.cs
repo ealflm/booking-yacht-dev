@@ -55,12 +55,12 @@ namespace BookingYacht.Business.Implement.Admin
             
             model ??= new OrdersSearchModel();
             var list = await _unitOfWork.OrderRepository.Query()
-                .Where(x => model.AgencyName == null | x.AgencyName.Contains(model.AgencyName))
-                .Where(x => model.IdAgency == null | x.IdAgency.Equals(model.IdAgency))
+                .Where(x => model.AgencyName == null || x.AgencyName.Contains(model.AgencyName))
+                .Where(x => model.IdAgency == null || x.IdAgency.Equals(model.IdAgency))
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
-                .Where(x => model.TotalPrice == null | x.TotalPrice == model.TotalPrice)
-                .Where(x => model.QuantityOfPerson == null | x.QuantityOfPerson == model.QuantityOfPerson)
-                .Where(x => model.Status == null | x.Status == (int) model.Status)
+                .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
+                .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
+                .Where(x => model.Status == null || x.Status == (int) model.Status)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .OrderBy(x => x.AgencyName)
@@ -74,13 +74,13 @@ namespace BookingYacht.Business.Implement.Admin
             model ??= new OrdersSearchModel();
             var list = await _unitOfWork.Context().Orders
                 .Include(x => x.IdAgencyNavigation)
-                .Where(x => model.AgencyName == null | x.AgencyName.Contains(model.AgencyName))
-                .Where(x => model.IdAgency == null | x.IdAgency.Equals(model.IdAgency))
+                .Where(x => model.AgencyName == null || x.AgencyName.Contains(model.AgencyName))
+                .Where(x => model.IdAgency == null || x.IdAgency.Equals(model.IdAgency))
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
-                .Where(x => model.TotalPrice == null | x.TotalPrice == model.TotalPrice)
-                .Where(x => model.QuantityOfPerson == null | x.QuantityOfPerson == model.QuantityOfPerson)
-                .Where(x => model.Status == null | x.Status == (int)model.Status)
-                .Where(x => model.OrderDate == null | x.DateOrder.Value == model.OrderDate.Value)
+                .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
+                .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
+                .Where(x => model.Status == null || x.Status == (int)model.Status)
+                .Where(x => (model.OrderDate == null) || x.DateOrder.Value.Date == model.OrderDate.Value.Date)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .OrderBy(x => x.AgencyName)
