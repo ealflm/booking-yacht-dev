@@ -30,19 +30,19 @@ class Home extends StatelessWidget {
             items: [
               _bottomNavigationBarItem(
                 icon: Icons.home,
-                label: 'Home',
+                label: 'Trang chủ',
               ),
               _bottomNavigationBarItem(
                 icon: FontAwesomeIcons.ship,
-                label: 'Tour',
+                label: 'Chuyến đi',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.qr_code_2,
-                label: 'Scan QR Code',
+                label: 'QR Code',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.checklist_rtl,
-                label: 'Verification',
+                label: 'Xác nhận',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.menu,

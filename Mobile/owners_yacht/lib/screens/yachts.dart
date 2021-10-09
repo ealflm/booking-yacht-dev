@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
-import 'package:owners_yacht/controller/yacht.dart';
-import '/models/yacht.dart';
+import '/controller/yacht.dart';
+import '/widgets/yacht_card.dart';
 import 'yacht_modify.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/yacht_card.dart';
@@ -12,28 +12,32 @@ class Yachts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Yacht> _yachtList = controller.items;
     return Scaffold(
       appBar: NavBar(
-        title: 'Home',
+        title: 'Trang chủ',
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Obx(
-          () => ListView.builder(
-            itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
-            itemCount: controller.items.length,
-          ),
-        ),
+      backgroundColor: Colors.grey[200],
+      body: GetBuilder<YachtController>(
+        builder: (controller) => (controller.isLoading == true)
+            ? Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: ListView.builder(
+                  itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
+                  itemCount: controller.items.length,
+                ),
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',
         child: Icon(Icons.add, color: Colors.black),
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ModifyYacht('Add yacht')));
+            context,
+            MaterialPageRoute(
+              builder: (context) => YachtModify(),
+            ),
+          );
         },
         backgroundColor: Colors.white,
       ),
