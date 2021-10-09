@@ -47,7 +47,7 @@ class LoginController extends GetxController {
 
       var response = await http.post(
           Uri.parse(
-              "https://booking-yacht.azurewebsites.net/api/v1/admins/open-login"),
+              "https://booking-yacht.azurewebsites.net/api/v1.0/admin/open-login"),
           headers: headers,
           body: body);
 
@@ -90,6 +90,7 @@ class LoginController extends GetxController {
     // prefs.clear();
     HomeController controller = Get.find<HomeController>();
     controller.tabIndex = 0;
+    
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
     Get.to(Login());

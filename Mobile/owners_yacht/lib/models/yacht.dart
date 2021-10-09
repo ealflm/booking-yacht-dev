@@ -23,22 +23,22 @@ class YachtReponse {
 
 class Yacht {
   Yacht({
-    required this.id,
-    required this.name,
-    required this.seat,
-    required this.descriptions,
-    required this.idVehicleType,
-    required this.idBusiness,
-    required this.status,
+    this.id,
+    this.name,
+    this.seat,
+    this.descriptions,
+    this.idVehicleType,
+    this.idBusiness,
+    this.status,
   });
 
-  String id;
-  String name;
-  int seat;
-  String descriptions;
-  String idVehicleType;
-  String idBusiness;
-  int status;
+  String? id;
+  String? name;
+  int? seat;
+  String? descriptions;
+  String? idVehicleType;
+  String? idBusiness;
+  int? status;
 
   factory Yacht.fromJson(Map<String, dynamic> json) => Yacht(
         id: json["id"],

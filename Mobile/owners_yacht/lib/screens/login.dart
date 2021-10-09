@@ -50,7 +50,7 @@ class Login extends StatelessWidget {
                         controller.login();
                       },
                       icon: FaIcon(FontAwesomeIcons.google),
-                      label: const Text('Login with Google'),
+                      label: const Text('Đăng nhập với Google'),
                     ),
                   ),
                 )

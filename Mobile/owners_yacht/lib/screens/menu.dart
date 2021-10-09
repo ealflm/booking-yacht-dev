@@ -11,7 +11,7 @@ class Menu extends StatelessWidget {
         onPressed: () {
           controller.logout();
         },
-        child: Text('Logout'),
+        child: Text('Đăng xuất'),
       ),
     );
   }

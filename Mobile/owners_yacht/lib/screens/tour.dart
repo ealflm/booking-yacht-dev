@@ -31,9 +31,9 @@ class Tour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//       appBar: NavBar(
-//         title: 'Tour',
-//       ),
+      appBar: NavBar(
+        title: 'Chuyến đi',
+      ),
 //       body: Padding(
 //         padding: const EdgeInsets.all(8.0),
 //         child: ListView.builder(
