@@ -32,6 +32,7 @@ export class TicketTypeComponent implements OnInit {
           this.loading = false;
         }, 1000);
         this.ticketType = ticketTypeRes.data;
+        console.log(this.ticketType);
       });
     }
   }
