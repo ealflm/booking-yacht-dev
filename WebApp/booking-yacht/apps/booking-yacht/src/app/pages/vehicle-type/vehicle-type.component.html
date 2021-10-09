@@ -84,8 +84,8 @@
               <td>{{ vehicleType.name }}</td>
               <td class="p-ai-center p-pl-2">
                 <p-tag
-                  [severity]="vehicleTypeStatus[vehicleType.status].color"
-                  [value]="vehicleTypeStatus[vehicleType.status].lable"
+                  [severity]="vehicleTypeStatus[vehicleType.status]?.color"
+                  [value]="vehicleTypeStatus[vehicleType.status]?.lable"
                 ></p-tag>
               </td>
               <!-- <td>

@@ -24,7 +24,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/agencies',
-    title: 'Đại Lý',
+    title: 'Đại lý',
     icon: 'ni-circle-08 text-primary',
     class: '',
   },
