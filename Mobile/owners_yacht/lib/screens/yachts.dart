@@ -14,7 +14,7 @@ class Yachts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(
-        title: 'Màn hình chính',
+        title: 'Trang chủ',
       ),
       backgroundColor: Colors.grey[200],
       body: GetBuilder<YachtController>(

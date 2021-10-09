@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
             items: [
               _bottomNavigationBarItem(
                 icon: Icons.home,
-                label: 'Màn hình chính',
+                label: 'Trang chủ',
               ),
               _bottomNavigationBarItem(
                 icon: FontAwesomeIcons.ship,

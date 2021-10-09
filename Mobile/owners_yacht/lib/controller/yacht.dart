@@ -11,7 +11,7 @@ import 'dart:convert';
 class YachtController extends GetxController {
   var isLoading = true.obs;
   List<Yacht> items = <Yacht>[].obs;
-  List<Yacht> yachtDetail = <Yacht>[].obs;
+  var yachtDetail = Yacht();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController seatController = TextEditingController();
@@ -55,8 +55,7 @@ class YachtController extends GetxController {
     return items;
   }
 
-  Future<List<Yacht>?> getYacht(String id) async {
-    yachtDetail = <Yacht>[];
+  Future<Yacht> getYacht(String id) async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -72,18 +71,18 @@ class YachtController extends GetxController {
       if (response.statusCode == 200) {
         var jsonString = json.decode(response.body);
         print(jsonString['data']['descriptions'].toString());
-        yachtDetail.add(Yacht(
+        yachtDetail = Yacht(
             id: jsonString['data']['id'],
             name: jsonString['data']['name'],
             seat: jsonString['data']['seat'] as int,
             descriptions: jsonString['data']['descriptions'],
             idVehicleType: jsonString['data']['idVehicleType'],
             idBusiness: jsonString['data']['idBusiness'],
-            status: jsonString['data']['status'] as int));
+            status: jsonString['data']['status'] as int);
         update();
         Get.to(YachtDetail());
       } else {
-        return null;
+        // return null;
       }
     } catch (error) {
       print('loi r');
@@ -94,16 +93,17 @@ class YachtController extends GetxController {
   }
 
   void editYacht(Yacht yacht) async {
-    nameController.text = yacht.name;
+    nameController.text = yacht.name!;
     seatController.text = yacht.seat.toString();
     statusController.text = yacht.status.toString();
-    descriptionsController.text = yacht.descriptions;
+    descriptionsController.text = yacht.descriptions!;
     Get.to(YachtModify());
   }
 
   void deleteYacht(String id) async {
     print(id);
   }
+
   void save() async {
     print(nameController.text);
     print(seatController.text);

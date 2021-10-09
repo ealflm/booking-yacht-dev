@@ -16,7 +16,7 @@ class YachtCard extends StatelessWidget {
         width: null,
         margin: EdgeInsets.all(10),
         child: GestureDetector(
-            onTap: () => controller.getYacht(yacht.id),
+            onTap: () => controller.getYacht(yacht.id!),
             child: Stack(
               overflow: Overflow.clip,
               children: [

@@ -10,7 +10,7 @@ class YachtDetail extends StatelessWidget {
       builder: (controller) => Scaffold(
         appBar: AppBar(
           title: Text(
-            controller.yachtDetail[0].name,
+            controller.yachtDetail.name!,
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.black,
@@ -20,7 +20,7 @@ class YachtDetail extends StatelessWidget {
                 Icons.edit,
                 color: Colors.white,
               ),
-              onPressed: () => controller.editYacht(controller.yachtDetail[0]),
+              onPressed: () => controller.editYacht(controller.yachtDetail),
             ),
           ],
         ),
@@ -61,16 +61,16 @@ class YachtDetail extends StatelessWidget {
                                   'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
                               YachtInformation(
                                   "Ghế",
-                                  (controller.yachtDetail[0].seat != null)
-                                      ? '${controller.yachtDetail[0].seat}'
+                                  (controller.yachtDetail.seat != null)
+                                      ? '${controller.yachtDetail.seat}'
                                       : 'No'),
                               YachtInformation(
                                   "Trạng thái",
-                                  (controller.yachtDetail[0].status != null)
-                                      ? '${controller.yachtDetail[0].status}'
+                                  (controller.yachtDetail.status != null)
+                                      ? '${controller.yachtDetail.status}'
                                       : 'No'),
                               YachtInformation("Mô tả",
-                                  controller.yachtDetail[0].descriptions),
+                                  controller.yachtDetail.descriptions!),
                             ],
                           ),
                         ),
@@ -80,7 +80,7 @@ class YachtDetail extends StatelessWidget {
                 ),
               ),
               FlatButton(
-                onPressed: () => controller.deleteYacht(controller.yachtDetail[0].id),
+                onPressed: () => controller.deleteYacht(controller.yachtDetail.id!),
                 child: Text(
                   'Xoá tàu',
                   style: TextStyle(fontWeight: FontWeight.w300),
