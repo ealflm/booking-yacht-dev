@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-class ModifyYacht extends StatelessWidget {
-  ModifyYacht(this.title) : super();
-  final String title;
 
+class YachtModify extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('helloword'),
         actions: <Widget>[
           IconButton(
             icon: Icon(
@@ -25,14 +23,14 @@ class ModifyYacht extends StatelessWidget {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: InputDecoration(labelText: 'Name'),
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {},
                 validator: (value) {},
                 onSaved: (value) {},
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Price'),
+                decoration: InputDecoration(labelText: 'Seat'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 onFieldSubmitted: (_) {},
@@ -40,7 +38,12 @@ class ModifyYacht extends StatelessWidget {
                 onSaved: (value) {},
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(labelText: 'Status'),
+                validator: (value) {},
+                onSaved: (value) {},
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Descriptions'),
                 validator: (value) {},
                 onSaved: (value) {},
               ),

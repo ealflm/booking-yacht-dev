@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import '/controller/yacht.dart';
 import '/widgets/yacht_card.dart';
-import '/models/yacht.dart';
 import 'yacht_modify.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/yacht_card.dart';
@@ -17,12 +16,16 @@ class Yachts extends StatelessWidget {
       appBar: NavBar(
         title: 'Màn hình chính',
       ),
+      backgroundColor: Colors.grey[200],
       body: GetBuilder<YachtController>(
         builder: (controller) => (controller.isLoading == true)
             ? Center(child: CircularProgressIndicator())
-            : GetBuilder.builder(
-                itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
-                itemCount: controller.items.length,
+            : Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: ListView.builder(
+                  itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
+                  itemCount: controller.items.length,
+                ),
               ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -30,9 +33,11 @@ class Yachts extends StatelessWidget {
         child: Icon(Icons.add, color: Colors.black),
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ModifyYacht('Add yacht')));
+            context,
+            MaterialPageRoute(
+              builder: (context) => YachtModify(),
+            ),
+          );
         },
         backgroundColor: Colors.white,
       ),
