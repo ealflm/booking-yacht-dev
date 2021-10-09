@@ -20,7 +20,7 @@ class YachtDetail extends StatelessWidget {
                 Icons.edit,
                 color: Colors.white,
               ),
-              onPressed: () => controller.edit(),
+              onPressed: () => controller.editYacht(controller.yachtDetail[0]),
             ),
           ],
         ),
@@ -60,16 +60,16 @@ class YachtDetail extends StatelessWidget {
                               Image.network(
                                   'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
                               YachtInformation(
-                                  "Seat",
+                                  "Ghế",
                                   (controller.yachtDetail[0].seat != null)
                                       ? '${controller.yachtDetail[0].seat}'
                                       : 'No'),
                               YachtInformation(
-                                  "Status",
+                                  "Trạng thái",
                                   (controller.yachtDetail[0].status != null)
                                       ? '${controller.yachtDetail[0].status}'
                                       : 'No'),
-                              YachtInformation("Description",
+                              YachtInformation("Mô tả",
                                   controller.yachtDetail[0].descriptions),
                             ],
                           ),
@@ -77,6 +77,13 @@ class YachtDetail extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+              ),
+              FlatButton(
+                onPressed: () => controller.deleteYacht(controller.yachtDetail[0].id),
+                child: Text(
+                  'Xoá tàu',
+                  style: TextStyle(fontWeight: FontWeight.w300),
                 ),
               ),
             ],

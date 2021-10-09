@@ -38,10 +38,10 @@ class YachtCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(yacht.name,
+                                  Text('Tên tàu: ${yacht.name}',
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 13)),
-                                  Text('${yacht.status}',
+                                          color: Colors.black, fontSize: 16)),
+                                  Text('Trạng thái: ${yacht.status}',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 11,

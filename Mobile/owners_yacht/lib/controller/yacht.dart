@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/screens/yacht_detail.dart';
 import 'package:owners_yacht/screens/yacht_modify.dart';
@@ -11,6 +12,11 @@ class YachtController extends GetxController {
   var isLoading = true.obs;
   List<Yacht> items = <Yacht>[].obs;
   List<Yacht> yachtDetail = <Yacht>[].obs;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController seatController = TextEditingController();
+  TextEditingController statusController = TextEditingController();
+  TextEditingController descriptionsController = TextEditingController();
 
   @override
   onInit() {
@@ -87,7 +93,19 @@ class YachtController extends GetxController {
     return yachtDetail;
   }
 
-  void edit() async{
+  void editYacht(Yacht yacht) async {
+    nameController.text = yacht.name;
+    seatController.text = yacht.seat.toString();
+    statusController.text = yacht.status.toString();
+    descriptionsController.text = yacht.descriptions;
     Get.to(YachtModify());
+  }
+
+  void deleteYacht(String id) async {
+    print(id);
+  }
+  void save() async {
+    print(nameController.text);
+    print(seatController.text);
   }
 }

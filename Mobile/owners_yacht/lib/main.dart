@@ -14,6 +14,7 @@ void main() async {
   Binding().dependencies();
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/login',
       getPages: [
         GetPage(
