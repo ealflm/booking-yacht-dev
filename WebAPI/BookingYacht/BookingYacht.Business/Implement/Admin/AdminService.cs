@@ -233,6 +233,7 @@ namespace BookingYacht.Business.Implement.Admin
         {
             var authClaims = new List<Claim>
             {
+                new Claim("Id", model.Id.ToString()),
                 new Claim("Name", model.Name ?? ""),
                 new Claim("EmailAdress", model.EmailAddress ?? ""),
                 new Claim("PhoneNumber", model.PhoneNumber ?? ""),
