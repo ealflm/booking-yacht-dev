@@ -31,14 +31,7 @@ class Yachts extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',
         child: Icon(Icons.add, color: Colors.black),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => YachtModify(),
-            ),
-          );
-        },
+        onPressed: () => controller.addYacht(),
         backgroundColor: Colors.white,
       ),
     );

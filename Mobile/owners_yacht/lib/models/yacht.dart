@@ -3,7 +3,7 @@ import 'dart:convert';
 YachtReponse yachtFromJson(String str) =>
     YachtReponse.fromJson(json.decode(str));
 
-String yachtToJson(YachtReponse data) => json.encode(data.toJson());
+String yachtToJson(Yacht data) => json.encode(data.toJson());
 
 class YachtReponse {
   YachtReponse({

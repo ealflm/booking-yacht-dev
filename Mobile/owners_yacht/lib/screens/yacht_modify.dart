@@ -47,22 +47,23 @@ class YachtModify extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
+                child: Wrap(
                   children: [
                     FilterChip(
                       label: Text('Tàu thường'),
                       selected: false,
                       onSelected: (bool value) {},
                     ),
+                    SizedBox(
+                      width: 5,
+                    ),
                     FilterChip(
-                      label: Text('Tàu cùi'),
+                      label: Text('Tàu VIP'),
                       selected: false,
                       onSelected: (bool value) {},
                     ),
-                    FilterChip(
-                      label: Text('Tàu siêu cấp'),
-                      selected: true,
-                      onSelected: (bool value) {},
+                    SizedBox(
+                      width: 5,
                     ),
                   ],
                 ),
