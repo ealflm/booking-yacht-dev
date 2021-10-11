@@ -111,9 +111,9 @@
         <div class="col-6 md-12 lg-12 mt-4" *ngIf="!loading">
           <p-card [style]="{ width: '32rem' }" styleClass="p-card-shadow">
             <div class="flex justify-content-between">
-              <div>
-                {{ tours.tittle }}
-              </div>
+              <h2>
+                {{ tours.tittle | uppercase }}
+              </h2>
               <div>
                 <p-tag
                   [severity]="tourStatus[tours.status]?.color"
@@ -123,6 +123,11 @@
             </div>
 
             <ng-template pTemplate="content">
+              <img
+                alt="Card"
+                class="tour-image"
+                src="../../../assets/img/tours/background.jpg"
+              />
               <p [innerHTML]="tours.descriptions"></p>
               <p-rating
                 [ngModel]="4"

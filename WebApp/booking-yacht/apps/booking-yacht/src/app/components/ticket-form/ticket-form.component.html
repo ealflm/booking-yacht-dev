@@ -34,7 +34,11 @@
                     </div>
                     <div class="col-12">
                       Giá vé:
-                      <p>{{ tickets.idTicketTypeNavigation.price }}</p>
+                      <p>
+                        {{
+                          tickets.idTicketTypeNavigation.price | currency: 'VND'
+                        }}
+                      </p>
                     </div>
                   </div>
                   <div class="col-6">
