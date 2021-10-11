@@ -56,7 +56,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Status = x.Status,
                     IdBusinessTour= x.IdBusinessTour,
                     Price= x.Price,
-                    ServiceFeePercentage=x.ServiceFeePercentage
+                    CommissionFeePercentage = x.CommissionFeePercentage,
+                    ServiceFeePercentage = x.ServiceFeePercentage
                 }).FirstOrDefaultAsync();
             ticketType.Status = model.Status;
             _unitOfWork.TicketTypeRepository.Update(ticketType);

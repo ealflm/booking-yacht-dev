@@ -24,9 +24,10 @@ namespace BookingYacht.Business.Implement.Business
             var ticketType = new TicketType()
             {
                 Id = model.Id,
-                Price= model.Price,
-                ServiceFeePercentage=model.ServiceFeePercentage,
-                IdBusinessTour= model.IdBusinessTour,
+                Price = model.Price,
+                CommissionFeePercentage = model.CommissionFeePercentage,
+                ServiceFeePercentage = model.ServiceFeePercentage,
+                IdBusinessTour = model.IdBusinessTour,
                 Status = model.Status
             };
             ticketType.Status = (int)Status.WAITING;
@@ -61,6 +62,7 @@ namespace BookingYacht.Business.Implement.Business
                     Id = x.Id,
                     Name = x.Name,
                     Price = x.Price,
+                    CommissionFeePercentage = x.CommissionFeePercentage,
                     ServiceFeePercentage = x.ServiceFeePercentage,
                     IdBusinessTour = x.IdBusinessTour,
                     Status = x.Status
@@ -76,6 +78,7 @@ namespace BookingYacht.Business.Implement.Business
             }
             var ticketType = await _unitOfWork.TicketTypeRepository.Query()
                 .Where(x => model.Price == null | x.Price==model.Price)
+                .Where(x => model.CommissionFeePercentage == null | x.CommissionFeePercentage == model.CommissionFeePercentage)
                 .Where(x => model.ServiceFeePercentage == null | x.ServiceFeePercentage==model.ServiceFeePercentage)
                 .Where(x => model.IdBusinessTour == null | x.IdBusinessTour.Equals(model.IdBusinessTour))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
@@ -84,6 +87,7 @@ namespace BookingYacht.Business.Implement.Business
                     Id = x.Id,
                     Name = x.Name,
                     Price = x.Price,
+                    CommissionFeePercentage = x.CommissionFeePercentage,
                     ServiceFeePercentage = x.ServiceFeePercentage,
                     IdBusinessTour = x.IdBusinessTour,
                     Status = x.Status
