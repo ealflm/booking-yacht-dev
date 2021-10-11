@@ -31,6 +31,9 @@
                   <P>{{ tickesType?.serviceFeePercentage }}%</P>
                 </div>
                 <div class="p-field col-6">
+                  <p>{{ tickesType?.commissionFeePercentage }}%</p>
+                </div>
+                <div class="p-field col-6">
                   <label for="status">Trạng thái</label>
                   <p-dropdown
                     optionLabel="name"
@@ -96,6 +99,10 @@
                 </div>
                 <div class="p-field col-6">
                   <label for="serviceFeePercentage">Phí dịch vụ(%)</label>
+                  <p-skeleton></p-skeleton>
+                </div>
+                <div class="p-field col-6">
+                  <label for="serviceFeePercentage">Hoa hồng đại lý(%)</label>
                   <p-skeleton></p-skeleton>
                 </div>
                 <div class="p-field col-6">
