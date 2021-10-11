@@ -33,6 +33,8 @@ import { MenuItem } from 'primeng/api';
 import { ChipModule } from 'primeng/chip';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import {DividerModule} from 'primeng/divider';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -68,6 +70,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     ChipModule,
     AvatarModule,
     AvatarGroupModule,
+    DividerModule
   ],
   exports: [
     CardModule,
@@ -102,6 +105,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     ChipModule,
     AvatarModule,
     AvatarGroupModule,
+    DividerModule
   ],
 })
 export class PrimengModule {}

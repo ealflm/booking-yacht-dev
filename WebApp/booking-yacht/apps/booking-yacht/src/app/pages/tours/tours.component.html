@@ -121,6 +121,7 @@
                 ></p-tag>
               </div>
             </div>
+            <p-divider type="dotted"></p-divider>
 
             <ng-template pTemplate="content">
               <img
@@ -128,6 +129,8 @@
                 class="tour-image"
                 src="../../../assets/img/tours/background.jpg"
               />
+              <p-divider type="dashed"></p-divider>
+
               <p [innerHTML]="tours.descriptions"></p>
               <p-rating
                 [ngModel]="4"
