@@ -4,10 +4,10 @@
     <div class="header-body text-center mb-7">
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-6">
-          <h1 class="text-white">Welcome!</h1>
+          <h1 class="text-white">Xin chào!</h1>
           <p class="text-lead text-light">
-            Use these awesome forms to login or create new account in your
-            project for free.
+            Tuyệt vời! ứng dụng này để đăng nhập hoặc tạo tài khoản mới là miễn
+            phí.
           </p>
         </div>
       </div>
@@ -33,15 +33,15 @@
       <div class="card bg-secondary shadow border-0">
         <div class="card-header bg-transparent pb-5">
           <div class="text-muted text-center mt-2 mb-3">
-            <small>Sign in with</small>
+            <small>Đăng nhập với</small>
           </div>
           <div class="btn-wrapper text-center">
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
+            <!-- <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
               <span class="btn-inner--icon"
                 ><img src="../assets/img/icons/common/github.svg"
               /></span>
               <span class="btn-inner--text">Github</span>
-            </a>
+            </a> -->
             <a
               href="javascript:void(0)"
               class="btn btn-neutral btn-icon"
@@ -56,7 +56,7 @@
         </div>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
-            <small>Or sign in with credentials</small>
+            <small>Hoặc đăng nhập bằng thông tin đăng nhập</small>
           </div>
           <form role="form" [formGroup]="userForm">
             <div class="form-group mb-3">
@@ -75,7 +75,7 @@
                 <small
                   *ngIf="usersForm.email.invalid && isSubmit"
                   class="p-error"
-                  >Email is required</small
+                  >Email không được bỏ trống</small
                 >
               </div>
             </div>
@@ -88,14 +88,14 @@
                 </div>
                 <input
                   class="form-control"
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                   type="password"
                   formControlName="password"
                 />
                 <small
                   *ngIf="usersForm.password.invalid && isSubmit"
                   class="p-error"
-                  >Password is required</small
+                  >Password không được trống</small
                 >
               </div>
             </div>
@@ -108,7 +108,7 @@
                 type="checkbox"
               />
               <label class="custom-control-label" for=" customCheckLogin">
-                <span class="text-muted">Remember me</span>
+                <span class="text-muted">Nhớ mật khẩu</span>
               </label>
             </div>
             <div class="text-center">
@@ -118,7 +118,7 @@
                 (click)="onSignIn()"
                 (keydown.enter)="onSignIn()"
               >
-                Sign in
+                Đăng nhập
               </button>
               <div>
                 <p-progressSpinner
@@ -137,12 +137,12 @@
       <div class="row mt-3">
         <div class="col-6">
           <a href="javascript:void(0)" class="text-light"
-            ><small>Forgot password?</small></a
+            ><small>Quên mật khẩu?</small></a
           >
         </div>
         <div class="col-6 text-right">
           <a href="javascript:void(0)" class="text-light"
-            ><small>Create new account</small></a
+            ><small>Tạo một tài khoản mới</small></a
           >
         </div>
       </div>

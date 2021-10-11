@@ -23,16 +23,6 @@
           ></button>
         </span>
       </ng-template>
-      <!-- <ng-template pTemplate="right">
-        <button
-          pButton
-          pRipple
-          label="New"
-          icon="pi pi-plus"
-          class="p-button-success p-mr-2"
-          (click)="newVehicleType()"
-        ></button>
-      </ng-template> -->
     </p-toolbar>
     <div class="mt-5"></div>
 
@@ -72,19 +62,6 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
-
-              <!-- <td class="flex">
-                <p-skeleton
-                  shape="circle"
-                  size="3rem"
-                  styleClass="p-mr-2"
-                ></p-skeleton>
-                <p-skeleton
-                  shape="circle"
-                  size="3rem"
-                  styleClass="p-mr-2"
-                ></p-skeleton>
-              </td> -->
             </tr>
             <tr *ngIf="!loading">
               <td class="hidden">{{ ticketType.id }}</td>
@@ -101,18 +78,10 @@
                 <button
                   pButton
                   pRipple
-                  icon="pi pi-search-plus"
+                  icon="ni ni-tag"
                   class="p-button-rounded p-button-success mr-2"
                   (click)="editTicketType(ticketType.id)"
                 ></button>
-
-                <!-- <button
-                  pButton
-                  pRipple
-                  icon="pi pi-ban"
-                  class="p-button-rounded p-button-warning"
-                  (click)="deleteVehicleType(vehicleType.id)"
-                ></button> -->
               </td>
             </tr>
           </ng-template>

@@ -14,7 +14,7 @@ import { timer } from 'rxjs';
   styleUrls: ['./ticket-type-form.component.scss'],
 })
 export class TicketTypeFormComponent implements OnInit {
-  loading = false;
+  loading = true;
   currentUser!: string;
   form!: FormGroup;
   status = TICKET_STATUS;
@@ -38,6 +38,9 @@ export class TicketTypeFormComponent implements OnInit {
           .subscribe((res) => {
             this.tickesType = res.data;
             this.ticketTypeForm.status.setValue(res.data.status.toString());
+            setTimeout(() => {
+              this.loading = false;
+            }, 1000);
           });
       } else {
         this.ticketTypeForm.name.setValue('');
