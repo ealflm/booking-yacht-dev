@@ -1,3 +1,4 @@
+import { Tour } from './../../models/tours';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToursService } from './../../services/tours.service';
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tours.component.scss'],
 })
 export class ToursComponent implements OnInit {
-  tours: [] = [];
+  tours: Tour[] = [];
   status = [
     { id: '0', lable: 'Tất cả' },
     { id: '4', lable: 'Chấp nhận' },
