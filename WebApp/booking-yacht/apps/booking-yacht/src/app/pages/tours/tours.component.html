@@ -48,29 +48,15 @@
       #dv
       [value]="tours"
       [paginator]="true"
-      [rows]="9"
+      [rows]="10"
       [totalRecords]="120"
-      [rowsPerPageOptions]="[9, 18, 36]"
+      [rowsPerPageOptions]="[10, 20, 30]"
       filterBy="tittle"
       layout="grid"
     >
-      <!-- <ng-template pTemplate="header">
-        <div class="d-flex p-flex-column p-flex-md-row p-jc-md-between">
-          <span class="p-input-icon-left mb-2 mb-md-0">
-            <i class="pi pi-search"></i>
-            <input
-              type="search"
-              pInputText
-              placeholder="Search by Name"
-              (input)="dv.filter(getValue($event))"
-            />
-          </span>
-        </div>
-      </ng-template> -->
-
-      <ng-template let-tours pTemplate="gridItem">
-        <div class="col-4 md-4 mt-3" *ngIf="loading">
-          <p-card [style]="{ width: '360px' }" styleClass="p-card-shadow">
+      <ng-template class="grid" pTemplate="gridItem" let-tours>
+        <div class="col-6 md-12 mt-4" *ngIf="loading">
+          <p-card [style]="{ width: '32rem' }" styleClass="p-card-shadow">
             <div class="flex justify-content-between">
               <div>
                 <p-skeleton width="10rem"></p-skeleton>
@@ -82,48 +68,48 @@
 
             <ng-template pTemplate="content">
               <p-skeleton
-                width="20rem"
+                width="30rem"
                 height="7rem"
                 styleClass="mt-2"
               ></p-skeleton>
               <p-skeleton
-                width="20rem"
+                width="30rem"
                 height="1rem"
                 styleClass="mt-2"
               ></p-skeleton>
               <p-skeleton
-                width="20rem"
+                width="30rem"
                 height="1rem"
                 styleClass="mt-2"
               ></p-skeleton>
               <p-skeleton
-                width="20rem"
+                width="30rem"
                 height="1rem"
                 styleClass="mt-2"
               ></p-skeleton>
             </ng-template>
             <ng-template pTemplate="footer">
-              <div class="flex">
+              <div class="flex pl-9 ml-9">
                 <p-skeleton
                   width="20rem"
                   height="7rem"
                   shape="circle"
                   size="3rem"
-                  styleClass="mt-2"
+                  styleClass="mt-2 "
                 ></p-skeleton
                 ><p-skeleton
                   width="20rem"
                   shape="circle"
                   size="3rem"
                   height="7rem"
-                  styleClass="mt-2 ml-2"
+                  styleClass="mt-2 ml-2 "
                 ></p-skeleton>
               </div>
             </ng-template>
           </p-card>
         </div>
-        <div class="col-4 md-4 mt-3" *ngIf="!loading">
-          <p-card [style]="{ width: '360px' }" styleClass="p-card-shadow">
+        <div class="col-6 md-12 lg-12 mt-4" *ngIf="!loading">
+          <p-card [style]="{ width: '32rem' }" styleClass="p-card-shadow">
             <div class="flex justify-content-between">
               <div>
                 {{ tours.tittle }}
@@ -145,7 +131,7 @@
               ></p-rating>
             </ng-template>
             <ng-template pTemplate="footer">
-              <div class="pl-9 ml-6">
+              <div class="pl-9 ml-9">
                 <button
                   pButton
                   pRipple
