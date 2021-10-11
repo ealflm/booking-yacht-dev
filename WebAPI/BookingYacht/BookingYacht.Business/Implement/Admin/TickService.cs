@@ -53,7 +53,6 @@ namespace BookingYacht.Business.Implement.Admin
                 .Include(x => x.IdOrderNavigation)
                 .Include(x => x.IdTicketTypeNavigation)
                 .Include(x => x.IdTripNavigation)
-                .ThenInclude(x => x.IdVehicleNavigation)
                 .Where(x => model.NameCustomer == null | x.NameCustomer.Contains(model.NameCustomer))
                 .Where(x => model.Phone == null | x.Phone.Equals(model.Phone))
                 .Where(x => model.IdOrder == null | x.IdOrder.Equals(model.IdOrder))
@@ -91,6 +90,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Include(x => x.IdOrderNavigation)
                 .Include(x => x.IdTicketTypeNavigation)
                 .Include(x => x.IdTripNavigation)
+                .ThenInclude(x => x.IdVehicleNavigation)
                 .Where(x => x.Id.Equals(id))
                 .FirstOrDefaultAsync();
         }
