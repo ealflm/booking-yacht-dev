@@ -73,13 +73,6 @@
               </td>
               <td>{{ tickets.phone }}</td>
               <td>{{ tickets.price | currency: 'VND' }}</td>
-
-              <!-- <td class="p-ai-center p-pl-2"> -->
-              <!-- <p-tag
-                  [severity]="ticketsStatus[tickets.status]?.color"
-                  [value]="ticketsStatus[tickets.status]?.lable"
-                ></p-tag> -->
-              <!-- </td> -->
               <td>
                 <a [routerLink]="['/ticket/form/', tickets.id]">
                   <i class="ni ni-tag"></i

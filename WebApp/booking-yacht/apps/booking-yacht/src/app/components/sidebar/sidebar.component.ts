@@ -84,8 +84,8 @@ export class SidebarComponent implements OnInit {
   position?: string;
   public menuItems?: any[];
   public menuItems2?: any[];
-  public isCollapsed = true;
-  colapse = true;
+  public isCollapsed?: boolean = true;
+  colapse?: boolean = true;
   constructor(
     private router: Router,
     private local: LocalStorageService,
