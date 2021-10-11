@@ -23,6 +23,7 @@ namespace BookingYacht.Business.Implement.Admin
                 IdAgency = order.IdAgency,
                 QuantityOfPerson = order.QuantityOfPerson,
                 Status = (Status) order.Status,
+                OrderDate = order.DateOrder.GetValueOrDefault(),
                 TotalPrice = order.TotalPrice ?? 0
             });
         }
@@ -80,7 +81,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
                 .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
                 .Where(x => model.Status == null || x.Status == (int)model.Status)
-                .Where(x => (model.OrderDate == null) || x.DateOrder.Value.Date == model.OrderDate.Value.Date)
+                .Where(x => model.OrderDate == null || x.DateOrder.Value.Date == model.OrderDate.Value.Date)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
                 .OrderBy(x => x.AgencyName)
