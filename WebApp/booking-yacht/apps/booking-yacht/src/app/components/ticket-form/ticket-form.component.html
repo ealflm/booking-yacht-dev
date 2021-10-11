@@ -20,16 +20,44 @@
               <p-card subheader="Thông tin vé tàu">
                 <div class="grid">
                   <div class="col-6">
-                    <div class="col-12">Tên khách hàng:</div>
-                    <div class="col-12">Số điện thoại:</div>
-                    <div class="col-12">Loại vé:</div>
-                    <div class="col-12">Giá vé:</div>
+                    <div class="col-12">
+                      Tên khách hàng:
+                      <p>{{ tickets.nameCustomer }}</p>
+                    </div>
+                    <div class="col-12">
+                      Số điện thoại:
+                      <p>{{ tickets.phone }}</p>
+                    </div>
+                    <div class="col-12">
+                      Loại vé:
+                      <p>{{ tickets.idTicketTypeNavigation.name }}</p>
+                    </div>
+                    <div class="col-12">
+                      Giá vé:
+                      <p>{{ tickets.idTicketTypeNavigation.price }}</p>
+                    </div>
                   </div>
                   <div class="col-6">
-                    <div class="col-12">Loại tàu:</div>
-                    <div class="col-12">Tên tàu:</div>
-                    <div class="col-12">Số ghế:</div>
-                    <div class="col-12">Thời gian khởi hành:</div>
+                    <div class="col-12">
+                      Tên tàu:
+                      <p>
+                        {{ tickets.idTripNavigation.idVehicleNavigation?.name }}
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      Loại tàu:
+                      <p>{{ typeVehicle?.name }}</p>
+                    </div>
+                    <div class="col-12">
+                      Số ghế:
+                      <p>
+                        {{ tickets.idTripNavigation.idVehicleNavigation?.seat }}
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      Thời gian khởi hành:
+                      <p>{{ tickets.idTripNavigation?.time }}</p>
+                    </div>
                   </div>
                 </div>
               </p-card>
@@ -75,7 +103,7 @@
           <div class="p-fluid formgrid grid">
             <div class="col-6 p-shadow-14">
               <p-card subheader="Thông tin vé tàu">
-                <p-skeleton width="28rem" height="10rem"></p-skeleton>
+                <p-skeleton width="28rem" height="17rem"></p-skeleton>
               </p-card>
             </div>
             <div class="col-6">

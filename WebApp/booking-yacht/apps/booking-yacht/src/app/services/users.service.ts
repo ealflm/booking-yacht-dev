@@ -1,14 +1,14 @@
+import { environment } from './../../environments/environment.prod';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
   apiURL = environment.apiURL + 'login';
-
+  apiURLAcc = environment.apiURL + 'accounts';
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
@@ -23,5 +23,9 @@ export class UsersService {
   }
   handleError(error: HttpErrorResponse) {
     return throwError(error);
+  }
+
+  getMyInfor(id: string): Observable<any> {
+    return this.http.get(`${this.apiURLAcc}/${id}`);
   }
 }

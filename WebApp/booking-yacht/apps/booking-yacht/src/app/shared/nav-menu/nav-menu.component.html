@@ -1,19 +1,16 @@
 <div class="nav-menu">
   <div class="nav-menu--content">
     <div class="grid">
-      <div class="col-10"></div>
-      <div class="col-2 d-flex profile animate__animated animate__fadeInLeft">
-        <p-chip
-          label="Mr.Sang"
-          image="assets/img/brand/favicon.png"
-          styleClass="p-mr-1"
-        ></p-chip>
+      <div class="col-9"></div>
+      <div class="col-3 d-flex profile animate__animated animate__fadeInLeft">
         <i
-          class="pi pi-bell p-mr-4 p-text-secondary"
+          class="pi pi-bell p-text-secondary"
           pBadge
           style="font-size: 1.7rem"
           value="2"
         ></i>
+        <p-avatar [image]="user?.photoUrl" pBadge shape="circle"></p-avatar>
+        <p>{{ user?.name }}</p>
       </div>
     </div>
   </div>

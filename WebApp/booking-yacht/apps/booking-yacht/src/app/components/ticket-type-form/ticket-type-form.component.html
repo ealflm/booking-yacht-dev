@@ -16,7 +16,7 @@
       <div class="col-12 mt-4">
         <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
-            <div class="col-7">
+            <div class="col-6">
               <div class="grid">
                 <div class="p-field col-6 mb-3">
                   <label for="name">Hạng vé</label>
@@ -31,8 +31,10 @@
                   <P>{{ tickesType?.serviceFeePercentage }}%</P>
                 </div>
                 <div class="p-field col-6">
+                  <label for="serviceFeePercentage">Hoa hồng đại lý(%)</label>
                   <p>{{ tickesType?.commissionFeePercentage }}%</p>
                 </div>
+                <div class="col-6"></div>
                 <div class="p-field col-6">
                   <label for="status">Trạng thái</label>
                   <p-dropdown
@@ -49,7 +51,7 @@
                     >Trạng không được trống</small
                   >
                 </div>
-                <div class="p-field col-6"></div>
+                <div class="col-6"></div>
                 <div class="p-field col-6 mt-5">
                   <button
                     pButton
@@ -63,18 +65,40 @@
                 </div>
               </div>
             </div>
-            <div class="col-5">
+            <div class="col-6">
               <p-card subheader="Thông tin chủ tàu">
                 <div class="grid">
-                  <div class="col-6">
-                    <div class="col-12">Name</div>
-                    <div class="col-12">Phone</div>
-                    <div class="col-12">Email</div>
-                    <div class="col-12">Address</div>
+                  <div class="col-7">
+                    <div class="col-12">
+                      Chủ tàu:
+                      <p>{{ business?.name }}</p>
+                    </div>
+
+                    <div class="col-12">
+                      Số điện thoại:
+                      <p>{{ business?.phoneNumber }}</p>
+                    </div>
+                    <div class="col-12">
+                      Email:
+                      <p>{{ business?.emailAddress }}</p>
+                    </div>
+                    <div class="col-12">
+                      Địa chỉ:
+                      <p>{{ business?.address }}</p>
+                    </div>
                   </div>
-                  <div class="col-6">
-                    <div class="col-12">Vũng tàu 3</div>
-                    <div class="col-12">Trạng thái</div>
+                  <div class="col-5">
+                    <div class="col-12">
+                      Tên Tour:
+                      <p>{{ tour?.tittle }}</p>
+                    </div>
+                    <div class="col-12">
+                      Trạng thái:
+                      <p-tag
+                        [severity]="tourStatus[tour.status!].color"
+                        [value]="tourStatus[tour.status!].lable"
+                      ></p-tag>
+                    </div>
                   </div>
                 </div>
               </p-card>
@@ -87,7 +111,7 @@
       <div class="col-12 mt-4">
         <form>
           <div class="p-fluid formgrid grid">
-            <div class="col-7">
+            <div class="col-6">
               <div class="grid">
                 <div class="p-field col-6 mb-3">
                   <label for="name">Hạng vé</label>
@@ -105,6 +129,7 @@
                   <label for="serviceFeePercentage">Hoa hồng đại lý(%)</label>
                   <p-skeleton></p-skeleton>
                 </div>
+                <div class="col-6"></div>
                 <div class="p-field col-6">
                   <label for="status">Trạng thái</label>
                   <p-skeleton></p-skeleton>
@@ -115,9 +140,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-5">
+            <div class="col-6">
               <p-card>
-                <p-skeleton width="24rem" height="10rem"></p-skeleton>
+                <p-skeleton width="28rem" height="20rem"></p-skeleton>
               </p-card>
             </div>
           </div>
