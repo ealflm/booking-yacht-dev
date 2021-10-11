@@ -31,7 +31,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
 import { ChipModule } from 'primeng/chip';
-
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 @NgModule({
   declarations: [],
   imports: [
@@ -65,6 +66,8 @@ import { ChipModule } from 'primeng/chip';
     SelectButtonModule,
     PanelMenuModule,
     ChipModule,
+    AvatarModule,
+    AvatarGroupModule,
   ],
   exports: [
     CardModule,
@@ -97,6 +100,8 @@ import { ChipModule } from 'primeng/chip';
     SelectButtonModule,
     PanelMenuModule,
     ChipModule,
+    AvatarModule,
+    AvatarGroupModule,
   ],
 })
 export class PrimengModule {}

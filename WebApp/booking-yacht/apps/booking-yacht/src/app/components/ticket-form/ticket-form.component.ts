@@ -1,3 +1,5 @@
+import { VehicleTypeService } from './../../services/vehicle-type.service';
+import { async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TicketsService } from './../../services/tickets.service';
 import { Location } from '@angular/common';
@@ -12,17 +14,27 @@ import { isBuffer } from 'lodash';
 export class TicketFormComponent implements OnInit {
   loading = true;
   tickets: any;
+  typeVehicle: any;
   constructor(
     private location: Location,
     private ticketService: TicketsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private vehicleService: VehicleTypeService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params.id) {
-        this.ticketService.getTicket(params.id).subscribe((res) => {
-          this.tickets = res.data;
+        this.ticketService.getTicket(params.id).subscribe(async (res) => {
+          this.tickets = await res.data;
+          console.log(this.tickets);
+          this.vehicleService
+            .getVehicleType(
+              res.data.idTripNavigation.idVehicleNavigation.idVehicleType
+            )
+            .subscribe(async (typeVehicle) => {
+              this.typeVehicle = await typeVehicle.data;
+            });
           setTimeout(() => {
             this.loading = false;
           }, 1000);

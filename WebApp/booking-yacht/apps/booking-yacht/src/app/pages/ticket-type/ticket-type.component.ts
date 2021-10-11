@@ -26,16 +26,15 @@ export class TicketTypeComponent implements OnInit {
     this.getTicketTypes();
   }
   getTicketTypes() {
-    if (!status) {
-      this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {
-        setTimeout(() => {
-          this.loading = false;
-        }, 1000);
-        this.ticketType = ticketTypeRes.data;
-        console.log(this.ticketType);
-      });
-    }
+    this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
+      this.ticketType = ticketTypeRes.data;
+      // console.log(this.ticketType);
+    });
   }
+
   onChangeStatus(status?: string) {
     if (!status) {
       this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {

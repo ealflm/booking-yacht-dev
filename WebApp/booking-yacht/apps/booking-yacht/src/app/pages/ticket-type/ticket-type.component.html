@@ -51,6 +51,7 @@
                 Giá vé <p-sortIcon field="price"></p-sortIcon>
               </th>
               <th>Phí dịch vụ(%)</th>
+              <th>Hoa hồng đại lý(%)</th>
               <th>Trạng thái</th>
               <th></th>
             </tr>
@@ -62,12 +63,14 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
             </tr>
             <tr *ngIf="!loading">
               <td class="hidden">{{ ticketType.id }}</td>
-              <td>{{ ticketType.name }}</td>
-              <td>{{ ticketType.price | currency: 'VND' }}</td>
-              <td>{{ ticketType.serviceFeePercentage }}%</td>
+              <td>{{ ticketType?.name }}</td>
+              <td>{{ ticketType?.price | currency: 'VND' }}</td>
+              <td>{{ ticketType?.serviceFeePercentage }}%</td>
+              <td>{{ ticketType?.commissionFeePercentage }}%</td>
               <td class="p-ai-center p-pl-2">
                 <p-tag
                   [severity]="ticketTypeStatus[ticketType.status]?.color"
@@ -79,7 +82,7 @@
                   pButton
                   pRipple
                   icon="ni ni-tag"
-                  class="p-button-rounded p-button-success mr-2"
+                  class="p-button-rounded p-button-help mr-2"
                   (click)="editTicketType(ticketType.id)"
                 ></button>
               </td>

@@ -1,3 +1,7 @@
+import { ToursService } from './../../services/tours.service';
+import { BusinessAccountService } from './../../services/business-account.service';
+import { BusinessAccount } from './../../models/business-account';
+import { async } from '@angular/core/testing';
 import { MessageService } from 'primeng/api';
 import { TicketType } from './../../models/ticket-types';
 import { SECONDARY_STATUS, TICKET_STATUS } from './../../constants/STATUS';
@@ -7,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { timer } from 'rxjs';
+import { Tour } from '../../models/tours';
 
 @Component({
   selector: 'booking-yacht-ticket-type-form',
@@ -20,13 +25,19 @@ export class TicketTypeFormComponent implements OnInit {
   status = TICKET_STATUS;
   isSubmit = false;
   tickesType?: TicketType;
+  business?: BusinessAccount;
+  tour!: Tour;
+  tourStatus = SECONDARY_STATUS;
   constructor(
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
     private ticketTypeService: TicketTypeService,
     private formBuilder: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bussinessService: BusinessAccountService,
+    private tourService: ToursService
+    
   ) {}
 
   ngOnInit(): void {
@@ -35,8 +46,23 @@ export class TicketTypeFormComponent implements OnInit {
         this.currentUser = params.id;
         this.ticketTypeService
           .getTicketType(this.currentUser)
-          .subscribe((res) => {
-            this.tickesType = res.data;
+          .subscribe(async (res) => {
+            this.tickesType = await res.data;
+            // console.log(res.data);
+
+            this.bussinessService
+              .getBusinessAccountByID(
+                res.data.idBusinessTourNavigation.idBusiness
+              )
+              .subscribe(async (bussinessAccRes) => {
+                this.business = await bussinessAccRes.data;
+              });
+            this.tourService
+              .getTour(res.data.idBusinessTourNavigation.idTour)
+              .subscribe(async (tourRes) => {
+                this.tour = tourRes.data;
+                // console.log(this.tour);
+              });
             this.ticketTypeForm.status.setValue(res.data.status.toString());
             setTimeout(() => {
               this.loading = false;
@@ -51,6 +77,7 @@ export class TicketTypeFormComponent implements OnInit {
     });
     this._initForm();
   }
+
   private _initForm() {
     this.form = this.formBuilder.group({
       // name: ['', [Validators.required]],

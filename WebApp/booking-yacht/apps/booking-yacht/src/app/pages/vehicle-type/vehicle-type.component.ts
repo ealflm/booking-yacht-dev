@@ -25,9 +25,9 @@ export class VehicleTypeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getVehicles();
+    this.getVehiclesType();
   }
-  getVehicles() {
+  getVehiclesType() {
     this.vehicleTypeService.getVehicleTypes().subscribe((vehicleTyperes) => {
       this.vehicleType = vehicleTyperes.data;
       setTimeout(() => {
