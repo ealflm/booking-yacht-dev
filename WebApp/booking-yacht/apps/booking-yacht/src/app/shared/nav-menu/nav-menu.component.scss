@@ -1,4 +1,6 @@
 .nav-menu {
+  max-width: 100%;
+  overflow-x: hidden;
   min-height: 3rem;
   background-color: white;
   &--content {
