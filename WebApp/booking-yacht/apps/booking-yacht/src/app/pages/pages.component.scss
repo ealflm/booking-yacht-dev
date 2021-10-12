@@ -1,0 +1,9 @@
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.amain-content {
+  max-width: calc(100vw - 250px);
+}
