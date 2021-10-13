@@ -80,7 +80,8 @@ class YachtDetail extends StatelessWidget {
                 ),
               ),
               FlatButton(
-                onPressed: () => controller.deleteYacht(controller.yachtDetail.id!),
+                onPressed: () =>
+                    controller.deleteYacht(controller.yachtDetail.id!),
                 child: Text(
                   'Xoá tàu',
                   style: TextStyle(fontWeight: FontWeight.w300),

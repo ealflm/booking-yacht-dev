@@ -1,6 +1,5 @@
 //import 'dart:ui';
 import 'package:flutter/material.dart';
-import '/widgets/dropdown.dart';
 import '../widgets/photo_album.dart';
 
 List<String> imgArray = [
@@ -165,7 +164,6 @@ class TourDetail extends StatelessWidget {
                           Row(
                             children: [
                               Text('Choose your yacht: '),
-                              Dropdown(),
                             ],
                           ),
                         ],

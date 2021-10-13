@@ -14,7 +14,7 @@ class Yachts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(
-        title: 'Trang chủ',
+        title: 'Tàu',
       ),
       backgroundColor: Colors.grey[200],
       body: GetBuilder<YachtController>(
@@ -31,14 +31,7 @@ class Yachts extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',
         child: Icon(Icons.add, color: Colors.black),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => YachtModify(),
-            ),
-          );
-        },
+        onPressed: () => controller.addYacht(),
         backgroundColor: Colors.white,
       ),
     );
