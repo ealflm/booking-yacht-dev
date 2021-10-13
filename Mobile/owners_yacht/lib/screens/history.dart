@@ -45,18 +45,19 @@ class History extends StatelessWidget {
   // ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-            appBar: NavBar(
-              title: 'History',
-            ),
-        //     body: Padding(
-        //       padding: const EdgeInsets.all(8.0),
-        //       child: ListView.builder(
-        //         itemBuilder: (ctx, i) => TourCard(_list[i].title, _list[i].status,
-        //             _list[i].imageUrl, _list[i].price),
-        //         itemCount: _list.length,
-        //       ),
-        //     ),
-        );
+    return const Scaffold(
+      appBar: NavBar(
+        title: 'History',
+        automaticallyImplyLeading: false,
+      ),
+      //     body: Padding(
+      //       padding: const EdgeInsets.all(8.0),
+      //       child: ListView.builder(
+      //         itemBuilder: (ctx, i) => TourCard(_list[i].title, _list[i].status,
+      //             _list[i].imageUrl, _list[i].price),
+      //         itemCount: _list.length,
+      //       ),
+      //     ),
+    );
   }
 }

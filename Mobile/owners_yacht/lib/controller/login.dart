@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LoginController extends GetxController {
-  // Intilize the flutter app
   late FirebaseApp firebaseApp;
   late User firebaseUser;
   late FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -50,16 +49,6 @@ class LoginController extends GetxController {
               "https://booking-yacht.azurewebsites.net/api/v1.0/admin/open-login"),
           headers: headers,
           body: body);
-
-      // final responseData = json.decode(response.body);
-      // var token = responseData['data'];
-      //  var response2 = await http.get(
-      // Uri.parse(
-      //     "https://booking-yacht.azurewebsites.net/api/v1/agencies"),
-      // headers: {"Content-Type": "application/json", "Authorization": "Bearer $token"},
-      // );
-      // print(response);
-      // log(response2.toString());
       update();
 
       if (response.statusCode == 200) {
@@ -69,15 +58,6 @@ class LoginController extends GetxController {
         prefs.setString('token', token);
         Get.to(Home());
       } else {
-        Get.snackbar('Sign In Error', 'Error Signing in',
-            duration: Duration(seconds: 5),
-            backgroundColor: Colors.black,
-            colorText: Colors.white,
-            snackPosition: SnackPosition.BOTTOM,
-            icon: Icon(
-              Icons.error,
-              color: Colors.red,
-            ));
         Get.back();
       }
     } catch (ex) {
@@ -86,8 +66,8 @@ class LoginController extends GetxController {
   }
 
   Future<void> logout() async {
-    // final prefs = await SharedPreferences.getInstance();
-    // prefs.clear();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
     HomeController controller = Get.find<HomeController>();
     controller.tabIndex = 0;
     

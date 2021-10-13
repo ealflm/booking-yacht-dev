@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:owners_yacht/screens/menu.dart';
 import 'screens/home.dart';
 import 'screens/qr_code.dart';
-import 'screens/tour.dart';
+import 'screens/transaction.dart';
 import 'screens/verification.dart';
 import 'screens/yachts.dart';
 import 'binding/bindings.dart';
@@ -27,8 +27,8 @@ void main() async {
           binding: Binding(),
         ),
         GetPage(
-          name: '/tour',
-          page: () => Tour(),
+          name: '/transaction',
+          page: () => Transaction(),
           binding: Binding(),
         ),
         GetPage(

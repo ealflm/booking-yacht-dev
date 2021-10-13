@@ -13,8 +13,9 @@ class Yachts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NavBar(
+      appBar: const NavBar(
         title: 'Tàu',
+        automaticallyImplyLeading: true,
       ),
       backgroundColor: Colors.grey[200],
       body: GetBuilder<YachtController>(

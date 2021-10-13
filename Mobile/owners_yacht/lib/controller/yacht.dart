@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:owners_yacht/models/category.dart';
 import 'package:owners_yacht/screens/yacht_detail.dart';
 import 'package:owners_yacht/screens/yacht_modify.dart';
+import 'package:owners_yacht/screens/yachts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/models/yacht.dart';
 import 'package:http/http.dart' as http;
@@ -22,16 +23,16 @@ class YachtController extends GetxController {
   TextEditingController statusController = TextEditingController();
   TextEditingController descriptionsController = TextEditingController();
 
-  @override
-  onInit() {
-    fetchYachts();
-    getCategory();
-    super.onInit();
-  }
+  // @override
+  // onInit() {
+  //   fetchYachts();
+  //   getCategory();
+  //   super.onInit();
+  // }
 
   void changeCategory(value) {
     categoryController = value;
-
+    print(value);
     update();
   }
 
@@ -51,10 +52,12 @@ class YachtController extends GetxController {
       if (response.statusCode == 200) {
         var jsonString = response.body;
         var yachts = yachtFromJson(jsonString);
-        if (yachts.data != null) {
+        if (yachts.data.isNotEmpty) {
           items = yachts.data as List<Yacht>;
         }
+        getCategory();
         update();
+        Get.to(Yachts());
       } else {
         return null;
       }
@@ -81,7 +84,7 @@ class YachtController extends GetxController {
       if (response.statusCode == 200) {
         var jsonString = response.body;
         var categorys = categoryReponseFromJson(jsonString);
-        if (categorys.data != null) {
+        if (categorys.data.isNotEmpty) {
           listCategory = categorys.data as List<Category>;
           print(listCategory[0].id);
         }
@@ -152,6 +155,7 @@ class YachtController extends GetxController {
     nameController.clear();
     seatController.clear();
     statusController.clear();
+    categoryController = "";
     descriptionsController.clear();
     Get.to(YachtModify());
   }
@@ -192,7 +196,7 @@ class YachtController extends GetxController {
             name: nameController.text,
             seat: int.parse(seatController.text),
             descriptions: descriptionsController.text,
-            idVehicleType: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            idVehicleType: categoryController,
             idBusiness: '26f7f596-a747-4965-8cb1-36eadd73ee49',
             status: int.parse(statusController.text));
         String body = json.encode(yacht);
@@ -219,7 +223,7 @@ class YachtController extends GetxController {
           'name': nameController.text,
           'seat': seatController.text,
           'descriptions': descriptionsController.text,
-          'idVehicleType': '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          'idVehicleType': categoryController,
           'idBusiness': '26f7f596-a747-4965-8cb1-36eadd73ee49',
           'status': statusController.text,
         });
