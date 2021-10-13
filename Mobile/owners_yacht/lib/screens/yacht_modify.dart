@@ -63,6 +63,7 @@ class YachtModify extends StatelessWidget {
                             height: 250,
                             child: ListView.builder(
                               itemBuilder: (ctx, i) => RadioCategory(
+                                  controller.listCategory[i].id,
                                   controller.listCategory[i].name,
                                   controller.categoryController),
                               itemCount: controller.listCategory.length,

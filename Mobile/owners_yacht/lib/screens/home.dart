@@ -6,7 +6,8 @@ import '/controller/home.dart';
 
 import 'menu.dart';
 import 'qr_code.dart';
-import 'tour.dart';
+import 'tour_detail.dart';
+import 'transaction.dart';
 import 'verification.dart';
 import 'yachts.dart';
 
@@ -19,9 +20,8 @@ class Home extends StatelessWidget {
           body: IndexedStack(
             index: controller.tabIndex,
             children: [
-              Tour(),
-              Yachts(),
-              QRScan(),
+              Transaction(),
+              TourDetail(),
               Verification(),
               Menu(),
             ],
@@ -33,20 +33,16 @@ class Home extends StatelessWidget {
                 label: 'Trang chủ',
               ),
               _bottomNavigationBarItem(
-                icon: FontAwesomeIcons.ship,
-                label: 'Tàu',
-              ),
-              _bottomNavigationBarItem(
-                icon: Icons.qr_code_2,
-                label: 'QR Code',
+                icon: Icons.tour_outlined,
+                label: 'Tour',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.checklist_rtl,
-                label: 'Xác nhận',
+                label: 'Yêu cầu',
               ),
               _bottomNavigationBarItem(
-                icon: Icons.menu,
-                label: 'Menu',
+                icon: Icons.view_list_rounded,
+                label: 'Thêm',
               ),
             ],
             backgroundColor: Colors.white,

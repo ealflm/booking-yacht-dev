@@ -15,20 +15,20 @@ class VerificationCard extends StatelessWidget {
         ),
         title: Text(title),
         subtitle: Text(status),
-        trailing: Container(
+        trailing: SizedBox(
           width: 100,
           child: Row(
             children: <Widget>[
               IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.check,
                   color: Colors.greenAccent,
                 ),
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.cancel,
                   color: Colors.redAccent,
                 ),

@@ -10,8 +10,9 @@ class Verification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NavBar(
-        title: 'Xác nhận',
+      appBar: const NavBar(
+        title: 'Xác nhận chuyến đi',
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
