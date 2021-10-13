@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/qr_code.dart';
 
+
+
 class QRScan extends StatelessWidget {
+  const QRScan({ Key? key }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      
+    );
   }
 }
-
-
-
-
 // class QRScan extends StatefulWidget {
 //   @override
 //   State<QRScan> createState() => _QRScanState();
@@ -31,9 +33,6 @@ class QRScan extends StatelessWidget {
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
 //     return SafeArea(
 //       child: Scaffold(
 //         body: Stack(
@@ -46,7 +45,6 @@ class QRScan extends StatelessWidget {
 //       ),
 //     );
 //   }
-
 //   Widget buildQRView(BuildContext context) => QRView(
 //         key: qrKey,
 //         onQRViewCreated: onQRViewCreated,

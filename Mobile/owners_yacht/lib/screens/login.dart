@@ -25,7 +25,7 @@ class Login extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 80),
                   child: Text(
-                    'Manager Yacht',
+                    'Chủ Tàu',
                     style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,

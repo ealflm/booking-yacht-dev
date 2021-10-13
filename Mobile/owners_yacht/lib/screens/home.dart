@@ -19,8 +19,8 @@ class Home extends StatelessWidget {
           body: IndexedStack(
             index: controller.tabIndex,
             children: [
-              Yachts(),
               Tour(),
+              Yachts(),
               QRScan(),
               Verification(),
               Menu(),
@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
               ),
               _bottomNavigationBarItem(
                 icon: FontAwesomeIcons.ship,
-                label: 'Chuyến đi',
+                label: 'Tàu',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.qr_code_2,
