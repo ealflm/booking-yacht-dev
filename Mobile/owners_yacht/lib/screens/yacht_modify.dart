@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/controller/yacht.dart';
+import 'package:owners_yacht/widgets/radio_button.dart';
 
 class YachtModify extends StatelessWidget {
   final YachtController controller = Get.find<YachtController>();
@@ -8,10 +9,12 @@ class YachtModify extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.nameController.text),
+        title: Text((controller.isAdding == true)
+            ? "Thêm mới"
+            : controller.nameController.text),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.save_alt_rounded,
               color: Colors.white,
             ),
@@ -26,7 +29,7 @@ class YachtModify extends StatelessWidget {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Tên tàu'),
+                decoration: const InputDecoration(labelText: 'Tên tàu'),
                 textInputAction: TextInputAction.next,
                 // onFieldSubmitted: (_) {},
                 controller: controller.nameController,
@@ -34,42 +37,45 @@ class YachtModify extends StatelessWidget {
                 // onSaved: (value) {},
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Ghế'),
+                decoration: const InputDecoration(labelText: 'Ghế'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 controller: controller.seatController,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Trạng thái'),
+                decoration: const InputDecoration(labelText: 'Trạng thái'),
                 validator: (value) {},
                 onSaved: (value) {},
                 controller: controller.statusController,
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Wrap(
                   children: [
-                    FilterChip(
-                      label: Text('Tàu thường'),
-                      selected: false,
-                      onSelected: (bool value) {},
+                    const Text(
+                      'Chọn loại tàu',
+                      style: TextStyle(fontSize: 16),
                     ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    FilterChip(
-                      label: Text('Tàu VIP'),
-                      selected: false,
-                      onSelected: (bool value) {},
-                    ),
-                    SizedBox(
-                      width: 5,
+                    GetBuilder<YachtController>(
+                      builder: (controller) => Column(
+                        children: [
+                          SizedBox(
+                            height: 250,
+                            child: ListView.builder(
+                              itemBuilder: (ctx, i) => RadioCategory(
+                                  controller.listCategory[i].name,
+                                  controller.categoryController),
+                              itemCount: controller.listCategory.length,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Mô tả'),
+                decoration: const InputDecoration(labelText: 'Mô tả'),
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 validator: (value) {},

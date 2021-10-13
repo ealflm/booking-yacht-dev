@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:owners_yacht/models/category.dart';
 import 'package:owners_yacht/screens/yacht_detail.dart';
 import 'package:owners_yacht/screens/yacht_modify.dart';
-import 'package:owners_yacht/screens/yachts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/models/yacht.dart';
 import 'package:http/http.dart' as http;
@@ -11,10 +11,12 @@ import 'dart:convert';
 class YachtController extends GetxController {
   var isLoading = true.obs;
   List<Yacht> items = <Yacht>[].obs;
+  List<Category> listCategory = <Category>[].obs;
   var yachtDetail = Yacht();
   String id = "";
-  String type = "";
-  bool isAdd = true;
+  var categoryController = "";
+  // String type = "";
+  bool isAdding = true;
   TextEditingController nameController = TextEditingController();
   TextEditingController seatController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -23,7 +25,14 @@ class YachtController extends GetxController {
   @override
   onInit() {
     fetchYachts();
+    getCategory();
     super.onInit();
+  }
+
+  void changeCategory(value) {
+    categoryController = value;
+
+    update();
   }
 
   Future<List<Yacht>?> fetchYachts() async {
@@ -55,6 +64,34 @@ class YachtController extends GetxController {
       isLoading(false);
     }
     return items;
+  }
+
+  Future<List<Category>?> getCategory() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    try {
+      final response = await http.get(
+        Uri.parse(
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicle-types"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        },
+      );
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var categorys = categoryReponseFromJson(jsonString);
+        if (categorys.data != null) {
+          listCategory = categorys.data as List<Category>;
+          print(listCategory[0].id);
+        }
+      } else {
+        return null;
+      }
+    } catch (error) {
+      print('loi r');
+    }
+    return listCategory;
   }
 
   Future<Yacht> getYacht(String id) async {
@@ -95,9 +132,9 @@ class YachtController extends GetxController {
   }
 
   void editYacht(Yacht yacht) async {
-    isAdd = false;
+    isAdding = false;
     id = yacht.id!;
-    type = yacht.idVehicleType!;
+    categoryController = yacht.idVehicleType!;
     nameController.text = yacht.name!;
     seatController.text = yacht.seat.toString();
     statusController.text = yacht.status.toString();
@@ -111,7 +148,7 @@ class YachtController extends GetxController {
   }
 
   void addYacht() async {
-    isAdd = true;
+    isAdding = true;
     nameController.clear();
     seatController.clear();
     statusController.clear();
@@ -149,7 +186,7 @@ class YachtController extends GetxController {
     final String? token = prefs.getString('token');
 
     try {
-      if (!isAdd) {
+      if (!isAdding) {
         Yacht yacht = Yacht(
             id: id,
             name: nameController.text,
