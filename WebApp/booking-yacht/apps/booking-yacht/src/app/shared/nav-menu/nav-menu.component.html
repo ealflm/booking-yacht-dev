@@ -1,15 +1,19 @@
 <div class="nav-menu">
-  <div class="nav-menu--content">
-    <div class="grid">
-      <div class="col-9"></div>
-      <div class="col-3 d-flex profile animate__animated animate__fadeInLeft">
+  <div class="nav-menu--content flex">
+    <div class="absolute right-5 top-0">
+      <div class="d-flex profile animate__animated animate__fadeInLeft">
         <i
           class="pi pi-bell p-text-secondary"
           pBadge
           style="font-size: 1.7rem"
           value="2"
         ></i>
-        <p-avatar [image]="user?.photoUrl" pBadge shape="circle"></p-avatar>
+        <p-avatar
+          [image]="user?.photoUrl"
+          pBadge
+          shape="circle"
+          class="pr-2 pl-3"
+        ></p-avatar>
         <p>{{ user?.name }}</p>
       </div>
     </div>
