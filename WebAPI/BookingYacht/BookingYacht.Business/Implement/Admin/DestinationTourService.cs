@@ -67,20 +67,13 @@ namespace BookingYacht.Business.Implement.Admin
             return destinationTour;
         }
 
-        public async Task<DestinationTourViewModel> GetDestinationTourNavigation(Guid id)
+        public async Task<DestinationTour> GetDestinationTourNavigation(Guid id)
         {
             var destinationTour = await _unitOfWork.Context().DestinationTours
                 .Include(x => x.IdDestinationNavigation)
                 .Include(x => x.IdTourNavigation)
                 .Where(x => x.Id.Equals(id))
-                .Select(x => new DestinationTourViewModel()
-                {
-                    Id = x.Id,
-                    IdDestination = x.IdDestination,
-                    IdTour = x.IdTour,
-                    Status = x.Status,
-                    Way = x.Way
-                }).FirstOrDefaultAsync();
+                .FirstOrDefaultAsync();
             return destinationTour;
         }
 
@@ -112,7 +105,7 @@ namespace BookingYacht.Business.Implement.Admin
             return destinationTour;
         }
 
-        public async Task<List<DestinationTourViewModel>> SearchDestinationToursNavigation(DestinationTourSearchModel model = null)
+        public async Task<List<DestinationTour>> SearchDestinationToursNavigation(DestinationTourSearchModel model = null)
         {
             if (model == null)
             {
@@ -125,14 +118,6 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
                 .Where(x => model.Way == 0 | x.Way == model.Way)
-                .Select(x => new DestinationTourViewModel()
-                {
-                    Id = x.Id,
-                    IdDestination = x.IdDestination,
-                    IdTour = x.IdTour,
-                    Status = x.Status,
-                    Way = x.Way
-                })
                 .OrderBy(x => x.Id)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.DestinationTourRepository.Query().Count())
