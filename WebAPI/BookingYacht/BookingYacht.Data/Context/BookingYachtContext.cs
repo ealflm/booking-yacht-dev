@@ -148,6 +148,10 @@ namespace BookingYacht.Data.Context
                     .IsRequired()
                     .HasMaxLength(100);
 
+                entity.Property(e => e.Location)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.HasOne(d => d.IdPlaceTypeNavigation)
@@ -161,15 +165,15 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("DestinationTour");
 
-                entity.HasIndex(e => e.IdPier, "IX_DestinationTour_IdPier");
+                entity.HasIndex(e => e.IdDestination, "IX_DestinationTour_IdPier");
 
                 entity.HasIndex(e => e.IdTour, "IX_DestinationTour_IdTour");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.HasOne(d => d.IdPierNavigation)
+                entity.HasOne(d => d.IdDestinationNavigation)
                     .WithMany(p => p.DestinationTours)
-                    .HasForeignKey(d => d.IdPier)
+                    .HasForeignKey(d => d.IdDestination)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Destinati__IdPie__693CA210");
 
@@ -312,13 +316,17 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Descriptions)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Descriptions).HasMaxLength(255);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.RegistrationNumber)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.WhereProduction).HasMaxLength(50);
 
                 entity.HasOne(d => d.IdBusinessNavigation)
                     .WithMany(p => p.Vehicles)

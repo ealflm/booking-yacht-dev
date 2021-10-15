@@ -24,7 +24,7 @@ namespace BookingYacht.Business.Implement.Admin
             var destinationTour = new DestinationTour()
             {
                 Id = model.Id,
-                IdPier = model.IdPier,
+                IdDestination = model.IdDestination,
                 IdTour = model.IdTour,
                 Status = model.Status,
                 Way = model.Way
@@ -42,7 +42,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new DestinationTour()
                 {
                     Id = x.Id,
-                    IdPier = x.IdPier,
+                    IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
                     Status = x.Status,
                     Way=x.Way
@@ -59,7 +59,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new DestinationTourViewModel()
                 {
                     Id = x.Id,
-                    IdPier = x.IdPier,
+                    IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
                     Status = x.Status,
                     Way=x.Way
@@ -74,14 +74,14 @@ namespace BookingYacht.Business.Implement.Admin
                 model = new DestinationTourSearchModel();
             }
             var destinationTour = await _unitOfWork.DestinationTourRepository.Query()
-                .Where(x => model.IdPier == null | x.IdPier.Equals(model.IdPier))
+                .Where(x => model.IdDestination == null | x.IdDestination.Equals(model.IdDestination))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
                 .Where(x => model.Way == 0 | x.Way == model.Way)
                 .Select(x => new DestinationTourViewModel()
                 {
                     Id = x.Id,
-                    IdPier = x.IdPier,
+                    IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
                     Status = x.Status,
                     Way= x.Way
@@ -98,7 +98,7 @@ namespace BookingYacht.Business.Implement.Admin
             var destinationTour = new DestinationTour()
             {
                 Id = id,
-                IdPier = model.IdPier,
+                IdDestination = model.IdDestination,
                 IdTour = model.IdTour,
                 Status = model.Status,
                 Way= model.Way
