@@ -142,6 +142,7 @@
   <p-card header="Danh sách tàu sở hữu">
     <booking-yacht-vehicle
       [bussinessVehicleChild]="bussinessVehicle"
+      (pageing)="handlePaging($event)"
     ></booking-yacht-vehicle>
   </p-card>
 </div>

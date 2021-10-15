@@ -35,6 +35,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { DividerModule } from 'primeng/divider';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [],
@@ -73,6 +74,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
     AvatarGroupModule,
     DividerModule,
     VirtualScrollerModule,
+    PaginatorModule,
   ],
   exports: [
     CardModule,
@@ -109,6 +111,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
     AvatarGroupModule,
     DividerModule,
     VirtualScrollerModule,
+    PaginatorModule,
   ],
 })
 export class PrimengModule {}

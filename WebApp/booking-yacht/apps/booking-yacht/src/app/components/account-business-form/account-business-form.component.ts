@@ -33,6 +33,9 @@ export class AccountBusinessFormComponent implements OnInit {
   loading = true;
   bussinessVehicle: [] = [];
   currentUser!: string;
+
+  rows: any;
+  page: any;
   constructor(
     private formBuider: FormBuilder,
     private businessAccountService: BusinessAccountService,
@@ -58,6 +61,25 @@ export class AccountBusinessFormComponent implements OnInit {
   //     console.log(entry[0], entry[1]);
   //   }
   // }
+  handlePaging(event: any) {
+    this.rows = event.rows;
+    this.page = event.page;
+    console.log(this.rows, this.page);
+    this.businessAccountService
+      .getBusinessAccountByID(this.currentUser)
+      .subscribe((res) => {
+        this.vehicleService
+          .getVehiclesByBussiness(res.data.id, this.page + 1, this.rows)
+          .subscribe((vehicleBusinessResponse) => {
+            this.bussinessVehicle = vehicleBusinessResponse.data;
+            // console.log(this.bussinessVehicle);
+
+            timer(1000).subscribe(() => {
+              this.loading = false;
+            });
+          });
+      });
+  }
 
   private _initBusinessForm() {
     this.form = this.formBuider.group({
@@ -172,7 +194,7 @@ export class AccountBusinessFormComponent implements OnInit {
             // console.log(res.data.id);
 
             this.vehicleService
-              .getVehiclesByBussiness(res.data.id)
+              .getVehiclesByBussiness(res.data.id, 1, 5)
               .subscribe((vehicleBusinessResponse) => {
                 this.bussinessVehicle = vehicleBusinessResponse.data;
                 // console.log(this.bussinessVehicle);

@@ -77,7 +77,7 @@ export const AGENCY_STATUS: any = {
     color: 'primary',
   },
   1: {
-    lable: 'đang hoạt động',
+    lable: 'Đang hoạt động',
     color: 'primary',
   },
   2: {
