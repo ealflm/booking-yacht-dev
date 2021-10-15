@@ -47,6 +47,26 @@ namespace BookingYacht.Business.Implement.Admin
             return searchVal;
         }
 
+        public async Task<List<Vehicle>> SearchVehiclesNavigation(VehicleSearchModel model = null)
+        {
+            model ??= new VehicleSearchModel();
+            var searchVal = await _unitOfWork.Context().Vehicles
+                .Include(x => x.IdVehicleTypeNavigation)
+                // .Include(x => x.IdBusinessNavigation)
+                .Where(x => model.Name == null | x.Name.Contains(model.Name))
+                .Where(x => model.Descriptions == null | x.Descriptions.Equals(model.Descriptions))
+                .Where(x => model.Seat == null | x.Seat == model.Seat)
+                .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
+                .Where(x => model.IdVehicleType == null | x.IdVehicleType.Equals(model.IdVehicleType))
+                .Where(x => model.Status == null | x.Status == model.Status)
+                .OrderBy(x => x.Seat)
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.VehicleRepository.Query().Count())
+                .OrderBy(x => x.Seat)
+                .ToListAsync();
+            return searchVal;
+        }
+
         public async Task<VehicleViewModel> GetVehicle(Guid id)
         {
             var value = await _unitOfWork.VehicleRepository.Query()
@@ -61,6 +81,14 @@ namespace BookingYacht.Business.Implement.Admin
                     Seat = x.Seat,
                     Status = x.Status
                 }).FirstOrDefaultAsync();
+            return value;
+        } 
+        public async Task<Vehicle> GetVehicleNavigation(Guid id)
+        {
+            var value = await _unitOfWork.Context().Vehicles
+                .Include(x => x.IdVehicleTypeNavigation)
+                .Where(x => x.Id.Equals(id))
+                .FirstOrDefaultAsync();
             return value;
         }
 
