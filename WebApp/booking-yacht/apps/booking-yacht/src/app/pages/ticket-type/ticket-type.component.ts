@@ -1,7 +1,11 @@
+import { timer } from 'rxjs';
+import { TicketType } from './../../models/ticket-types';
 import { Router } from '@angular/router';
 import { TicketTypeService } from './../../services/ticket-type.service';
 import { SECONDARY_STATUS } from './../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
+import { BusinessAccountService } from '../../services/business-account.service';
+import { delay } from 'lodash';
 
 @Component({
   selector: 'booking-yacht-ticket-type',
@@ -14,12 +18,13 @@ export class TicketTypeComponent implements OnInit {
     { id: '4', lable: 'Chấp nhận' },
     { id: '5', lable: 'Từ chối' },
   ];
-  ticketType: [] = [];
+  ticketType: TicketType[] = [];
   loading = true;
   ticketTypeStatus = SECONDARY_STATUS;
   constructor(
     private ticketTypeService: TicketTypeService,
-    private router: Router
+    private router: Router,
+    private business: BusinessAccountService
   ) {}
 
   ngOnInit(): void {
@@ -27,11 +32,22 @@ export class TicketTypeComponent implements OnInit {
   }
   getTicketTypes() {
     this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
       this.ticketType = ticketTypeRes.data;
-      // console.log(this.ticketType);
+      this.ticketType.map((ticketTypeRes2: any | TicketType) => {
+        // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
+        this.business
+          .getBusinessAccountByID(
+            ticketTypeRes2.idBusinessTourNavigation?.idBusiness
+          )
+          .subscribe((bussinessRes) => {
+            // console.log(bussinessRes);
+
+            ticketTypeRes2.nameBusiness = bussinessRes.data.name;
+          });
+      });
+      timer(1000).subscribe(() => {
+        this.loading = false;
+      });
     });
   }
 
@@ -39,17 +55,17 @@ export class TicketTypeComponent implements OnInit {
     if (!status) {
       this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {
         this.ticketType = ticketTypeRes.data;
-        setTimeout(() => {
+        timer(1000).subscribe(() => {
           this.loading = false;
-        }, 1000);
+        });
       });
     } else {
       this.ticketTypeService
         .getTicketTypes(status)
         .subscribe((ticketTypeRes) => {
-          setTimeout(() => {
+          timer(1000).subscribe(() => {
             this.loading = false;
-          }, 1000);
+          });
           this.ticketType = ticketTypeRes.data;
         });
     }

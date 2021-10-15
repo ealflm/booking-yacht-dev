@@ -18,6 +18,24 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   {
     path: '/dashboard',
+    title: 'Trang chủ',
+    icon: 'ni-building text-red',
+    class: '',
+  },
+  {
+    path: '/ticket',
+    title: 'Danh sách vé',
+    icon: 'ni-badge text-orange',
+    class: '',
+  },
+  {
+    path: '/ticket-type',
+    title: 'Loại vé',
+    icon: 'ni-paper-diploma text-info',
+    class: '',
+  },
+  {
+    path: '/bussiness',
     title: 'Chủ tàu',
     icon: 'ni-tv-2 text-primary',
     class: '',
@@ -28,19 +46,19 @@ export const ROUTES: RouteInfo[] = [
     icon: 'ni-circle-08 text-primary',
     class: '',
   },
-  {
-    path: '/tours',
-    title: 'Chuyến đi',
-    icon: 'ni-send text-yellow',
-    class: '',
-  },
+  // {
+  //   path: '/tours',
+  //   title: 'Chuyến đi',
+  //   icon: 'ni-send text-yellow',
+  //   class: '',
+  // },
 
-  {
-    path: '/destinations',
-    title: 'Địa điểm du lịch',
-    icon: 'ni-app text-red',
-    class: '',
-  },
+  // {
+  //   path: '/destinations',
+  //   title: 'Địa điểm du lịch',
+  //   icon: 'ni-app text-red',
+  //   class: '',
+  // },
 ];
 export const KIND_ROUTES: RouteInfo[] = [
   {

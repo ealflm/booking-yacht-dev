@@ -21,7 +21,7 @@ export class NavMenuComponent implements OnInit {
       if (tokenDecode.Id) {
         this.userService.getMyInfor(tokenDecode.Id).subscribe((myInforRes) => {
           this.user = myInforRes.data;
-          console.log(this.user);
+          // console.log(this.user);
         });
       }
     }

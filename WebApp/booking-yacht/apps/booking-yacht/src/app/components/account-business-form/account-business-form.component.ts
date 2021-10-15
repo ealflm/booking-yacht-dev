@@ -1,9 +1,10 @@
+import { VehicleService } from './../../services/vehicle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessAccount } from '../../models/business-account';
 import { MessageService } from 'primeng/api';
 import { BusinessAccountService } from '../../services/business-account.service';
 import { BUSINESS_STATUS } from '../../constants/STATUS';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   EmailValidator,
   FormBuilder,
@@ -13,6 +14,7 @@ import {
 import { Location } from '@angular/common';
 import { Route } from '@angular/compiler/src/core';
 import { timer } from 'rxjs';
+import { keys } from 'lodash';
 
 @Component({
   selector: 'booking-yacht-account-business-form',
@@ -20,6 +22,8 @@ import { timer } from 'rxjs';
   styleUrls: ['./account-business-form.component.scss'],
 })
 export class AccountBusinessFormComponent implements OnInit {
+  // myarray?: any = [];
+  priceListMap: Map<string, any[]> = new Map<string, any[]>();
   businessStatus: any[] = [];
 
   selectedStatus: any;
@@ -27,7 +31,7 @@ export class AccountBusinessFormComponent implements OnInit {
   isSubmit = false;
   editMode = false;
   loading = true;
-
+  bussinessVehicle: [] = [];
   currentUser!: string;
   constructor(
     private formBuider: FormBuilder,
@@ -35,7 +39,8 @@ export class AccountBusinessFormComponent implements OnInit {
     private messageService: MessageService,
     private location: Location,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private vehicleService: VehicleService
   ) {}
 
   ngOnInit(): void {
@@ -43,10 +48,16 @@ export class AccountBusinessFormComponent implements OnInit {
     this._initBusinessForm();
     this._mapBusinessStatus();
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 500);
+    // this.getMap();
   }
+  // getMap() {
+  //   this.myarray?.push({ productId: 1, price: 100, discount: 10 });
+  //   this.myarray?.push({ productId: 2, price: 200, discount: 20 });
+  //   this.priceListMap.set('2', this.myarray);
+  //   for (const entry of this.priceListMap.entries()) {
+  //     console.log(entry[0], entry[1]);
+  //   }
+  // }
 
   private _initBusinessForm() {
     this.form = this.formBuider.group({
@@ -123,10 +134,10 @@ export class AccountBusinessFormComponent implements OnInit {
           detail: 'update successfull',
         });
         timer(500)
-        .toPromise()
-        .then(() => {
-          this.location.back();
-        });
+          .toPromise()
+          .then(() => {
+            this.location.back();
+          });
       },
       (error) => {
         this.messageService.add({
@@ -135,13 +146,12 @@ export class AccountBusinessFormComponent implements OnInit {
           detail: 'update fail',
         });
         timer(500)
-        .toPromise()
-        .then(() => {
-          this.location.back();
-        });
+          .toPromise()
+          .then(() => {
+            this.location.back();
+          });
       }
     );
-
   }
 
   _checkEditMode() {
@@ -159,6 +169,18 @@ export class AccountBusinessFormComponent implements OnInit {
             this.businessForm.address.setValue(res.data.address);
             this.businessForm.status.setValue(res.data.status?.toString());
             this.selectedStatus = res.status;
+            // console.log(res.data.id);
+
+            this.vehicleService
+              .getVehiclesByBussiness(res.data.id)
+              .subscribe((vehicleBusinessResponse) => {
+                this.bussinessVehicle = vehicleBusinessResponse.data;
+                // console.log(this.bussinessVehicle);
+
+                timer(1000).subscribe(() => {
+                  this.loading = false;
+                });
+              });
           });
       }
     });

@@ -40,7 +40,7 @@
         <ul class="navbar-nav pl-4 setting-nav">
           <li class="nav-item">
             <a routerLinkActive="active" class="nav-link" (click)="onChange()">
-              <i class="ni ni-ui-04"></i> Phân loại
+              <i class="ni ni-ui-04"></i> Cấu hình
               <i
                 [class]="
                   colapse
@@ -54,8 +54,24 @@
                 <a
                   routerLinkActive="active"
                   class="nav-link"
+                  routerLink="/tours"
+                  ><i class="ni ni-send text-yellow"></i> Chuyến đi</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLinkActive="active"
+                  class="nav-link"
+                  routerLink="/destinations"
+                  ><i class="ni ni-app text-red"></i> Địa điểm du lịch</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLinkActive="active"
+                  class="nav-link"
                   routerLink="/apartments"
-                  ><i class="ni ni-planet text-blue"></i> Loại địa điểm</a
+                  ><i class="ni ni-planet text-blue"></i> Bến tàu</a
                 >
               </li>
               <li class="nav-item">
@@ -66,30 +82,15 @@
                   ><i class="ni ni-delivery-fast text-orange"></i> Loại tàu</a
                 >
               </li>
-              <li class="nav-item">
-                <a
-                  routerLinkActive="active"
-                  class="nav-link"
-                  routerLink="/ticket-type"
-                  ><i class="ni ni-paper-diploma text-info"></i> Loại vé</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  routerLinkActive="active"
-                  class="nav-link"
-                  routerLink="/ticket"
-                  ><i class="ni ni-badge text-orange"></i> Danh sách vé</a
-                >
-              </li>
-              <li class="nav-item">
+
+              <!-- <li class="nav-item">
                 <a
                   routerLinkActive="active"
                   class="nav-link"
                   routerLink="/order"
                   ><i class="ni ni-money-coins text-orange"></i> Doanh thu</a
                 >
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>

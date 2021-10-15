@@ -1,7 +1,7 @@
 <p-toast position="top-right"></p-toast>
 <div class="admin-page p-3">
   <p-card
-    [header]="editMode ? 'Edit Business Account' : 'New Business Account'"
+    [header]="'Quản lý tài khoản chủ tàu'"
     [subheader]="editMode ? '' : 'Create A new Business Account'"
   >
     <p-toolbar>
@@ -118,6 +118,10 @@
               <label for="phone">Phone</label>
               <p-skeleton></p-skeleton>
             </div>
+            <div class="p-field col-4">
+              <label for="status">Status</label>
+              <p-skeleton></p-skeleton>
+            </div>
           </div>
 
           <div class="p-fluid formgrid grid mt-5">
@@ -125,17 +129,19 @@
               <label for="email">Email</label>
               <p-skeleton></p-skeleton>
             </div>
-            <div class="p-field col-4">
+            <div class="p-field col-8">
               <label for="address">Address</label>
-              <p-skeleton></p-skeleton>
-            </div>
-            <div class="p-field col-4">
-              <label for="status">Status</label>
               <p-skeleton></p-skeleton>
             </div>
           </div>
         </form>
       </div>
     </div>
+  </p-card>
+  <div class="mt-2"></div>
+  <p-card header="Danh sách tàu sở hữu">
+    <booking-yacht-vehicle
+      [bussinessVehicleChild]="bussinessVehicle"
+    ></booking-yacht-vehicle>
   </p-card>
 </div>

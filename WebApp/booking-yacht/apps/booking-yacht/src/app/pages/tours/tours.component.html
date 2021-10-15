@@ -55,8 +55,11 @@
       layout="grid"
     >
       <ng-template class="grid" pTemplate="gridItem" let-tours>
-        <div class="col-6 md-12 mt-4" *ngIf="loading">
-          <p-card [style]="{ width: '32rem' }" styleClass="p-card-shadow">
+        <div
+          class="p-flex-sm-nowrap mt-4 p-2 col-xl-6 col-sm-12"
+          *ngIf="loading"
+        >
+          <p-card [style]="{ width: '100%' }" styleClass="p-card-shadow">
             <div class="flex justify-content-between">
               <div>
                 <p-skeleton width="10rem"></p-skeleton>
@@ -68,8 +71,8 @@
 
             <ng-template pTemplate="content">
               <p-skeleton
-                width="30rem"
-                height="7rem"
+                width="100%"
+                height="18rem"
                 styleClass="mt-2"
               ></p-skeleton>
               <p-skeleton
@@ -89,27 +92,30 @@
               ></p-skeleton>
             </ng-template>
             <ng-template pTemplate="footer">
-              <div class="flex pl-9 ml-9">
-                <p-skeleton
-                  width="20rem"
-                  height="7rem"
-                  shape="circle"
-                  size="3rem"
-                  styleClass="mt-2 "
-                ></p-skeleton
-                ><p-skeleton
-                  width="20rem"
-                  shape="circle"
-                  size="3rem"
-                  height="7rem"
-                  styleClass="mt-2 ml-2 "
-                ></p-skeleton>
-              </div>
+              <!-- <div class="flex-lg-row">
+                <div class="absolute right-4 bottom-4">
+                  <p-skeleton
+                    width="20rem"
+                    height="7rem"
+                    shape="circle"
+                    size="3rem"
+                  ></p-skeleton>
+                  <p-skeleton
+                    width="20rem"
+                    shape="circle"
+                    size="3rem"
+                    height="3rem"
+                  ></p-skeleton>
+                </div>
+              </div> -->
             </ng-template>
           </p-card>
         </div>
-        <div class="col-6 md-12 lg-12 mt-4" *ngIf="!loading">
-          <p-card [style]="{ width: '32rem' }" styleClass="p-card-shadow">
+        <div
+          class="p-flex-sm-nowrap mt-4 p-2 col-md-6 col-sm-12"
+          *ngIf="!loading"
+        >
+          <p-card [style]="{ width: '100%' }" styleClass="p-card-shadow">
             <div class="flex justify-content-between">
               <h2>
                 {{ tours.tittle | uppercase }}
@@ -139,22 +145,24 @@
               ></p-rating>
             </ng-template>
             <ng-template pTemplate="footer">
-              <div class="pl-9 ml-9">
-                <button
-                  pButton
-                  pRipple
-                  icon="pi pi-pencil"
-                  class="p-button-rounded p-button-success mr-2"
-                  (click)="editTour(tours.id)"
-                ></button>
+              <div class="flex flex-wrap">
+                <div class="absolute right-4 bottom-4">
+                  <button
+                    pButton
+                    pRipple
+                    icon="pi pi-pencil"
+                    class="p-button-rounded p-button-success mr-2"
+                    (click)="editTour(tours.id)"
+                  ></button>
 
-                <button
-                  pButton
-                  pRipple
-                  icon="pi pi-times-circle"
-                  class="p-button-rounded p-button-danger"
-                  (click)="deleteTour(tours.id)"
-                ></button>
+                  <button
+                    pButton
+                    pRipple
+                    icon="pi pi-times-circle"
+                    class="p-button-rounded p-button-danger"
+                    (click)="deleteTour(tours.id)"
+                  ></button>
+                </div>
               </div>
             </ng-template>
           </p-card>

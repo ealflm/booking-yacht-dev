@@ -1,0 +1,45 @@
+<div
+  class="card box shadow-1 mt-4"
+  *ngFor="let vehicle of bussinessVehicleChild"
+>
+  <div class="grid">
+    <div class="col-9">
+      <div class="grid">
+        <div class="col-4">
+          <img
+            src="./../../../assets/img/brand/logo-yacht.png"
+            [style]="{ width: '100%', height: '150px' }"
+            [alt]="vehicle.name"
+          />
+        </div>
+        <div class="col-8">
+          <div class="grid pt-2">
+            <div class="col-12">
+              <h3>{{ vehicle.name }}</h3>
+              <div class="heading4">
+                Loại tàu:
+                <span>{{ vehicle.idVehicleTypeNavigation.name }}</span>
+              </div>
+              <div class="heading4">
+                Số ghế: <span>{{ vehicle.seat }}</span>
+              </div>
+              <div class="heading4">
+                Mô tả: <span>{{ vehicle.descriptions }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="flex">
+        <div class="absolute right-5 top-0">
+          <p-tag
+            [severity]="vehicleStatus[vehicle.status].color"
+            [value]="vehicleStatus[vehicle.status].lable"
+          ></p-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
