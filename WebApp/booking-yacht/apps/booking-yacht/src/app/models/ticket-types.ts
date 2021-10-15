@@ -7,4 +7,5 @@ export class TicketType {
   serviceFeePercentage?: string;
   idBusinessTour?: string;
   nameBusiness?: string;
+  
 }

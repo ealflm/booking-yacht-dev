@@ -65,7 +65,7 @@ export class HomePagesComponent implements OnInit {
   //   });
   // }
   editBusiness(id: string) {
-    return this.router.navigate([`dashboard/business-account-form/${id}`]);
+    return this.router.navigate([`bussiness/business-account-form/${id}`]);
   }
   deleteBusiness(id: string) {
     this.confirmationService.confirm({

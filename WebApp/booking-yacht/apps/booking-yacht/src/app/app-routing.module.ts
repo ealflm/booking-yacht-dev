@@ -33,12 +33,12 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       { path: 'dashboard', component: HomePagesComponent },
-      // {
-      //   path: 'dashboard/business-account-form',
-      //   component: AccountBusinessFormComponent,
-      // },
+
+      
+      { path: 'bussiness', component: HomePagesComponent },
+
       {
-        path: 'dashboard/business-account-form/:id',
+        path: 'bussiness/business-account-form/:id',
         component: AccountBusinessFormComponent,
       },
       { path: 'agencies', component: AgenciesComponent },

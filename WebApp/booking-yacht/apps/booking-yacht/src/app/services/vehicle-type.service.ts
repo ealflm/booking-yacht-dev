@@ -29,10 +29,4 @@ export class VehicleTypeService {
   updateVehicle(vehicleType: VehicleType, id: string): Observable<any> {
     return this.http.put<VehicleType>(`${this.apiURL}/${id}`, vehicleType);
   }
-
-  getVehicle(id: string): Observable<any> {
-    return this.http.get(
-      `https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/${id}`
-    );
-  }
 }

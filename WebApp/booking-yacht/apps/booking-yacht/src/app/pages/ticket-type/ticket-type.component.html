@@ -44,9 +44,10 @@
           <ng-template pTemplate="header">
             <tr>
               <th class="hidden">ID</th>
-              <th pSortableColumn="name">
-                Hạng vé <p-sortIcon field="name"></p-sortIcon>
+              <th pSortableColumn="nameBusiness">
+                Chủ tàu <p-sortIcon field="nameBusiness"></p-sortIcon>
               </th>
+              <th>Hạng vé</th>
               <th pSortableColumn="price">
                 Giá vé <p-sortIcon field="price"></p-sortIcon>
               </th>
@@ -64,9 +65,11 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
             </tr>
             <tr *ngIf="!loading">
               <td class="hidden">{{ ticketType.id }}</td>
+              <td>{{ ticketType?.nameBusiness }}</td>
               <td>{{ ticketType?.name }}</td>
               <td>{{ ticketType?.price | currency: 'VND' }}</td>
               <td>{{ ticketType?.serviceFeePercentage }}%</td>
