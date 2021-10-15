@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AGENCY_STATUS } from '../../constants/STATUS';
 
 @Component({
@@ -9,7 +9,14 @@ import { AGENCY_STATUS } from '../../constants/STATUS';
 export class VehicleComponent implements OnInit {
   @Input() bussinessVehicleChild: any[] = [];
   vehicleStatus = AGENCY_STATUS;
+  @Output() pageing = new EventEmitter<any>();
   constructor() {}
 
   ngOnInit(): void {}
+  paginate(event: any) {
+    // console.log(event);
+    const page = event.page;
+    const rows = event.rows;
+    this.pageing.emit({ page, rows });
+  }
 }
