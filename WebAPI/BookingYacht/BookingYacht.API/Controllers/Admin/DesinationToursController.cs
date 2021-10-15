@@ -30,7 +30,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] DestinationTourSearchModel model)
         {
-            var destinationTours = await _destinationTourService.SearchDestinationTours(model);
+            var destinationTours = await _destinationTourService.SearchDestinationToursNavigation(model);
             return Success(destinationTours);
         }
 
@@ -38,7 +38,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var destinationTour = await _destinationTourService.GetDestinationTour(id);
+            var destinationTour = await _destinationTourService.GetDestinationTourNavigation(id);
             return Success(destinationTour);
         }
 
