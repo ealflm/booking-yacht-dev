@@ -1,3 +1,4 @@
+import { DoashboardComponent } from './pages/doashboard/doashboard.component';
 import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
 import { TicketComponent } from './pages/ticket/ticket.component';
 import { VehicleTypeComponent } from './pages/vehicle-type/vehicle-type.component';
@@ -32,9 +33,8 @@ const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
-      { path: 'dashboard', component: HomePagesComponent },
+      { path: 'dashboard', component: DoashboardComponent },
 
-      
       { path: 'bussiness', component: HomePagesComponent },
 
       {
