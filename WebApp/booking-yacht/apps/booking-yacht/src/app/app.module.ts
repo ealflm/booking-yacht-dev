@@ -37,6 +37,7 @@ import { TicketTypeFormComponent } from './components/ticket-type-form/ticket-ty
 import { TicketComponent } from './pages/ticket/ticket.component';
 import { NavMenuComponent } from './shared/nav-menu/nav-menu.component';
 import { VehicleComponent } from './shared/vehicle/vehicle.component';
+import { DoashboardComponent } from './pages/doashboard/doashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { VehicleComponent } from './shared/vehicle/vehicle.component';
     TicketComponent,
     NavMenuComponent,
     TicketFormComponent,
-    VehicleComponent
+    VehicleComponent,
+    DoashboardComponent
   ],
   imports: [
     // MaterialModule,

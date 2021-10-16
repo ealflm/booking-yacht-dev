@@ -1,0 +1,52 @@
+<div class="admin-doashboard">
+  <div class="grid mt-2 ml-1">
+    <div class="col-3">
+      <div
+        class="card box card-color shadow-1 h-8rem p-4"
+        (click)="activeCard(1)"
+        [ngClass]="{ 'card-color': selectedIndex === 1 }"
+      >
+        <h2>Tổng đơn hàng</h2>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card box shadow-1 h-8rem p-4"
+        (click)="activeCard(2)"
+        [ngClass]="{ 'card-color': selectedIndex === 2 }"
+      >
+        <h2>Đối tác</h2>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card box shadow-1 h-8rem p-4"
+        (click)="activeCard(3)"
+        [ngClass]="{ 'card-color': selectedIndex === 3 }"
+      >
+        <h2>Tổng tàu hoạt động</h2>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card box shadow-1 h-8rem p-4"
+        (click)="activeCard(4)"
+        [ngClass]="{ 'card-color': selectedIndex === 4 }"
+      >
+        <h2>Tổng số vé bán ra</h2>
+      </div>
+    </div>
+  </div>
+  <div class="grid ml-1 mt-1">
+    <div class="col-8">
+      <div class="card h-100vh p-3">
+        <h1>Recent Order</h1>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card h-100vh p-3">
+        <h1>Customer recent</h1>
+      </div>
+    </div>
+  </div>
+</div>
