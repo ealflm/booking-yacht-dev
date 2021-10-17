@@ -24,6 +24,9 @@ namespace BookingYacht.Business.Implement.Admin
             model ??= new VehicleSearchModel();
             var searchVal = await _unitOfWork.VehicleRepository.Query()
                 .Where(x => model.Name == null | x.Name.Equals(model.Name))
+                .Where(x => model.RegistrationNumber == null | x.RegistrationNumber.Equals(model.RegistrationNumber))
+                .Where(x => model.WhereProduction == null | x.WhereProduction.Equals(model.WhereProduction))
+                .Where(x => model.YearOfManufacture == null | x.YearOfManufacture==model.YearOfManufacture)
                 .Where(x => model.Descriptions == null | x.Descriptions.Equals(model.Descriptions))
                 .Where(x => model.Seat == null | x.Seat == model.Seat)
                 .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
@@ -35,6 +38,9 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new VehicleViewModel()
                 {
                     Id = x.Id,
+                    RegistrationNumber=x.RegistrationNumber,
+                    WhereProduction=x.WhereProduction,
+                    YearOfManufacture=x.YearOfManufacture,
                     Descriptions = x.Descriptions,
                     IdBusiness = x.IdBusiness,
                     IdVehicleType = x.IdVehicleType,
@@ -54,6 +60,9 @@ namespace BookingYacht.Business.Implement.Admin
                 .Include(x => x.IdVehicleTypeNavigation)
                 // .Include(x => x.IdBusinessNavigation)
                 .Where(x => model.Name == null | x.Name.Contains(model.Name))
+                .Where(x => model.RegistrationNumber == null | x.RegistrationNumber.Equals(model.RegistrationNumber))
+                .Where(x => model.WhereProduction == null | x.WhereProduction.Equals(model.WhereProduction))
+                .Where(x => model.YearOfManufacture == null | x.YearOfManufacture == model.YearOfManufacture)
                 .Where(x => model.Descriptions == null | x.Descriptions.Equals(model.Descriptions))
                 .Where(x => model.Seat == null | x.Seat == model.Seat)
                 .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
@@ -74,6 +83,9 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new VehicleViewModel()
                 {
                     Id = x.Id,
+                    RegistrationNumber = x.RegistrationNumber,
+                    WhereProduction = x.WhereProduction,
+                    YearOfManufacture = x.YearOfManufacture,
                     Descriptions = x.Descriptions,
                     IdBusiness = x.IdBusiness,
                     IdVehicleType = x.IdVehicleType,
@@ -98,6 +110,9 @@ namespace BookingYacht.Business.Implement.Admin
                 .Add(new Vehicle()
                 {
                     Id = model.Id,
+                    RegistrationNumber = model.RegistrationNumber,
+                    WhereProduction = model.WhereProduction,
+                    YearOfManufacture = model.YearOfManufacture,
                     Descriptions = model.Descriptions,
                     IdBusiness = model.IdBusiness,
                     IdVehicleType = model.IdVehicleType,
@@ -115,6 +130,9 @@ namespace BookingYacht.Business.Implement.Admin
                 .Update(new Vehicle()
                 {
                     Id = id,
+                    RegistrationNumber = model.RegistrationNumber,
+                    WhereProduction = model.WhereProduction,
+                    YearOfManufacture = model.YearOfManufacture,
                     Descriptions = model.Descriptions,
                     IdBusiness = model.IdBusiness,
                     IdVehicleType = model.IdVehicleType,
