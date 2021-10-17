@@ -15,5 +15,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<Guid> AddTour(TourViewModel model);
         Task UpdateTour(Guid id, TourViewModel model);
         Task DeleteTour(Guid id);
+       
     }
 }
