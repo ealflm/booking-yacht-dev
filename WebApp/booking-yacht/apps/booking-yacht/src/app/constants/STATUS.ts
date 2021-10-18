@@ -85,6 +85,16 @@ export const AGENCY_STATUS: any = {
     color: 'warning',
   },
 };
+export const ORDER_STATUS: any = {
+  1: {
+    lable: 'đã thanh toán',
+    color: 'success',
+  },
+  2: {
+    lable: 'chưa thanh toán',
+    color: 'warning',
+  },
+};
 
 export const STATUS = [
   { id: '0', name: 'None' },

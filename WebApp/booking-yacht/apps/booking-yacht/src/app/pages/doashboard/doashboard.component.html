@@ -39,13 +39,104 @@
   </div>
   <div class="grid ml-1 mt-1">
     <div class="col-8">
-      <div class="card h-100vh p-3">
-        <h1>Recent Order</h1>
+      <div class="card p-3">
+        <h1>Khách hàng đặt gần đây</h1>
+        <p-table
+          #dt
+          [value]="order"
+          [rows]="10"
+          [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[5, 10, 20]"
+          [paginator]="true"
+          [filterDelay]="0"
+          [globalFilterFields]="['agencyName', 'status']"
+          styleClass="p-datatable"
+          responsiveLayout="scroll"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="hidden">ID</th>
+              <th pSortableColumn="agencyName">
+                Tên khách hàng <p-sortIcon field="agencyName"></p-sortIcon>
+              </th>
+              <!-- <th pSortableColumn="dateOrder">
+                Ngày đặt <p-sortIcon field="dateOrder"></p-sortIcon>
+              </th> -->
+              <th>Số người</th>
+              <th>Trạng thái</th>
+              <th pSortableColumn="totalPrice">
+                Tổng tiền<p-sortIcon field="totalPrice"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-order>
+            <tr *ngIf="loading">
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+            </tr>
+            <tr *ngIf="!loading">
+              <td class="hidden">{{ order.id }}</td>
+              <td>{{ order.agencyName }}</td>
+              <td>{{ order.quantityOfPerson }}</td>
+              <td class="p-ai-center p-pl-2">
+                <p-tag
+                  [value]="orderStatus[order.status]?.lable"
+                  [severity]="orderStatus[order.status]?.color"
+                ></p-tag>
+              </td>
+              <td>{{ order.totalPrice | currency: 'VND' }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
     <div class="col-4">
-      <div class="card h-100vh p-3">
-        <h1>Customer recent</h1>
+      <div class="card p-3">
+        <h1>Khách hàng dùng nhiều</h1>
+        <p-table
+          #dt
+          [value]="order"
+          [rows]="10"
+          [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[5, 10, 20]"
+          [paginator]="true"
+          [filterDelay]="0"
+          [globalFilterFields]="['agencyName', 'status']"
+          styleClass="p-datatable"
+          responsiveLayout="scroll"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="hidden">ID</th>
+              <th pSortableColumn="agencyName">
+                Tên khách hàng <p-sortIcon field="agencyName"></p-sortIcon>
+              </th>
+              <th>Điện thoại</th>
+              <th pSortableColumn="dateOrder">
+                Ngày đặt <p-sortIcon field="dateOrder"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-order>
+            <tr *ngIf="loading">
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+              <td><p-skeleton></p-skeleton></td>
+            </tr>
+            <tr *ngIf="!loading">
+              <td class="hidden">{{ order.id }}</td>
+              <td>{{ order.idAgencyNavigation.name }}</td>
+              <td>
+                {{ order.idAgencyNavigation.phoneNumber }}
+              </td>
+              <td>{{ order.dateOrder | date }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
   </div>
