@@ -17,28 +17,28 @@ namespace BookingYacht.API.Controllers.Business
     {
         public VehiclesController(IVehicleService service)
         {
-            _agencyService = service;
+            _service = service;
         }
 
-        private readonly IVehicleService _agencyService;
+        private readonly IVehicleService _service;
         
         [HttpGet()]
         public async Task<IActionResult> Search([FromQuery] VehicleSearchModel model)
         {
-            var vehicles = await _agencyService.SearchVehicles(model);
+            var vehicles = await _service.SearchVehicles(model);
             return Success(vehicles);
         }  
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var vehicles = await _agencyService.GetVehicle(id);
+            var vehicles = await _service.GetVehicle(id);
             return Success(vehicles);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] VehicleViewModel model)
         {
-            var vehicle = await _agencyService.AddVehicle(model);
+            var vehicle = await _service.AddVehicle(model);
             return Success(vehicle);
         }
 
@@ -46,15 +46,21 @@ namespace BookingYacht.API.Controllers.Business
         public async Task<IActionResult> Update(Guid id, 
                                                 [FromBody] VehicleViewModel model)
         {
-            await _agencyService.UpdateVehicle(id, model);
+            await _service.UpdateVehicle(id, model);
             return Success();
         }
         
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Update(Guid id)
         {
-            await _agencyService.DeleteVehicle(id);
+            await _service.DeleteVehicle(id);
             return Success();
+        }
+        
+        [HttpDelete("count")]
+        public async Task<IActionResult> Count()
+        {
+            return Success(await  _service.Count());
         }
         
     }
