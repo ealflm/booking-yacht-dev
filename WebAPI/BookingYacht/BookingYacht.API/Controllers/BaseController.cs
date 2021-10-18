@@ -1,4 +1,5 @@
-﻿using BookingYacht.API.Utilities.Response;
+﻿using System.Threading.Tasks;
+using BookingYacht.API.Utilities.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers
@@ -8,7 +9,7 @@ namespace BookingYacht.API.Controllers
         protected const string Version = "v1.0";
 
         [NonAction]
-        public virtual OkObjectResult Success(object value)
+        public OkObjectResult Success(object value)
         {
             var model = new SuccessModel()
             {

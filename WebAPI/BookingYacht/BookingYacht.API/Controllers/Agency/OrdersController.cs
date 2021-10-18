@@ -55,6 +55,6 @@ namespace BookingYacht.API.Controllers.Agency
             var delete = await _service.Delete(id);
             return delete ? Success() : Fail("The Order's not exist");
         }
-        
+
     }
 }

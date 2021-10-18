@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using BookingYacht.Business.Enum;
 using BookingYacht.Business.Interfaces.Admin;
@@ -45,7 +46,6 @@ namespace BookingYacht.Business.Implement.Admin
     
     public class OrdersService : BaseService, IOrdersService
     {
-        private const int Count = (int)CountElement.AtLeast;
 
         public OrdersService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -143,6 +143,11 @@ namespace BookingYacht.Business.Implement.Admin
             
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<int> Count()
+        {
+            return await _unitOfWork.OrderRepository.Query().CountAsync();    
         }
     }
 }

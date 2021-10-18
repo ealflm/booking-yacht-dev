@@ -5,6 +5,7 @@ using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace BookingYacht.API.Controllers.Admin
 {
@@ -35,5 +36,11 @@ namespace BookingYacht.API.Controllers.Admin
             return order != null ? Success(order) : Fail("The Order's not exist");
         }
         
+        [HttpGet("count")]
+        public async Task<IActionResult> Count()
+        {
+            var result = await _service.Count();
+            return Success(result);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Threading.Tasks;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
@@ -22,6 +23,9 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<bool> Update(Guid id, OrdersViewModel model);
 
         Task<bool> Delete(Guid id);
+        
+        //Customise: Count Of order to FE page:
+        Task<int> Count();
 
     }
 }
