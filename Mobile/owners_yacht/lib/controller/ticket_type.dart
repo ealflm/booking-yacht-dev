@@ -20,7 +20,7 @@ class TicketTypeController extends GetxController {
     try {
       final response = await http.get(
         Uri.parse(
-            "https://booking-yacht.azurewebsites.net/api/v1.0/business/trips"),
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token"
@@ -32,9 +32,8 @@ class TicketTypeController extends GetxController {
         if (tickets.data != null) {
           listTicketType = tickets.data as List<TicketType>;
         }
-
         update();
-        Get.to(TicketType());
+        // Get.to(TicketType());
       } else {
         return null;
       }
@@ -53,7 +52,7 @@ class TicketTypeController extends GetxController {
     try {
       final response = await http.get(
         Uri.parse(
-            "https://booking-yacht.azurewebsites.net/api/v1.0/business/tours/${id}"),
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types/${id}"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token"

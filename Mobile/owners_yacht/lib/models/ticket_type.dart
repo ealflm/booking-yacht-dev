@@ -41,10 +41,10 @@ class TicketType {
 
   String? id;
   String? name;
-  int? price;
+  double? price;
   int? status;
-  int? commissionFeePercentage;
-  int? serviceFeePercentage;
+  double? commissionFeePercentage;
+  double? serviceFeePercentage;
   String? idBusinessTour;
 
   factory TicketType.fromJson(Map<String, dynamic> json) => TicketType(

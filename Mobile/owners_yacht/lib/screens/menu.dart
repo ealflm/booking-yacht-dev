@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/controller/qr_code.dart';
+import 'package:owners_yacht/controller/tour.dart';
+import 'package:owners_yacht/controller/trip.dart';
 import 'package:owners_yacht/controller/yacht.dart';
 import 'package:owners_yacht/screens/qr_code.dart';
 import 'package:owners_yacht/widgets/app_bar.dart';
@@ -11,6 +13,8 @@ class Menu extends StatelessWidget {
   final LoginController loginController = Get.find<LoginController>();
   final YachtController yachtController = Get.find<YachtController>();
   final QRCodeController qrCodeController = Get.find<QRCodeController>();
+  final TourController tourController = Get.find<TourController>();
+  final TripController tripController = Get.find<TripController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,32 +27,6 @@ class Menu extends StatelessWidget {
         child: SettingsList(
           sections: [
             SettingsSection(
-              title: 'Trip',
-              tiles: [
-                SettingsTile(
-                  title: 'Trip',
-                  leading: const Icon(Icons.card_travel),
-                  onPressed: (BuildContext context) {},
-                ),
-              ],
-            ),
-            SettingsSection(
-              title: 'Vé',
-              tiles: [
-                SettingsTile(
-                  title: 'Vé',
-                  leading: const Icon(Icons.money_rounded),
-                  onPressed: (BuildContext context) {},
-                ),
-                SettingsTile(
-                  title: 'Quét mã QR',
-                  leading: const Icon(Icons.qr_code_2_outlined),
-                  onPressed: (BuildContext context) =>
-                      qrCodeController.scanQRCode(),
-                ),
-              ],
-            ),
-            SettingsSection(
               title: 'Tàu',
               tiles: [
                 SettingsTile(
@@ -60,7 +38,28 @@ class Menu extends StatelessWidget {
               ],
             ),
             SettingsSection(
-              title: 'Tài khoảng',
+              title: 'Mã QR',
+              tiles: [
+                SettingsTile(
+                  title: 'Quét mã QR',
+                  leading: const Icon(Icons.qr_code_2_outlined),
+                  onPressed: (BuildContext context) =>
+                      qrCodeController.scanQRCode(),
+                ),
+              ],
+            ),
+            SettingsSection(
+              title: 'Tour',
+              tiles: [
+                SettingsTile(
+                  title: 'Tour',
+                  leading: const Icon(Icons.tour_outlined),
+                  onPressed: (BuildContext context) => tourController.getTour(),
+                ),
+              ],
+            ),
+            SettingsSection(
+              title: 'Tài khoản',
               tiles: [
                 SettingsTile(
                   title: 'Đăng xuất',

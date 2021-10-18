@@ -24,8 +24,8 @@ class Yachts extends StatelessWidget {
             : Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: ListView.builder(
-                  itemBuilder: (ctx, i) => YachtCard(controller.items[i]),
-                  itemCount: controller.items.length,
+                  itemBuilder: (ctx, i) => YachtCard(controller.listYacht[i]),
+                  itemCount: controller.listYacht.length,
                 ),
               ),
       ),

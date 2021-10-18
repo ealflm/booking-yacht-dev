@@ -7,17 +7,17 @@ String yachtToJson(Yacht data) => json.encode(data.toJson());
 
 class YachtReponse {
   YachtReponse({
-    required this.data,
+    this.data,
   });
 
-  List<Yacht> data;
+  List<Yacht>? data;
 
   factory YachtReponse.fromJson(Map<String, dynamic> json) => YachtReponse(
         data: List<Yacht>.from(json["data"].map((x) => Yacht.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 

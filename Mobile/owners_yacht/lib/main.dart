@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/screens/menu.dart';
+import 'package:owners_yacht/screens/tours.dart';
+import 'screens/ticket_type.dart';
+import 'package:owners_yacht/screens/trips.dart';
 import 'screens/home.dart';
 import 'screens/qr_code.dart';
-import 'screens/transaction.dart';
+import 'screens/trips.dart';
 import 'screens/verification.dart';
 import 'screens/yachts.dart';
 import 'binding/bindings.dart';
@@ -27,11 +30,6 @@ void main() async {
           binding: Binding(),
         ),
         GetPage(
-          name: '/transaction',
-          page: () => Transaction(),
-          binding: Binding(),
-        ),
-        GetPage(
           name: '/yachts',
           page: () => Yachts(),
           binding: Binding(),
@@ -42,9 +40,25 @@ void main() async {
           binding: Binding(),
         ),
         GetPage(
-            name: '/verification',
-            page: () => Verification(),
-            binding: Binding()),
+          name: '/verification',
+          page: () => Verification(),
+          binding: Binding(),
+        ),
+        GetPage(
+          name: '/tours',
+          page: () => Tours(),
+          binding: Binding(),
+        ),
+        GetPage(
+          name: '/ticket_type',
+          page: () => TicketType(),
+          binding: Binding(),
+        ),
+        GetPage(
+          name: '/trip',
+          page: () => Trips(),
+          binding: Binding(),
+        ),
         GetPage(
           name: '/menu',
           page: () => Menu(),

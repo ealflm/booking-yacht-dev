@@ -58,7 +58,6 @@ class TicketController extends GetxController {
           ticketDetail = ticket.data as Ticket;
         }
         update();
-        // Get.to();
       } else {}
     } catch (error) {
       print('loi r');
