@@ -31,6 +31,8 @@ using BookingYacht.API.Utilities.ContractResolver;
 using System;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using System.Text.RegularExpressions;
+using BookingYacht.Business.Implement.Admin.CustomizeService;
+using BookingYacht.Business.Interfaces.Admin.CustomizeServices;
 
 namespace BookingYacht.API
 {
@@ -173,7 +175,7 @@ namespace BookingYacht.API
             services.AddTransient<Business.Interfaces.Business.ITicketTypeService, Business.Implement.Business.TicketTypeService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IBusinessTourService, BusinessTourService>();
-            services.AddTransient<ITourDestination, TourDestinationService>();
+            services.AddTransient<ITourDestinationService, TourDestinationService>();
 
         }
 

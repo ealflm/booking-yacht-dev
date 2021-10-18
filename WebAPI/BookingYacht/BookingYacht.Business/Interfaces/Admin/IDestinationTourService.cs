@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingYacht.Business.SearchModels.CustomizeSearchModels;
 using BookingYacht.Data.Models;
 
 namespace BookingYacht.Business.Interfaces.Admin

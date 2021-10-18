@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using BookingYacht.Business.Enum;
 using BookingYacht.Data.Models;
 
-namespace BookingYacht.Business.ViewModels
+namespace BookingYacht.Business.ViewModels.CustomModels
 {
     public class TourDestinationListViewModel    
     {
         public Guid IdTour { get; set; }
-        public Status Status { get; set; }
-        public List<DestinyViewModel> Destination { get; set; } = new List<DestinyViewModel>();
+        public List<TourDestinationViewModel> Destination { get; set; } = new();
     }
 }

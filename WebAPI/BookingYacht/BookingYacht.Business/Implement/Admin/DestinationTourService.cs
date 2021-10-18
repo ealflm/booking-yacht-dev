@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingYacht.Business.Enum;
+using BookingYacht.Business.SearchModels.CustomizeSearchModels;
 
 namespace BookingYacht.Business.Implement.Admin
 {
@@ -26,10 +27,8 @@ namespace BookingYacht.Business.Implement.Admin
                 Id = model.Id,
                 IdDestination = model.IdDestination,
                 IdTour = model.IdTour,
-                Status = model.Status,
-                Way = model.Way
+                Order = model.Order
             };
-            destinationTour.Status = (int)Status.ENABLE;
             await _unitOfWork.DestinationTourRepository.Add(destinationTour);
             await _unitOfWork.SaveChangesAsync();
             return destinationTour.Id;
@@ -44,10 +43,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
-                    Status = x.Status,
-                    Way=x.Way
+                    Order=x.Order
                 }).FirstOrDefaultAsync();
-            destinationTour.Status = (int)Status.DISABLE;
             _unitOfWork.DestinationTourRepository.Update(destinationTour);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -61,8 +58,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
-                    Status = x.Status,
-                    Way=x.Way
+                    Order=x.Order
                 }).FirstOrDefaultAsync();
             return destinationTour;
         }
@@ -88,15 +84,13 @@ namespace BookingYacht.Business.Implement.Admin
             var destinationTour = await _unitOfWork.DestinationTourRepository.Query()
                 .Where(x => model.IdDestination == null | x.IdDestination.Equals(model.IdDestination))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
-                .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
-                .Where(x => model.Way == 0 | x.Way == model.Way)
+                .Where(x => model.Order == 0 | x.Order == model.Order)
                 .Select(x => new DestinationTourViewModel()
                 {
                     Id = x.Id,
                     IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
-                    Status = x.Status,
-                    Way= x.Way
+                    Order= x.Order
                 })
                 .OrderBy(x => x.Id)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
@@ -116,8 +110,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Include(x => x.IdTourNavigation)
                 .Where(x => model.IdDestination == null | x.IdDestination.Equals(model.IdDestination))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
-                .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
-                .Where(x => model.Way == 0 | x.Way == model.Way)
+                .Where(x => model.Order == 0 | x.Order == model.Order)
                 .OrderBy(x => x.Id)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.DestinationTourRepository.Query().Count())
@@ -132,8 +125,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Id = id,
                 IdDestination = model.IdDestination,
                 IdTour = model.IdTour,
-                Status = model.Status,
-                Way= model.Way
+                Order= model.Order
             };
             _unitOfWork.DestinationTourRepository.Update(destinationTour);
             await _unitOfWork.SaveChangesAsync();
