@@ -1,21 +1,21 @@
 import 'package:get/get.dart';
-import 'package:owners_yacht/models/transaction.dart';
+import 'package:owners_yacht/models/destinations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class TransactionController extends GetxController {
+class TicketController extends GetxController {
   var isLoading = true.obs;
-  List<Transaction> listTransaction = <Transaction>[].obs;
-  var transactionDetail = Transaction();
+  List<Destinations> listDestinations = <Destinations>[].obs;
+  var destinationsDetail = Destinations();
 
-  Future<List<Transaction>> getTransaction() async {
+  Future<List<Destinations>> getTicket() async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     try {
       final response = await http.get(
         Uri.parse(
-            "https://booking-yacht.azurewebsites.net/api/v1.0/business/orders"),
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/destinations"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token"
@@ -23,9 +23,9 @@ class TransactionController extends GetxController {
       );
       if (response.statusCode == 200) {
         var jsonString = response.body;
-        var transactions = transactionReponseFromJson(jsonString);
-        if (transactions.data != null) {
-          listTransaction = transactions.data as List<Transaction>;
+        var destinations = destinationsReponseFromJson(jsonString);
+        if (destinations.data != null) {
+          listDestinations = destinations.data as List<Destinations>;
         }
         update();
         // Get.to();
@@ -35,17 +35,17 @@ class TransactionController extends GetxController {
     } finally {
       isLoading(false);
     }
-    return listTransaction;
+    return listDestinations;
   }
 
-  Future<Transaction> getTransactionDetail(String id) async {
+  Future<Destinations> getTicketDetail(String id) async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     try {
       final response = await http.get(
         Uri.parse(
-            "https://booking-yacht.azurewebsites.net/api/v1.0/business/orders/${id}"),
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/destinations/${id}"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token"
@@ -53,9 +53,9 @@ class TransactionController extends GetxController {
       );
       if (response.statusCode == 200) {
         var jsonString = response.body;
-        var transactions = transactionReponseFromJson(jsonString);
-        if (transactions.data != null) {
-          transactionDetail = transactions.data as Transaction;
+        var destinations = destinationsReponseFromJson(jsonString);
+        if (destinations.data != null) {
+          destinationsDetail = destinations.data as Destinations;
         }
         update();
         // Get.to();
@@ -65,6 +65,6 @@ class TransactionController extends GetxController {
     } finally {
       isLoading(false);
     }
-    return transactionDetail;
+    return destinationsDetail;
   }
 }

@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:owners_yacht/controller/ticket_type.dart';
+import 'package:owners_yacht/controller/tour.dart';
+import 'package:owners_yacht/controller/trip.dart';
 import '/controller/menu.dart';
 import '/controller/home.dart';
 import '/controller/login.dart';
@@ -16,6 +19,9 @@ class Binding implements Bindings {
     Get.lazyPut(() => YachtController());
     Get.lazyPut(() => QRCodeController());
     Get.lazyPut(() => VerificationController());
+    Get.lazyPut(() => TripController());
+    Get.lazyPut(() => TourController());
+    Get.lazyPut(() => TicketTypeController());
     Get.lazyPut(() => MenuController());
   }
 }

@@ -54,25 +54,59 @@ class YachtDetail extends StatelessWidget {
                         child: SafeArea(
                           bottom: true,
                           top: false,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.network(
-                                  'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
-                              YachtInformation(
-                                  "Ghế",
-                                  (controller.yachtDetail.seat != null)
-                                      ? '${controller.yachtDetail.seat}'
-                                      : 'No'),
-                              YachtInformation(
-                                  "Trạng thái",
-                                  (controller.yachtDetail.status != null)
-                                      ? '${controller.yachtDetail.status}'
-                                      : 'No'),
-                              YachtInformation("Mô tả",
-                                  controller.yachtDetail.descriptions!),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 1.0, bottom: 1.0, left: 10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Image.network(
+                                    'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      YachtInformation(
+                                          "Ghế",
+                                          (controller.yachtDetail.seat != null)
+                                              ? '${controller.yachtDetail.seat}'
+                                              : 'No'),
+                                      YachtInformation(
+                                          "Trạng thái",
+                                          (controller.yachtDetail.status !=
+                                                  null)
+                                              ? '${controller.yachtDetail.status}'
+                                              : 'No'),
+                                      YachtInformation("Mô tả",
+                                          controller.yachtDetail.descriptions!),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+                          // Column(
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     Image.network(
+                          //         'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
+                          //     YachtInformation(
+                          //         "Ghế",
+                          //         (controller.yachtDetail.seat != null)
+                          //             ? '${controller.yachtDetail.seat}'
+                          //             : 'No'),
+                          //     YachtInformation(
+                          //         "Trạng thái",
+                          //         (controller.yachtDetail.status != null)
+                          //             ? '${controller.yachtDetail.status}'
+                          //             : 'No'),
+                          //     YachtInformation("Mô tả",
+                          //         controller.yachtDetail.descriptions!),
+                          //   ],
+                          // ),
                         ),
                       ),
                     ],

@@ -11,13 +11,13 @@ import 'dart:convert';
 
 class YachtController extends GetxController {
   var isLoading = true.obs;
-  List<Yacht> items = <Yacht>[].obs;
+  List<Yacht> listYacht = <Yacht>[].obs;
   List<Category> listCategory = <Category>[].obs;
   var yachtDetail = Yacht();
   String id = "";
-  var categoryController = "";
-  // String type = "";
   bool isAdding = true;
+
+  var categoryController = "";
   TextEditingController nameController = TextEditingController();
   TextEditingController seatController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -52,8 +52,8 @@ class YachtController extends GetxController {
       if (response.statusCode == 200) {
         var jsonString = response.body;
         var yachts = yachtFromJson(jsonString);
-        if (yachts.data.isNotEmpty) {
-          items = yachts.data as List<Yacht>;
+        if (yachts.data != null) {
+          listYacht = yachts.data as List<Yacht>;
         }
         getCategory();
         update();
@@ -66,7 +66,7 @@ class YachtController extends GetxController {
     } finally {
       isLoading(false);
     }
-    return items;
+    return listYacht;
   }
 
   Future<List<Category>?> getCategory() async {
@@ -97,7 +97,7 @@ class YachtController extends GetxController {
     return listCategory;
   }
 
-  Future<Yacht> getYacht(String id) async {
+  Future<Yacht> getYachtDetail(String id) async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -164,8 +164,6 @@ class YachtController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? token = prefs.getString('token');
       final response = await http.delete(
           Uri.parse(
               "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/${id}"),
@@ -211,7 +209,7 @@ class YachtController extends GetxController {
           body: body,
         );
         if (response.statusCode == 200) {
-          getYacht(id);
+          getYachtDetail(id);
           fetchYachts();
           update();
           Get.back();
@@ -219,14 +217,14 @@ class YachtController extends GetxController {
           print('loi o save roi ');
         }
       } else {
-        String body = json.encode({
-          'name': nameController.text,
-          'seat': seatController.text,
-          'descriptions': descriptionsController.text,
-          'idVehicleType': categoryController,
-          'idBusiness': '26f7f596-a747-4965-8cb1-36eadd73ee49',
-          'status': statusController.text,
-        });
+        Yacht yacht = Yacht(
+            name: nameController.text,
+            seat: int.parse(seatController.text),
+            descriptions: descriptionsController.text,
+            idVehicleType: categoryController,
+            idBusiness: '26f7f596-a747-4965-8cb1-36eadd73ee49',
+            status: int.parse(statusController.text));
+        String body = json.encode(yacht);
 
         final response = await http.post(
           Uri.parse(
