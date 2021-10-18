@@ -9,6 +9,6 @@ namespace BookingYacht.Business.VNPay
     public class OrderRequest
     {
         public string Ip { get; set; }
-        public long Amount { get; set; }
+        public Guid IdOrder { get; set; }
     }
 }

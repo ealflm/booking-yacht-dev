@@ -10,6 +10,8 @@
         REJECT=5,
         NOT_SCANNED=6,
         SCANNED=7,
-        CANCEL=8
+        CANCEL=8,
+        COMPLETELY_PAYMENT=9,
+        COMPLETELY_ORDER=10
     }
 }
