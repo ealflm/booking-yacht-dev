@@ -43,7 +43,6 @@
       </ng-template>
     </p-toolbar>
 
-    <hr />
     <p-dataView
       #dv
       [value]="tours"
@@ -115,9 +114,13 @@
           class="p-flex-sm-nowrap mt-4 p-2 col-md-6 col-sm-12"
           *ngIf="!loading"
         >
-          <p-card [style]="{ width: '100%' }" styleClass="p-card-shadow">
+          <div
+            [style]="{ width: '100%', height: '80vh' }"
+            styleClass="p-card-shadow"
+            class="card box shadow-1"
+          >
             <div class="flex justify-content-between">
-              <h2>
+              <h2 class="pl-3 pt-3">
                 {{ tours.tittle | uppercase }}
               </h2>
               <div>
@@ -127,45 +130,42 @@
                 ></p-tag>
               </div>
             </div>
-            <p-divider type="dotted"></p-divider>
-
-            <ng-template pTemplate="content">
+            <div class="pl-3 pr-3">
               <img
                 alt="Card"
                 class="tour-image"
                 src="../../../assets/img/tours/background.jpg"
               />
-              <p-divider type="dashed"></p-divider>
-
-              <p [innerHTML]="tours.descriptions"></p>
+            </div>
+            <p-divider type="dashed"></p-divider>
+            <div class="pl-3 pr-3">
               <p-rating
                 [ngModel]="4"
                 [readonly]="true"
                 [cancel]="false"
               ></p-rating>
-            </ng-template>
-            <ng-template pTemplate="footer">
-              <div class="flex flex-wrap">
-                <div class="absolute right-4 bottom-4">
-                  <button
-                    pButton
-                    pRipple
-                    icon="pi pi-pencil"
-                    class="p-button-rounded p-button-success mr-2"
-                    (click)="editTour(tours.id)"
-                  ></button>
+              <span [innerHTML]="tours.descriptions"></span>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="absolute right-4 bottom-4">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editTour(tours.id)"
+                ></button>
 
-                  <button
-                    pButton
-                    pRipple
-                    icon="pi pi-times-circle"
-                    class="p-button-rounded p-button-danger"
-                    (click)="deleteTour(tours.id)"
-                  ></button>
-                </div>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-times-circle"
+                  class="p-button-rounded p-button-danger"
+                  (click)="deleteTour(tours.id)"
+                ></button>
               </div>
-            </ng-template>
-          </p-card>
+            </div>
+          </div>
         </div>
       </ng-template>
     </p-dataView>
