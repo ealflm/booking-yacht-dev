@@ -1,3 +1,4 @@
+import { timer } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AGENCY_STATUS } from '../../constants/STATUS';
 
@@ -10,7 +11,12 @@ export class VehicleComponent implements OnInit {
   @Input() bussinessVehicleChild: any[] = [];
   vehicleStatus = AGENCY_STATUS;
   @Output() pageing = new EventEmitter<any>();
-  constructor() {}
+  loading = true;
+  constructor() {
+    timer(1000).subscribe(() => {
+      this.loading = false;
+    });
+  }
 
   ngOnInit(): void {}
   paginate(event: any) {
