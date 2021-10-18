@@ -144,5 +144,19 @@ namespace BookingYacht.Business.Implement.Admin
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> UpdateStatus(Guid id, Status status)
+        {
+            var order = _unitOfWork.OrderRepository.GetById(id).Result;
+
+            if (order == null) return false;
+
+            order.Status = (int)status;
+
+            _unitOfWork.OrderRepository.Update(order);
+
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
     }
 }

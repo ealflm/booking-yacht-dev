@@ -22,6 +22,7 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<bool> Update(Guid id, OrdersViewModel model);
 
         Task<bool> Delete(Guid id);
+        Task<bool> UpdateStatus(Guid id, Enum.Status status);
 
     }
 }

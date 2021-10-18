@@ -1,4 +1,7 @@
-﻿using BookingYacht.Business.VNPay;
+﻿using BookingYacht.Business.Enum;
+using BookingYacht.Business.Interfaces.Admin;
+using BookingYacht.Business.ViewModels;
+using BookingYacht.Business.VNPay;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -18,9 +21,12 @@ namespace BookingYacht.API.Controllers.Agency
     public class VnPayController : BaseAgencyController
     {
         IConfiguration _configuration;
-        public VnPayController(IConfiguration configuration)
+        private readonly IOrdersService _service;
+
+        public VnPayController(IConfiguration configuration, IOrdersService service)
         {
             _configuration = configuration;
+            _service = service;
         }
 
         // GET: api/<VnPayController>
@@ -32,21 +38,21 @@ namespace BookingYacht.API.Controllers.Agency
             string returnUrl =Request.Scheme+"://" +Request.Host+ _configuration["VnPay:ReturnPath"];
             string tmnCode = _configuration["VnPay:TmnCode"];
             string hashSecret = _configuration["VnPay:HashSecret"];
-            
+            OrdersViewModel model = await _service.Get(orderRequest.IdOrder);
             VnPayLibrary pay = new VnPayLibrary();
 
             pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
             pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
             pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-            pay.AddRequestData("vnp_Amount",  orderRequest.Amount.ToString()+"00"); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
-            pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
+            pay.AddRequestData("vnp_Amount",  model.TotalPrice.ToString()+"00"); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+            pay.AddRequestData("vnp_CreateDate", model.OrderDate.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
             pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
             pay.AddRequestData("vnp_IpAddr", orderRequest.Ip); //Địa chỉ IP của khách hàng thực hiện giao dịch
             pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
-            pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang"); //Thông tin mô tả nội dung thanh toán
+            pay.AddRequestData("vnp_OrderInfo", model.AgencyName+" thanh toan hoa don "+ model.Id); //Thông tin mô tả nội dung thanh toán
             pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
             pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
-            pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
+            pay.AddRequestData("vnp_TxnRef", orderRequest.IdOrder.ToString()); //mã hóa đơn
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
@@ -72,7 +78,7 @@ namespace BookingYacht.API.Controllers.Agency
                     }
                 }
 
-                long orderId =  Convert.ToInt64(Request.Query["VnpTxnRef"]);
+                Guid orderId =  Guid.Parse(Request.Query["VnpTxnRef"]);
                 long vnpayTranId = Convert.ToInt64(Request.Query["VnpTransactionNo"]);
                 string vnp_ResponseCode = Request.Query["VnpResponseCode"];
                 string vnp_TransactionStatus = Request.Query["VnpTransactionStatus"];
@@ -86,6 +92,7 @@ namespace BookingYacht.API.Controllers.Agency
                 {
                     if (vnp_ResponseCode == "00" && vnp_TransactionStatus == "00")
                     {
+                        await _service.UpdateStatus(orderId, Status.COMPLETELY_PAYMENT);
                         //Thanh toan thanh cong
                         return Success("Success");
                     }
