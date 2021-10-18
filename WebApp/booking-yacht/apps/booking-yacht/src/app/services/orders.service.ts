@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
 
@@ -12,5 +12,13 @@ export class OrdersService {
 
   getAllOrders(): Observable<any> {
     return this.http.get(this.apiURL);
+  }
+  getCustomerRecent(amountItem?: number): Observable<any> {
+    let params = new HttpParams();
+    if (amountItem) {
+      params = params.append('amount-item', amountItem);
+      params = params.append('page', 1);
+    }
+    return this.http.get(this.apiURL, { params: params });
   }
 }

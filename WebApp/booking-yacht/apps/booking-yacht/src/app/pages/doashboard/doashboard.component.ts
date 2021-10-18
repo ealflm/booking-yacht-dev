@@ -13,12 +13,19 @@ export class DoashboardComponent implements OnInit {
   selectedIndex?: number = 1;
   loading = true;
   orderStatus = ORDER_STATUS;
+  customter: any[] = [];
   constructor(private orderService: OrdersService) {}
 
   ngOnInit(): void {
+    this.getCustomersRecent();
     this.orderService.getAllOrders().subscribe((orderRes) => {
       this.order = orderRes.data;
       timer(1000).subscribe(() => (this.loading = false));
+    });
+  }
+  getCustomersRecent() {
+    this.orderService.getCustomerRecent(11).subscribe((customerRes) => {
+      this.customter = customerRes.data;
     });
   }
   activeCard(id: any) {
