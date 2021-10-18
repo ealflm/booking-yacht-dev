@@ -59,7 +59,6 @@ namespace BookingYacht.Business.Implement.Admin
     }
     public class AgencyService : BaseService, IAgencyService
     {
-        private const int Count = (int) CountElement.AtLeast;
         public AgencyService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
@@ -117,7 +116,14 @@ namespace BookingYacht.Business.Implement.Admin
             
             return first.Status == 2;
         }
+
+        public async Task<int> Count()
+        {
+            return await _unitOfWork.AgencyRepository.Query().CountAsync();
+        }
     }
+    
+    
 
    
 }
