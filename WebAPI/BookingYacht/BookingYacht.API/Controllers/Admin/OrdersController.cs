@@ -36,7 +36,7 @@ namespace BookingYacht.API.Controllers.Admin
             return order != null ? Success(order) : Fail("The Order's not exist");
         }
         
-        [HttpGet("count")]
+        [HttpGet("total")]
         public async Task<IActionResult> Count()
         {
             var result = await _service.Count();

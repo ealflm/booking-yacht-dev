@@ -16,5 +16,7 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<Guid> AddTicket(TicketViewModel model);
         Task<bool> UpdateTicket(Guid id, TicketViewModel model);
         Task<bool> DeleteTicket(Guid id);
+
+        Task<int> Count();
     }
 }

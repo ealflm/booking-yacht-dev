@@ -56,12 +56,6 @@ namespace BookingYacht.API.Controllers.Business
             await _service.DeleteVehicle(id);
             return Success();
         }
-        
-        [HttpDelete("count")]
-        public async Task<IActionResult> Count()
-        {
-            return Success(await  _service.Count());
-        }
-        
+
     }
 }

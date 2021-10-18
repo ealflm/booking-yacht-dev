@@ -146,5 +146,10 @@ namespace BookingYacht.Business.Implement.Admin
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
+
+        public async Task<int> Count()
+        {
+            return await _unitOfWork.TicketRepository.Query().CountAsync();
+        }
     }
 }
