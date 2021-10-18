@@ -33,7 +33,7 @@ namespace BookingYacht.API.Controllers.Admin
             return Success(vehicles);
         }
         
-        [HttpDelete("total")]
+        [HttpGet("total")]
         public async Task<IActionResult> Count()
         {
             return Success(await _service.Count());
