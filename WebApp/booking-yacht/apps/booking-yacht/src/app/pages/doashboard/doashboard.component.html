@@ -6,7 +6,20 @@
         (click)="activeCard(1)"
         [ngClass]="{ 'card-color': selectedIndex === 1 }"
       >
-        <h2>Tổng đơn hàng</h2>
+        <div class="flex">
+          <h2>Tổng đơn hàng</h2>
+          <div class="absolute left-5 bottom-4">
+            <span [style]="{ 'font-size': '25px', 'font-weight': 'bold' }"
+              >1024</span
+            >
+          </div>
+          <div
+            class="absolute right-4 bottom-4"
+            [style]="{ 'font-size': '30px' }"
+          >
+            <i class="fas fa-shopping-cart text-blue"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col">
@@ -15,7 +28,20 @@
         (click)="activeCard(2)"
         [ngClass]="{ 'card-color': selectedIndex === 2 }"
       >
-        <h2>Đối tác</h2>
+        <div class="flex">
+          <h2>Đối tác</h2>
+          <div class="absolute left-5 bottom-4">
+            <span [style]="{ 'font-size': '25px', 'font-weight': 'bold' }"
+              >1024</span
+            >
+          </div>
+          <div
+            class="absolute right-4 bottom-4"
+            [style]="{ 'font-size': '30px' }"
+          >
+            <i class="fas fa-hands-helping text-orange"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col">
@@ -24,7 +50,20 @@
         (click)="activeCard(3)"
         [ngClass]="{ 'card-color': selectedIndex === 3 }"
       >
-        <h2>Tổng tàu hoạt động</h2>
+        <div class="flex">
+          <h2>Tổng tàu hoạt động</h2>
+          <div class="absolute left-5 bottom-4">
+            <span [style]="{ 'font-size': '25px', 'font-weight': 'bold' }"
+              >1024</span
+            >
+          </div>
+          <div
+            class="absolute right-4 bottom-4"
+            [style]="{ 'font-size': '30px' }"
+          >
+            <i class="fas fa-ship text-blue"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col">
@@ -33,7 +72,20 @@
         (click)="activeCard(4)"
         [ngClass]="{ 'card-color': selectedIndex === 4 }"
       >
-        <h2>Tổng số vé bán ra</h2>
+        <div class="flex">
+          <h2>Tổng số vé bán ra</h2>
+          <div class="absolute left-5 bottom-4">
+            <span [style]="{ 'font-size': '25px', 'font-weight': 'bold' }"
+              >1024</span
+            >
+          </div>
+          <div
+            class="absolute right-4 bottom-4"
+            [style]="{ 'font-size': '30px' }"
+          >
+            <i class="fas fa-ticket-alt text-orange"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
