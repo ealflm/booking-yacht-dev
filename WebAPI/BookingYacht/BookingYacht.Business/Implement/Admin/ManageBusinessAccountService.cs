@@ -28,7 +28,9 @@ namespace BookingYacht.Business.Implement.Admin
                 Address = model.Address,
                 EmailAddress = model.EmailAddress,
                 PhoneNumber = model.PhoneNumber,
-                Status = model.Status
+                Status = model.Status,
+                VnpTmnCode= "104S9O6F",
+                VnpHashSecret= "WAIHCILWTDOAERGSTKMUYIRDGOCROIHW"
             };
             business.Status = (int)Status.ENABLE;
             await _unitOfWork.BusinessRepository.Add(business);
@@ -47,7 +49,9 @@ namespace BookingYacht.Business.Implement.Admin
                     Address = x.Address,
                     EmailAddress = x.EmailAddress,
                     PhoneNumber = x.PhoneNumber,
-                    Status = x.Status
+                    Status = x.Status,
+                    VnpTmnCode = x.VnpTmnCode,
+                    VnpHashSecret = x.VnpHashSecret
                 }).FirstOrDefaultAsync();
             business.Status =(int) Status.DISABLE;
             _unitOfWork.BusinessRepository.Update(business);
@@ -65,7 +69,9 @@ namespace BookingYacht.Business.Implement.Admin
                     Address = x.Address,
                     EmailAddress = x.EmailAddress,
                     PhoneNumber = x.PhoneNumber,
-                    Status = x.Status
+                    Status = x.Status,
+                    VnpTmnCode= x.VnpTmnCode,
+                    VnpHashSecret=x.VnpHashSecret
                 }).FirstOrDefaultAsync();
             return business;
         }
@@ -107,7 +113,9 @@ namespace BookingYacht.Business.Implement.Admin
                 Address = model.Address,
                 EmailAddress = model.EmailAddress,
                 PhoneNumber = model.PhoneNumber,
-                Status = model.Status
+                Status = model.Status,
+                VnpTmnCode= "104S9O6F",
+                VnpHashSecret= "WAIHCILWTDOAERGSTKMUYIRDGOCROIHW"
             };
             _unitOfWork.BusinessRepository.Update(business);
             await _unitOfWork.SaveChangesAsync();
