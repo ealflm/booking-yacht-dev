@@ -14,5 +14,7 @@ namespace BookingYacht.Business.ViewModels
         public string EmailAddress { get; set; }
         public string Address { get; set; }
         public int Status { get; set; }
+        public string VnpTmnCode { get; set; }
+        public string VnpHashSecret { get; set; }
     }
 }

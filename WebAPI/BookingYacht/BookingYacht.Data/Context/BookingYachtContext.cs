@@ -111,6 +111,14 @@ namespace BookingYacht.Data.Context
                 entity.Property(e => e.Salt)
                     .HasMaxLength(128)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.VnpHashSecret)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VnpTmnCode)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<BusinessTour>(entity =>

@@ -24,6 +24,8 @@ namespace BookingYacht.Data.Models
         public string PhotoUrl { get; set; }
         public string Address { get; set; }
         public int Status { get; set; }
+        public string VnpTmnCode { get; set; }
+        public string VnpHashSecret { get; set; }
 
         public virtual ICollection<BusinessTour> BusinessTours { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
