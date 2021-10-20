@@ -1,15 +1,14 @@
 import 'package:get/get.dart';
 import 'package:owners_yacht/controller/menu.dart';
 import 'package:owners_yacht/controller/ticket_type.dart';
+import 'package:owners_yacht/controller/transaction.dart';
 import 'package:owners_yacht/controller/trip.dart';
-
-import 'package:owners_yacht/controller/verification.dart';
 
 class HomeController extends GetxController {
   var tabIndex = 0;
   final TripController _tripController = Get.find<TripController>();
-  final VerificationController _verificationController =
-      Get.find<VerificationController>();
+  final TransactionController _transactionController =
+      Get.find<TransactionController>();
   final TicketTypeController _ticketTypeController =
       Get.find<TicketTypeController>();
   final MenuController _menuController = Get.find<MenuController>();
@@ -18,10 +17,10 @@ class HomeController extends GetxController {
     update();
     switch (index) {
       case 0:
-        _tripController.getTrip();
+        _transactionController.getTransaction();
         break;
       case 1:
-        _verificationController;
+        _tripController.getTrip();
         break;
       case 2:
         _ticketTypeController.getTicketType();

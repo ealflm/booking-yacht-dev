@@ -7,7 +7,6 @@ import '/controller/home.dart';
 import '/controller/login.dart';
 import '../controller/qr_code.dart';
 import '../controller/transaction.dart';
-import '/controller/verification.dart';
 import '/controller/yacht.dart';
 
 class Binding implements Bindings {
@@ -18,7 +17,6 @@ class Binding implements Bindings {
     Get.lazyPut(() => TransactionController());
     Get.lazyPut(() => YachtController());
     Get.lazyPut(() => QRCodeController());
-    Get.lazyPut(() => VerificationController());
     Get.lazyPut(() => TripController());
     Get.lazyPut(() => TourController());
     Get.lazyPut(() => TicketTypeController());

@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/tour.dart';
+import 'package:owners_yacht/screens/tour_detail.dart';
 import 'package:owners_yacht/screens/tours.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class TourController extends GetxController {
   var isLoading = true.obs;
@@ -53,13 +55,14 @@ class TourController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        var jsonString = response.body;
-        var tour = tourReponseFromJson(jsonString);
-        if (tour.data != null) {
-          tourDetail = tour.data as Tour;
-        }
+        var jsonString = json.decode(response.body);
+        tourDetail = Tour(
+            id: jsonString['data']['id'],
+            tittle: jsonString['data']['tittle'],
+            status: jsonString['data']['status'] as int,
+            descriptions: jsonString['data']['descriptions']);
         update();
-        // Get.to();
+        Get.to(TourDetail());
       } else {}
     } catch (error) {
       print('loi r');

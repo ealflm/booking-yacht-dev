@@ -5,7 +5,7 @@ import 'package:owners_yacht/controller/tour.dart';
 import 'package:owners_yacht/controller/trip.dart';
 import 'package:owners_yacht/controller/yacht.dart';
 import 'package:owners_yacht/screens/qr_code.dart';
-import 'package:owners_yacht/widgets/app_bar.dart';
+import 'package:owners_yacht/widgets/nav_bar.dart';
 import '/controller/login.dart';
 import 'package:settings_ui/settings_ui.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/constants/Status.dart';
 import '/controller/yacht.dart';
 import '/widgets/information.dart';
 import 'package:get/get.dart';
@@ -76,10 +77,9 @@ class YachtDetail extends StatelessWidget {
                                               : 'No'),
                                       YachtInformation(
                                           "Trạng thái",
-                                          (controller.yachtDetail.status !=
-                                                  null)
-                                              ? '${controller.yachtDetail.status}'
-                                              : 'No'),
+                                          BookingYachtStatus.status[
+                                                  controller.yachtDetail.status]
+                                              .toString()),
                                       YachtInformation("Mô tả",
                                           controller.yachtDetail.descriptions!),
                                     ],

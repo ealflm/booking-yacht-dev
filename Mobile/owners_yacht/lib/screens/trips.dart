@@ -4,36 +4,8 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:owners_yacht/controller/trip.dart';
 
-import 'package:owners_yacht/widgets/app_bar.dart';
+import 'package:owners_yacht/widgets/nav_bar.dart';
 import 'package:owners_yacht/widgets/trip_card.dart';
-
-// class Transaction1 {
-//   String name;
-//   double point;
-//   int createdMillis;
-
-//   Transaction1(
-//       {required this.name, required this.point, required this.createdMillis});
-// }
-
-// List<Transaction1> transactions = List.generate(20, (index) {
-//   Random random = new Random();
-//   bool isRedeem = random.nextBool();
-//   String name = isRedeem ? "Tour Phú Quốc" : "Tour Nha Trang";
-//   double point = isRedeem ? 890.0 : (random.nextInt(9) + 1) * 100.0;
-//   return Transaction1(
-//       name: name,
-//       point: point,
-//       createdMillis: DateTime.now()
-//           .add(Duration(
-//             days: -random.nextInt(7),
-//             hours: -random.nextInt(23),
-//             minutes: -random.nextInt(59),
-//           ))
-//           .millisecondsSinceEpoch);
-// })
-//   ..sort((v1, v2) => v2.createdMillis - v1.createdMillis);
-
 class Trips extends StatefulWidget {
   @override
   State<Trips> createState() => _TripsState();
@@ -41,17 +13,14 @@ class Trips extends StatefulWidget {
 
 class _TripsState extends State<Trips> {
   @override
-  String? prevDay;
-  String today = DateFormat("EEE, MMM d, y").format(DateTime.now());
-  String yesterday = DateFormat("EEE, MMM d, y")
-      .format(DateTime.now().add(Duration(days: -1)));
-
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          const NavBar(title: 'Trang chủ', automaticallyImplyLeading: false),
+      appBar: const NavBar(
+        title: 'Chuyến đi',
+        automaticallyImplyLeading: false,
+      ),
       body: GetBuilder<TripController>(
-        builder: (controller) => (controller.isLoading == true)
+        builder: (controller) => (controller.isLoading.isTrue)
             ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.only(top: 10.0),

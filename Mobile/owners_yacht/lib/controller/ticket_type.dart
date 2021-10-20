@@ -1,17 +1,26 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/ticket_type.dart';
-import 'package:owners_yacht/screens/ticket_modify.dart';
+import 'package:owners_yacht/screens/ticket_type_modify.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class TicketTypeController extends GetxController {
   var isLoading = true.obs;
   bool isAdding = true;
-  String id = "";
+
   List<TicketType> listTicketType = <TicketType>[].obs;
   var ticketDetail = TicketType();
+
+  String id = "";
+  TextEditingController nameController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController statusController = TextEditingController();
+  TextEditingController commissionFeeController = TextEditingController();
+  TextEditingController serviceFeeController = TextEditingController();
+  TextEditingController idTourController = TextEditingController();
 
   Future<List<TicketType>?> getTicketType() async {
     isLoading(true);
@@ -59,10 +68,9 @@ class TicketTypeController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        var jsonString = response.body;
-        var tour = ticketReponseFromJson(jsonString);
-        if (tour.data != null) {
-          ticketDetail = tour.data as TicketType;
+        var tickets = ticketReponseFromJson(response.body);
+        if (tickets.data != null) {
+          ticketDetail = tickets.data as TicketType;
         }
         update();
         // Get.to();
@@ -78,12 +86,19 @@ class TicketTypeController extends GetxController {
   void editTicketType(TicketType ticket) async {
     isAdding = false;
     id = ticket.id!;
-    Get.to(TicketModify());
+    nameController.text = ticket.name!;
+    priceController.text = ticket.price.toString();
+    statusController.text = ticket.status.toString();
+    commissionFeeController.text = ticket.commissionFeePercentage.toString();
+    serviceFeeController.text = ticket.serviceFeePercentage.toString();
+    idTourController.text = ticket.idBusinessTour.toString();
+
+    Get.to(TicketTypeModify());
   }
 
   void addTicketType() async {
     isAdding = true;
-    Get.to(TicketModify());
+    Get.to(TicketTypeModify());
   }
 
   void save() async {
@@ -92,13 +107,13 @@ class TicketTypeController extends GetxController {
     try {
       if (!isAdding) {
         TicketType ticket = TicketType(
-            id: "8c1f568a-b338-4037-8298-0d41c87a76f8",
-            name: "Vip",
-            price: 100,
-            status: 4,
-            commissionFeePercentage: 5,
-            serviceFeePercentage: 5,
-            idBusinessTour: "0fe6ad4f-0ebd-4bd7-9a0c-4bc6387b9e5e");
+            id: id,
+            name: nameController.text,
+            price: double.parse(priceController.text),
+            status: int.parse(statusController.text),
+            commissionFeePercentage: double.parse(commissionFeeController.text),
+            serviceFeePercentage: double.parse(serviceFeeController.text),
+            idBusinessTour: idTourController.text);
         String body = json.encode(ticket);
 
         final response = await http.put(
@@ -118,14 +133,15 @@ class TicketTypeController extends GetxController {
           print('loi o save roi ');
         }
       } else {
-        TicketType ticket = TicketType(
-            name: "Vip",
-            price: 100,
-            status: 4,
-            commissionFeePercentage: 5,
-            serviceFeePercentage: 5,
-            idBusinessTour: "0fe6ad4f-0ebd-4bd7-9a0c-4bc6387b9e5e");
-        String body = json.encode(ticket);
+        String body = json.encode({
+          'name': nameController.text,
+          'price': double.parse(priceController.text),
+          'status': int.parse(statusController.text),
+          'commissionFeePercentage': double.parse(commissionFeeController.text),
+          'serviceFeePercentage': double.parse(serviceFeeController.text),
+          'idBusinessTour': "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        });
+        print(body);
         final response = await http.post(
           Uri.parse(
               "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types"),

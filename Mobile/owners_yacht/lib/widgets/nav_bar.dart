@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/constants/theme.dart';
 
 class NavBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
+  final Color color;
   final bool automaticallyImplyLeading;
 
   const NavBar(
-      {Key? key, required this.title, required this.automaticallyImplyLeading})
+      {Key? key,
+      required this.title,
+      this.color = BookingYachtColors.appBar,
+      this.automaticallyImplyLeading = true})
       : super(key: key);
 
   @override
@@ -22,7 +27,7 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(widget.title),
-      backgroundColor: Colors.black,
+      backgroundColor: widget.color,
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
     );
   }

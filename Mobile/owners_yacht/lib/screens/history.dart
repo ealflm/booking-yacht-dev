@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/models/yacht.dart';
-import '../widgets/app_bar.dart';
+import '../widgets/nav_bar.dart';
 import '../widgets/tour_card.dart';
 
 class History extends StatelessWidget {
