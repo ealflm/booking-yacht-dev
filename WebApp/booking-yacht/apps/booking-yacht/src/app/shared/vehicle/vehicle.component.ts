@@ -1,3 +1,4 @@
+import { VEHICLE_STATUS } from './../../constants/STATUS';
 import { timer } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AGENCY_STATUS } from '../../constants/STATUS';
@@ -9,7 +10,7 @@ import { AGENCY_STATUS } from '../../constants/STATUS';
 })
 export class VehicleComponent implements OnInit {
   @Input() bussinessVehicleChild: any[] = [];
-  vehicleStatus = AGENCY_STATUS;
+  vehicleStatus = VEHICLE_STATUS;
   @Output() pageing = new EventEmitter<any>();
   loading = true;
   constructor() {
