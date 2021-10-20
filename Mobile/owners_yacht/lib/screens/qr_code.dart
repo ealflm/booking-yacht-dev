@@ -1,4 +1,4 @@
-import 'package:owners_yacht/widgets/app_bar.dart';
+import 'package:owners_yacht/widgets/nav_bar.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -6,7 +6,7 @@ import 'package:owners_yacht/screens/trips.dart';
 import 'screens/home.dart';
 import 'screens/qr_code.dart';
 import 'screens/trips.dart';
-import 'screens/verification.dart';
+import 'screens/transactions.dart';
 import 'screens/yachts.dart';
 import 'binding/bindings.dart';
 import 'screens/login.dart';
@@ -40,8 +40,8 @@ void main() async {
           binding: Binding(),
         ),
         GetPage(
-          name: '/verification',
-          page: () => Verification(),
+          name: '/transations',
+          page: () => Transactions(),
           binding: Binding(),
         ),
         GetPage(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/constants/Status.dart';
 import 'package:owners_yacht/controller/yacht.dart';
 import 'package:owners_yacht/models/yacht.dart';
 import 'package:get/get.dart';
@@ -41,10 +42,10 @@ class YachtCard extends StatelessWidget {
                         children: [
                           YachtInformation('Tên tàu', yacht.name.toString()),
                           YachtInformation(
-                              'Trạng thái', yacht.status.toString()),
-                          YachtInformation('Biển số', yacht.seat.toString()),
+                              'Trạng thái', BookingYachtStatus.status[yacht.status].toString()),
+                          YachtInformation('Ghế', yacht.seat.toString()),
                           YachtInformation(
-                              'Ngày đăng kiểm', yacht.status.toString()),
+                              'Ngày đóng tàu', yacht.yearOfManufacture.toString()),
                         ],
                       ),
                     ),

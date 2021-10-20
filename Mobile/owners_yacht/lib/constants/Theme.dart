@@ -1,6 +1,9 @@
 import 'dart:ui' show Color;
 
 class BookingYachtColors {
+  static const Color appBar = Color.fromRGBO(8, 8, 8, 1.0); //Color(0xFF1DADB0)
+  // static const Color appBar = Color(0xFF1DADB0);
+  static const Color appBarDetail = Color.fromRGBO(8, 8, 8, 0.0);
   static const Color defaultButton = Color.fromRGBO(220, 220, 220, 1.0);
   static const Color primary = Color.fromRGBO(156, 38, 176, 1.0);
   static const Color label = Color.fromRGBO(254, 36, 114, 1.0);
@@ -19,10 +22,4 @@ class BookingYachtColors {
   static const Color border = Color.fromRGBO(231, 231, 231, 1.0);
   static const Color caption = Color.fromRGBO(74, 74, 74, 1.0);
   static const Color bgColorScreen = Color.fromRGBO(238, 238, 238, 1.0);
-  static const Color drawerHeader = Color.fromRGBO(75, 25, 88, 1.0);
-  static const Color signStartGradient = Color.fromRGBO(108, 36, 170, 1.0);
-  static const Color signEndGradient = Color.fromRGBO(21, 0, 43, 1.0);
-  static const Color socialFacebook = Color.fromRGBO(59, 89, 152, 1.0);
-  static const Color socialTwitter = Color.fromRGBO(91, 192, 222, 1.0);
-  static const Color socialDribbble = Color.fromRGBO(234, 76, 137, 1.0);
 }

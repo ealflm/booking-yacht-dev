@@ -56,7 +56,9 @@ class Transaction {
         totalPrice: json["totalPrice"].toDouble(),
         idAgency: json["idAgency"],
         status: json["status"],
-        dateOrder: DateTime.parse(json["dateOrder"]),
+        dateOrder: json["dateOrder"] == null
+            ? null
+            : DateTime.parse(json["dateOrder"]),
         idAgencyNavigation:
             IdAgencyNavigation.fromJson(json["idAgencyNavigation"]),
       );
@@ -68,7 +70,7 @@ class Transaction {
         "totalPrice": totalPrice,
         "idAgency": idAgency,
         "status": status,
-        "dateOrder": dateOrder!.toIso8601String(),
+        "dateOrder": dateOrder == null ? null : dateOrder!.toIso8601String(),
         "idAgencyNavigation": idAgencyNavigation!.toJson(),
       };
 }

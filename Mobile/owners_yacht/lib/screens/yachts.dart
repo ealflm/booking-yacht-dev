@@ -3,7 +3,7 @@ import 'package:get/instance_manager.dart';
 import '/controller/yacht.dart';
 import '/widgets/yacht_card.dart';
 import 'yacht_modify.dart';
-import '../widgets/app_bar.dart';
+import '../widgets/nav_bar.dart';
 import '../widgets/yacht_card.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +19,8 @@ class Yachts extends StatelessWidget {
       ),
       backgroundColor: Colors.grey[200],
       body: GetBuilder<YachtController>(
-        builder: (controller) => (controller.isLoading == true)
-            ? Center(child: CircularProgressIndicator())
+        builder: (controller) => (controller.isLoading.isTrue)
+            ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: ListView.builder(

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/screens/ticket_type.dart';
-
 import '/controller/home.dart';
-
 import 'menu.dart';
 import 'trips.dart';
-import 'verification.dart';
+import 'transactions.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -18,8 +15,8 @@ class Home extends StatelessWidget {
           body: IndexedStack(
             index: controller.tabIndex,
             children: [
+              Transactions(),
               Trips(),
-              Verification(),
               TicketType(),
               Menu(),
             ],
@@ -31,12 +28,12 @@ class Home extends StatelessWidget {
                 label: 'Trang chủ',
               ),
               _bottomNavigationBarItem(
-                icon: Icons.checklist_rtl,
-                label: 'Yêu cầu',
+                icon: Icons.timeline_sharp,
+                label: 'Chuyến đi',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.airplane_ticket_outlined,
-                label: 'Vé',
+                label: 'Loại Vé',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.view_list_rounded,

@@ -11,24 +11,23 @@ import 'dart:convert';
 
 class YachtController extends GetxController {
   var isLoading = true.obs;
+
   List<Yacht> listYacht = <Yacht>[].obs;
   List<Category> listCategory = <Category>[].obs;
   var yachtDetail = Yacht();
-  String id = "";
+
   bool isAdding = true;
 
+  String id = "";
+  String idBusiness = "";
   var categoryController = "";
   TextEditingController nameController = TextEditingController();
   TextEditingController seatController = TextEditingController();
+  TextEditingController registrationNumberController = TextEditingController();
+  TextEditingController yearOfManufactureController = TextEditingController();
+  TextEditingController whereProductionController = TextEditingController();
   TextEditingController statusController = TextEditingController();
   TextEditingController descriptionsController = TextEditingController();
-
-  // @override
-  // onInit() {
-  //   fetchYachts();
-  //   getCategory();
-  //   super.onInit();
-  // }
 
   void changeCategory(value) {
     categoryController = value;
@@ -50,10 +49,10 @@ class YachtController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        var jsonString = response.body;
-        var yachts = yachtFromJson(jsonString);
+        var yachts = yachtReponseFromJson(response.body);
         if (yachts.data != null) {
           listYacht = yachts.data as List<Yacht>;
+          idBusiness = listYacht[0].idBusiness!;
         }
         getCategory();
         update();
@@ -85,8 +84,7 @@ class YachtController extends GetxController {
         var jsonString = response.body;
         var categorys = categoryReponseFromJson(jsonString);
         if (categorys.data.isNotEmpty) {
-          listCategory = categorys.data as List<Category>;
-          print(listCategory[0].id);
+          listCategory = categorys.data;
         }
       } else {
         return null;
@@ -111,8 +109,12 @@ class YachtController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
+        // var yachts = yachtReponseFromJson(response.body);
+        // if (yachts.data != null) {
+        //   yachtDetail = yachts.data as Yacht;
+        // }
         var jsonString = json.decode(response.body);
-        print(jsonString['data']['descriptions'].toString());
+
         yachtDetail = Yacht(
             id: jsonString['data']['id'],
             name: jsonString['data']['name'],
@@ -139,20 +141,20 @@ class YachtController extends GetxController {
     id = yacht.id!;
     categoryController = yacht.idVehicleType!;
     nameController.text = yacht.name!;
+    registrationNumberController.text = yacht.registrationNumber.toString();
+    yearOfManufactureController.text = yacht.yearOfManufacture.toString();
     seatController.text = yacht.seat.toString();
     statusController.text = yacht.status.toString();
     descriptionsController.text = yacht.descriptions!;
-    print('id business');
-    print(yacht.idBusiness);
-
-    print('object');
-    print(yacht.idVehicleType);
     Get.to(YachtModify());
   }
 
   void addYacht() async {
     isAdding = true;
     nameController.clear();
+    registrationNumberController.clear();
+    yearOfManufactureController.clear();
+    whereProductionController.clear();
     seatController.clear();
     statusController.clear();
     categoryController = "";
@@ -192,10 +194,13 @@ class YachtController extends GetxController {
         Yacht yacht = Yacht(
             id: id,
             name: nameController.text,
+            registrationNumber: registrationNumberController.text,
+            yearOfManufacture: int.parse(yearOfManufactureController.text),
+            whereProduction: whereProductionController.text,
             seat: int.parse(seatController.text),
             descriptions: descriptionsController.text,
             idVehicleType: categoryController,
-            idBusiness: '26f7f596-a747-4965-8cb1-36eadd73ee49',
+            idBusiness: '68554b5a-817b-453c-992c-149662a8e710',
             status: int.parse(statusController.text));
         String body = json.encode(yacht);
 
@@ -217,15 +222,17 @@ class YachtController extends GetxController {
           print('loi o save roi ');
         }
       } else {
-        Yacht yacht = Yacht(
-            name: nameController.text,
-            seat: int.parse(seatController.text),
-            descriptions: descriptionsController.text,
-            idVehicleType: categoryController,
-            idBusiness: '26f7f596-a747-4965-8cb1-36eadd73ee49',
-            status: int.parse(statusController.text));
-        String body = json.encode(yacht);
-
+        String body = json.encode({
+          'name': nameController.text,
+          'seat': int.parse(seatController.text),
+          'registrationNumber': registrationNumberController.text,
+          'yearOfManufacture': int.parse(yearOfManufactureController.text),
+          'whereProduction': whereProductionController.text,
+          'descriptions': descriptionsController.text,
+          'idVehicleType': categoryController,
+          'idBusiness': '68554b5a-817b-453c-992c-149662a8e710',
+          'status': int.parse(statusController.text)
+        });
         final response = await http.post(
           Uri.parse(
               "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles"),

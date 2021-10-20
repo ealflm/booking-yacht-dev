@@ -1,12 +1,20 @@
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/transaction.dart';
+import 'package:owners_yacht/screens/transactions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class TransactionController extends GetxController {
   var isLoading = true.obs;
   List<Transaction> listTransaction = <Transaction>[].obs;
   var transactionDetail = Transaction();
+
+  @override
+  onInit() {
+    getTransaction();
+    super.onInit();
+  }
 
   Future<List<Transaction>> getTransaction() async {
     isLoading(true);
@@ -25,17 +33,18 @@ class TransactionController extends GetxController {
         var jsonString = response.body;
         var transactions = transactionReponseFromJson(jsonString);
         if (transactions.data != null) {
+          //print(transactions);
           listTransaction = transactions.data as List<Transaction>;
         }
         update();
-        // Get.to();
+        // Get.to(Transactions());
       } else {}
     } catch (error) {
       print('loi r');
     } finally {
       isLoading(false);
     }
-    return listTransaction;
+    return [];
   }
 
   Future<Transaction> getTransactionDetail(String id) async {
@@ -52,11 +61,11 @@ class TransactionController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        var jsonString = response.body;
-        var transactions = transactionReponseFromJson(jsonString);
-        if (transactions.data != null) {
-          transactionDetail = transactions.data as Transaction;
-        }
+        var transactions = transactionReponseFromJson(response.body);
+        print('hihi');
+        // if (transactions.data != null) {
+        //   transactionDetail = transactions.data as Transaction;
+        // }
         update();
         // Get.to();
       } else {}

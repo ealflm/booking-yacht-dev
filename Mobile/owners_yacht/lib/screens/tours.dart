@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/widgets/app_bar.dart';
+import 'package:owners_yacht/controller/tour.dart';
+import 'package:owners_yacht/widgets/nav_bar.dart';
 import 'package:owners_yacht/widgets/tour_card.dart';
+import 'package:get/get.dart';
 
 class Tours extends StatelessWidget {
+  TourController _tourController = Get.find<TourController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +17,10 @@ class Tours extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemBuilder: (ctx, i) => TourCard(),
-          itemCount: 3,
+          itemBuilder: (ctx, i) => TourCard(
+            tour: _tourController.listTour[i],
+          ),
+          itemCount: _tourController.listTour.length,
         ),
       ),
     );

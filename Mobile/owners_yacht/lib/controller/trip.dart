@@ -12,11 +12,6 @@ class TripController extends GetxController {
   bool isAdding = true;
   String id = "";
   List<Trip> listTrip = <Trip>[].obs;
-  @override
-  onInit() {
-    getTrip();
-    super.onInit();
-  }
 
   Future<List<Trip>?> getTrip() async {
     isLoading(true);

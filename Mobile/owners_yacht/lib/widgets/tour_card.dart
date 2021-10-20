@@ -1,29 +1,24 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:owners_yacht/constants/Theme.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:owners_yacht/constants/theme.dart';
+import 'package:owners_yacht/controller/tour.dart';
+import 'package:owners_yacht/models/tour.dart';
+import 'package:get/get.dart';
 
 class TourCard extends StatelessWidget {
-  TourCard(
-      {this.title = "Placeholder Title",
-      this.cta = "",
-      this.img = "https://via.placeholder.com/200",
-      this.tap = defaultFunc});
+  final Tour tour;
 
-  final String cta;
-  final String img;
-  final Function tap;
-  final String title;
-
-  static void defaultFunc() {
-    print("the function works!");
-  }
-
+  TourCard({Key? key, required this.tour}) : super(key: key);
+  final TourController _tourController = Get.find<TourController>();
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 130,
         margin: EdgeInsets.only(top: 10),
         child: GestureDetector(
-          onTap: () => {},
+          onTap: () => _tourController.getTourDetail(tour.id!),
           child: Stack(overflow: Overflow.clip, children: [
             Card(
               elevation: 0.7,
@@ -37,17 +32,17 @@ class TourCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(title,
+                            Text('Tên: ${tour.tittle!}',
                                 style: TextStyle(
                                     color: BookingYachtColors.caption,
-                                    fontSize: 13)),
-                            Text(cta,
+                                    fontSize: 16)),
+                            Text('Trạng thái: ${tour.status!}',
                                 style: TextStyle(
                                     color: BookingYachtColors.muted,
-                                    fontSize: 11,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600))
                           ],
                         ),
@@ -77,7 +72,9 @@ class TourCard extends StatelessWidget {
                           ],
                           borderRadius: BorderRadius.all(Radius.circular(4.0)),
                           image: DecorationImage(
-                              image: NetworkImage(img), fit: BoxFit.cover))),
+                              image: NetworkImage(
+                                  'https://phuquoctrip.com/files/images/9-2021/tour-phu-quoc-du-lich-phu-quoc.jpeg'),
+                              fit: BoxFit.cover))),
                 ),
               ),
             ),

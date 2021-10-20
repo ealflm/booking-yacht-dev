@@ -37,6 +37,21 @@ class YachtModify extends StatelessWidget {
                 // onSaved: (value) {},
               ),
               TextFormField(
+                decoration: const InputDecoration(labelText: 'Biển số'),
+                textInputAction: TextInputAction.next,
+                controller: controller.registrationNumberController,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Ngày sản xuất'),
+                textInputAction: TextInputAction.next,
+                controller: controller.yearOfManufactureController,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Nơi sản xuất'),
+                textInputAction: TextInputAction.next,
+                controller: controller.whereProductionController,
+              ),
+              TextFormField(
                 decoration: const InputDecoration(labelText: 'Ghế'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
