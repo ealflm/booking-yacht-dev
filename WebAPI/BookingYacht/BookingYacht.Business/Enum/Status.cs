@@ -12,6 +12,7 @@
         SCANNED=7,
         CANCEL=8,
         COMPLETELY_PAYMENT=9,
-        COMPLETELY_ORDER=10
+        COMPLETELY_ORDER=10,
+        NOT_COMPLETELY_PAYMENT=11
     }
 }
