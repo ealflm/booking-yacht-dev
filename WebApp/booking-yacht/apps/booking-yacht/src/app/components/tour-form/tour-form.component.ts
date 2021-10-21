@@ -21,13 +21,23 @@ export class TourFormComponent implements OnInit {
   status: any[] = [];
   currentUser!: string;
   tour: [] = [];
+  selectedDes!: any[];
+  destiations?: any[];
   constructor(
     private formBuilder: FormBuilder,
     private tourService: ToursService,
     private route: ActivatedRoute,
     private location: Location,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.destiations = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' },
+    ];
+  }
 
   ngOnInit(): void {
     this._initForm();

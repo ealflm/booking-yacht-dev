@@ -63,7 +63,7 @@
               <label for="status">Descriptions</label>
               <p-editor
                 formControlName="descriptions"
-                [style]="{ height: '320px' }"
+                [style]="{ height: '250px' }"
               ></p-editor>
 
               <small
@@ -75,7 +75,43 @@
           </div>
         </form>
       </div>
+      <div class="p-fluid formgrid grid mt-4">
+        <div class="col-12">
+          <div class="col-12">
+            <h2>Thêm chặn đi cho tour</h2>
+          </div>
+          <div class="col-12 mt-4">
+            <div class="grid">
+              <div class="col-11">
+                <p-multiSelect
+                  [options]="destiations!"
+                  [(ngModel)]="selectedDes"
+                  defaultLabel="Chọn chặn đi"
+                  optionLabel="name"
+                ></p-multiSelect>
+              </div>
+              <div class="col-1">
+                <!-- <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-check"
+                  class="p-button-rounded"
+                ></button> -->
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-check"
+                  class="p-button-rounded p-button-outlined"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="p-grid" *ngIf="loading">
       <div class="col-12">
         <form [formGroup]="form">
@@ -96,7 +132,7 @@
             <div class="p-field col-12">
               <label for="status">Descriptions</label>
               <p-skeleton width="100%" styleClass="p-mb-2"></p-skeleton>
-              <p-skeleton height="25rem" styleClass="p-mb-2"></p-skeleton>
+              <p-skeleton height="20rem" styleClass="p-mb-2"></p-skeleton>
             </div>
           </div>
         </form>

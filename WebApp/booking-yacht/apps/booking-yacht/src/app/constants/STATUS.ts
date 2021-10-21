@@ -36,6 +36,9 @@ export const BUSINESS_STATUS: any = {
   //   color: 'danger',
   // },
 };
+
+
+
 export const VEHICLE_STATUS: any = {
   0: {
     lable: 'None',

@@ -73,7 +73,7 @@ export class AccountBusinessFormComponent implements OnInit {
           .getVehiclesByBussiness(res.data.id, this.page + 1, this.rows)
           .subscribe((vehicleBusinessResponse) => {
             this.bussinessVehicle = vehicleBusinessResponse.data;
-            // console.log(this.bussinessVehicle);
+            console.log(this.bussinessVehicle);
 
             timer(1000).subscribe(() => {
               this.loading = false;
@@ -198,7 +198,7 @@ export class AccountBusinessFormComponent implements OnInit {
               .getVehiclesByBussiness(res.data.id, 1, 5)
               .subscribe((vehicleBusinessResponse) => {
                 this.bussinessVehicle = vehicleBusinessResponse.data;
-                // console.log(this.bussinessVehicle);
+                console.log(this.bussinessVehicle);
 
                 timer(1000).subscribe(() => {
                   this.loading = false;
