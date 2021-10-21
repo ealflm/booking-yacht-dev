@@ -47,6 +47,14 @@ export class TourFormComponent implements OnInit {
       this.loading = false;
     }, 500);
   }
+  onChange() {
+    console.log(this.selectedDes);
+    const arrDeS: any[] = [];
+    this.selectedDes.map((desSelect) => {
+      arrDeS.push(desSelect.code);
+    });
+    console.log(arrDeS);
+  }
   _checkEditMode() {
     this.route.params.subscribe((params) => {
       if (params.id) {
