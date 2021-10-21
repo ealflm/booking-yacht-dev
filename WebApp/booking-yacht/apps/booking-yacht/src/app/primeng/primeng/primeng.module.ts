@@ -36,6 +36,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { DividerModule } from 'primeng/divider';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { PaginatorModule } from 'primeng/paginator';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [],
@@ -75,6 +76,7 @@ import { PaginatorModule } from 'primeng/paginator';
     DividerModule,
     VirtualScrollerModule,
     PaginatorModule,
+    MultiSelectModule,
   ],
   exports: [
     CardModule,
@@ -112,6 +114,7 @@ import { PaginatorModule } from 'primeng/paginator';
     DividerModule,
     VirtualScrollerModule,
     PaginatorModule,
+    MultiSelectModule,
   ],
 })
 export class PrimengModule {}
