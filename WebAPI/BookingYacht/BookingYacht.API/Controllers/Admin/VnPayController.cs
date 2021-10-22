@@ -16,7 +16,6 @@ namespace BookingYacht.API.Controllers.Admin
 {
     [Route(AdminRoute)]
     [ApiController]
-    [Authorize]
     [ApiExplorerSettings(GroupName = Role)]
     public class VnPayController : BaseAdminController
     {
@@ -33,6 +32,7 @@ namespace BookingYacht.API.Controllers.Admin
 
         // GET: api/<VnPayController>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get([FromQuery] BusinessPayment businessPayment)
         {
             
@@ -112,6 +112,7 @@ namespace BookingYacht.API.Controllers.Admin
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody] BusinessPayment model)
         {
             foreach(Guid id in model.IdOrders)

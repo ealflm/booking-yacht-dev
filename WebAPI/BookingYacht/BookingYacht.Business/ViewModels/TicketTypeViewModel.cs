@@ -11,5 +11,8 @@ namespace BookingYacht.Business.ViewModels
         public double? CommissionFeePercentage { get; set; }
         public double? ServiceFeePercentage { get; set; }
         public Guid IdBusinessTour { get; set; }
+        public Guid IdTour { get; set; }
+        public Guid IdBusiness { get; set; }
+
     }
 }

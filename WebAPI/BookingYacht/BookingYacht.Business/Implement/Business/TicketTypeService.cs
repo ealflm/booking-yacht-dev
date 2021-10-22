@@ -21,13 +21,28 @@ namespace BookingYacht.Business.Implement.Business
         }
         public async Task<Guid> AddTicketType(TicketTypeViewModel model)
         {
+
+            var businessTour = await _unitOfWork.BusinessTourRepository.Query()
+                .Where(x => x.IdBusiness.Equals(model.IdBusiness))
+                .Where(x => x.IdTour.Equals(model.IdTour))
+                .FirstOrDefaultAsync();
+            if (businessTour == null)
+            {
+                businessTour = new BusinessTour();
+                businessTour.IdTour = model.IdTour;
+                businessTour.IdBusiness = model.IdBusiness;
+                businessTour.Status = (int)Status.ENABLE;
+                _unitOfWork.BusinessTourRepository.Query().Add(businessTour);
+            }
+            await _unitOfWork.SaveChangesAsync();
             var ticketType = new TicketType()
             {
                 Id = model.Id,
                 Price = model.Price,
+                Name= model.Name,
                 CommissionFeePercentage = model.CommissionFeePercentage,
                 ServiceFeePercentage = model.ServiceFeePercentage,
-                IdBusinessTour = model.IdBusinessTour,
+                IdBusinessTour = businessTour.Id,
                 Status = model.Status
             };
             ticketType.Status = (int)Status.WAITING;
