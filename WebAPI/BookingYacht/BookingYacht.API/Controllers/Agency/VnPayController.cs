@@ -16,7 +16,6 @@ namespace BookingYacht.API.Controllers.Agency
 {
     [Route(AgencyRoute)]
     [ApiController]
-    [Authorize]
     [ApiExplorerSettings(GroupName = Role)]
     public class VnPayController : BaseAgencyController
     {
@@ -31,6 +30,7 @@ namespace BookingYacht.API.Controllers.Agency
 
         // GET: api/<VnPayController>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get([FromQuery] OrderRequest orderRequest)
         {
             
