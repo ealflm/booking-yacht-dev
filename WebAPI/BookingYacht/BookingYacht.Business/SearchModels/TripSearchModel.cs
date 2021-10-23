@@ -9,7 +9,7 @@ namespace BookingYacht.Business.SearchModels
 {
     public class TripSearchModel
     {
-        public Guid? IdBusiness { get; set; }
+        public Guid? IdBusinessTour { get; set; }
         public Guid? IdVehicle { get; set; }
         public Status Status { get; set; }
         public int Page { get; set; }
