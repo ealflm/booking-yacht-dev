@@ -22,12 +22,12 @@ export const ROUTES: RouteInfo[] = [
     icon: 'ni-building text-red',
     class: '',
   },
-  {
-    path: '/ticket',
-    title: 'Danh sách vé',
-    icon: 'ni-badge text-orange',
-    class: '',
-  },
+  // {
+  //   path: '/ticket',
+  //   title: 'Danh sách vé',
+  //   icon: 'ni-badge text-orange',
+  //   class: '',
+  // },
   {
     path: '/ticket-type',
     title: 'Loại vé',

@@ -81,7 +81,7 @@ const routes: Routes = [
         path: 'vehicle-type/form/:id',
         component: VehicleTypeFormComponent,
       },
-      { path: 'ticket', component: TicketComponent },
+      { path: 'ticket/:id', component: TicketComponent },
       {
         path: 'ticket/form/:id',
         component: TicketFormComponent,

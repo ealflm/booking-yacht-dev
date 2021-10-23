@@ -40,6 +40,13 @@
                         }}
                       </p>
                     </div>
+                    <div class="col-12">
+                      Trạng thái:
+                      <p-tag
+                        [severity]="ticketsStatus[tickets.status]?.color"
+                        [value]="ticketsStatus[tickets.status]?.lable"
+                      ></p-tag>
+                    </div>
                   </div>
                   <div class="col-6">
                     <div class="col-12">

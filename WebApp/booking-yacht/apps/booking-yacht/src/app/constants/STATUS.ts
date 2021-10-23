@@ -36,8 +36,20 @@ export const BUSINESS_STATUS: any = {
   //   color: 'danger',
   // },
 };
-
-
+export const SCAN_STATUS: any = {
+  6: {
+    lable: 'Chưa sử dụng',
+    color: 'warning',
+  },
+  7: {
+    lable: 'Đã sử dụng',
+    color: 'success',
+  },
+  8: {
+    lable: 'Hủy',
+    color: 'danger',
+  },
+};
 
 export const VEHICLE_STATUS: any = {
   0: {

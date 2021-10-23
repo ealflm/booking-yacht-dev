@@ -31,9 +31,9 @@ export class TourFormComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.destiations = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
+      { name: 'Đi từ Hà Tiên đến Phú Quốc', code: 'NY' },
+      { name: 'Đi từ Hà Tiên đến đảo Cát Bà', code: 'RM' },
+      { name: 'Đi từ Hà Tiên đến đảo Hòn Bà', code: 'LDN' },
       { name: 'Istanbul', code: 'IST' },
       { name: 'Paris', code: 'PRS' },
     ];

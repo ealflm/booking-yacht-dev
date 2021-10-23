@@ -12,16 +12,6 @@
             placeholder="Tìm Kiếm..."
           />
         </span>
-        <span *ngFor="let item of status">
-          <button
-            pButton
-            type="button"
-            [label]="item.lable"
-            [value]="item.id"
-            (click)="onChangeStatus(item.id)"
-            class="p-button-outlined p-button-info p-button-text m-1"
-          ></button>
-        </span>
       </ng-template>
     </p-toolbar>
     <div class="mt-5"></div>
@@ -51,12 +41,14 @@
               <th>Ngày đặt</th>
               <th>Số điện thoại</th>
               <th>Giá vé</th>
+              <th>Trạng thái</th>
               <th></th>
             </tr>
           </ng-template>
 
           <ng-template pTemplate="body" let-tickets>
             <tr *ngIf="loading">
+              <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
@@ -73,6 +65,12 @@
               </td>
               <td>{{ tickets.phone }}</td>
               <td>{{ tickets.price | currency: 'VND' }}</td>
+              <td>
+                <p-tag
+                  [severity]="ticketsStatus[tickets.status]?.color"
+                  [value]="ticketsStatus[tickets.status]?.lable"
+                ></p-tag>
+              </td>
               <td>
                 <a [routerLink]="['/ticket/form/', tickets.id]">
                   <i class="ni ni-tag"></i

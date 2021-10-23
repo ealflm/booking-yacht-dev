@@ -9,15 +9,19 @@ import { environment } from '../../environments/environment.prod';
 export class TicketsService {
   apiURL = environment.apiURL + 'tickets';
   constructor(private http: HttpClient) {}
-  getTickets(status?: string): Observable<any> {
+  getTickets(id?: string): Observable<any> {
     let params = new HttpParams();
-    if (status) {
-      params = params.append('status', status);
+    if (id) {
+      params = params.append('id-order', id);
     }
     return this.http.get(this.apiURL, { params: params });
   }
 
   getTicket(id: string): Observable<any> {
+    // let params = new HttpParams();
+    // if (id) {
+    //   params = params.append('id-order', id);
+    // }
     return this.http.get(`${this.apiURL}/${id}`);
   }
 }
