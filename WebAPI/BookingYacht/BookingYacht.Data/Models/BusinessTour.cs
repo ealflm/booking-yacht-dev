@@ -10,6 +10,7 @@ namespace BookingYacht.Data.Models
         public BusinessTour()
         {
             TicketTypes = new HashSet<TicketType>();
+            Trips = new HashSet<Trip>();
         }
 
         public Guid Id { get; set; }
@@ -20,5 +21,6 @@ namespace BookingYacht.Data.Models
         public virtual Business IdBusinessNavigation { get; set; }
         public virtual Tour IdTourNavigation { get; set; }
         public virtual ICollection<TicketType> TicketTypes { get; set; }
+        public virtual ICollection<Trip> Trips { get; set; }
     }
 }

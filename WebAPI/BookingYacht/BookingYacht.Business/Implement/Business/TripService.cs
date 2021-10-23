@@ -26,7 +26,7 @@ namespace BookingYacht.Business.Implement.Business
             {
                 Id = model.Id,
                 Time= model.Time ,
-                IdBusiness= model.IdBusiness,
+                IdBusinessTour= model.IdBusinessTour,
                 IdVehicle= model.IdVehicle,
                 Status = model.Status
             };
@@ -44,7 +44,7 @@ namespace BookingYacht.Business.Implement.Business
                 {
                     Id = x.Id,
                     Time = x.Time,
-                    IdBusiness = x.IdBusiness,
+                    IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
                     Status = x.Status
                 }).FirstOrDefaultAsync();
@@ -61,7 +61,7 @@ namespace BookingYacht.Business.Implement.Business
                 {
                     Id = x.Id,
                     Time = x.Time,
-                    IdBusiness = x.IdBusiness,
+                    IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
                     Status = x.Status
                 }).FirstOrDefaultAsync();
@@ -75,14 +75,14 @@ namespace BookingYacht.Business.Implement.Business
                 model = new TripSearchModel();
             }
             var trips = await _unitOfWork.TripRepository.Query()
-                .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
+                .Where(x => model.IdBusinessTour == null | x.IdBusinessTour.Equals(model.IdBusinessTour))
                 .Where(x => model.IdVehicle == null | x.IdVehicle.Equals(model.IdVehicle))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
                 .Select(x => new TripViewModel()
                 {
                     Id = x.Id,
                     Time = x.Time,
-                    IdBusiness = x.IdBusiness,
+                    IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
                     Status = x.Status
                 })
@@ -99,7 +99,7 @@ namespace BookingYacht.Business.Implement.Business
             {
                 Id = id,
                 Time = model.Time,
-                IdBusiness = model.IdBusiness,
+                IdBusinessTour = model.IdBusinessTour,
                 IdVehicle = model.IdVehicle,
                 Status = model.Status
             };

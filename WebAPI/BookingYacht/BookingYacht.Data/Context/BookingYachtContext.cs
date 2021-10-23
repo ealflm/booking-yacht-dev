@@ -293,7 +293,7 @@ namespace BookingYacht.Data.Context
             {
                 entity.ToTable("Trip");
 
-                entity.HasIndex(e => e.IdBusiness, "IX_Trip_IdBusiness");
+                entity.HasIndex(e => e.IdBusinessTour, "IX_Trip_IdBusiness");
 
                 entity.HasIndex(e => e.IdVehicle, "IX_Trip_IdVehicle");
 
@@ -301,11 +301,11 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Time).HasColumnType("datetime");
 
-                entity.HasOne(d => d.IdBusinessNavigation)
+                entity.HasOne(d => d.IdBusinessTourNavigation)
                     .WithMany(p => p.Trips)
-                    .HasForeignKey(d => d.IdBusiness)
+                    .HasForeignKey(d => d.IdBusinessTour)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Trip__IdBusiness__6E01572D");
+                    .HasConstraintName("FK_Trip_BusinessTour");
 
                 entity.HasOne(d => d.IdVehicleNavigation)
                     .WithMany(p => p.Trips)

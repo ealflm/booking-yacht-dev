@@ -10,7 +10,6 @@ namespace BookingYacht.Data.Models
         public Business()
         {
             BusinessTours = new HashSet<BusinessTour>();
-            Trips = new HashSet<Trip>();
             Vehicles = new HashSet<Vehicle>();
         }
 
@@ -28,7 +27,6 @@ namespace BookingYacht.Data.Models
         public string VnpHashSecret { get; set; }
 
         public virtual ICollection<BusinessTour> BusinessTours { get; set; }
-        public virtual ICollection<Trip> Trips { get; set; }
         public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
 }
