@@ -118,6 +118,7 @@
               <th pSortableColumn="totalPrice">
                 Tổng tiền<p-sortIcon field="totalPrice"></p-sortIcon>
               </th>
+              <th></th>
             </tr>
           </ng-template>
 
@@ -139,6 +140,11 @@
                 ></p-tag>
               </td>
               <td>{{ order.totalPrice | currency: 'VND' }}</td>
+              <td>
+                <a [routerLink]="['/ticket/', order.id]">
+                  <i class="ni ni-tag"></i
+                ></a>
+              </td>
             </tr>
           </ng-template>
         </p-table>

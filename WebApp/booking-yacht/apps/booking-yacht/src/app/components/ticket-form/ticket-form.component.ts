@@ -1,3 +1,4 @@
+import { SCAN_STATUS } from './../../constants/STATUS';
 import { VehicleTypeService } from './../../services/vehicle-type.service';
 import { async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +16,7 @@ export class TicketFormComponent implements OnInit {
   loading = true;
   tickets: any;
   typeVehicle: any;
+  ticketsStatus = SCAN_STATUS;
   constructor(
     private location: Location,
     private ticketService: TicketsService,
