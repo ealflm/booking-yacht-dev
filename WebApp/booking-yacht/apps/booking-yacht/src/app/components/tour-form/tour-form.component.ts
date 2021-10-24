@@ -106,16 +106,17 @@ export class TourFormComponent implements OnInit {
       return;
     }
 
-    if (!this.editMode) {
+    if (this.editMode !== true) {
       const tour: Tour = {
         tittle: this.tourForm.tittle.value,
-        // status: this.tourForm.status.value,
+        status: '4',
         descriptions: this.tourForm.descriptions.value,
       };
-      // console.log(tour);
+      console.log(tour);
 
       this.tourService.createTour(tour).subscribe(
         (res) => {
+          console.log(res);
           this.messageService.add({
             severity: 'success',
             summary: 'Update tour successfull',
