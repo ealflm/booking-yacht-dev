@@ -14,5 +14,6 @@ namespace BookingYacht.Business.ViewModels
         public Guid IdVehicleType { get; set; }
         public Guid IdBusiness { get; set; }
         public int Status { get; set; }
+        public string ImageLink { get; set; }
     }
 }

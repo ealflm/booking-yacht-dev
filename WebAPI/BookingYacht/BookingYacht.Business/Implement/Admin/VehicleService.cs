@@ -46,7 +46,8 @@ namespace BookingYacht.Business.Implement.Admin
                     IdVehicleType = x.IdVehicleType,
                     Name = x.Name,
                     Seat = x.Seat,
-                    Status = x.Status
+                    Status = x.Status,
+                    ImageLink= x.ImageLink
                 })
                 .OrderBy(x => x.Seat)
                 .ToListAsync();
@@ -91,7 +92,8 @@ namespace BookingYacht.Business.Implement.Admin
                     IdVehicleType = x.IdVehicleType,
                     Name = x.Name,
                     Seat = x.Seat,
-                    Status = x.Status
+                    Status = x.Status,
+                    ImageLink= x.ImageLink
                 }).FirstOrDefaultAsync();
             return value;
         } 
@@ -118,7 +120,8 @@ namespace BookingYacht.Business.Implement.Admin
                     IdVehicleType = model.IdVehicleType,
                     Name = model.Name,
                     Seat = model.Seat,
-                    Status = (int) Status.ALL
+                    Status = (int) Status.ENABLE,
+                    ImageLink= model.ImageLink
                 });
             await _unitOfWork.SaveChangesAsync();
             return vehicle.Entity.Id;
@@ -138,7 +141,8 @@ namespace BookingYacht.Business.Implement.Admin
                     IdVehicleType = model.IdVehicleType,
                     Name = model.Name,
                     Seat = model.Seat,
-                    Status = model.Status
+                    Status = model.Status,
+                    ImageLink= model.ImageLink
                 });
             if (vehicle.Entity == null) return false;
 
