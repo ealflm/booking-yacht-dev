@@ -282,11 +282,7 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Descriptions).HasMaxLength(255);
-
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.Title).IsRequired();
             });
 
             modelBuilder.Entity<Trip>(entity =>

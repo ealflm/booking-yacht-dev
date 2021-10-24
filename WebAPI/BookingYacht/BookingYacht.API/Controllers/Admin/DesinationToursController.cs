@@ -1,6 +1,7 @@
 ﻿using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
+using BookingYacht.Business.InsertModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -44,10 +45,17 @@ namespace BookingYacht.API.Controllers.Admin
 
         // POST api/<DesinationTourController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] DestinationTourViewModel model)
+        public async Task<IActionResult> Post([FromBody] DestinationTourInsertModel model)
         {
-            var id = await _destinationTourService.AddDestinationTour(model);
-            return Success(id);
+            for(int i=0; i<model.IdDestinationList.Count; i++)
+            {
+                DestinationTourViewModel destinationTour = new DestinationTourViewModel();
+                destinationTour.IdTour = model.IdTour;
+                destinationTour.IdDestination = model.IdDestinationList[i];
+                destinationTour.Order = i + 1;
+                await _destinationTourService.AddDestinationTour(destinationTour);
+            }
+            return Success();
         }
 
         // PUT api/<DesinationTourController>/5
