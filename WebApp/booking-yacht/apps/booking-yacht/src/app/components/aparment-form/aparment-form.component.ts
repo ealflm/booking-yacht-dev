@@ -59,7 +59,7 @@ export class AparmentFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [{ value: '', disabled: true }],
       name: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [''],
     });
   }
   onSubmit() {
