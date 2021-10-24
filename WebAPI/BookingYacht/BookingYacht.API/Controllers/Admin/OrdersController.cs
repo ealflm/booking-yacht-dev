@@ -35,5 +35,20 @@ namespace BookingYacht.API.Controllers.Admin
             return order != null ? Success(order) : Fail("The Order's not exist");
         }
         
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] OrdersViewModel model)
+        {
+            var update = await _service.Update(id, model);
+            return update ? Success() : Fail("The Order's not exist");
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var delete = await _service.Delete(id);
+            return delete ? Success() : Fail("The Order's not exist");
+        }
+
+        
     }
 }
