@@ -88,7 +88,8 @@ namespace BookingYacht.Business.Implement.Admin
                 })
                 .OrderBy(x => x.Tittle)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
-                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TourRepository.Query()
+                    .Count())
                 .ToListAsync();
             return tours;
         }
