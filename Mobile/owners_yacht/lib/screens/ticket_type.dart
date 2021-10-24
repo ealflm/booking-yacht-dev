@@ -12,16 +12,18 @@ class TicketType extends StatelessWidget {
       appBar: const NavBar(title: 'Loại Vé', automaticallyImplyLeading: false),
       backgroundColor: Colors.grey[200],
       body: GetBuilder<TicketTypeController>(
-        builder: (controller) => (controller.isLoading == true)
+        builder: (controller) => (_controller.isLoading == true)
             ? const Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: ListView.builder(
-                  itemBuilder: (ctx, i) =>
-                      TicketTypeCard(controller.listTicketType[i]),
-                  itemCount: controller.listTicketType.length,
-                ),
-              ),
+            : controller.listTicketType.isEmpty
+                ? const Center(child: Text('Không có loại vé nào!'))
+                : Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: ListView.builder(
+                      itemBuilder: (ctx, i) =>
+                          TicketTypeCard(_controller.listTicketType[i]),
+                      itemCount: _controller.listTicketType.length,
+                    ),
+                  ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',

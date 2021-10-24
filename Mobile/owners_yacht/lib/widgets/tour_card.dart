@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:owners_yacht/constants/status.dart';
 import 'package:owners_yacht/constants/theme.dart';
 import 'package:owners_yacht/controller/tour.dart';
 import 'package:owners_yacht/models/tour.dart';
@@ -39,7 +40,7 @@ class TourCard extends StatelessWidget {
                                 style: TextStyle(
                                     color: BookingYachtColors.caption,
                                     fontSize: 16)),
-                            Text('Trạng thái: ${tour.status!}',
+                            Text('Trạng thái: ${BookingYachtStatus.status[tour.status!]}',
                                 style: TextStyle(
                                     color: BookingYachtColors.muted,
                                     fontSize: 14,

@@ -14,15 +14,19 @@ class Tours extends StatelessWidget {
         title: 'Tour',
         automaticallyImplyLeading: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemBuilder: (ctx, i) => TourCard(
-            tour: _tourController.listTour[i],
-          ),
-          itemCount: _tourController.listTour.length,
-        ),
-      ),
+      body: (_tourController.isLoading == true)
+          ? const Center(child: CircularProgressIndicator())
+          : _tourController.listTour.isEmpty
+              ? const Center(child: Text('Không có tour nào!'))
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemBuilder: (ctx, i) => TourCard(
+                      tour: _tourController.listTour[i],
+                    ),
+                    itemCount: _tourController.listTour.length,
+                  ),
+                ),
     );
   }
 }

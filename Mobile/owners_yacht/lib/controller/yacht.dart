@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class YachtController extends GetxController {
+  final GlobalKey<FormState> yachtFormKey = GlobalKey<FormState>();
   var isLoading = true.obs;
 
   List<Yacht> listYacht = <Yacht>[].obs;
@@ -19,7 +20,7 @@ class YachtController extends GetxController {
   bool isAdding = true;
 
   String id = "";
-  String idBusiness = "";
+  String idBusiness = "68554b5a-817b-453c-992c-149662a8e710";
   var categoryController = "";
   TextEditingController nameController = TextEditingController();
   TextEditingController seatController = TextEditingController();
@@ -188,7 +189,11 @@ class YachtController extends GetxController {
   void save() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-
+    final isValid = yachtFormKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    yachtFormKey.currentState!.save();
     try {
       if (!isAdding) {
         Yacht yacht = Yacht(
@@ -218,8 +223,6 @@ class YachtController extends GetxController {
           fetchYachts();
           update();
           Get.back();
-        } else {
-          print('loi o save roi ');
         }
       } else {
         String body = json.encode({
@@ -231,7 +234,7 @@ class YachtController extends GetxController {
           'descriptions': descriptionsController.text,
           'idVehicleType': categoryController,
           'idBusiness': '68554b5a-817b-453c-992c-149662a8e710',
-          'status': int.parse(statusController.text)
+          'status': 1
         });
         final response = await http.post(
           Uri.parse(
@@ -253,5 +256,16 @@ class YachtController extends GetxController {
     } catch (error) {
       print(error);
     }
+  }
+
+  String? validate(String value, String message) {
+    if (value.isEmpty) {
+      return message;
+    }
+    return null;
+  }
+
+  void cancel() {
+    Get.back();
   }
 }

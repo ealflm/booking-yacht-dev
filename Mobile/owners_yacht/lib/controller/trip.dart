@@ -32,13 +32,11 @@ class TripController extends GetxController {
         if (trips.data != null) {
           listTrip = trips.data as List<Trip>;
         }
-        print(listTrip[0].time.toString());
         update();
       } else {
         return null;
       }
     } catch (error) {
-      print('loi r');
     } finally {
       isLoading(false);
     }
