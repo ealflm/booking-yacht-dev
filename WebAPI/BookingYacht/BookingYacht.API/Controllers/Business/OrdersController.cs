@@ -43,6 +43,7 @@ namespace BookingYacht.API.Controllers.Business
             return update ? Success() : Fail("The Order's not exist");
         }
 
+        
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
