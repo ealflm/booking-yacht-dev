@@ -1,4 +1,6 @@
-﻿using BookingYacht.Business.Interfaces.Admin;
+﻿using BookingYacht.Business.FileModels;
+using BookingYacht.Business.Interfaces;
+using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +19,11 @@ namespace BookingYacht.API.Controllers.Admin
     public class ToursController : BaseAdminController
     {
         private readonly ITourService _tourService;
-
-        public ToursController(ITourService tourService)
+        private readonly IFileManagerLogic _fileManagerLogic;
+        public ToursController(ITourService tourService, IFileManagerLogic fileManagerLogic)
         {
             _tourService = tourService;
+            _fileManagerLogic = fileManagerLogic;
         }
 
 
@@ -62,6 +65,25 @@ namespace BookingYacht.API.Controllers.Admin
         {
             await _tourService.DeleteTour(id);
             return Success();
+        }
+
+        [Route("upload")]
+        [HttpPost]
+        public async Task<IActionResult> Upload([FromForm] FileModel model)
+        {
+            if (model.ImageFile != null)
+            {
+                await _fileManagerLogic.Upload(model);
+            }
+            return Success(model.ImageFile.FileName);
+        }
+
+        [Route("image")]
+        [HttpGet]
+        public async Task<IActionResult> Get(string FileName)
+        {
+            var imgBytes = await _fileManagerLogic.Get(FileName);
+            return Success(File(imgBytes, "image/webp"));
         }
     }
 }

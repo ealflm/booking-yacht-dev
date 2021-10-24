@@ -31,6 +31,8 @@ using BookingYacht.API.Utilities.ContractResolver;
 using System;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using System.Text.RegularExpressions;
+using Azure.Storage.Blobs;
+using BookingYacht.Business.Interfaces;
 
 namespace BookingYacht.API
 {
@@ -173,6 +175,12 @@ namespace BookingYacht.API
             services.AddTransient<Business.Interfaces.Business.ITicketTypeService, Business.Implement.Business.TicketTypeService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IBusinessTourService, BusinessTourService>();
+
+            services.AddScoped(_ => {
+                return new BlobServiceClient(Configuration.GetConnectionString("AzureBlobStorage"));
+            });
+
+            services.AddScoped<IFileManagerLogic, FileManagerLogic>();
 
         }
 
