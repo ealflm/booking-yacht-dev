@@ -282,6 +282,8 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
+                entity.Property(e => e.ImageLink).IsUnicode(false);
+
                 entity.Property(e => e.Title).IsRequired();
             });
 

@@ -27,7 +27,8 @@ namespace BookingYacht.Business.Implement.Admin
                 Id = model.Id,
                 Title= model.Tittle,
                 Descriptions= model.Descriptions,
-                Status = model.Status
+                Status = model.Status,
+                ImageLink= model.ImageLink
             };
             tour.Status = (int)Status.ENABLE;
             await _unitOfWork.TourRepository.Add(tour);
@@ -42,9 +43,10 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new Tour()
                 {
                     Id = x.Id,
-                   Title=x.Title,
-                   Descriptions= x.Descriptions,
-                    Status = x.Status
+                    Title=x.Title,
+                    Descriptions= x.Descriptions,
+                    Status = x.Status,
+                    ImageLink= x.ImageLink
                 }).FirstOrDefaultAsync();
             tour.Status = (int)Status.DISABLE;
             _unitOfWork.TourRepository.Update(tour);
@@ -60,7 +62,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     Tittle= x.Title,
                     Descriptions= x.Descriptions,
-                    Status = x.Status
+                    Status = x.Status,
+                    ImageLink= x.ImageLink
                 }).FirstOrDefaultAsync();
             return tour;
         }
@@ -80,7 +83,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     Tittle= x.Title,
                     Descriptions= x.Descriptions,
-                    Status = x.Status
+                    Status = x.Status,
+                    ImageLink= x.ImageLink
                 })
                 .OrderBy(x => x.Tittle)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
@@ -96,7 +100,8 @@ namespace BookingYacht.Business.Implement.Admin
                 Id = id,
                 Title= model.Tittle,
                 Descriptions= model.Descriptions,
-                Status = model.Status
+                Status = model.Status,
+                ImageLink= model.ImageLink
             };
             _unitOfWork.TourRepository.Update(tour);
             await _unitOfWork.SaveChangesAsync();

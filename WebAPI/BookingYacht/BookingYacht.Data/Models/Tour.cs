@@ -17,6 +17,7 @@ namespace BookingYacht.Data.Models
         public string Title { get; set; }
         public string Descriptions { get; set; }
         public int Status { get; set; }
+        public string ImageLink { get; set; }
 
         public virtual ICollection<BusinessTour> BusinessTours { get; set; }
         public virtual ICollection<DestinationTour> DestinationTours { get; set; }
