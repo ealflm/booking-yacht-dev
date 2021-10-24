@@ -23,6 +23,7 @@ export class TourFormComponent implements OnInit {
   tour: [] = [];
   selectedDes!: any[];
   destiations?: any[];
+  previewImage: any;
   constructor(
     private formBuilder: FormBuilder,
     private tourService: ToursService,
@@ -54,6 +55,20 @@ export class TourFormComponent implements OnInit {
       arrDeS.push(desSelect.code);
     });
     console.log(arrDeS);
+  }
+  onFileChanged(event: any) {
+    console.log(event);
+
+    const file = event.target.files[0];
+    if (file) {
+      this.form.patchValue({ image: file });
+      // this.form.get('image').updateValueAndValidity();
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        this.previewImage = fileReader.result;
+      };
+      fileReader.readAsDataURL(file);
+    }
   }
   _checkEditMode() {
     this.route.params.subscribe((params) => {
