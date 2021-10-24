@@ -22,6 +22,7 @@ namespace BookingYacht.Data.Models
         public Guid IdVehicleType { get; set; }
         public Guid IdBusiness { get; set; }
         public int Status { get; set; }
+        public string ImageLink { get; set; }
 
         public virtual Business IdBusinessNavigation { get; set; }
         public virtual VehicleType IdVehicleTypeNavigation { get; set; }

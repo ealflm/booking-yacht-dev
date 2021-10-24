@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BookingYacht.API.Controllers.Agency;
+using BookingYacht.Business.FileModels;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
@@ -15,13 +16,14 @@ namespace BookingYacht.API.Controllers.Business
     [ApiExplorerSettings(GroupName = Role)]
     public class VehiclesController : BaseBusinessController
     {
-        public VehiclesController(IVehicleService service)
+        public VehiclesController(IVehicleService service, IFileManagerLogic fileManagerLogic)
         {
             _agencyService = service;
+            _fileManagerLogic = fileManagerLogic;
         }
 
         private readonly IVehicleService _agencyService;
-        
+        private readonly IFileManagerLogic _fileManagerLogic;
         [HttpGet()]
         public async Task<IActionResult> Search([FromQuery] VehicleSearchModel model)
         {
@@ -56,6 +58,25 @@ namespace BookingYacht.API.Controllers.Business
             await _agencyService.DeleteVehicle(id);
             return Success();
         }
-        
+
+        [Route("upload")]
+        [HttpPost]
+        public async Task<IActionResult> Upload([FromForm] FileModel model)
+        {
+            if (model.ImageFile != null)
+            {
+                await _fileManagerLogic.Upload(model);
+            }
+            return Success(model.ImageFile.FileName);
+        }
+
+        [Route("image")]
+        [HttpGet]
+        public async Task<IActionResult> Get(string FileName)
+        {
+            var imgBytes = await _fileManagerLogic.Get(FileName);
+            return Success(File(imgBytes, "image/webp"));
+        }
+
     }
 }

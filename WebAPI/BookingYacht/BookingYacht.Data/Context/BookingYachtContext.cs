@@ -324,6 +324,8 @@ namespace BookingYacht.Data.Context
 
                 entity.Property(e => e.Descriptions).HasMaxLength(255);
 
+                entity.Property(e => e.ImageLink).IsUnicode(false);
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
