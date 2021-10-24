@@ -24,21 +24,18 @@ namespace BookingYacht.API.Controllers.Business
             _destinationTourService = destinationTourService;
         }
 
-
-
-        // GET: api/<DesinationTourController>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] DestinationTourSearchModel model)
         {
-            var destinationTours = await _destinationTourService.SearchDestinationTours(model);
+            var destinationTours = await _destinationTourService.SearchDestinationToursNavigation(model);
             return Success(destinationTours);
         }
 
         // GET api/<DesinationTourController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var destinationTour = await _destinationTourService.GetDestinationTour(id);
+            var destinationTour = await _destinationTourService.GetDestinationTourNavigation(id);
             return Success(destinationTour);
         }
 
