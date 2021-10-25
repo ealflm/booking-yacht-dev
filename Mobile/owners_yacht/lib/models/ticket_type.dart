@@ -1,13 +1,13 @@
 // To parse this JSON data, do
 //
-//     final ticketReponse = ticketReponseFromJson(jsonString);
+//     final ticketTypeReponse = ticketTypeReponseFromJson(jsonString);
 
 import 'dart:convert';
 
-TicketTypeReponse ticketReponseFromJson(String str) =>
+TicketTypeReponse ticketTypeReponseFromJson(String str) =>
     TicketTypeReponse.fromJson(json.decode(str));
 
-String ticketReponseToJson(TicketTypeReponse data) =>
+String ticketTypeReponseToJson(TicketTypeReponse data) =>
     json.encode(data.toJson());
 
 class TicketTypeReponse {
@@ -37,6 +37,8 @@ class TicketType {
     this.commissionFeePercentage,
     this.serviceFeePercentage,
     this.idBusinessTour,
+    this.idTour,
+    this.idBusiness,
   });
 
   String? id;
@@ -46,6 +48,8 @@ class TicketType {
   double? commissionFeePercentage;
   double? serviceFeePercentage;
   String? idBusinessTour;
+  String? idTour;
+  String? idBusiness;
 
   factory TicketType.fromJson(Map<String, dynamic> json) => TicketType(
         id: json["id"],
@@ -55,6 +59,8 @@ class TicketType {
         commissionFeePercentage: json["commissionFeePercentage"],
         serviceFeePercentage: json["serviceFeePercentage"],
         idBusinessTour: json["idBusinessTour"],
+        idTour: json["idTour"],
+        idBusiness: json["idBusiness"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,5 +71,7 @@ class TicketType {
         "commissionFeePercentage": commissionFeePercentage,
         "serviceFeePercentage": serviceFeePercentage,
         "idBusinessTour": idBusinessTour,
+        "idTour": idTour,
+        "idBusiness": idBusiness,
       };
 }

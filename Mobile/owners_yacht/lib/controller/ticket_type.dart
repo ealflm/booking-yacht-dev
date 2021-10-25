@@ -15,6 +15,7 @@ class TicketTypeController extends GetxController {
   List<TicketType> listTicketType = <TicketType>[].obs;
   var ticketDetail = TicketType();
   var selectedValue;
+
   String id = "";
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -44,7 +45,7 @@ class TicketTypeController extends GetxController {
       );
       if (response.statusCode == 200) {
         var jsonString = response.body;
-        var tickets = ticketReponseFromJson(jsonString);
+        var tickets = ticketTypeReponseFromJson(jsonString);
         if (tickets.data != null) {
           listTicketType = tickets.data as List<TicketType>;
         }
@@ -75,7 +76,7 @@ class TicketTypeController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        var tickets = ticketReponseFromJson(response.body);
+        var tickets = ticketTypeReponseFromJson(response.body);
         if (tickets.data != null) {
           ticketDetail = tickets.data as TicketType;
         }
@@ -92,6 +93,7 @@ class TicketTypeController extends GetxController {
   void editTicketType(TicketType ticket) async {
     isAdding = false;
     id = ticket.id!;
+    selectedValue = ticket.idTour;
     nameController.text = ticket.name!;
     priceController.text = ticket.price.toString();
     statusController.text = ticket.status.toString();
@@ -130,7 +132,8 @@ class TicketTypeController extends GetxController {
             status: int.parse(statusController.text),
             commissionFeePercentage: double.parse(commissionFeeController.text),
             serviceFeePercentage: double.parse(serviceFeeController.text),
-            idBusinessTour: idTourController.text);
+            idTour: idTourController.text,
+            idBusiness: '68554b5a-817b-453c-992c-149662a8e710');
         String body = json.encode(ticket);
 
         final response = await http.put(
@@ -153,10 +156,11 @@ class TicketTypeController extends GetxController {
         String body = json.encode({
           'name': nameController.text,
           'price': double.parse(priceController.text),
-          'status': int.parse(statusController.text),
+          'status': 3,
           'commissionFeePercentage': double.parse(commissionFeeController.text),
           'serviceFeePercentage': double.parse(serviceFeeController.text),
-          'idBusinessTour': "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          'idTour': "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          'idBusiness': '68554b5a-817b-453c-992c-149662a8e710'
         });
         print(body);
         final response = await http.post(
@@ -198,6 +202,48 @@ class TicketTypeController extends GetxController {
         Get.back();
       } else {
         print('loi o delete');
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void restore(TicketType data) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    final isValid = ticketTypeFormKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    ticketTypeFormKey.currentState!.save();
+    try {
+      if (!isAdding) {
+        TicketType ticket = TicketType(
+            id: data.id,
+            name: data.name,
+            price: data.price,
+            status: 3,
+            commissionFeePercentage: data.commissionFeePercentage,
+            serviceFeePercentage: data.serviceFeePercentage,
+            idTour: data.idTour,
+            idBusiness: '68554b5a-817b-453c-992c-149662a8e710');
+        String body = json.encode(ticket);
+        final response = await http.put(
+          Uri.parse(
+              "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types/${id}"),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
+          body: body,
+        );
+        if (response.statusCode == 200) {
+          getTicketType();
+          update();
+          Get.back();
+        } else {
+          print('loi o save roi ');
+        }
       }
     } catch (error) {
       print(error);

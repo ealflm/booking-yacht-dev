@@ -63,17 +63,6 @@ class TicketTypeModify extends StatelessWidget {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Trạng thái'),
-                controller: _ticketTypeController.statusController,
-                // onSaved: (value) {
-                //   _ticketTypeController.priceController.text = value!;
-                // },
-                // validator: (value) {
-                //   return _ticketTypeController.validate(
-                //       value!, 'Vui lòng nhập giá');
-                // },
-              ),
-              TextFormField(
                 decoration: const InputDecoration(labelText: 'Phí hoa hồng(%)'),
                 controller: _ticketTypeController.commissionFeeController,
                 onSaved: (value) {

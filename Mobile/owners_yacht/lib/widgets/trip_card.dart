@@ -28,7 +28,8 @@ class TripCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Text(
             '${dateString}',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         // :
