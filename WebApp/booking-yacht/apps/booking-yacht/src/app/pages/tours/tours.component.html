@@ -120,7 +120,7 @@
             class="card box shadow-1"
           >
             <div class="flex justify-content-between">
-              <h2 class="pl-3 pt-3">
+              <h2 class="pl-3 pt-3" [style]="{ width: '80%' }">
                 {{ tours.tittle | uppercase }}
               </h2>
               <div
@@ -146,6 +146,7 @@
             <div class="pl-3 pr-3">
               <span [innerHTML]="tours.descriptions"></span>
             </div>
+            <div style="height: 40px"></div>
             <div class="flex flex-wrap mt-4">
               <div class="absolute right-4 bottom-4">
                 <button
