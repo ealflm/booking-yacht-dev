@@ -16,6 +16,7 @@ namespace BookingYacht.Data.Models
         public DateTime Time { get; set; }
         public Guid IdBusinessTour { get; set; }
         public Guid IdVehicle { get; set; }
+        public int? AmountTicket { get; set; }
         public int Status { get; set; }
 
         public virtual BusinessTour IdBusinessTourNavigation { get; set; }

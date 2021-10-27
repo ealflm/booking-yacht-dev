@@ -112,6 +112,9 @@ namespace BookingYacht.Business.Implement.Admin
                 Status = model.Status
             };
             var ticket = _unitOfWork.TicketRepository.Query().Add(entity);
+            Trip trip = _unitOfWork.TripRepository.GetById(entity.IdTrip).Result;
+            trip.AmountTicket++;
+            _unitOfWork.TripRepository.Update(trip);
             await _unitOfWork.SaveChangesAsync();
             return ticket.Entity.Id;
         }
