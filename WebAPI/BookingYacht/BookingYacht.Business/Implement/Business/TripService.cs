@@ -88,7 +88,7 @@ namespace BookingYacht.Business.Implement.Business
                 })
                 .OrderBy(x => x.Time)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
-                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TripRepository.Query().Count())
                 .ToListAsync();
             return trips;
         }
