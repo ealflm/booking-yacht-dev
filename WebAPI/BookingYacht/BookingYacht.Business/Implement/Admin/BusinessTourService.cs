@@ -35,6 +35,7 @@ namespace BookingYacht.Business.Implement.Admin
                     idTour=x.IdTour,
                     Status=x.Status,
                     Trips=  _unitOfWork.TripRepository.Query()
+                .Include(y=>y.IdVehicleNavigation)
                 .Where(y => y.IdBusinessTour.Equals(x.Id))
                 .Where(y=>model.Time==null |y.Time.Date.Equals(model.Time))
                 .OrderBy(y => y.Time)
@@ -54,6 +55,13 @@ namespace BookingYacht.Business.Implement.Admin
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessTourRepository.Query().Count())
                 .ToListAsync();
+            foreach(BusinessTourViewModel businessTour in list)
+            {
+                foreach(Trip trip in businessTour.Trips)
+                {
+                    trip.IdVehicleNavigation.IdBusinessNavigation = null;
+                }
+            }
             return list;
         }
 
