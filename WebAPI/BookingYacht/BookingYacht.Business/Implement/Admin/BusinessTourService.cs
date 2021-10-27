@@ -8,6 +8,7 @@ using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Models;
+using BookingYacht.Business.Implement.Business;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
@@ -18,7 +19,7 @@ namespace BookingYacht.Business.Implement.Admin
         {
         }
 
-        public async Task<List<BusinessTour>> SearchAgenciesNavigation(BusinessTourSearchModel model = null)
+        public async Task<List<BusinessTourViewModel>> SearchAgenciesNavigation(BusinessTourSearchModel model = null)
         {
             model ??= new BusinessTourSearchModel();
             var list = await _unitOfWork.Context().BusinessTours
@@ -27,6 +28,28 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
                 .Where(x => model.Status == null | x.Status == (int) model.Status)
+                .Select(x=>new BusinessTourViewModel()
+                {
+                    id=x.Id,
+                    idBusiness=x.IdBusiness,
+                    idTour=x.IdTour,
+                    Status=x.Status,
+                    Trips=  _unitOfWork.TripRepository.Query()
+                .Where(y => y.IdBusinessTour.Equals(x.Id))
+                .Where(y=>model.Time==null |y.Time.Date.Equals(model.Time))
+                .OrderBy(y => y.Time)
+                .ToList(),
+                    TicketTypes= _unitOfWork.TicketTypeRepository.Query()
+                .Where(y => y.IdBusinessTour.Equals(x.Id))
+                .OrderBy(y => y.Id)
+                .ToList(),
+                    IdTourNavigation= _unitOfWork.TourRepository.Query()
+                .Where(y => y.Id.Equals(x.IdTour))
+                .FirstOrDefault(),
+                    IdBusinessNavigation= _unitOfWork.BusinessRepository.Query()
+                .Where(y => y.Id.Equals(x.IdBusiness))
+                .FirstOrDefault()
+        })
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessTourRepository.Query().Count())
