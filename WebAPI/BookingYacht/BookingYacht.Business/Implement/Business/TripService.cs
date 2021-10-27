@@ -53,7 +53,8 @@ namespace BookingYacht.Business.Implement.Business
                     Time = x.Time,
                     IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
-                    Status = x.Status
+                    Status = x.Status,
+                    AmountTicket=x.AmountTicket
                 }).FirstOrDefaultAsync();
             trip.Status = (int)Status.DISABLE;
             _unitOfWork.TripRepository.Update(trip);
@@ -70,7 +71,8 @@ namespace BookingYacht.Business.Implement.Business
                     Time = x.Time,
                     IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
-                    Status = x.Status
+                    Status = x.Status,
+                    AmountTicket=x.AmountTicket
                 }).FirstOrDefaultAsync();
             return trip;
         }
@@ -91,7 +93,8 @@ namespace BookingYacht.Business.Implement.Business
                     Time = x.Time,
                     IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
-                    Status = x.Status
+                    Status = x.Status,
+                    AmountTicket=x.AmountTicket
                 })
                 .OrderBy(x => x.Time)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
@@ -108,7 +111,8 @@ namespace BookingYacht.Business.Implement.Business
                 Time = model.Time,
                 IdBusinessTour = model.IdBusinessTour,
                 IdVehicle = model.IdVehicle,
-                Status = model.Status
+                Status = model.Status,
+                AmountTicket= model.AmountTicket
             };
             _unitOfWork.TripRepository.Update(trip);
             await _unitOfWork.SaveChangesAsync();
