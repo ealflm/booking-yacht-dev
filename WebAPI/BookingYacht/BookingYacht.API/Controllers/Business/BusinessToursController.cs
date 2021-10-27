@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
+using BookingYacht.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

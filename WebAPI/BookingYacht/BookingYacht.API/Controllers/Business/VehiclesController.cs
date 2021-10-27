@@ -67,16 +67,9 @@ namespace BookingYacht.API.Controllers.Business
             {
                 await _fileManagerLogic.Upload(model);
             }
-            return Success(model.ImageFile.FileName);
+            return Success("https://swd3915.blob.core.windows.net/images/"+model.ImageFile.FileName);
         }
 
-        [Route("image")]
-        [HttpGet]
-        public async Task<IActionResult> Get(string FileName)
-        {
-            var imgBytes = await _fileManagerLogic.Get(FileName);
-            return Success(File(imgBytes, "image/webp"));
-        }
 
     }
 }

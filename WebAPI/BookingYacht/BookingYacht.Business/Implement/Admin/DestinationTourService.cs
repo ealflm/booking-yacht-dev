@@ -103,7 +103,7 @@ namespace BookingYacht.Business.Implement.Admin
                     IdTour = x.IdTour,
                     Order= x.Order
                 })
-                .OrderBy(x => x.Id)
+                .OrderBy(x => x.Order)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.DestinationTourRepository.Query().Count())
                 .ToListAsync();
