@@ -28,12 +28,8 @@
       <div class="col-12">
         <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
-            <div class="p-field col-4" [class]="editMode ? 'hidden' : ''">
-              <label for="id">ID</label>
-              <input id="id" type="text" pInputText formControlName="id" />
-            </div>
-            <div class="p-field col-8">
-              <label for="tittle">Tittle</label>
+            <div [class]="editMode ? 'p-field col-8' : 'p-field col-12'">
+              <label for="tittle">Tiêu đề</label>
 
               <input
                 id="tittle"
@@ -42,7 +38,7 @@
                 pInputText
               />
               <small *ngIf="tourForm.tittle.invalid && isSubmit" class="p-error"
-                >Tittle is required</small
+                >Tiêu đề không được rỗng</small
               >
             </div>
             <div class="p-field col-4" *ngIf="editMode">
@@ -56,21 +52,41 @@
                 [showClear]="true"
               ></p-dropdown>
               <small *ngIf="tourForm.status.invalid && isSubmit" class="p-error"
-                >Status is required</small
+                >Trạng Thái không được rỗng</small
               >
             </div>
-            <div class="p-field col-12 mt-3">
-              <label for="status">Descriptions</label>
+
+            <div class="p-field col-7 mt-3">
+              <label for="status">Mô tả</label>
               <p-editor
                 formControlName="descriptions"
-                [style]="{ height: '250px' }"
+                [style]="{ height: '270px' }"
               ></p-editor>
 
               <small
                 *ngIf="tourForm.descriptions.invalid && isSubmit"
                 class="p-error"
-                >Descriptions is required</small
+                >Mô tả không được rỗng</small
               >
+            </div>
+            <div class="p-field col-5 mt-3">
+              <label for="status">Hình ảnh</label>
+              <input
+                accept="image/*"
+                (change)="onFileChanged($event)"
+                type="file"
+                class="input-file"
+                id="actual-btn"
+                hidden
+              />
+              <label class="uploadFile" for="actual-btn">Chọn 1 file...</label>
+
+              <img style="width: 100%; height: 290px" [src]="previewImage" />
+              <div style="height: 10px"></div>
+              <p-progressBar
+                [value]="progress"
+                *ngIf="progress > 0"
+              ></p-progressBar>
             </div>
           </div>
         </form>
@@ -82,7 +98,7 @@
           </div>
           <div class="col-12 mt-4">
             <div class="grid">
-              <div class="col-11">
+              <div class="col-12">
                 <p-multiSelect
                   [options]="destiations!"
                   [(ngModel)]="selectedDes"
@@ -91,22 +107,22 @@
                   (onChange)="onChange()"
                 ></p-multiSelect>
               </div>
-              <div class="col-1">
-                <!-- <button
+              <!-- <div class="col-1"> -->
+              <!-- <button
                   pButton
                   pRipple
                   type="button"
                   icon="pi pi-check"
                   class="p-button-rounded"
                 ></button> -->
-                <button
+              <!-- <button
                   pButton
                   pRipple
                   type="button"
                   icon="pi pi-check"
                   class="p-button-rounded p-button-outlined"
-                ></button>
-              </div>
+                ></button> -->
+              <!-- </div> -->
             </div>
           </div>
         </div>

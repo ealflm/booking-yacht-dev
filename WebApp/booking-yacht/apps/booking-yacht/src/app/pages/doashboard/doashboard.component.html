@@ -92,7 +92,7 @@
   <div class="grid ml-1 mt-1">
     <div class="col-8">
       <div class="card p-3">
-        <h1>Khách hàng đặt gần đây</h1>
+        <h1>Đại lý đặt gần đây</h1>
         <p-table
           #dt
           [value]="order"
@@ -108,7 +108,7 @@
             <tr>
               <th class="hidden">ID</th>
               <th pSortableColumn="agencyName">
-                Tên khách hàng <p-sortIcon field="agencyName"></p-sortIcon>
+                Tên đại lý <p-sortIcon field="agencyName"></p-sortIcon>
               </th>
               <!-- <th pSortableColumn="dateOrder">
                 Ngày đặt <p-sortIcon field="dateOrder"></p-sortIcon>
@@ -152,7 +152,7 @@
     </div>
     <div class="col-4 mt-3">
       <div class="card pt-3 pl-3">
-        <h1>Khách hàng dùng nhiều</h1>
+        <h1>Khách hàng nổi bật</h1>
         <p-table
           #dt
           [value]="customter"

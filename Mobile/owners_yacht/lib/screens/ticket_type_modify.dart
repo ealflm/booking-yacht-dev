@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/controller/ticket_type.dart';
 import 'package:owners_yacht/controller/tour.dart';
+import 'package:owners_yacht/models/tour.dart';
+import 'package:owners_yacht/models/yacht.dart';
 
 class TicketTypeModify extends StatelessWidget {
+  List<String> dropdown = ['a', 'b', 'c', 'daaa'];
+
   final TicketTypeController _ticketTypeController =
       Get.find<TicketTypeController>();
   final TourController _tourController = Get.find<TourController>();
@@ -28,70 +32,94 @@ class TicketTypeModify extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
+          key: _ticketTypeController.ticketTypeFormKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Loại vé'),
+                decoration: const InputDecoration(labelText: 'Tên loại vé'),
                 textInputAction: TextInputAction.next,
                 // onFieldSubmitted: (_) {},
                 controller: _ticketTypeController.nameController,
-                // validator: (value) {},
-                // onSaved: (value) {},
+                onSaved: (value) {
+                  _ticketTypeController.nameController.text = value!;
+                },
+                validator: (value) {
+                  return _ticketTypeController.validate(
+                      value!, 'Vui lòng nhập tên loại vé');
+                },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Giá'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 controller: _ticketTypeController.priceController,
+                onSaved: (value) {
+                  _ticketTypeController.priceController.text = value!;
+                },
+                validator: (value) {
+                  return _ticketTypeController.validate(
+                      value!, 'Vui lòng nhập giá');
+                },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Trạng thái'),
-                validator: (value) {},
-                onSaved: (value) {},
                 controller: _ticketTypeController.statusController,
+                // onSaved: (value) {
+                //   _ticketTypeController.priceController.text = value!;
+                // },
+                // validator: (value) {
+                //   return _ticketTypeController.validate(
+                //       value!, 'Vui lòng nhập giá');
+                // },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Phí hoa hồng(%)'),
-                validator: (value) {},
-                onSaved: (value) {},
                 controller: _ticketTypeController.commissionFeeController,
+                onSaved: (value) {
+                  _ticketTypeController.commissionFeeController.text = value!;
+                },
+                validator: (value) {
+                  return _ticketTypeController.validate(
+                      value!, 'Vui lòng nhập phí hoa hồng');
+                },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Phí dịch vụ(%)'),
-                validator: (value) {},
-                onSaved: (value) {},
+                onSaved: (value) {
+                  _ticketTypeController.serviceFeeController.text = value!;
+                },
+                validator: (value) {
+                  return _ticketTypeController.validate(
+                      value!, 'Vui lòng nhập phí dịch vụ');
+                },
                 controller: _ticketTypeController.serviceFeeController,
               ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Wrap(
-                  children: [
-                    // DropdownButton<String>(
-                    //   hint: Text(
-                    //     'Chọn tour',
-                    //     style: TextStyle(fontSize: 16),
-                    //   ),
-                    //   items: _tourController.listTour.map(
-                    //     (e) => DropdownMenuItem<String>(
-                    //       value: e.id,
-                    //       child: Text(e.tittle),
-                    //     ),
-                    //   ),
-
-                    // items: <String>[
-                    //   'Aasdasdadasdddddddddddddddddd',
-                    //   'Basdasdasd',
-                    //   'asdasdsdC',
-                    //   'asdasdD'
-                    // ].map((String value) {
-                    //   return DropdownMenuItem<String>(
-                    //     value: value,
-                    //     child: Text(value),
-                    //   );
-                    // }).toList(),
-                    // onChanged: (_) {},
-                    // )
-                  ],
+              GetBuilder<TicketTypeController>(
+                builder: (controller) => Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Wrap(
+                    children: [
+                      DropdownButton<String>(
+                        isExpanded: true,
+                        hint: const Text(
+                          'Chọn tour',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        value: controller.selectedValue,
+                        items: _tourController.listTour.map((Tour value) {
+                          return DropdownMenuItem<String>(
+                            value: value.id,
+                            child: Text(value.tittle!,
+                                overflow: TextOverflow.ellipsis),
+                          );
+                        }).toList(),
+                        onChanged: (newValue) {
+                          controller.onSelected(newValue!);
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

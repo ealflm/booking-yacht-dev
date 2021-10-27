@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/constants/status.dart';
 import 'package:owners_yacht/controller/ticket_type.dart';
 import 'package:owners_yacht/models/ticket_type.dart';
 import 'package:get/get.dart';
@@ -31,7 +32,7 @@ class TicketTypeCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const <Widget>[
                       Text(
-                        "Commission",
+                        "Phí đại lý",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -44,7 +45,7 @@ class TicketTypeCard extends StatelessWidget {
                         width: 16,
                       ),
                       Text(
-                        "Service",
+                        "Phí dịch vụ",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -81,7 +82,7 @@ class TicketTypeCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Status: ${_ticketType.status}",
+                        "Trạng thái: ${BookingYachtStatus.status[_ticketType.status]}",
                         style:
                             const TextStyle(fontSize: 12, color: Colors.grey),
                       ),

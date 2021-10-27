@@ -17,6 +17,45 @@
         <form [formGroup]="form">
           <div class="p-fluid formgrid grid">
             <div class="col-6">
+              <p-card subheader="Thông tin chủ tàu">
+                <div class="grid">
+                  <div class="col-7">
+                    <div class="col-12">
+                      Chủ tàu:
+                      <p>{{ business?.name }}</p>
+                    </div>
+
+                    <div class="col-12">
+                      Số điện thoại:
+                      <p>{{ business?.phoneNumber }}</p>
+                    </div>
+                    <div class="col-12">
+                      Email:
+                      <p>{{ business?.emailAddress }}</p>
+                    </div>
+                    <div class="col-12">
+                      Địa chỉ:
+                      <p>{{ business?.address }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-5">
+                    <div class="col-12">
+                      Tên Tour:
+                      <p>{{ tour?.tittle }}</p>
+                    </div>
+                    <div class="col-12">
+                      Trạng thái:
+                      <p-tag
+                        [severity]="tourStatus[tour.status!]?.color"
+                        [value]="tourStatus[tour.status!]?.lable"
+                      ></p-tag>
+                    </div>
+                  </div>
+                </div>
+              </p-card>
+            </div>
+            <div class="col-6">
               <div class="grid">
                 <div class="p-field col-6 mb-3">
                   <label for="name">Hạng vé</label>
@@ -65,45 +104,6 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
-              <p-card subheader="Thông tin chủ tàu">
-                <div class="grid">
-                  <div class="col-7">
-                    <div class="col-12">
-                      Chủ tàu:
-                      <p>{{ business?.name }}</p>
-                    </div>
-
-                    <div class="col-12">
-                      Số điện thoại:
-                      <p>{{ business?.phoneNumber }}</p>
-                    </div>
-                    <div class="col-12">
-                      Email:
-                      <p>{{ business?.emailAddress }}</p>
-                    </div>
-                    <div class="col-12">
-                      Địa chỉ:
-                      <p>{{ business?.address }}</p>
-                    </div>
-                  </div>
-
-                  <div class="col-5">
-                    <div class="col-12">
-                      Tên Tour:
-                      <p>{{ tour?.tittle }}</p>
-                    </div>
-                    <div class="col-12">
-                      Trạng thái:
-                      <p-tag
-                        [severity]="tourStatus[tour.status!].color"
-                        [value]="tourStatus[tour.status!].lable"
-                      ></p-tag>
-                    </div>
-                  </div>
-                </div>
-              </p-card>
-            </div>
           </div>
         </form>
       </div>
@@ -112,6 +112,11 @@
       <div class="col-12 mt-4">
         <form>
           <div class="p-fluid formgrid grid">
+            <div class="col-6">
+              <p-card>
+                <p-skeleton width="100%" height="20rem"></p-skeleton>
+              </p-card>
+            </div>
             <div class="col-6">
               <div class="grid">
                 <div class="p-field col-6 mb-3">
@@ -140,12 +145,6 @@
                   <p-skeleton></p-skeleton>
                 </div>
               </div>
-            </div>
-
-            <div class="col-6">
-              <p-card>
-                <p-skeleton width="100%" height="20rem"></p-skeleton>
-              </p-card>
             </div>
           </div>
         </form>

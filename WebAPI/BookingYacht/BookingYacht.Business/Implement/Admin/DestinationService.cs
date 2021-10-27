@@ -79,7 +79,10 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.DestinationRepository.Query().Count())
+                .Take(model.Page != 0 ? model.AmountItem 
+                    // : 0 
+                    : _unitOfWork.DestinationRepository.Query().Count()
+                    )
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
@@ -104,7 +107,10 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.DestinationRepository.Query().Count())
+                .Take(model.Page != 0 ? model.AmountItem 
+                    // : 0
+                    : _unitOfWork.DestinationRepository.Query().Count()
+                    )
                 .OrderBy(x => x.Address)
                 .ToListAsync();
             return destiny;

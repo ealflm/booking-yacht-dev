@@ -20,7 +20,7 @@ class Transactions extends StatelessWidget {
         child: GetBuilder<TransactionController>(
           builder: (controller) => (controller.isLoading.isTrue)
               ? const Center(child: CircularProgressIndicator())
-              : Padding(
+              : controller.listTransaction.isEmpty ? const Center(child: Text('Không có đơn hàng nào!')) : Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: ListView.builder(
                     itemBuilder: (ctx, i) => TransactionCard(

@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'dart:math';
 import 'package:get/get.dart';
 import 'package:owners_yacht/controller/trip.dart';
 
 import 'package:owners_yacht/widgets/nav_bar.dart';
 import 'package:owners_yacht/widgets/trip_card.dart';
-class Trips extends StatefulWidget {
-  @override
-  State<Trips> createState() => _TripsState();
-}
 
-class _TripsState extends State<Trips> {
+class Trips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,17 +16,35 @@ class _TripsState extends State<Trips> {
       body: GetBuilder<TripController>(
         builder: (controller) => (controller.isLoading.isTrue)
             ? const Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: ListView.builder(
-                  itemBuilder: (ctx, i) => TripCard(controller.listTrip[i]),
-                  itemCount: controller.listTrip.length,
-                ),
-              ),
+            : controller.listTrip.isEmpty
+                ? const Center(child: Text('Không có chuyến đi nào!'))
+                : Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: ListView.builder(
+                      itemBuilder: (ctx, i) => TripCard(controller.listTrip[i]),
+                      itemCount: controller.listTrip.length,
+                    ),
+                  ),
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //       // ListView.builder(
 //       // itemCount: transactions.length,
 //       // itemBuilder: (context, index) {

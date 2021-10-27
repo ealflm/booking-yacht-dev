@@ -3,4 +3,5 @@ export class Tour {
   tittle?: string;
   descriptions?: string;
   status?: string;
+  imageLink?: string;
 }
