@@ -63,8 +63,26 @@ namespace BookingYacht.Business.Implement.Admin
                     Tittle= x.Title,
                     Descriptions= x.Descriptions,
                     Status = x.Status,
-                    ImageLink= x.ImageLink
-                }).FirstOrDefaultAsync();
+                    ImageLink= x.ImageLink,
+                    DestinationTours= _unitOfWork.DestinationTourRepository.Query()
+                .Where(y =>  y.IdTour.Equals(x.Id))
+                .Select(y => new DestinationTourViewModel()
+                {
+                    Id = y.Id,
+                    IdDestination = y.IdDestination,
+                    IdTour = y.IdTour,
+                    Order = y.Order,
+                    Destination= _unitOfWork.DestinationRepository.Query()
+                .Where(z => z.Id.Equals(y.IdDestination))
+               .FirstOrDefault()
+        })
+                .OrderBy(x => x.Order)
+                .ToList()
+        }).FirstOrDefaultAsync();
+            foreach(DestinationTourViewModel destinationTour in tour.DestinationTours)
+            {
+                destinationTour.PlaceType = _unitOfWork.PlaceTypeRepository.GetById(destinationTour.Destination.IdPlaceType).Result.Name;
+            }
             return tour;
         }
 
@@ -88,6 +106,7 @@ namespace BookingYacht.Business.Implement.Admin
                 })
                 .OrderBy(x => x.Tittle)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
+
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TourRepository.Query()
                     .Count())
                 .ToListAsync();
