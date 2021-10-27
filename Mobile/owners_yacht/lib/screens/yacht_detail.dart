@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/constants/Status.dart';
 import '/controller/yacht.dart';
@@ -71,15 +73,18 @@ class YachtDetail extends StatelessWidget {
                                         CrossAxisAlignment.stretch,
                                     children: [
                                       YachtInformation(
-                                          "Ghế",
-                                          (controller.yachtDetail.seat != null)
-                                              ? '${controller.yachtDetail.seat}'
-                                              : 'No'),
-                                      YachtInformation(
                                           "Trạng thái",
                                           BookingYachtStatus.status[
                                                   controller.yachtDetail.status]
                                               .toString()),
+                                      YachtInformation("Ghế",
+                                          '${controller.yachtDetail.seat.toString()}'),
+                                      YachtInformation("Biển số",
+                                          '${controller.yachtDetail.registrationNumber.toString()}'),
+                                      YachtInformation("Năm sản xuất",
+                                          '${controller.yachtDetail.yearOfManufacture.toString()}'),
+                                      YachtInformation("Nơi sản xuất",
+                                          '${controller.yachtDetail.whereProduction.toString()}'),
                                       YachtInformation("Mô tả",
                                           controller.yachtDetail.descriptions!),
                                     ],
@@ -88,25 +93,6 @@ class YachtDetail extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   children: [
-                          //     Image.network(
-                          //         'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
-                          //     YachtInformation(
-                          //         "Ghế",
-                          //         (controller.yachtDetail.seat != null)
-                          //             ? '${controller.yachtDetail.seat}'
-                          //             : 'No'),
-                          //     YachtInformation(
-                          //         "Trạng thái",
-                          //         (controller.yachtDetail.status != null)
-                          //             ? '${controller.yachtDetail.status}'
-                          //             : 'No'),
-                          //     YachtInformation("Mô tả",
-                          //         controller.yachtDetail.descriptions!),
-                          //   ],
-                          // ),
                         ),
                       ),
                     ],
@@ -114,9 +100,27 @@ class YachtDetail extends StatelessWidget {
                 ),
               ),
               FlatButton(
-                onPressed: () =>
-                    controller.deleteYacht(controller.yachtDetail.id!),
-                child: Text(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text('Xoá tàu?'),
+                    content: const Text(
+                      'Bạn có muốn xoá tàu này?',
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: const Text('Không'),
+                        onPressed: () => controller.cancel(),
+                      ),
+                      FlatButton(
+                        child: const Text('Có'),
+                        onPressed: () =>
+                            controller.deleteYacht(controller.yachtDetail.id!),
+                      ),
+                    ],
+                  ),
+                ),
+                child: const Text(
                   'Xoá tàu',
                   style: TextStyle(fontWeight: FontWeight.w300),
                 ),

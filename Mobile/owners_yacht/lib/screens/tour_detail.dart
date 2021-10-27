@@ -49,20 +49,6 @@ class TourDetail extends StatelessWidget {
                   Colors.black.withOpacity(0.9),
                 ])),
           ),
-          Container(
-              margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.15,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 28),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("4.8",
-                      style:
-                          TextStyle(color: Colors.orange[600], fontSize: 16)),
-                  const Icon(Icons.star_border, color: Colors.orange, size: 20)
-                ],
-              )),
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2.5),

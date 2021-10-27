@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/tour.dart';
 import 'package:owners_yacht/screens/tour_detail.dart';
@@ -11,7 +13,13 @@ class TourController extends GetxController {
   List<Tour> listTour = <Tour>[].obs;
   var tourDetail = Tour();
 
-  Future<List<Tour>> getTour() async {
+  @override
+  onInit() {
+    fectchsTour();
+    super.onInit();
+  }
+
+  Future<List<Tour>> fectchsTour() async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -30,15 +38,22 @@ class TourController extends GetxController {
         if (tour.data != null) {
           listTour = tour.data as List<Tour>;
         }
-        update();
-        Get.to(Tours());
-      } else {}
+      }
     } catch (error) {
       print('loi r');
     } finally {
       isLoading(false);
     }
     return listTour;
+  }
+
+  void getTour() {
+    if (listTour.isNotEmpty) {
+      update();
+      Get.to(Tours());
+    } else {
+      print('loi o get tour');
+    }
   }
 
   Future<Tour> getTourDetail(String id) async {

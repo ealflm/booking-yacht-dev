@@ -8,12 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class TicketTypeController extends GetxController {
+  final GlobalKey<FormState> ticketTypeFormKey = GlobalKey<FormState>();
+
   var isLoading = true.obs;
   bool isAdding = true;
-
   List<TicketType> listTicketType = <TicketType>[].obs;
   var ticketDetail = TicketType();
-
+  var selectedValue;
   String id = "";
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -21,6 +22,12 @@ class TicketTypeController extends GetxController {
   TextEditingController commissionFeeController = TextEditingController();
   TextEditingController serviceFeeController = TextEditingController();
   TextEditingController idTourController = TextEditingController();
+
+  void onSelected(String value) {
+    selectedValue = value;
+    idTourController.text = value;
+    update();
+  }
 
   Future<List<TicketType>?> getTicketType() async {
     isLoading(true);
@@ -73,7 +80,6 @@ class TicketTypeController extends GetxController {
           ticketDetail = tickets.data as TicketType;
         }
         update();
-        // Get.to();
       } else {}
     } catch (error) {
       print('loi r');
@@ -98,12 +104,23 @@ class TicketTypeController extends GetxController {
 
   void addTicketType() async {
     isAdding = true;
+    nameController.clear();
+    priceController.clear();
+    statusController.clear();
+    commissionFeeController.clear();
+    serviceFeeController.clear();
+    idTourController.clear();
     Get.to(TicketTypeModify());
   }
 
   void save() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
+    final isValid = ticketTypeFormKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    ticketTypeFormKey.currentState!.save();
     try {
       if (!isAdding) {
         TicketType ticket = TicketType(
@@ -185,5 +202,12 @@ class TicketTypeController extends GetxController {
     } catch (error) {
       print(error);
     }
+  }
+
+  String? validate(String value, String message) {
+    if (value.isEmpty) {
+      return message;
+    }
+    return null;
   }
 }

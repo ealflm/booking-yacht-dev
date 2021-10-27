@@ -21,13 +21,16 @@ class Yachts extends StatelessWidget {
       body: GetBuilder<YachtController>(
         builder: (controller) => (controller.isLoading.isTrue)
             ? const Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: ListView.builder(
-                  itemBuilder: (ctx, i) => YachtCard(controller.listYacht[i]),
-                  itemCount: controller.listYacht.length,
-                ),
-              ),
+            : controller.listYacht.isEmpty
+                ? const Center(child: Text('Không có tàu nào!'))
+                : Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: ListView.builder(
+                      itemBuilder: (ctx, i) =>
+                          YachtCard(controller.listYacht[i]),
+                      itemCount: controller.listYacht.length,
+                    ),
+                  ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',

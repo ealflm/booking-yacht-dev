@@ -19,6 +19,7 @@ export class ToursComponent implements OnInit {
   ];
   loading?: boolean = true;
   tourStatus = SECONDARY_STATUS;
+  imageNotFound = '../../../assets/img/noimage.png';
   constructor(
     private tourService: ToursService,
     private router: Router,
