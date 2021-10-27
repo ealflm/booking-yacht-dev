@@ -63,7 +63,8 @@ namespace BookingYacht.Business.Implement.Admin
                 .OrderBy(x => x.NameCustomer)
                 .Skip(model.AmountItem * (model.Page > 0 ? model.Page - 1 : 0))
                 .Take(model.Page > 0 ? model.AmountItem 
-                    : !_unitOfWork.TicketRepository.Query().Any() ? 1 : _unitOfWork.TicketRepository.Query().Count())
+                    : !_unitOfWork.TicketRepository.Query().Any() ? 1 
+                    : _unitOfWork.TicketRepository.Query().Count())
                 .ToListAsync();
             return list;
         }
