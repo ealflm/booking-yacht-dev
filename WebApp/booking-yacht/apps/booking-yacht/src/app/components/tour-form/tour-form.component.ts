@@ -1,5 +1,5 @@
 import { SECONDARY_STATUS } from './../../constants/STATUS';
-import { timer } from 'rxjs';
+import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { Tour } from './../../models/tours';
 import { ActivatedRoute } from '@angular/router';
 import { ToursService } from './../../services/tours.service';
@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'booking-yacht-tour-form',
@@ -23,7 +24,10 @@ export class TourFormComponent implements OnInit {
   tour: [] = [];
   selectedDes!: any[];
   destiations?: any[];
-  previewImage: any;
+  previewImage?: string | ArrayBuffer | null =
+    '../../../assets/img/noimage.png';
+  imageLink?: string;
+  progress!: number;
   constructor(
     private formBuilder: FormBuilder,
     private tourService: ToursService,
@@ -57,9 +61,15 @@ export class TourFormComponent implements OnInit {
     console.log(arrDeS);
   }
   onFileChanged(event: any) {
-    console.log(event);
-
     const file = event.target.files[0];
+    // const fileExtension = '.' + event.target.files[0].name.split('.').pop();
+    // event.target.files[0].name =
+    //   Math.random().toString(36).substring(7) +
+    //   new Date().getTime() +
+    //   fileExtension;
+    // event.target.files[0].name = 'sang' + fileExtension;
+    // console.log();
+
     if (file) {
       this.form.patchValue({ image: file });
       // this.form.get('image').updateValueAndValidity();
@@ -68,6 +78,46 @@ export class TourFormComponent implements OnInit {
         this.previewImage = fileReader.result;
       };
       fileReader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append(
+        'ImageFile',
+        file,
+        Math.random().toString(36).substring(7) +
+          new Date().getTime() +
+          file.name
+      );
+      this.tourService
+        .uploadTourImage(formData)
+        .subscribe((res: HttpEvent<any>) => {
+          // console.log(this.imageLink);
+          console.log(res);
+
+          switch (res.type) {
+            case HttpEventType.Sent:
+              console.log('Request has been made!');
+              break;
+            case HttpEventType.ResponseHeader:
+              console.log('Response header has been received!');
+              break;
+            case HttpEventType.UploadProgress:
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              this.progress = Math.round((res.loaded / res.total!) * 100);
+              console.log(`Uploaded! ${this.progress}%`);
+              break;
+            case HttpEventType.Response:
+              console.log('User successfully created!', res.body);
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Upload hình thành công',
+              });
+              this.imageLink = res.body.data;
+              console.log(res.body.data);
+
+              setTimeout(() => {
+                this.progress = 0;
+              }, 1500);
+          }
+        });
     }
   }
   _checkEditMode() {
@@ -111,6 +161,7 @@ export class TourFormComponent implements OnInit {
         tittle: this.tourForm.tittle.value,
         status: '4',
         descriptions: this.tourForm.descriptions.value,
+        imageLink: this.imageLink,
       };
       console.log(tour);
 
@@ -144,6 +195,7 @@ export class TourFormComponent implements OnInit {
         tittle: this.tourForm.tittle.value,
         status: this.tourForm.status.value,
         descriptions: this.tourForm.descriptions.value,
+        imageLink: this.imageLink,
       };
       console.log(tour);
 
