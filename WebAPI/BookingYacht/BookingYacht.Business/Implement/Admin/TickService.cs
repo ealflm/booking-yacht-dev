@@ -59,10 +59,12 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdTrip == null | x.IdTrip.Equals(model.IdTrip))
                 .Where(x => model.IdTicketType == null | x.IdTicketType.Equals(model.IdTicketType))
                 .Where(x => model.Status == null | x.Status == (int) model.Status)
-                .Where(x => model.Price == null | x.Price == model.Price)
+                .Where(x => model.Price == null | Equals(x.Price, model.Price))
                 .OrderBy(x => x.NameCustomer)
-                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.TicketRepository.Query().Count())
+                .Skip(model.AmountItem * (model.Page > 0 ? model.Page - 1 : 0))
+                .Take(model.Page > 0 ? model.AmountItem 
+                    : !_unitOfWork.TicketRepository.Query().Any() ? 1 
+                    : _unitOfWork.TicketRepository.Query().Count())
                 .ToListAsync();
             return list;
         }
