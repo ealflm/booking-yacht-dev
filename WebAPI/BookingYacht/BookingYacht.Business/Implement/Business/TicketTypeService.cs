@@ -109,7 +109,7 @@ namespace BookingYacht.Business.Implement.Business
                 })
                 .OrderBy(x => x.Id)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
-                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TicketTypeRepository.Query().Count())
                 .ToListAsync();
             return ticketType;
         }
