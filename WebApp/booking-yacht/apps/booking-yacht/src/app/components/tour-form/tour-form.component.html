@@ -82,6 +82,11 @@
               <label class="uploadFile" for="actual-btn">Chọn 1 file...</label>
 
               <img style="width: 100%; height: 290px" [src]="previewImage" />
+              <div style="height: 10px"></div>
+              <p-progressBar
+                [value]="progress"
+                *ngIf="progress > 0"
+              ></p-progressBar>
             </div>
           </div>
         </form>
