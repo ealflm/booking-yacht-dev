@@ -8,7 +8,7 @@ export const BUSINESS_STATUS: any = {
     color: 'primary',
   },
   2: {
-    lable: 'Vô hiệu',
+    lable: 'Đã vô hiệu hóa',
     color: 'warning',
   },
   // 3: {
@@ -96,16 +96,16 @@ export const AGENCY_STATUS: any = {
     color: 'primary',
   },
   2: {
-    lable: 'Vô hiệu',
+    lable: 'Đã vô hiệu hóa',
     color: 'warning',
   },
 };
 export const ORDER_STATUS: any = {
-  1: {
+  10: {
     lable: 'đã thanh toán',
     color: 'success',
   },
-  2: {
+  11: {
     lable: 'chưa thanh toán',
     color: 'warning',
   },
@@ -114,5 +114,5 @@ export const ORDER_STATUS: any = {
 export const STATUS = [
   { id: '0', name: 'None' },
   { id: '1', name: 'Đang hoạt động' },
-  { id: '2', name: 'Vô hiệu' },
+  { id: '2', name: 'Đã vô hiệu hóa' },
 ];
