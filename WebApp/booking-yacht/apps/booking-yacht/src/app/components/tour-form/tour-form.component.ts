@@ -131,7 +131,7 @@ export class TourFormComponent implements OnInit {
           this.tourForm.status.setValue(res.data.status.toString());
           this.tourForm.descriptions.setValue(res.data.descriptions);
           this.previewImage = res.data.imageLink;
-          console.log(this.previewImage);
+          // console.log(this.previewImage);
         });
       }
     });
