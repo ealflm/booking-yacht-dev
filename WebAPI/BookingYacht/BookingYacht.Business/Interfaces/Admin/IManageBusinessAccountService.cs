@@ -1,4 +1,5 @@
-﻿using BookingYacht.Business.SearchModels;
+﻿using BookingYacht.Business.PaymentModels;
+using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<Guid> AddBusiness(BusinessViewModel model);
         Task UpdateBusiness(Guid id, BusinessViewModel model);
         Task DeleteBusiness(Guid id);
+        Task<List<BusinessPaymentModel>> GetPayment(PaymentSearchModel model);
     }
 }
