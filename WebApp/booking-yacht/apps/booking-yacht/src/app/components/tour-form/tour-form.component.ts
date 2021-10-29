@@ -1,3 +1,4 @@
+import { DestinationsService } from './../../services/destinations.service';
 import { SECONDARY_STATUS } from './../../constants/STATUS';
 import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { Tour } from './../../models/tours';
@@ -28,37 +29,45 @@ export class TourFormComponent implements OnInit {
     '../../../assets/img/noimage.png';
   imageLink?: string;
   progress!: number;
+  ListDes: any[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private tourService: ToursService,
     private route: ActivatedRoute,
     private location: Location,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private desService: DestinationsService
   ) {
-    this.destiations = [
-      { name: 'Đi từ Hà Tiên đến Phú Quốc', code: 'NY' },
-      { name: 'Đi từ Hà Tiên đến đảo Cát Bà', code: 'RM' },
-      { name: 'Đi từ Hà Tiên đến đảo Hòn Bà', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' },
-    ];
+    // this.destiations = [
+    //   { name: 'Đi từ Hà Tiên đến Phú Quốc', code: 'NY' },
+    //   { name: 'Đi từ Hà Tiên đến đảo Cát Bà', code: 'RM' },
+    //   { name: 'Đi từ Hà Tiên đến đảo Hòn Bà', code: 'LDN' },
+    //   { name: 'Istanbul', code: 'IST' },
+    //   { name: 'Paris', code: 'PRS' },
+    // ];
   }
 
   ngOnInit(): void {
     this._initForm();
     this._checkEditMode();
     this._mapTourStatus();
+    this.desService.getDestinations('1').subscribe((desRes) => {
+      // console.log(desRes);
+      this.destiations = desRes.data;
+    });
     setTimeout(() => {
       this.loading = false;
     }, 500);
   }
   onChange() {
-    console.log(this.selectedDes);
+    // console.log(this.selectedDes);
     const arrDeS: any[] = [];
     this.selectedDes.map((desSelect) => {
-      arrDeS.push(desSelect.code);
+      arrDeS.push(desSelect.id);
     });
-    console.log(arrDeS);
+    // console.log(arrDeS);
+    this.ListDes = arrDeS;
+    console.log(this.ListDes);
   }
   onFileChanged(event: any) {
     const file = event.target.files[0];
@@ -169,7 +178,9 @@ export class TourFormComponent implements OnInit {
 
       this.tourService.createTour(tour).subscribe(
         (res) => {
-          console.log(res);
+          this.desService
+            .createDesTour(res.data, this.ListDes)
+            .subscribe((res) => {});
           this.messageService.add({
             severity: 'success',
             summary: 'Update tour successfull',
@@ -200,7 +211,11 @@ export class TourFormComponent implements OnInit {
         imageLink: this.imageLink,
       };
       console.log(tour);
-
+      this.desService
+        .createDesTour(this.currentUser, this.ListDes)
+        .subscribe((res) => {
+          console.log(res);
+        });
       this.tourService.updateTour(tour, this.currentUser).subscribe(
         (res) => {
           this.messageService.add({

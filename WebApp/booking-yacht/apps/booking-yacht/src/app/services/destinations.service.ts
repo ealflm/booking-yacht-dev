@@ -30,4 +30,14 @@ export class DestinationsService {
   updateDes(des: Desti, id: string): Observable<any> {
     return this.http.put<Desti>(`${this.apiURL}/${id}`, des);
   }
+
+  createDesTour(id: string, idDestinationList: any): Observable<any> {
+    return this.http.post<any>(
+      `https://booking-yacht.azurewebsites.net/api/v1.0/admin/desination-tours`,
+      {
+        idTour: id,
+        idDestinationList: idDestinationList,
+      }
+    );
+  }
 }
