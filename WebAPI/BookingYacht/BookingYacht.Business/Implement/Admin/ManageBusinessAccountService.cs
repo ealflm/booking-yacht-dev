@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingYacht.Business.Enum;
+using BookingYacht.Business.PaymentModels;
+using BookingYacht.Data.Models;
 
 namespace BookingYacht.Business.Implement.Admin
 {
@@ -120,7 +122,94 @@ namespace BookingYacht.Business.Implement.Admin
             _unitOfWork.BusinessRepository.Update(business);
             await _unitOfWork.SaveChangesAsync();
         }
-        
-      
+
+        public async Task<List<BusinessPaymentModel>> GetPayment(PaymentSearchModel model)
+        {
+            var businesses = await _unitOfWork.BusinessRepository.Query()
+                .Select(x => new BusinessPaymentModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Address = x.Address,
+                    EmailAddress = x.EmailAddress,
+                    PhoneNumber = x.PhoneNumber,
+                    Status = x.Status,
+                    VnpHashSecret = x.VnpHashSecret,
+                    VnpTmnCode = x.VnpTmnCode,
+                    BusinessTours = _unitOfWork.BusinessTourRepository.Query()
+                    .Where(y => y.IdBusiness.Equals(x.Id))
+                    .Select(z => new BusinessTourPaymentModel()
+                    {
+                        Id=z.Id,
+                        IdBusiness=z.IdBusiness,
+                        IdTour=z.IdTour,
+                        Status=z.Status,
+                        Tour= _unitOfWork.TourRepository.Query()
+                        .Where(t=>t.Id.Equals(z.IdTour))
+                        .Select(t=> new Tour() 
+                        {
+                            Id=t.Id, 
+                            Descriptions=t.Descriptions,
+                            Title=t.Title, 
+                            ImageLink= t.ImageLink, 
+                            Status=t.Status 
+                        }).FirstOrDefault(),
+                        Trips= _unitOfWork.TripRepository.Query()
+                .Where(t=> t.IdBusinessTour.Equals(z.Id))
+                .Where(t=> t.Time.Year.Equals(model.DateTime.Year) && t.Time.Month.Equals(model.DateTime.Month))
+                .Select(t => new TripPaymentModel()
+                {
+                    Id = t.Id,
+                    Time = t.Time,
+                    IdBusinessTour = t.IdBusinessTour,
+                    IdVehicle = t.IdVehicle,
+                    Status = t.Status,
+                    AmountTicket = t.AmountTicket,
+                    Tickets = _unitOfWork.TicketRepository.Query()
+                .Where(v=> v.IdTrip.Equals(t.Id))
+                .Select(v => new Ticket
+                {
+                    Id = v.Id,
+                    Price = v.Price,
+                    IdOrder = v.IdOrder,
+                    IdTicketType = v.IdTicketType,
+                    IdTrip = v.IdTrip,
+                    NameCustomer = v.NameCustomer,
+                    Phone = v.Phone,
+                    Status = v.Status
+                }).ToList()
+        })
+                .OrderBy(t => t.Time)
+                .ToList()
+        }).OrderBy(z => z.IdTour).ToList()
+                })
+                .OrderBy(x => x.Name)
+                .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
+                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+                .ToListAsync();
+            foreach(BusinessPaymentModel business in businesses)
+            {
+                double businessTotalPrice = 0;
+                foreach(BusinessTourPaymentModel businessTour in business.BusinessTours)
+                {
+                    double businessTourTotalPrice = 0;
+                    foreach(TripPaymentModel trip in businessTour.Trips)
+                    {
+                        double tripTotalPrice = 0;
+                        foreach(Ticket ticket in trip.Tickets)
+                        {
+                            tripTotalPrice += ticket.Price;
+                        }
+                        trip.TotalPrice = tripTotalPrice;
+                        businessTourTotalPrice += trip.TotalPrice;
+                    }
+                    businessTour.TotalPrice = businessTourTotalPrice;
+                    businessTotalPrice += businessTour.TotalPrice;
+                }
+                business.TotalPrice = businessTotalPrice;
+            }
+            return businesses;
+        }
+
     }
 }
