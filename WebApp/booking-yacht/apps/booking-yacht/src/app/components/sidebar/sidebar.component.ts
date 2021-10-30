@@ -47,6 +47,12 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   // {
+  //   path: '/payment',
+  //   title: 'Thanh Toán',
+  //   icon: 'ni-circle-08 text-primary',
+  //   class: '',
+  // },
+  // {
   //   path: '/tours',
   //   title: 'Chuyến đi',
   //   icon: 'ni-send text-yellow',
