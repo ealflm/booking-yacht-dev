@@ -100,16 +100,17 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task<Guid> AddTicket(TicketViewModel model)
         {
+            var ticketType = _unitOfWork.TicketTypeRepository.Query().Where(x => x.Id.Equals(model.IdTicketType)).Select(x => new TicketType() { Price = x.Price }).FirstOrDefault();
             var entity = new Ticket()
             {
                 Id = model.Id,
-                Price = model.Price,
+                Price = ticketType.Price,
                 IdOrder = model.IdOrder,
                 IdTicketType = model.IdTicketType,
                 IdTrip = model.IdTrip,
                 NameCustomer = model.NameCustomer,
                 Phone = model.Phone,
-                Status = model.Status
+                Status = (int)Status.NOT_SCANNED
             };
             var ticket = _unitOfWork.TicketRepository.Query().Add(entity);
             Trip trip = _unitOfWork.TripRepository.GetById(entity.IdTrip).Result;

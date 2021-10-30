@@ -24,7 +24,8 @@ namespace BookingYacht.Business.Implement.Admin
                 QuantityOfPerson = order.QuantityOfPerson,
                 Status = (Status) order.Status,
                 OrderDate = order.DateOrder.GetValueOrDefault(),
-                TotalPrice = order.TotalPrice ?? 0
+                TotalPrice = order.TotalPrice ?? 0,
+                IdTrip= order.IdTrip
             });
         }
 
@@ -37,7 +38,8 @@ namespace BookingYacht.Business.Implement.Admin
                 IdAgency = model.IdAgency,
                 QuantityOfPerson = model.QuantityOfPerson,
                 Status = (int) model.Status,
-                TotalPrice = model.TotalPrice
+                TotalPrice = model.TotalPrice,
+                IdTrip= model.IdTrip
             });
         }
         
@@ -123,7 +125,7 @@ namespace BookingYacht.Business.Implement.Admin
             order.IdAgency = model.IdAgency;
             order.QuantityOfPerson = model.QuantityOfPerson;
             order.TotalPrice = model.TotalPrice;
-            
+            order.IdTrip = model.IdTrip;
             _unitOfWork.OrderRepository.Query().Update(order);
             
             await _unitOfWork.SaveChangesAsync();

@@ -9,6 +9,7 @@ namespace BookingYacht.Data.Models
     {
         public Trip()
         {
+            Orders = new HashSet<Order>();
             Tickets = new HashSet<Ticket>();
         }
 
@@ -21,6 +22,7 @@ namespace BookingYacht.Data.Models
 
         public virtual BusinessTour IdBusinessTourNavigation { get; set; }
         public virtual Vehicle IdVehicleNavigation { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }
