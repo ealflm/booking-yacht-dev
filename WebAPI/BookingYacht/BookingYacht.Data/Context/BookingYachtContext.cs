@@ -209,6 +209,11 @@ namespace BookingYacht.Data.Context
                     .HasForeignKey(d => d.IdAgency)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Orders__IdAgency__4D94879B");
+
+                entity.HasOne(d => d.IdTripNavigation)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.IdTrip)
+                    .HasConstraintName("FK_Orders_Trip");
             });
 
             modelBuilder.Entity<PlaceType>(entity =>
@@ -296,6 +301,8 @@ namespace BookingYacht.Data.Context
                 entity.HasIndex(e => e.IdVehicle, "IX_Trip_IdVehicle");
 
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.AmountTicket).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Time).HasColumnType("datetime");
 

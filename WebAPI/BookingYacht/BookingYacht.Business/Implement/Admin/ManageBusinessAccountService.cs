@@ -165,19 +165,19 @@ namespace BookingYacht.Business.Implement.Admin
                     IdVehicle = t.IdVehicle,
                     Status = t.Status,
                     AmountTicket = t.AmountTicket,
-                    Tickets = _unitOfWork.TicketRepository.Query()
-                .Where(v=> v.IdTrip.Equals(t.Id))
-                .Select(v => new Ticket
-                {
-                    Id = v.Id,
-                    Price = v.Price,
-                    IdOrder = v.IdOrder,
-                    IdTicketType = v.IdTicketType,
-                    IdTrip = v.IdTrip,
-                    NameCustomer = v.NameCustomer,
-                    Phone = v.Phone,
-                    Status = v.Status
-                }).ToList()
+                    Orders = _unitOfWork.OrderRepository.Query()
+                    .Where(v=> v.IdTrip.Equals(t.Id))
+                    .Select(v=> new Order() 
+                    {
+                        Id=v.Id,
+                        AgencyName=v.AgencyName,
+                        DateOrder=v.DateOrder,
+                        IdAgency=v.IdAgency,
+                        IdTrip = v.IdTrip,
+                        QuantityOfPerson=v.QuantityOfPerson,
+                        Status= v.Status,
+                        TotalPrice=v.TotalPrice
+                    }).ToList()
         })
                 .OrderBy(t => t.Time)
                 .ToList()
@@ -196,9 +196,9 @@ namespace BookingYacht.Business.Implement.Admin
                     foreach(TripPaymentModel trip in businessTour.Trips)
                     {
                         double tripTotalPrice = 0;
-                        foreach(Ticket ticket in trip.Tickets)
+                        foreach(Order order in trip.Orders)
                         {
-                            tripTotalPrice += ticket.Price;
+                            tripTotalPrice += order.TotalPrice.Value;
                         }
                         trip.TotalPrice = tripTotalPrice;
                         businessTourTotalPrice += trip.TotalPrice;

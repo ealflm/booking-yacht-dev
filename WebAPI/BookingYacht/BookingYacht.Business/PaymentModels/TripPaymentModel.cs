@@ -15,7 +15,7 @@ namespace BookingYacht.Business.PaymentModels
         public Guid IdVehicle { get; set; }
         public int Status { get; set; }
         public int? AmountTicket { get; set; }
-        public List<Ticket> Tickets { get; set; }
+        public List<Order> Orders { get; set; }
         public double TotalPrice { get; set; }
     }
 }
