@@ -21,6 +21,7 @@ import { AparmentFormComponent } from './components/aparment-form/aparment-form.
 import { AgenciesFormComponent } from './components/agencies-form/agencies-form.component';
 import { TicketTypeFormComponent } from './components/ticket-type-form/ticket-type-form.component';
 import { VehicleTypeFormComponent } from './components/vehicle-type-form/vehicle-type-form.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,7 @@ const routes: Routes = [
         path: 'ticket/form/:id',
         component: TicketFormComponent,
       },
+      { path: 'payment', component: PaymentComponent },
     ],
   },
 ];
