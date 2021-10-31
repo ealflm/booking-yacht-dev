@@ -6,6 +6,7 @@ namespace BookingYacht.Business.ViewModels
     public class OrdersViewModel
     {
         public Guid Id { get; set; }
+        public string TourName { get; set; }
         public string AgencyName { get; set; }
         public int QuantityOfPerson { get; set; }
         public double TotalPrice { get; set; }
