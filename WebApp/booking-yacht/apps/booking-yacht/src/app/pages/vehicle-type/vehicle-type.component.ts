@@ -15,7 +15,7 @@ export class VehicleTypeComponent implements OnInit {
   status = [
     { id: '', lable: 'Tất cả' },
     { id: '1', lable: 'Đang hoạt động' },
-    { id: '2', lable: 'Vô hiệu' },
+    { id: '2', lable: 'Đã vô hiệu hóa' },
   ];
   vehicleTypeStatus = AGENCY_STATUS;
   constructor(

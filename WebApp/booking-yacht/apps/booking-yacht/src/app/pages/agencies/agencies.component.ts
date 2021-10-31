@@ -16,7 +16,7 @@ export class AgenciesComponent implements OnInit {
   status = [
     { id: '0', lable: 'Tất cả' },
     { id: '1', lable: 'Đang hoạt động' },
-    { id: '2', lable: 'Vô Hiệu' },
+    { id: '2', lable: 'Đã vô hiệu hóa' },
   ];
   constructor(
     private agencyService: AgenciesService,
