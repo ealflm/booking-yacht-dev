@@ -38,6 +38,13 @@ namespace BookingYacht.API.Controllers.Agency
             return Success(ticket);
         }
 
+        [HttpGet("qr/{id}")]
+        public async Task<IActionResult> GetQR(Guid id)
+        {
+            var qr = await _service.GetQRString(id);
+            return Success(qr);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TicketsInsertModel model)
         {

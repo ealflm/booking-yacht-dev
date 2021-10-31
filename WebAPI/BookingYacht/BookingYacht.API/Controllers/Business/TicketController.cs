@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
+using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,17 @@ namespace BookingYacht.API.Controllers.Business
             var ticket = await _service.GetTicketNavigation(id);
            
             return Success(ticket);
+        }
+
+        [HttpPost("qr")]
+        public async Task<IActionResult> Post([FromBody] QRViewModel model)
+        {
+            var ticket = await _service.CheckQRString(model.QR);
+            if(ticket != null)
+            {
+                return Success(ticket);
+            }
+            return Fail("Ticket does not exist");
         }
 
     }
