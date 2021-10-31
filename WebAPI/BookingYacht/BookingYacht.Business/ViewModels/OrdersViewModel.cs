@@ -14,5 +14,6 @@ namespace BookingYacht.Business.ViewModels
         public Status Status { get; set; }
         public Guid? IdTrip { get; set; }
         public DateTime OrderDate { get; set; }
+        public AgencyViewModels AgencyViewModels { get; set; }
     }
 }

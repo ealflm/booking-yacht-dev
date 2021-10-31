@@ -64,32 +64,70 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
                 .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
                 .Where(x => model.Status == null || x.Status == (int) model.Status)
+                .Join(
+                    _unitOfWork.Context().Trips,
+                    order => order.IdTrip,
+                    trip => trip.Id, 
+                    (order, trip) => new {Trip = trip, order})
+                .Join(_unitOfWork.Context().BusinessTours, 
+                    arg => arg.Trip.IdBusinessTour,
+                    businessTour => businessTour.Id,
+                    (__, businessTour) => new {BusinessTour = businessTour, __.order})
+                .Join(_unitOfWork.Context().Tours,
+                    arg => arg.BusinessTour.IdTour,
+                    tour => tour.Id,
+                    (__, tour) => new {Tour = tour, __.order})
+                .Join(_unitOfWork.Context().Agencies, 
+                    arg => arg.order.IdAgency, 
+                    agency => agency.Id,
+                    (__, agencies) => new {Agency = agencies, __.order, __.Tour})
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
-                .OrderBy(x => x.AgencyName)
-                .Select(x => MapperOrder.GetViewModel(x).Result)
+                .OrderBy(x => x.Tour.Title)
+                .Select( arg => new OrdersViewModel
+                {
+                    Id = arg.order.Id,
+                    Status = (Status)arg.order.Status,
+                    AgencyName = arg.order.AgencyName,
+                    IdAgency = arg.order.IdAgency,
+                    IdTrip = arg.order.IdTrip,
+                    OrderDate = arg.order.DateOrder.Value,
+                    QuantityOfPerson = arg.order.QuantityOfPerson,
+                    TotalPrice = arg.order.TotalPrice ?? 0.00,
+                    TourName = arg.Tour.Title,
+                    AgencyViewModels = new AgencyViewModels
+                    {
+                        Address = arg.Agency.Address,
+                        EmailAddress = arg.Agency.EmailAddress,
+                        Id = arg.Agency.Id,
+                        Name = arg.Agency.Name,
+                        PhoneNumber = arg.Agency.PhoneNumber,
+                        Status = arg.Agency.Status
+                    }
+                })
                 .ToListAsync();
             return list;
         }
-
-        public async Task<List<Order>> SearchNavigation(OrdersSearchModel model)
-        {
-            model ??= new OrdersSearchModel();
-            var list = await _unitOfWork.Context().Orders
-                .Include(x => x.IdAgencyNavigation)
-                .Where(x => model.AgencyName == null || x.AgencyName.Contains(model.AgencyName))
-                .Where(x => model.IdAgency == null || x.IdAgency.Equals(model.IdAgency))
-                // ReSharper disable once CompareOfFloatsByEqualityOperator
-                .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
-                .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
-                .Where(x => model.Status == null || x.Status == (int)model.Status)
-                .Where(x => model.OrderDate == null || x.DateOrder.Value.Date == model.OrderDate.Value.Date)
-                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
-                .OrderBy(x => x.AgencyName)
-                .ToListAsync();
-            return list;
-        }
+        
+        //
+        // public async Task<List<Order>> SearchNavigation(OrdersSearchModel model)
+        // {
+        //     model ??= new OrdersSearchModel();
+        //     var list = await _unitOfWork.Context().Orders
+        //         .Include(x => x.IdAgencyNavigation)
+        //         .Where(x => model.AgencyName == null || x.AgencyName.Contains(model.AgencyName))
+        //         .Where(x => model.IdAgency == null || x.IdAgency.Equals(model.IdAgency))
+        //         // ReSharper disable once CompareOfFloatsByEqualityOperator
+        //         .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
+        //         .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
+        //         .Where(x => model.Status == null || x.Status == (int)model.Status)
+        //         .Where(x => model.OrderDate == null || x.DateOrder.Value.Date == model.OrderDate.Value.Date)
+        //         .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+        //         .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+        //         .OrderBy(x => x.AgencyName)
+        //         .ToListAsync();
+        //     return list;
+        // }
 
         public async Task<OrdersViewModel> Get(Guid id)
         {
