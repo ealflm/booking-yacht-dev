@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookingYacht.Business.Enum;
 using BookingYacht.Business.InsertModels;
 using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
+using BookingYacht.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +30,17 @@ namespace BookingYacht.API.Controllers.Agency
         public async Task<IActionResult> Get([FromQuery] TicketSearchModel model)
         {
             var tickets = await _service.SearchTicketsNavigation(model);
-            return Success(tickets);
+            List<string> qrList = new List<string>();
+            foreach(Ticket ticket in tickets)
+            {
+                var qr = await _service.GetQRString(ticket.Id);
+                if (!string.IsNullOrEmpty(qr))
+                {
+                    qrList.Add(qr);
+                }
+                
+            }
+            return Success(qrList);
         }
 
         [HttpGet("{id:guid}")]
@@ -38,12 +50,6 @@ namespace BookingYacht.API.Controllers.Agency
             return Success(ticket);
         }
 
-        [HttpGet("qr/{id}")]
-        public async Task<IActionResult> GetQR(Guid id)
-        {
-            var qr = await _service.GetQRString(id);
-            return Success(qr);
-        }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TicketsInsertModel model)
