@@ -24,7 +24,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] OrdersSearchModel model)
         {
-            var order = await _service.SearchNavigation(model);
+            var order = await _service.Search(model);
             return order != null ? Success(order) : Fail("The Order's not exist");
         }
 

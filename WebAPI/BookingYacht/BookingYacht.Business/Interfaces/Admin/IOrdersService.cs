@@ -11,7 +11,7 @@ namespace BookingYacht.Business.Interfaces.Admin
     {
         Task<List<OrdersViewModel>> Search(OrdersSearchModel model);
 
-        Task<List<Order>> SearchNavigation(OrdersSearchModel model);
+        // Task<List<Order>> SearchNavigation(OrdersSearchModel model);
 
         Task<OrdersViewModel> Get(Guid id);
 
