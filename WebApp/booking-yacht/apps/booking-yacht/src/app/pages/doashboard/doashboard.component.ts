@@ -20,6 +20,8 @@ export class DoashboardComponent implements OnInit {
     this.getCustomersRecent();
     this.orderService.getAllOrders().subscribe((orderRes) => {
       this.order = orderRes.data;
+      console.log(orderRes);
+
       timer(1000).subscribe(() => (this.loading = false));
     });
   }

@@ -107,6 +107,7 @@
           <ng-template pTemplate="header">
             <tr>
               <th class="hidden">ID</th>
+              <th>Tên Tour</th>
               <th pSortableColumn="agencyName">
                 Tên đại lý <p-sortIcon field="agencyName"></p-sortIcon>
               </th>
@@ -131,6 +132,7 @@
             </tr>
             <tr *ngIf="!loading">
               <td class="hidden">{{ order.id }}</td>
+              <td>{{ order.tourName }}</td>
               <td>{{ order.agencyName }}</td>
               <td>{{ order.quantityOfPerson }}</td>
               <td class="p-ai-center p-pl-2">
@@ -182,9 +184,9 @@
             </tr>
             <tr *ngIf="!loading">
               <td class="hidden">{{ customter.id }}</td>
-              <td>{{ customter.idAgencyNavigation.name }}</td>
+              <td>{{ customter.agencyViewModels.name }}</td>
 
-              <td>{{ customter.dateOrder | date }}</td>
+              <td>{{ customter.orderDate | date }}</td>
             </tr>
           </ng-template>
         </p-table>
