@@ -152,5 +152,51 @@ namespace BookingYacht.Business.Implement.Admin
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
+
+        public async Task<string> GetQRString(Guid id)
+        {
+            var ticket = _unitOfWork.TicketRepository.GetById(id);
+            string result = "";
+            if(ticket.Result != null && ticket.Result.Status==(int) Status.NOT_SCANNED)
+            {
+                result = ticket.Result.Id + "|" + ticket.Result.IdOrder + "|" + ticket.Result.IdTicketType + "|" + ticket.Result.IdTrip + "|" + ticket.Result.NameCustomer + "|" + ticket.Result.Phone + "|" + ticket.Result.Price + "|" + DateTime.Now;
+                result = Base64Encode(result);
+            }
+            return result;
+        }
+
+        public async Task<Ticket> CheckQRString(string qr)
+        {
+            qr = Base64Decode(qr);
+            string[] result= qr.Split('|');
+            var ticket = _unitOfWork.TicketRepository.GetById(Guid.Parse(result[0]));
+            if(ticket!= null)
+            {
+                if (!ticket.Result.IdOrder.Equals(Guid.Parse(result[1]))|| !ticket.Result.IdTicketType.Equals(Guid.Parse(result[2]))|| !ticket.Result.IdTrip.Equals(Guid.Parse(result[3]))|| !ticket.Result.NameCustomer.Equals(result[4])|| !ticket.Result.Phone.Equals(result[5])|| !ticket.Result.Price.Equals(double.Parse(result[6])))
+                {
+                    ticket = null;
+                }
+                else
+                {
+                    ticket.Result.Status = (int)Status.SCANNED;
+                    _unitOfWork.TicketRepository.Update(ticket.Result);
+                }
+            }
+            await _unitOfWork.SaveChangesAsync();
+            return ticket.Result;
+        }
+
+        private string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        private string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+        
     }
 }
