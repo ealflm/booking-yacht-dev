@@ -56,5 +56,12 @@ namespace BookingYacht.API.Controllers.Admin
             var res = await _service.DeleteAgency(id);
             return res ? Success() : Fail("Cant Disable");
         }
+
+        [HttpGet("counting")]
+        public async Task<IActionResult> Count()
+        {
+            return Success(await _service.Count());
+        }
+        
     }
 }
