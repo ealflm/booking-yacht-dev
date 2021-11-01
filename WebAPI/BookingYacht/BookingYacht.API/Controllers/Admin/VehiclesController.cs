@@ -32,6 +32,12 @@ namespace BookingYacht.API.Controllers.Admin
             var vehicles = await _agencyService.GetVehicleNavigation(id);
             return Success(vehicles);
         }
-        
+
+        [HttpGet("counting")]
+        public async Task<IActionResult> Count()
+        {
+            return Success(await _agencyService.Count());
+        }
+
     }
 }

@@ -16,5 +16,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<Guid> AddVehicle(VehicleViewModel model);
         Task<bool> UpdateVehicle(Guid id, VehicleViewModel model);
         Task<bool> DeleteVehicle(Guid id);
+        Task<int> Count();
     }
 }
