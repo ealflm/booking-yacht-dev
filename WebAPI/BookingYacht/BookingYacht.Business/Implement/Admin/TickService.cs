@@ -159,7 +159,7 @@ namespace BookingYacht.Business.Implement.Admin
             string result = "";
             if(ticket.Result != null && ticket.Result.Status==(int) Status.NOT_SCANNED)
             {
-                result = ticket.Result.Id + "|" + ticket.Result.IdOrder + "|" + ticket.Result.IdTicketType + "|" + ticket.Result.IdTrip + "|" + ticket.Result.NameCustomer + "|" + ticket.Result.Phone + "|" + ticket.Result.Price + "|" + DateTime.Now;
+                result = ticket.Result.Id+"|"+ "bookyacht";
                 result = Base64Encode(result);
             }
             return result;
@@ -172,7 +172,7 @@ namespace BookingYacht.Business.Implement.Admin
             var ticket = _unitOfWork.TicketRepository.GetById(Guid.Parse(result[0]));
             if(ticket!= null)
             {
-                if (!ticket.Result.IdOrder.Equals(Guid.Parse(result[1]))|| !ticket.Result.IdTicketType.Equals(Guid.Parse(result[2]))|| !ticket.Result.IdTrip.Equals(Guid.Parse(result[3]))|| !ticket.Result.NameCustomer.Equals(result[4])|| !ticket.Result.Phone.Equals(result[5])|| !ticket.Result.Price.Equals(double.Parse(result[6])))
+                if (!result[1].Equals("bookyacht"))
                 {
                     ticket = null;
                 }
