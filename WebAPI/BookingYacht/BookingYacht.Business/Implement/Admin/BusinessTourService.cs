@@ -35,10 +35,18 @@ namespace BookingYacht.Business.Implement.Admin
                     idTour=x.IdTour,
                     Status=x.Status,
                     Trips=  _unitOfWork.TripRepository.Query()
-                .Include(y=>y.IdVehicleNavigation)
                 .Where(y => y.IdBusinessTour.Equals(x.Id))
                 .Where(y=>model.Time==null |y.Time.Date.Equals(model.Time))
                 .OrderBy(y => y.Time)
+                .Select(y=> new TripViewModel()
+                {
+                    Id= y.Id,
+                    AmountTicket= y.AmountTicket,
+                    IdVehicleNavigation= _unitOfWork.VehicleRepository.Query().Where(z=> z.Id.Equals(y.IdVehicle)).FirstOrDefault(),
+                    Time= y.Time,
+                    Status= y.Status,
+                    Orders= _unitOfWork.OrderRepository.Query().Where(z => z.IdTrip.Equals(y.Id)).ToList()
+                })
                 .ToList(),
                     TicketTypes= _unitOfWork.TicketTypeRepository.Query()
                 .Where(y => y.IdBusinessTour.Equals(x.Id))
@@ -57,7 +65,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .ToListAsync();
             foreach(BusinessTourViewModel businessTour in list)
             {
-                foreach(Trip trip in businessTour.Trips)
+                foreach(TripViewModel trip in businessTour.Trips)
                 {
                     trip.IdVehicleNavigation.IdBusinessNavigation = null;
                 }

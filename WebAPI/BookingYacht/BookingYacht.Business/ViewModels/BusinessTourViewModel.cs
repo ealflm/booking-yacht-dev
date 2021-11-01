@@ -14,6 +14,6 @@ namespace BookingYacht.Business.ViewModels
         public BookingYacht.Data.Models.Business IdBusinessNavigation { get; set; }
         public Tour IdTourNavigation { get; set; }
         public List<TicketType> TicketTypes { get; set; }
-        public List<Trip> Trips { get; set; }
+        public List<TripViewModel> Trips { get; set; }
     }
 }

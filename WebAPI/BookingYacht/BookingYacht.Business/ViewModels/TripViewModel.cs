@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingYacht.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,7 @@ namespace BookingYacht.Business.ViewModels
         public Guid IdTour { get; set; }
         public Guid IdBusiness { get; set; }
         public int? AmountTicket { get; set; }
+        public List<Order> Orders { get; set; }
+        public Vehicle IdVehicleNavigation { get; set; }
     }
 }

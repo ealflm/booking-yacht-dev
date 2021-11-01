@@ -94,7 +94,8 @@ namespace BookingYacht.Business.Implement.Business
                     IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
                     Status = x.Status,
-                    AmountTicket=x.AmountTicket
+                    AmountTicket=x.AmountTicket,
+                    Orders= _unitOfWork.OrderRepository.Query().Where(y=> y.IdTrip.Equals(x.Id)).ToList()
                 })
                 .OrderBy(x => x.Time)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
