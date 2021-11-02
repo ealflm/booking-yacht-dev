@@ -186,6 +186,11 @@ namespace BookingYacht.Business.Implement.Admin
             return ticket.Result;
         }
 
+        public Task<int> Count()
+        {
+            return _unitOfWork.Context().Tickets.CountAsync();
+        }
+
         private string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);

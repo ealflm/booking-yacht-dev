@@ -47,7 +47,6 @@ namespace BookingYacht.Business.Implement.Admin
     
     public class OrdersService : BaseService, IOrdersService
     {
-        private const int Count = (int)CountElement.AtLeast;
 
         public OrdersService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -197,6 +196,11 @@ namespace BookingYacht.Business.Implement.Admin
 
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<int> Count()
+        {
+            return await _unitOfWork.Context().Orders.CountAsync();
         }
     }
 }
