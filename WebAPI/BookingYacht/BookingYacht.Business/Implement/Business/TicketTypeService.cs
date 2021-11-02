@@ -87,30 +87,38 @@ namespace BookingYacht.Business.Implement.Business
 
         public async Task<List<TicketTypeViewModel>> SearchTicketTypes(TicketTypeSearchModel model = null)
         {
-            if (model == null)
-            {
-                model = new TicketTypeSearchModel();
-            }
+            model ??= new TicketTypeSearchModel();
             var ticketType = await _unitOfWork.TicketTypeRepository.Query()
-                .Where(x => model.Price == null | x.Price==model.Price)
-                .Where(x => model.CommissionFeePercentage == null | x.CommissionFeePercentage == model.CommissionFeePercentage)
-                .Where(x => model.ServiceFeePercentage == null | x.ServiceFeePercentage==model.ServiceFeePercentage)
-                .Where(x => model.IdBusinessTour == null | x.IdBusinessTour.Equals(model.IdBusinessTour))
-                .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
+                .Where(x => model.Price == null || Equals(x.Price, model.Price))
+                .Where(x => model.CommissionFeePercentage == null || x.CommissionFeePercentage == model.CommissionFeePercentage)
+                .Where(x => model.ServiceFeePercentage == null || x.ServiceFeePercentage == model.ServiceFeePercentage)
+                .Where(x => model.IdBusinessTour == null || x.IdBusinessTour.Equals(model.IdBusinessTour))
+                .Where(x => model.Status == Status.ALL || x.Status == (int)model.Status)
+                .Join(_unitOfWork.Context().BusinessTours, 
+                        type => type.IdBusinessTour,
+                        tour => tour.Id,
+                        (type, tour) => new {TicketType = type, BusinessTour = tour})
+                .Join(_unitOfWork.Context().Tours, 
+                    arg => arg.BusinessTour.IdTour,
+                    tour => tour.Id,
+                    (__, tour) => new {__.TicketType, tour.Id, tour.Title})
                 .Select(x => new TicketTypeViewModel()
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Price = x.Price,
-                    CommissionFeePercentage = x.CommissionFeePercentage,
-                    ServiceFeePercentage = x.ServiceFeePercentage,
-                    IdBusinessTour = x.IdBusinessTour,
-                    Status = x.Status
+                    Id = x.TicketType.Id,
+                    Name = x.TicketType.Name,
+                    Price = x.TicketType.Price,
+                    CommissionFeePercentage = x.TicketType.CommissionFeePercentage,
+                    ServiceFeePercentage = x.TicketType.ServiceFeePercentage,
+                    IdTour = x.Id,
+                    TourName = x.Title,
+                    IdBusinessTour = x.TicketType.IdBusinessTour,
+                    Status = x.TicketType.Status,
                 })
-                .OrderBy(x => x.Id)
+                .OrderBy(x => x.Name)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TicketTypeRepository.Query().Count())
                 .ToListAsync();
+            
             return ticketType;
         }
 
