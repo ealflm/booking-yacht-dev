@@ -24,5 +24,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<bool> Delete(Guid id);
         Task<bool> UpdateStatus(Guid id, Enum.Status status);
 
+        Task<int> Count();
     }
 }

@@ -36,5 +36,11 @@ namespace BookingYacht.API.Controllers.Admin
             return Success(ticket);
         }
 
+        [HttpGet("Counting")]
+        public async Task<IActionResult> Count()
+        {
+            return Success(await _service.Count());
+        }
+
     }
 }

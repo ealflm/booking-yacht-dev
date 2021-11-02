@@ -18,5 +18,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<bool> DeleteTicket(Guid id);
         Task<string> GetQRString(Guid id);
         Task<Ticket> CheckQRString(string qr);
+        Task<int> Count();
     }
 }

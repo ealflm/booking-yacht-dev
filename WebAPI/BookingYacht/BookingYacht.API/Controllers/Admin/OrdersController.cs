@@ -34,5 +34,13 @@ namespace BookingYacht.API.Controllers.Admin
             var order = await _service.GetNavigation(id);
             return order != null ? Success(order) : Fail("The Order's not exist");
         }
+
+
+        [HttpGet("counting")]
+        public async Task<IActionResult> Counting()
+        {
+            return Success(await _service.Count());
+        }
+        
     }
 }
