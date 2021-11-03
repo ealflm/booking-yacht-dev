@@ -40,7 +40,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => x.ServiceFeePercentage > 1.0 & x.ServiceFeePercentage < 10.0 )
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
-                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TicketRepository.Query().Count())
                 .ToListAsync();
             return ticketTypes;
         }
