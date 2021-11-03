@@ -51,14 +51,30 @@ export class TicketTypeComponent implements OnInit {
     });
   }
 
-  onChangeStatus(status?: string) {
+  onChangeStatus(status: string) {
     if (!status) {
-      this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {
-        this.ticketType = ticketTypeRes.data;
-        timer(1000).subscribe(() => {
-          this.loading = false;
+      // console.log(status);
+
+      this.ticketTypeService
+        .getTicketTypes(status)
+        .subscribe((ticketTypeRes) => {
+          this.ticketType = ticketTypeRes.data;
+          this.ticketType.map((ticketTypeRes2: any | TicketType) => {
+            // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
+            this.business
+              .getBusinessAccountByID(
+                ticketTypeRes2.idBusinessTourNavigation?.idBusiness
+              )
+              .subscribe((bussinessRes) => {
+                // console.log(bussinessRes);
+
+                ticketTypeRes2.nameBusiness = bussinessRes.data.name;
+              });
+          });
+          timer(1000).subscribe(() => {
+            this.loading = false;
+          });
         });
-      });
     } else {
       this.ticketTypeService
         .getTicketTypes(status)
@@ -67,6 +83,18 @@ export class TicketTypeComponent implements OnInit {
             this.loading = false;
           });
           this.ticketType = ticketTypeRes.data;
+          this.ticketType.map((ticketTypeRes2: any | TicketType) => {
+            // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
+            this.business
+              .getBusinessAccountByID(
+                ticketTypeRes2.idBusinessTourNavigation?.idBusiness
+              )
+              .subscribe((bussinessRes) => {
+                // console.log(bussinessRes);
+
+                ticketTypeRes2.nameBusiness = bussinessRes.data.name;
+              });
+          });
         });
     }
   }
