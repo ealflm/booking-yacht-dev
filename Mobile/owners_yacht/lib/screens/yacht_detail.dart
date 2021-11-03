@@ -64,8 +64,9 @@ class YachtDetail extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Image.network(
-                                    'https://i1.wp.com/www.barcheamotore.com/wp-content/uploads/2019/10/Ferretti-Yachts-720_1.jpg?fit=900%2C500&ssl=1'),
+                                Image.network(controller
+                                        .yachtDetail.imageLink ??
+                                    'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
                                   child: Column(
@@ -103,9 +104,13 @@ class YachtDetail extends StatelessWidget {
                 onPressed: () => showDialog(
                   context: context,
                   builder: (ctx) => AlertDialog(
-                    title: const Text('Xoá tàu?'),
-                    content: const Text(
-                      'Bạn có muốn xoá tàu này?',
+                    title: Text(controller.yachtDetail.status == 1
+                        ? 'Xoá tàu?'
+                        : 'Khôi phục'),
+                    content: Text(
+                      controller.yachtDetail.status == 1
+                          ? 'Bạn có muốn xoá tàu này?'
+                          : 'Bạn có muốn khôi phục này?',
                     ),
                     actions: <Widget>[
                       FlatButton(
@@ -114,15 +119,16 @@ class YachtDetail extends StatelessWidget {
                       ),
                       FlatButton(
                         child: const Text('Có'),
-                        onPressed: () =>
-                            controller.deleteYacht(controller.yachtDetail.id!),
+                        onPressed: () => controller.yachtDetail.status == 1
+                            ? controller.deleteYacht(controller.yachtDetail.id!)
+                            : controller.restoreYacht(),
                       ),
                     ],
                   ),
                 ),
-                child: const Text(
-                  'Xoá tàu',
-                  style: TextStyle(fontWeight: FontWeight.w300),
+                child: Text(controller.yachtDetail.status == 1 ?
+                  'Xoá tàu' : 'Khôi phục',
+                  style: const TextStyle(fontWeight: FontWeight.w300),
                 ),
               ),
             ],

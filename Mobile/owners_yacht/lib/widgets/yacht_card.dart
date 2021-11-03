@@ -42,10 +42,12 @@ class YachtCard extends StatelessWidget {
                         children: [
                           YachtInformation('Tên tàu', yacht.name.toString()),
                           YachtInformation(
-                              'Trạng thái', BookingYachtStatus.status[yacht.status].toString()),
+                              'Trạng thái',
+                              BookingYachtStatus.status[yacht.status]
+                                  .toString()),
                           YachtInformation('Ghế', yacht.seat.toString()),
-                          YachtInformation(
-                              'Ngày đóng tàu', yacht.yearOfManufacture.toString()),
+                          YachtInformation('Loại tàu',
+                              yacht.yearOfManufacture.toString()),
                         ],
                       ),
                     ),
@@ -71,8 +73,8 @@ class YachtCard extends StatelessWidget {
                     ],
                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                     image: DecorationImage(
-                      image: NetworkImage(
-                          "https://vcdn1-dulich.vnecdn.net/2018/11/30/Di-lai-5736-1525677275-2230-1543551123.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=yQltjpR9jgQyDMaJkdsHbA"),
+                      image: NetworkImage(yacht.imageLink ??
+                          'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'),
                       fit: BoxFit.fill,
                     ),
                   ),

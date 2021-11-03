@@ -1,22 +1,24 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:owners_yacht/models/transaction.dart';
-import 'package:owners_yacht/screens/transactions.dart';
+import 'package:owners_yacht/models/order.dart';
+import 'package:owners_yacht/screens/order.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class TransactionController extends GetxController {
+class OrderController extends GetxController {
   var isLoading = true.obs;
-  List<Transaction> listTransaction = <Transaction>[].obs;
-  var transactionDetail = Transaction();
+  List<Order> listOrders = <Order>[].obs;
+  var ordersDetail = Order();
 
   @override
   onInit() {
-    getTransaction();
+    getOrder();
     super.onInit();
   }
 
-  Future<List<Transaction>> getTransaction() async {
+  Future<List<Order>> getOrder() async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -31,10 +33,10 @@ class TransactionController extends GetxController {
       );
       if (response.statusCode == 200) {
         var jsonString = response.body;
-        var transactions = transactionReponseFromJson(jsonString);
-        if (transactions.data != null) {
+        var orders = orderReponseFromJson(jsonString);
+        if (orders.data != null) {
           //print(transactions);
-          listTransaction = transactions.data as List<Transaction>;
+          listOrders = orders.data as List<Order>;
         }
         update();
         // Get.to(Transactions());
@@ -47,7 +49,7 @@ class TransactionController extends GetxController {
     return [];
   }
 
-  Future<Transaction> getTransactionDetail(String id) async {
+  Future<Order> getTransactionDetail(String id) async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -61,7 +63,7 @@ class TransactionController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        var transactions = transactionReponseFromJson(response.body);
+        var orders = orderReponseFromJson(response.body);
         print('hihi');
         // if (transactions.data != null) {
         //   transactionDetail = transactions.data as Transaction;
@@ -74,6 +76,36 @@ class TransactionController extends GetxController {
     } finally {
       isLoading(false);
     }
-    return transactionDetail;
+    return ordersDetail;
+  }
+
+  void deleteOrder(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    try {
+      final response = await http.delete(
+          Uri.parse(
+              "https://booking-yacht.azurewebsites.net/api/v1.0/business/orders/${id}"),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          });
+      if (response.statusCode == 200) {
+        Get.back();
+        Fluttertoast.showToast(
+            msg: "Từ chối thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+        getOrder();
+      } else {
+        print('loi o delete');
+      }
+    } catch (error) {
+      print(error);
+    }
   }
 }

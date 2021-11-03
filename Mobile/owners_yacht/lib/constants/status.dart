@@ -8,6 +8,8 @@ class BookingYachtStatus {
     5: 'Từ chối',
     6: 'Chưa checkin',
     7: 'Đã checkin',
-    8: 'Huỷ'
+    8: 'Huỷ',
+    10: 'Đã thanh toán',
+    11: 'Chưa thanh toán'
   };
 }

@@ -36,6 +36,7 @@ class Yacht {
         this.idVehicleType,
         this.idBusiness,
         this.status,
+        this.imageLink,
     });
 
     String? id;
@@ -48,6 +49,7 @@ class Yacht {
     String? idVehicleType;
     String? idBusiness;
     int? status;
+    String? imageLink;
 
     factory Yacht.fromJson(Map<String, dynamic> json) => Yacht(
         id: json["id"],
@@ -60,6 +62,7 @@ class Yacht {
         idVehicleType: json["idVehicleType"],
         idBusiness: json["idBusiness"],
         status: json["status"],
+        imageLink: json["imageLink"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -73,5 +76,6 @@ class Yacht {
         "idVehicleType": idVehicleType,
         "idBusiness": idBusiness,
         "status": status,
+        "imageLink": imageLink,
     };
 }

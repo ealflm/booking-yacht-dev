@@ -1,8 +1,8 @@
 import 'dart:ui' show Color;
 
 class BookingYachtColors {
-  static const Color appBar = Color.fromRGBO(8, 8, 8, 1.0); //Color(0xFF1DADB0)
-  // static const Color appBar = Color(0xFF1DADB0);
+  // static const Color appBar = Color.fromRGBO(8, 8, 8, 1.0); //Color(0xFF1DADB0)
+  static const Color appBar = Color(0xFF1DADB0);
   static const Color appBarDetail = Color.fromRGBO(8, 8, 8, 0.0);
   static const Color defaultButton = Color.fromRGBO(220, 220, 220, 1.0);
   static const Color primary = Color.fromRGBO(156, 38, 176, 1.0);

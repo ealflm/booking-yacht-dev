@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:owners_yacht/constants/status.dart';
 import 'package:owners_yacht/controller/yacht.dart';
 import 'package:owners_yacht/widgets/radio_button.dart';
 
@@ -91,15 +92,6 @@ class YachtModify extends StatelessWidget {
                   return controller.validate(value!, 'Vui lòng nhập số ghế');
                 },
               ),
-              controller.isAdding
-                  ? Text('')
-                  : TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Trạng thái'),
-                      validator: (value) {},
-                      onSaved: (value) {},
-                      controller: controller.statusController,
-                    ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Mô tả'),
                 keyboardType: TextInputType.multiline,

@@ -12,7 +12,7 @@ class TicketType extends StatelessWidget {
       appBar: const NavBar(title: 'Loại Vé', automaticallyImplyLeading: false),
       backgroundColor: Colors.grey[200],
       body: GetBuilder<TicketTypeController>(
-        builder: (controller) => (_controller.isLoading == true)
+        builder: (controller) => (_controller.isLoading.isTrue)
             ? const Center(child: CircularProgressIndicator())
             : controller.listTicketType.isEmpty
                 ? const Center(child: Text('Không có loại vé nào!'))

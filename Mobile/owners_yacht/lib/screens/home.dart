@@ -4,7 +4,7 @@ import 'package:owners_yacht/screens/ticket_type.dart';
 import '/controller/home.dart';
 import 'menu.dart';
 import 'trips.dart';
-import 'transactions.dart';
+import 'order.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -15,8 +15,8 @@ class Home extends StatelessWidget {
           body: IndexedStack(
             index: controller.tabIndex,
             children: [
-              Transactions(),
               Trips(),
+              Orders(),
               TicketType(),
               Menu(),
             ],
@@ -28,8 +28,8 @@ class Home extends StatelessWidget {
                 label: 'Trang chủ',
               ),
               _bottomNavigationBarItem(
-                icon: Icons.timeline_sharp,
-                label: 'Chuyến đi',
+                icon: Icons.backpack_outlined,
+                label: 'Đơn đặt tàu',
               ),
               _bottomNavigationBarItem(
                 icon: Icons.airplane_ticket_outlined,
