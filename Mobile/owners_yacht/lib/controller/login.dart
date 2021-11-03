@@ -48,8 +48,6 @@ class LoginController extends GetxController {
               "https://booking-yacht.azurewebsites.net/api/v1.0/admin/open-login"),
           headers: headers,
           body: body);
-      update();
-
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         final responseData = json.decode(response.body);

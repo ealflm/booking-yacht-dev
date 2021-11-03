@@ -35,7 +35,8 @@ class TourDetail extends StatelessWidget {
                 image: DecorationImage(
                     alignment: Alignment.topCenter,
                     image: NetworkImage(
-                        "https://en.dangcongsan.vn/DATA/3/2020/04/phu_quoc-16_49_12_204.jpg"),
+                        _tourController.tourDetail.imageLink ??
+                                  'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'),
                     fit: BoxFit.cover)),
           ),
           Container(

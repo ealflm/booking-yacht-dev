@@ -72,10 +72,12 @@ class TourController extends GetxController {
       if (response.statusCode == 200) {
         var jsonString = json.decode(response.body);
         tourDetail = Tour(
-            id: jsonString['data']['id'],
-            tittle: jsonString['data']['tittle'],
-            status: jsonString['data']['status'] as int,
-            descriptions: jsonString['data']['descriptions']);
+          id: jsonString['data']['id'],
+          tittle: jsonString['data']['tittle'],
+          status: jsonString['data']['status'] as int,
+          descriptions: jsonString['data']['descriptions'],
+          imageLink: jsonString['data']["imageLink"],
+        );
         update();
         Get.to(TourDetail());
       } else {}

@@ -3,6 +3,8 @@ import 'package:owners_yacht/constants/status.dart';
 import 'package:owners_yacht/controller/ticket_type.dart';
 import 'package:owners_yacht/models/ticket_type.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TicketTypeCard extends StatelessWidget {
   final TicketType _ticketType;
@@ -12,10 +14,19 @@ class TicketTypeCard extends StatelessWidget {
   TicketTypeController _ticketTypeController = Get.find<TicketTypeController>();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-      child: GestureDetector(
-        onTap: () => _ticketTypeController.editTicketType(_ticketType),
+    return Slidable(
+      // key: Key(_ticketType.id!),
+      actionPane: const SlidableDrawerActionPane(),
+      actionExtentRatio: 0.25,
+      // controller: SlidableController(),
+      // SlidableDismissal(
+      //   child: SlidableDrawerDismissal(),
+      //   onDismissed: (actionType) {
+      //     print('hihi');
+      //   },
+      // ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -81,10 +92,20 @@ class TicketTypeCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        "Trạng thái: ${BookingYachtStatus.status[_ticketType.status]}",
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.grey),
+                      Flexible(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Tên tour: ${_ticketType.tourName}",
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey)),
+                            Text(
+                                "Trạng thái: ${BookingYachtStatus.status[_ticketType.status]}",
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey)),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -162,7 +183,7 @@ class TicketTypeCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color: Colors.grey)),
                   Expanded(
-                      child: Text("\u0024 ${_ticketType.price}",
+                      child: Text("${NumberFormat.currency(locale: "vi-VN", symbol: "VND").format(_ticketType.price)}",
                           textAlign: TextAlign.end,
                           style: const TextStyle(
                               fontSize: 18,
@@ -174,6 +195,22 @@ class TicketTypeCard extends StatelessWidget {
           ],
         ),
       ),
+      secondaryActions: <Widget>[
+        _ticketType.status == 2
+            ? IconSlideAction(
+                caption: 'Khôi phục',
+                color: Colors.grey,
+                icon: Icons.restore_from_trash,
+                onTap: () =>
+                    _ticketTypeController.restoreTicketType(_ticketType))
+            : IconSlideAction(
+                caption: 'Xoá',
+                color: Colors.red,
+                icon: Icons.delete,
+                onTap: () =>
+                    _ticketTypeController.deleteTicketType(_ticketType.id!),
+              ),
+      ],
     );
   }
 }

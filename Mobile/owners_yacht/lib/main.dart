@@ -6,14 +6,15 @@ import 'package:owners_yacht/screens/trips.dart';
 import 'screens/home.dart';
 import 'screens/qr_code.dart';
 import 'screens/trips.dart';
-import 'screens/transactions.dart';
+import 'screens/order.dart';
 import 'screens/yachts.dart';
 import 'binding/bindings.dart';
 import 'screens/login.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeDateFormatting();
   Binding().dependencies();
   runApp(
     GetMaterialApp(
@@ -40,8 +41,8 @@ void main() async {
           binding: Binding(),
         ),
         GetPage(
-          name: '/transations',
-          page: () => Transactions(),
+          name: '/order',
+          page: () => Orders(),
           binding: Binding(),
         ),
         GetPage(

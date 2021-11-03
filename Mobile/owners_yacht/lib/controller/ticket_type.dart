@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/ticket_type.dart';
 import 'package:owners_yacht/screens/ticket_type_modify.dart';
@@ -23,9 +24,9 @@ class TicketTypeController extends GetxController {
   TextEditingController serviceFeeController = TextEditingController();
   TextEditingController idTourController = TextEditingController();
 
-  void onSelected(String value) {
-    selectedValue = value;
-    idTourController.text = value;
+  void onSelected(String id) {
+    selectedValue = id;
+    idTourController.text = id;
     update();
   }
 
@@ -122,59 +123,47 @@ class TicketTypeController extends GetxController {
     }
     ticketTypeFormKey.currentState!.save();
     try {
-      if (!isAdding) {
-        TicketType ticket = TicketType(
-            id: id,
-            name: nameController.text,
-            price: double.parse(priceController.text),
-            status: int.parse(statusController.text),
-            commissionFeePercentage: double.parse(commissionFeeController.text),
-            serviceFeePercentage: double.parse(serviceFeeController.text),
-            idBusinessTour: idTourController.text);
-        String body = json.encode(ticket);
-
-        final response = await http.put(
-          Uri.parse(
-              "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types/${id}"),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $token",
-          },
-          body: body,
-        );
-        if (response.statusCode == 200) {
-          getTicketType();
-          update();
-          Get.back();
-        } else {
-          print('loi o save roi ');
-        }
+      String body = json.encode({
+        'name': nameController.text,
+        'tourName': '',
+        'price': double.parse(priceController.text),
+        'status': 3,
+        'commissionFeePercentage': double.parse(commissionFeeController.text),
+        'serviceFeePercentage': double.parse(serviceFeeController.text),
+        'idTour': idTourController.text,
+        'idBusiness': '68554b5a-817b-453c-992c-149662a8e710'
+      });
+      print(body);
+      final response = await http.post(
+        Uri.parse(
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
+      );
+      if (response.statusCode == 200) {
+        getTicketType();
+        update();
+        Get.back();
+        Fluttertoast.showToast(
+            msg: "Lưu thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
       } else {
-        String body = json.encode({
-          'name': nameController.text,
-          'price': double.parse(priceController.text),
-          'status': int.parse(statusController.text),
-          'commissionFeePercentage': double.parse(commissionFeeController.text),
-          'serviceFeePercentage': double.parse(serviceFeeController.text),
-          'idBusinessTour': "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-        });
-        print(body);
-        final response = await http.post(
-          Uri.parse(
-              "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types"),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $token",
-          },
-          body: body,
-        );
-        if (response.statusCode == 200) {
-          getTicketType();
-          update();
-          Get.back();
-        } else {
-          print('loi o save roi ');
-        }
+        Fluttertoast.showToast(
+            msg: "Lỗi rồi",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
       }
     } catch (error) {
       print(error);
@@ -194,14 +183,76 @@ class TicketTypeController extends GetxController {
           });
       if (response.statusCode == 200) {
         getTicketType();
-        update();
-        Get.back();
+        Fluttertoast.showToast(
+            msg: "Xoá thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
       } else {
-        print('loi o delete');
+        Fluttertoast.showToast(
+            msg: "Lỗi rồi",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
       }
     } catch (error) {
       print(error);
     }
+  }
+
+  void restoreTicketType(TicketType ticketType) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    try {
+      print(ticketType.id);
+      String body = json.encode(TicketType(
+        id: ticketType.id,
+        name: ticketType.name,
+        tourName: ticketType.tourName,
+        price: ticketType.price,
+        status: 3,
+        commissionFeePercentage: ticketType.commissionFeePercentage,
+        serviceFeePercentage: ticketType.serviceFeePercentage,
+        idBusinessTour: ticketType.idBusinessTour,
+      ));
+
+      final response = await http.put(
+        Uri.parse(
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types/${ticketType.id}"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
+      );
+      if (response.statusCode == 200) {
+        getTicketType();
+        Fluttertoast.showToast(
+            msg: "Khôi phục thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Lỗi rồi",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+        print('loi o save roi ');
+      }
+    } catch (e) {}
   }
 
   String? validate(String value, String message) {

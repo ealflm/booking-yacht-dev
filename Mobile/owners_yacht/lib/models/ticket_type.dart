@@ -32,6 +32,7 @@ class TicketType {
   TicketType({
     this.id,
     this.name,
+    this.tourName,
     this.price,
     this.status,
     this.commissionFeePercentage,
@@ -41,6 +42,7 @@ class TicketType {
 
   String? id;
   String? name;
+  String? tourName;
   double? price;
   int? status;
   double? commissionFeePercentage;
@@ -50,6 +52,7 @@ class TicketType {
   factory TicketType.fromJson(Map<String, dynamic> json) => TicketType(
         id: json["id"],
         name: json["name"],
+        tourName: json["tourName"],
         price: json["price"],
         status: json["status"],
         commissionFeePercentage: json["commissionFeePercentage"],
@@ -60,6 +63,7 @@ class TicketType {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "tourName": tourName,
         "price": price,
         "status": status,
         "commissionFeePercentage": commissionFeePercentage,

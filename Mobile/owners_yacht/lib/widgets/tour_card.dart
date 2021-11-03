@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:owners_yacht/constants/status.dart';
 import 'package:owners_yacht/constants/theme.dart';
 import 'package:owners_yacht/controller/tour.dart';
@@ -36,12 +35,17 @@ class TourCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Tên: ${tour.tittle!}',
-                                style: TextStyle(
-                                    color: BookingYachtColors.caption,
-                                    fontSize: 16)),
-                            Text('Trạng thái: ${BookingYachtStatus.status[tour.status!]}',
-                                style: TextStyle(
+                            Flexible(
+                              child: Expanded(
+                                child: Text('Tên: ${tour.tittle!}',
+                                    style: const TextStyle(
+                                        color: BookingYachtColors.caption,
+                                        fontSize: 16)),
+                              ),
+                            ),
+                            Text(
+                                'Trạng thái: ${BookingYachtStatus.status[tour.status!]}',
+                                style: const TextStyle(
                                     color: BookingYachtColors.muted,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600))
@@ -59,7 +63,7 @@ class TourCard extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 0.0, bottom: 0, left: 13, right: 13),
                   child: Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           left: 16.0, right: 16, bottom: 0, top: 16),
                       height: 127,
                       width: MediaQuery.of(context).size.width / 2.5,
@@ -69,12 +73,13 @@ class TourCard extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.06),
                                 spreadRadius: 2,
                                 blurRadius: 1,
-                                offset: Offset(0, 0))
+                                offset: const Offset(0, 0))
                           ],
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4.0)),
                           image: DecorationImage(
-                              image: NetworkImage(
-                                  'https://phuquoctrip.com/files/images/9-2021/tour-phu-quoc-du-lich-phu-quoc.jpeg'),
+                              image: NetworkImage(tour.imageLink ??
+                                  'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'),
                               fit: BoxFit.cover))),
                 ),
               ),

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '/models/yacht.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class YachtController extends GetxController {
   final GlobalKey<FormState> yachtFormKey = GlobalKey<FormState>();
@@ -32,7 +33,6 @@ class YachtController extends GetxController {
 
   void changeCategory(value) {
     categoryController = value;
-    print(value);
     update();
   }
 
@@ -120,10 +120,14 @@ class YachtController extends GetxController {
             id: jsonString['data']['id'],
             name: jsonString['data']['name'],
             seat: jsonString['data']['seat'] as int,
+            registrationNumber: jsonString['data']['registrationNumber'],
+            yearOfManufacture: jsonString['data']['yearOfManufacture'] as int,
+            whereProduction: jsonString['data']['whereProduction'],
             descriptions: jsonString['data']['descriptions'],
             idVehicleType: jsonString['data']['idVehicleType'],
             idBusiness: jsonString['data']['idBusiness'],
-            status: jsonString['data']['status'] as int);
+            status: jsonString['data']['status'] as int,
+            imageLink: jsonString['data']['imageLink']);
         update();
         Get.to(YachtDetail());
       } else {
@@ -144,6 +148,7 @@ class YachtController extends GetxController {
     nameController.text = yacht.name!;
     registrationNumberController.text = yacht.registrationNumber.toString();
     yearOfManufactureController.text = yacht.yearOfManufacture.toString();
+    whereProductionController.text = yacht.whereProduction!;
     seatController.text = yacht.seat.toString();
     statusController.text = yacht.status.toString();
     descriptionsController.text = yacht.descriptions!;
@@ -175,14 +180,80 @@ class YachtController extends GetxController {
             "Authorization": "Bearer $token",
           });
       if (response.statusCode == 200) {
-        fetchYachts();
-        update();
         Get.back();
+        Get.back();
+        Fluttertoast.showToast(
+            msg: "Xoá thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+        fetchYachts();
       } else {
-        print('loi o delete');
+        Fluttertoast.showToast(
+            msg: "Lỗi rồi",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
       }
     } catch (error) {
       print(error);
+    }
+  }
+
+  void restoreYacht() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    try {
+      Yacht yacht = Yacht(
+          id: yachtDetail.id,
+          name: yachtDetail.name,
+          registrationNumber: yachtDetail.registrationNumber,
+          yearOfManufacture: yachtDetail.yearOfManufacture,
+          whereProduction: yachtDetail.whereProduction,
+          seat: yachtDetail.seat,
+          descriptions: yachtDetail.descriptions,
+          idVehicleType: yachtDetail.idVehicleType,
+          idBusiness: '68554b5a-817b-453c-992c-149662a8e710',
+          status: 1);
+      String body = json.encode(yacht);
+
+      final response = await http.put(
+        Uri.parse(
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/${yachtDetail.id}"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
+      );
+      if (response.statusCode == 200) {
+        Get.back();
+        Get.back();
+        Fluttertoast.showToast(
+            msg: "Khôi phục thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+        fetchYachts();
+      }
+    } catch (error) {
+      Fluttertoast.showToast(
+          msg: "Lỗi rồi",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 
@@ -220,9 +291,25 @@ class YachtController extends GetxController {
         );
         if (response.statusCode == 200) {
           getYachtDetail(id);
-          fetchYachts();
           update();
           Get.back();
+          Fluttertoast.showToast(
+              msg: "Cập nhật thành công",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.white,
+              textColor: Colors.black,
+              fontSize: 16.0);
+        } else {
+          Fluttertoast.showToast(
+              msg: "Lỗi rồi",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.white,
+              textColor: Colors.black,
+              fontSize: 16.0);
         }
       } else {
         String body = json.encode({
@@ -246,11 +333,25 @@ class YachtController extends GetxController {
           body: body,
         );
         if (response.statusCode == 200) {
-          fetchYachts();
-          update();
           Get.back();
+          fetchYachts();
+          Fluttertoast.showToast(
+              msg: "Tạo mới thành công",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.white,
+              textColor: Colors.black,
+              fontSize: 16.0);
         } else {
-          print('loi o save roi ');
+          Fluttertoast.showToast(
+              msg: "Lỗi rồi",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.white,
+              textColor: Colors.black,
+              fontSize: 16.0);
         }
       }
     } catch (error) {

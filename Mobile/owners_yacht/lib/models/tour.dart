@@ -31,18 +31,21 @@ class Tour {
     this.tittle,
     this.descriptions,
     this.status,
+    this.imageLink
   });
 
   String? id;
   String? tittle;
   String? descriptions;
   int? status;
+  String? imageLink;
 
   factory Tour.fromJson(Map<String, dynamic> json) => Tour(
         id: json["id"],
         tittle: json["tittle"],
         descriptions: json["descriptions"],
         status: json["status"],
+        imageLink: json["imageLink"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,5 +53,6 @@ class Tour {
         "tittle": tittle,
         "descriptions": descriptions,
         "status": status,
+        "imageLink": imageLink,
       };
 }

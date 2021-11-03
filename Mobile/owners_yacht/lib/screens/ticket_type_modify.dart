@@ -6,8 +6,6 @@ import 'package:owners_yacht/models/tour.dart';
 import 'package:owners_yacht/models/yacht.dart';
 
 class TicketTypeModify extends StatelessWidget {
-  List<String> dropdown = ['a', 'b', 'c', 'daaa'];
-
   final TicketTypeController _ticketTypeController =
       Get.find<TicketTypeController>();
   final TourController _tourController = Get.find<TourController>();
@@ -61,17 +59,6 @@ class TicketTypeModify extends StatelessWidget {
                   return _ticketTypeController.validate(
                       value!, 'Vui lòng nhập giá');
                 },
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Trạng thái'),
-                controller: _ticketTypeController.statusController,
-                // onSaved: (value) {
-                //   _ticketTypeController.priceController.text = value!;
-                // },
-                // validator: (value) {
-                //   return _ticketTypeController.validate(
-                //       value!, 'Vui lòng nhập giá');
-                // },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Phí hoa hồng(%)'),
