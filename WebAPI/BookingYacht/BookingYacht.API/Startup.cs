@@ -241,10 +241,10 @@ namespace BookingYacht.API
 
             app.UseEndpoints(endpoints =>
             {
-                if (env.IsDevelopment())
+                //if (env.IsDevelopment())
                     endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute());
-                else
-                    endpoints.MapControllers();
+                //else
+                    //endpoints.MapControllers();
             });
         }
     }
