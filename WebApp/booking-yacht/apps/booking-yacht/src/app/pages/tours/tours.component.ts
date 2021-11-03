@@ -2,7 +2,7 @@ import { Tour } from './../../models/tours';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToursService } from './../../services/tours.service';
-import { SECONDARY_STATUS } from './../../constants/STATUS';
+import { AGENCY_STATUS, SECONDARY_STATUS } from './../../constants/STATUS';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,12 +13,12 @@ import { Component, OnInit } from '@angular/core';
 export class ToursComponent implements OnInit {
   tours: Tour[] = [];
   status = [
-    { id: '0', lable: 'Tất cả' },
-    { id: '4', lable: 'Chấp nhận' },
-    { id: '5', lable: 'Từ chối' },
+    { id: '', lable: 'Tất cả' },
+    { id: '1', lable: 'Đang hoạt động' },
+    { id: '2', lable: 'Đã vô hiệu hóa' },
   ];
   loading?: boolean = true;
-  tourStatus = SECONDARY_STATUS;
+  tourStatus = AGENCY_STATUS;
   imageNotFound = '../../../assets/img/noimage.png';
   constructor(
     private tourService: ToursService,

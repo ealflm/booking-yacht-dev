@@ -59,10 +59,10 @@
                 Địa chỉ <p-sortIcon field="address"></p-sortIcon>
               </th>
 
-              <th>Loại địa điểm</th>
+              <th style="width: 15%">Loại địa điểm</th>
 
-              <th>Trạng thái</th>
-              <th></th>
+              <th style="width: 15%">Trạng thái</th>
+              <th style="width: 10%"></th>
             </tr>
           </ng-template>
 
@@ -111,6 +111,7 @@
                   icon="pi pi-ban"
                   class="p-button-rounded p-button-warning"
                   (click)="deleteDes(destinations.id)"
+                  *ngIf="destinations.status !== 2"
                 ></button>
               </td>
             </tr>
