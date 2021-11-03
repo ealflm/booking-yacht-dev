@@ -120,13 +120,13 @@
             class="card box shadow-1"
           >
             <div class="flex justify-content-between">
-              <h2 class="pl-3 pt-3" [style]="{ width: '80%' }">
+              <h2 class="pl-3 pt-3" [style]="{ width: '75%' }">
                 {{ tours.tittle | uppercase }}
               </h2>
               <div
                 class="mt-3"
                 [style]="{
-                  width: '18%'
+                  width: '25%'
                 }"
               >
                 <p-tag
@@ -163,6 +163,7 @@
                   icon="pi pi-times-circle"
                   class="p-button-rounded p-button-danger"
                   (click)="deleteTour(tours.id)"
+                  *ngIf="tours.status !== 2"
                 ></button>
               </div>
             </div>

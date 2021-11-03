@@ -122,6 +122,7 @@
                   icon="pi pi-ban"
                   class="p-button-rounded p-button-warning"
                   (click)="deleteAgency(agencies.id)"
+                  *ngIf="agencies.status !== 2"
                 ></button>
               </td>
             </tr>

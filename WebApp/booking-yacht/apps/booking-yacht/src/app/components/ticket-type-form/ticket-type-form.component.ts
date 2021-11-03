@@ -4,7 +4,7 @@ import { BusinessAccount } from './../../models/business-account';
 import { async } from '@angular/core/testing';
 import { MessageService } from 'primeng/api';
 import { TicketType } from './../../models/ticket-types';
-import { SECONDARY_STATUS, TICKET_STATUS } from './../../constants/STATUS';
+import { SECONDARY_STATUS, TICKET_STATUS, AGENCY_STATUS } from './../../constants/STATUS';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TicketTypeService } from './../../services/ticket-type.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -27,7 +27,7 @@ export class TicketTypeFormComponent implements OnInit {
   tickesType?: TicketType;
   business?: BusinessAccount;
   tour!: Tour;
-  tourStatus = SECONDARY_STATUS;
+  tourStatus = AGENCY_STATUS;
   constructor(
     private router: Router,
     private location: Location,
@@ -37,7 +37,7 @@ export class TicketTypeFormComponent implements OnInit {
     private messageService: MessageService,
     private bussinessService: BusinessAccountService,
     private tourService: ToursService
-    
+
   ) {}
 
   ngOnInit(): void {

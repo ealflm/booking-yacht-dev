@@ -84,7 +84,7 @@
                     </ng-template>
                   </p-columnFilter> -->
                 </th>
-                <th></th>
+                <th style="width: 15%"></th>
               </tr>
             </ng-template>
 
@@ -129,6 +129,7 @@
                     icon="pi pi-ban"
                     class="p-button-rounded p-button-warning"
                     (click)="deleteApartment(apartments.id)"
+                    *ngIf="apartments.status !== 2"
                   ></button>
                 </td>
               </tr>

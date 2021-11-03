@@ -124,6 +124,7 @@
                   icon="pi pi-ban"
                   class="p-button-rounded p-button-warning"
                   (click)="deleteBusiness(businessAcount.id)"
+                  *ngIf="businessAcount.status !== 2"
                 ></button>
               </td>
             </tr>

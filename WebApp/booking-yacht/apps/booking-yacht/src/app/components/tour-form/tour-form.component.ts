@@ -1,5 +1,5 @@
 import { DestinationsService } from './../../services/destinations.service';
-import { SECONDARY_STATUS } from './../../constants/STATUS';
+import { SECONDARY_STATUS, AGENCY_STATUS } from './../../constants/STATUS';
 import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { Tour } from './../../models/tours';
 import { ActivatedRoute } from '@angular/router';
@@ -67,7 +67,7 @@ export class TourFormComponent implements OnInit {
     });
     // console.log(arrDeS);
     this.ListDes = arrDeS;
-    console.log(this.ListDes);
+    // console.log(this.ListDes);
   }
   onFileChanged(event: any) {
     const file = event.target.files[0];
@@ -154,10 +154,10 @@ export class TourFormComponent implements OnInit {
     });
   }
   _mapTourStatus() {
-    this.status = Object.keys(SECONDARY_STATUS).map((key) => {
+    this.status = Object.keys(AGENCY_STATUS).map((key) => {
       return {
         id: key,
-        name: SECONDARY_STATUS[key].lable,
+        name: AGENCY_STATUS[key].lable,
       };
     });
   }
@@ -170,11 +170,11 @@ export class TourFormComponent implements OnInit {
     if (this.editMode !== true) {
       const tour: Tour = {
         tittle: this.tourForm.tittle.value,
-        status: '4',
+        status: '1',
         descriptions: this.tourForm.descriptions.value,
         imageLink: this.imageLink,
       };
-      console.log(tour);
+      // console.log(tour);
 
       this.tourService.createTour(tour).subscribe(
         (res) => {
@@ -214,7 +214,7 @@ export class TourFormComponent implements OnInit {
       this.desService
         .createDesTour(this.currentUser, this.ListDes)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
       this.tourService.updateTour(tour, this.currentUser).subscribe(
         (res) => {
