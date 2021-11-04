@@ -14,6 +14,7 @@ class Trips extends StatefulWidget {
 }
 
 class _TripsState extends State<Trips> {
+  TripController _tripController = Get.find<TripController>();
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -50,7 +51,7 @@ class _TripsState extends State<Trips> {
               if (!isSameDay(_selectedDay, selectedDay)) {
                 // Call `setState()` when updating the selected day
                 setState(() {
-                  print(focusedDay);
+                 _tripController.getBusinessTour();
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });
@@ -75,7 +76,7 @@ class _TripsState extends State<Trips> {
                 builder: (controller) => (controller.isLoading.isTrue)
                     ? const Center(child: CircularProgressIndicator())
                     : controller.listBusinessTour.isEmpty
-                        ? const Center(child: Text('Không có tàu nào!'))
+                        ? const Center(child: Text('Không có chuyến đi!'))
                         : Padding(
                             padding: const EdgeInsets.only(top: 10.0),
                             child: ListView.builder(
@@ -105,7 +106,7 @@ class _TripsState extends State<Trips> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text('Số lượng người đi: 1'),
+                                                  Text('Số lượng người đi: 3'),
                                                   Text('Trạng thái: Đang đi'),
                                                 ],
                                               ),
@@ -116,7 +117,13 @@ class _TripsState extends State<Trips> {
                                             ),
                                           ],
                                         ),
-                                        itemCount: 2,
+                                        itemCount: controller
+                                                .listBusinessTour[i]
+                                                .trips!
+                                                .isEmpty
+                                            ? 0
+                                            : controller.listBusinessTour[i]
+                                                .trips!.length,
                                       ),
                                     ],
                                   ),

@@ -42,6 +42,8 @@ dependencies:
   flutter_slidable: ^0.6.0
   table_calendar: ^3.0.3
   fluttertoast: ^8.0.8
+  firebase_messaging: ^10.0.9
+  flutter_local_notifications: ^9.0.2
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

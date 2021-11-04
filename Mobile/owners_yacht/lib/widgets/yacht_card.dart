@@ -46,8 +46,8 @@ class YachtCard extends StatelessWidget {
                               BookingYachtStatus.status[yacht.status]
                                   .toString()),
                           YachtInformation('Ghế', yacht.seat.toString()),
-                          YachtInformation('Loại tàu',
-                              yacht.yearOfManufacture.toString()),
+                          YachtInformation(
+                              'Biển số', yacht.registrationNumber.toString()),
                         ],
                       ),
                     ),

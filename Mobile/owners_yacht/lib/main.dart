@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/screens/menu.dart';
 import 'package:owners_yacht/screens/tours.dart';
@@ -12,12 +13,16 @@ import 'binding/bindings.dart';
 import 'screens/login.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting();
+  await Firebase.initializeApp();
   Binding().dependencies();
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/login',
       getPages: [
         GetPage(
