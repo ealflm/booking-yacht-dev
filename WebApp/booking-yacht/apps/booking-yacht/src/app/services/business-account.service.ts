@@ -42,4 +42,15 @@ export class BusinessAccountService {
   deleteBusinessAccount(id: string): Observable<any> {
     return this.http.delete(`${this.apiURLBusiness}/${id}`);
   }
+
+  getBussinessPayment(date?: string): Observable<any> {
+    let params = new HttpParams();
+    if (date) {
+      params = params.append('date-time', date);
+    }
+    return this.http.get(`${this.apiURLBusiness}/payment`, { params: params });
+  }
+  getIpAdrress() {
+    return this.http.get('http://api.ipify.org/?format=json');
+  }
 }

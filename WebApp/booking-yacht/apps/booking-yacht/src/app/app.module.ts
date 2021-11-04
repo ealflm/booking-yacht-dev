@@ -63,7 +63,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
     TicketFormComponent,
     VehicleComponent,
     DoashboardComponent,
-    PaymentComponent
+    PaymentComponent,
   ],
   imports: [
     // MaterialModule,

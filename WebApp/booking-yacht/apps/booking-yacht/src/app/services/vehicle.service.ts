@@ -23,4 +23,7 @@ export class VehicleService {
     }
     return this.http.get(`${this.apiURL}`, { params: params });
   }
+  countVehicle(): Observable<any> {
+    return this.http.get(`${this.apiURL}/counting`);
+  }
 }
