@@ -12,7 +12,7 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const paramsID = params.split('?');
+      const paramsID = params.id.split('?');
       this.currentID = paramsID[0];
       console.log(this.currentID);
     });
