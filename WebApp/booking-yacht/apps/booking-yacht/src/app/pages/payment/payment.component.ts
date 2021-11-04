@@ -32,9 +32,9 @@ export class PaymentComponent implements OnInit {
   confirmPayment(id: string, totalPrice: number) {
     this.paymentService
       .getPayment(this.ipAddress, totalPrice, id)
-      .subscribe(async (resURL: any) => {
+      .subscribe((resURL: any) => {
         window.open(resURL.data);
-        await console.log(resURL);
+        console.log(resURL);
       });
   }
   getIPAdress() {
