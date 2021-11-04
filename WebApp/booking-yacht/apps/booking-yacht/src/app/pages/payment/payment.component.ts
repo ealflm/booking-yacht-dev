@@ -31,11 +31,7 @@ export class PaymentComponent implements OnInit {
       this.businessPayment = res.data;
       console.log(res);
     });
-    this.route.params.subscribe((params) => {
-      const paramsID = params.split('?');
-      this.currentID = paramsID[0];
-      console.log(this.currentID);
-    });
+
   }
   confirmPayment(id: string, totalPrice: number) {
     this.paymentService
