@@ -37,7 +37,7 @@ namespace BookingYacht.API.Controllers.Admin
         {
             
             string url = _configuration["VnPay:Url"];
-            string returnUrl =Request.Scheme+"://" +Request.Host+ _configuration["VnPay:ReturnAdminPath"];
+            string returnUrl =_configuration["VnPay:ReturnAdminPath"]+ businessPayment.IdBusiness;
             var model = await _manageBusinessAccountService.GetBusiness(businessPayment.IdBusiness);
             string tmnCode = model.VnpTmnCode;
             string hashSecret = model.VnpHashSecret;

@@ -123,6 +123,7 @@ namespace BookingYacht.Business.Implement.Admin
             await _unitOfWork.SaveChangesAsync();
         }
 
+
         public async Task<List<BusinessPaymentModel>> GetPayment(PaymentSearchModel model)
         {
             var businesses = await _unitOfWork.BusinessRepository.Query()
@@ -167,7 +168,7 @@ namespace BookingYacht.Business.Implement.Admin
                     AmountTicket = t.AmountTicket,
                     Orders = _unitOfWork.OrderRepository.Query()
                     .Where(v=> v.IdTrip.Equals(t.Id))
-                    .Select(v=> new Order() 
+                    .Select(v=> new OrderPaymentModel() 
                     {
                         Id=v.Id,
                         AgencyName=v.AgencyName,
@@ -176,7 +177,8 @@ namespace BookingYacht.Business.Implement.Admin
                         IdTrip = v.IdTrip,
                         QuantityOfPerson=v.QuantityOfPerson,
                         Status= v.Status,
-                        TotalPrice=v.TotalPrice
+                        TotalPrice=v.TotalPrice,
+                        Tickets= _unitOfWork.TicketRepository.Query().Include(u=> u.IdTicketTypeNavigation).Where(u=> u.IdOrder.Equals(v.Id)).ToList()
                     }).ToList()
         })
                 .OrderBy(t => t.Time)
@@ -196,9 +198,14 @@ namespace BookingYacht.Business.Implement.Admin
                     foreach(TripPaymentModel trip in businessTour.Trips)
                     {
                         double tripTotalPrice = 0;
-                        foreach(Order order in trip.Orders)
+                        foreach(OrderPaymentModel order in trip.Orders)
                         {
-                            tripTotalPrice += order.TotalPrice.Value;
+                            double orderTotalPrice = 0;
+                            foreach(Ticket ticket in order.Tickets)
+                            {
+                                orderTotalPrice += ticket.Price * (100 - ticket.IdTicketTypeNavigation.ServiceFeePercentage.Value - ticket.IdTicketTypeNavigation.CommissionFeePercentage.Value) / 100;
+                            }
+                            tripTotalPrice += orderTotalPrice;
                         }
                         trip.TotalPrice = tripTotalPrice;
                         businessTourTotalPrice += trip.TotalPrice;
@@ -209,6 +216,99 @@ namespace BookingYacht.Business.Implement.Admin
                 business.TotalPrice = businessTotalPrice;
             }
             return businesses;
+        }
+
+
+
+
+
+        public async Task<BusinessPaymentModel> GetPaymentById(Guid id , PaymentSearchModel model)
+        {
+            var business = await _unitOfWork.BusinessRepository.Query()
+                .Where(x=> x.Id.Equals(id))
+                .Select(x => new BusinessPaymentModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Address = x.Address,
+                    EmailAddress = x.EmailAddress,
+                    PhoneNumber = x.PhoneNumber,
+                    Status = x.Status,
+                    VnpHashSecret = x.VnpHashSecret,
+                    VnpTmnCode = x.VnpTmnCode,
+                    BusinessTours = _unitOfWork.BusinessTourRepository.Query()
+                    .Where(y => y.IdBusiness.Equals(x.Id))
+                    .Select(z => new BusinessTourPaymentModel()
+                    {
+                        Id = z.Id,
+                        IdBusiness = z.IdBusiness,
+                        IdTour = z.IdTour,
+                        Status = z.Status,
+                        Tour = _unitOfWork.TourRepository.Query()
+                        .Where(t => t.Id.Equals(z.IdTour))
+                        .Select(t => new Tour()
+                        {
+                            Id = t.Id,
+                            Descriptions = t.Descriptions,
+                            Title = t.Title,
+                            ImageLink = t.ImageLink,
+                            Status = t.Status
+                        }).FirstOrDefault(),
+                        Trips = _unitOfWork.TripRepository.Query()
+                .Where(t => t.IdBusinessTour.Equals(z.Id))
+                .Where(t => t.Time.Year.Equals(model.DateTime.Year) && t.Time.Month.Equals(model.DateTime.Month))
+                .Select(t => new TripPaymentModel()
+                {
+                    Id = t.Id,
+                    Time = t.Time,
+                    IdBusinessTour = t.IdBusinessTour,
+                    IdVehicle = t.IdVehicle,
+                    Status = t.Status,
+                    AmountTicket = t.AmountTicket,
+                    Orders = _unitOfWork.OrderRepository.Query()
+                    .Where(v => v.IdTrip.Equals(t.Id))
+                    .Select(v => new OrderPaymentModel()
+                    {
+                        Id = v.Id,
+                        AgencyName = v.AgencyName,
+                        DateOrder = v.DateOrder,
+                        IdAgency = v.IdAgency,
+                        IdTrip = v.IdTrip,
+                        QuantityOfPerson = v.QuantityOfPerson,
+                        Status = v.Status,
+                        TotalPrice = v.TotalPrice,
+                        Tickets = _unitOfWork.TicketRepository.Query().Include(u => u.IdTicketTypeNavigation).Where(u => u.IdOrder.Equals(v.Id)).ToList()
+                    }).ToList()
+                })
+                .OrderBy(t => t.Time)
+                .ToList()
+                    }).OrderBy(z => z.IdTour).ToList()
+                }).FirstOrDefaultAsync();
+
+                double businessTotalPrice = 0;
+                foreach (BusinessTourPaymentModel businessTour in business.BusinessTours)
+                {
+                    double businessTourTotalPrice = 0;
+                    foreach (TripPaymentModel trip in businessTour.Trips)
+                    {
+                        double tripTotalPrice = 0;
+                        foreach (OrderPaymentModel order in trip.Orders)
+                        {
+                            double orderTotalPrice = 0;
+                            foreach (Ticket ticket in order.Tickets)
+                            {
+                                orderTotalPrice += ticket.Price * (100 - ticket.IdTicketTypeNavigation.ServiceFeePercentage.Value - ticket.IdTicketTypeNavigation.CommissionFeePercentage.Value) / 100;
+                            }
+                            tripTotalPrice += orderTotalPrice;
+                        }
+                        trip.TotalPrice = tripTotalPrice;
+                        businessTourTotalPrice += trip.TotalPrice;
+                    }
+                    businessTour.TotalPrice = businessTourTotalPrice;
+                    businessTotalPrice += businessTour.TotalPrice;
+                }
+                business.TotalPrice = businessTotalPrice;
+            return business;
         }
 
     }
