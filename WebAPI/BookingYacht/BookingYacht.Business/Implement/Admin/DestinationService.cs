@@ -118,7 +118,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task UpdateDestiny(Guid id, DestinyViewModel model)
         {
-            var destiny = new Data.Models.Destination()
+            var destiny = new Destination()
             {
                 Id = id,
                 Name = model.Name,
