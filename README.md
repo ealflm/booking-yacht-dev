@@ -11,20 +11,7 @@
     + Server name: booking-yacht-dev.database.windows.net
     + Login: swd391gr5
     + Password: Password@3915
-## Redis on Docker + Command on powershell: 
-   >create images: **docker run --name** "name redis | ex: my-redis" **-p** **5002:6379 -d redis**
 
-   >check all images: **docker ps -a**
-
-   >run image: **docker exec -it** "name redis | ex: my-redis" **sh**
-
-   >run redis-cli: **redis-cli**
-
-   >Database size: **dbsize**
-
-   >paging record: **scan 0**
-
-   >get record: **hgetall** "copy one of list id above"
 
 ## Tech Stack
 
