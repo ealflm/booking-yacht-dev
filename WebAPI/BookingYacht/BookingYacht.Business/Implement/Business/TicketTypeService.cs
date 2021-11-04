@@ -63,7 +63,7 @@ namespace BookingYacht.Business.Implement.Business
                     IdBusinessTour = x.IdBusinessTour,
                     Status = x.Status
                 }).FirstOrDefaultAsync();
-            ticketType.Status = (int)Status.DISABLE;
+            ticketType.Status = (int)Status.CANCEL;
             _unitOfWork.TicketTypeRepository.Update(ticketType);
             await _unitOfWork.SaveChangesAsync();
         }
