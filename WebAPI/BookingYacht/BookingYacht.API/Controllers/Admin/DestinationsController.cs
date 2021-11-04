@@ -21,22 +21,23 @@ namespace BookingYacht.API.Controllers.Admin
     {
         private readonly IDestinationService _service;
         private readonly IDistributedCache _cache;
-        private const string Des = "Des_";
+        // private const string Des = "Des_";
 
-        public DestinationsController(IDestinationService service, IDistributedCache cache)
-        {
+        public DestinationsController(IDestinationService service
+            // IDistributedCache cache)
+        ){
             _service = service;
-            _cache = cache;
+            // _cache = cache;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] DestinySearchModel model)
         {
             var destinies = await _service.SearchDestiniesNavigation(model);
-            foreach (var des in destinies)
-            {
-                await _cache.SetRecordAsync(Des + des.Id, des);
-            }
+            // foreach (var des in destinies)
+            // {
+            //     await _cache.SetRecordAsync(Des + des.Id, des);
+            // }
             return Success(destinies);
         }
 
@@ -44,12 +45,12 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
 
-            var destinies = await _cache.GetRecordAsync<Destination>(Des + id);
-            if (destinies is null)
-            {
-                destinies = await _service.GetDestinyNavigation(id);
-                await _cache.SetRecordAsync(Des + id, destinies);
-            }
+            // var destinies = await _cache.GetRecordAsync<Destination>(Des + id);
+            // if (destinies is null)
+            // {
+                var destinies = await _service.GetDestinyNavigation(id);
+                // await _cache.SetRecordAsync(Des + id, destinies);
+            // }
             return Success(destinies);
         }
 
@@ -57,7 +58,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Post([FromBody] DestinyViewModel model)
         {
             var id = await _service.AddDestiny(model);
-            await _cache.SetRecordAsync(Des + id, model);
+            // await _cache.SetRecordAsync(Des + id, model);
             return Success(id);
         }
 
@@ -65,7 +66,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Put(Guid id, [FromBody] DestinyViewModel model)
         {
             await _service.UpdateDestiny(id, model);
-            await _cache.SetRecordAsync(Des + id, model);
+            // await _cache.SetRecordAsync(Des + id, model);
             return Success();
         }
 
