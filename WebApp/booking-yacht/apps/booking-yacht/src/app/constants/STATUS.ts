@@ -79,6 +79,10 @@ export const SECONDARY_STATUS: any = {
     lable: 'Từ chối',
     color: 'danger',
   },
+  8: {
+    lable: 'Hủy',
+    color: 'danger',
+  },
 };
 export const TICKET_STATUS = [
   { id: '3', name: 'Chờ duyệt' },

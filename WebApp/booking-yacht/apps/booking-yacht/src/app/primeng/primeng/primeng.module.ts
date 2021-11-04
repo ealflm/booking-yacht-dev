@@ -37,6 +37,7 @@ import { DividerModule } from 'primeng/divider';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { PaginatorModule } from 'primeng/paginator';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [],
@@ -77,6 +78,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     VirtualScrollerModule,
     PaginatorModule,
     MultiSelectModule,
+    DialogModule,
   ],
   exports: [
     CardModule,
@@ -115,6 +117,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     VirtualScrollerModule,
     PaginatorModule,
     MultiSelectModule,
+    DialogModule,
   ],
 })
 export class PrimengModule {}

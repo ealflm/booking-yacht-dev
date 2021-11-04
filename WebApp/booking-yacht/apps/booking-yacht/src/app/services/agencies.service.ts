@@ -27,4 +27,8 @@ export class AgenciesService {
   updateStatus(id: string, status: string) {
     return this.http.put(`${this.apiURL}/${id}`, { status: status });
   }
+  countAgency(): Observable<any> {
+    return this.http.get(`${this.apiURL}/counting`);
+  }
 }
+

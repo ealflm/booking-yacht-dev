@@ -24,4 +24,7 @@ export class TicketsService {
     // }
     return this.http.get(`${this.apiURL}/${id}`);
   }
+  countTicket(): Observable<any> {
+    return this.http.get(`${this.apiURL}/counting`);
+  }
 }

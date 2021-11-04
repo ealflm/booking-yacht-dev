@@ -21,4 +21,7 @@ export class OrdersService {
     }
     return this.http.get(this.apiURL, { params: params });
   }
+  countOrder(): Observable<any> {
+    return this.http.get(`${this.apiURL}/counting`);
+  }
 }
