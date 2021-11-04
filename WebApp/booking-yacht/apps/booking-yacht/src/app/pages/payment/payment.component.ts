@@ -4,6 +4,7 @@ import { BusinessAccountService } from './../../services/business-account.servic
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'booking-yacht-payment',
@@ -14,10 +15,12 @@ export class PaymentComponent implements OnInit {
   businessPayment: any;
   loading = false;
   ipAddress = '';
+  currentID = '';
   constructor(
     private businessService: BusinessAccountService,
     private paymentService: PaymentService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +30,11 @@ export class PaymentComponent implements OnInit {
     this.businessService.getBussinessPayment(currentMonth).subscribe((res) => {
       this.businessPayment = res.data;
       console.log(res);
+    });
+    this.route.params.subscribe((params) => {
+      const paramsID = params.split('?');
+      this.currentID = paramsID[0];
+      console.log(this.currentID);
     });
   }
   confirmPayment(id: string, totalPrice: number) {
