@@ -17,5 +17,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task UpdateBusiness(Guid id, BusinessViewModel model);
         Task DeleteBusiness(Guid id);
         Task<List<BusinessPaymentModel>> GetPayment(PaymentSearchModel model);
+        Task<BusinessPaymentModel> GetPaymentById(Guid id,PaymentSearchModel model);
     }
 }

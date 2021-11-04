@@ -37,6 +37,14 @@ namespace BookingYacht.API.Controllers.Admin
             return Success(businesses);
         }
 
+
+        [HttpGet("payment/{id}")]
+        public async Task<IActionResult> GetPaymentById(Guid id ,[FromQuery] PaymentSearchModel model)
+        {
+            var businesses = await _manageBusinessAccountService.GetPaymentById(id, model);
+            return Success(businesses);
+        }
+
         // GET api/<ManageBusinessAccountController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
