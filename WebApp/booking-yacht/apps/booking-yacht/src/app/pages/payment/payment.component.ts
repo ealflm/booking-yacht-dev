@@ -33,7 +33,7 @@ export class PaymentComponent implements OnInit {
     this.paymentService
       .getPayment(this.ipAddress, totalPrice, id)
       .subscribe((resURL: any) => {
-        window.open(resURL.data);
+        window.location.href = resURL.data;
         console.log(resURL);
       });
   }

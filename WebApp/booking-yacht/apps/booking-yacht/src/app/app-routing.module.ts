@@ -22,6 +22,7 @@ import { AgenciesFormComponent } from './components/agencies-form/agencies-form.
 import { TicketTypeFormComponent } from './components/ticket-type-form/ticket-type-form.component';
 import { VehicleTypeFormComponent } from './components/vehicle-type-form/vehicle-type-form.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { PaymentDetailsComponent } from './pages/payment/payment-details/payment-details.component';
 
 const routes: Routes = [
   {
@@ -88,6 +89,7 @@ const routes: Routes = [
         component: TicketFormComponent,
       },
       { path: 'payment', component: PaymentComponent },
+      { path: 'payment/:id', component: PaymentDetailsComponent },
     ],
   },
 ];

@@ -39,6 +39,7 @@ import { NavMenuComponent } from './shared/nav-menu/nav-menu.component';
 import { VehicleComponent } from './shared/vehicle/vehicle.component';
 import { DoashboardComponent } from './pages/doashboard/doashboard.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { PaymentDetailsComponent } from './pages/payment/payment-details/payment-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
     VehicleComponent,
     DoashboardComponent,
     PaymentComponent,
+    PaymentDetailsComponent,
   ],
   imports: [
     // MaterialModule,
