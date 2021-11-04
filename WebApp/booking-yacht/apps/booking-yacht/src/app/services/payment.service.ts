@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment.prod';
   providedIn: 'root',
 })
 export class PaymentService {
-  apiURL = environment.apiURL + '/vn-pay';
+  apiURL = environment.apiURL + 'vn-pay';
 
   constructor(private http: HttpClient) {}
   getPayment(ip: string, amount: number, id: string) {
