@@ -1,15 +1,20 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'booking-yacht-payment-details',
   templateUrl: './payment-details.component.html',
-  styleUrls: ['./payment-details.component.scss']
+  styleUrls: ['./payment-details.component.scss'],
 })
 export class PaymentDetailsComponent implements OnInit {
-
-  constructor() { }
+  currentID = '';
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      const paramsID = params.split('?');
+      this.currentID = paramsID[0];
+      console.log(this.currentID);
+    });
   }
-
 }
