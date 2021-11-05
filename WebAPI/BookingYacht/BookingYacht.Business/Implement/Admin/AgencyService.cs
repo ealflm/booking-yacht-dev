@@ -9,12 +9,11 @@ using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace BookingYacht.Business.Implement.Admin
 {
     internal static partial class Mapper
     {
-        public static async Task<AgencyViewModels> CreateEntity(Agency x)
+        public static async Task<AgencyViewModels> CreateEntity(Data.Models.Agency x)
         {
             return await Task.Run(() => new AgencyViewModels
             {
@@ -26,10 +25,10 @@ namespace BookingYacht.Business.Implement.Admin
                 Status = x.Status,
             });
         }
-        public static async Task<Agency> CreateNewEntity(AgencyViewModels model)
+        public static async Task<Data.Models.Agency> CreateNewEntity(AgencyViewModels model)
         {
             return await Task.Run(() =>
-                new Agency
+                new Data.Models.Agency
                 {
                     Address = model.Address,
                     EmailAddress = model.EmailAddress,
@@ -40,10 +39,10 @@ namespace BookingYacht.Business.Implement.Admin
             );
         }
         
-        public static async Task<Agency> ModelToEntity(Guid id, AgencyViewModels model)
+        public static async Task<Data.Models.Agency> ModelToEntity(Guid id, AgencyViewModels model)
         {
             return await Task.Run(() =>
-                new Agency
+                new Data.Models.Agency
                 {
                     Id = id,
                     Address = model.Address,
