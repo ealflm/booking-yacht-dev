@@ -178,7 +178,8 @@ namespace BookingYacht.Business.Implement.Admin
                         model.EmailAddress = adminModel.EmailAddress;
                         model.PhoneNumber = adminModel.PhoneNumber;
                         model.PhotoUrl = adminModel.PhotoUrl;
-                        status = model.Status;
+                        model.Status = 1;
+                        status = 1;
 
                         _unitOfWork.BusinessRepository.Update(model);
                     }
