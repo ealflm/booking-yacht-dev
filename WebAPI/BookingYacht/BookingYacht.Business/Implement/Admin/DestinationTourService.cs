@@ -69,7 +69,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
-                    Order=x.Order
+                    Order=x.Order,
+                    Destination= _unitOfWork.DestinationRepository.Query().Include(y => y.IdPlaceTypeNavigation).Where(y => y.Id.Equals(x.IdDestination)).FirstOrDefault()
                 }).FirstOrDefaultAsync();
             return destinationTour;
         }
@@ -101,7 +102,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
-                    Order= x.Order
+                    Order= x.Order,
+                    Destination= _unitOfWork.DestinationRepository.Query().Include(y=> y.IdPlaceTypeNavigation).Where(y=> y.Id.Equals(x.IdDestination)).FirstOrDefault()
                 })
                 .OrderBy(x => x.Order)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
