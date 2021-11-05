@@ -105,6 +105,10 @@ export const AGENCY_STATUS: any = {
   },
 };
 export const ORDER_STATUS: any = {
+  9:{
+    lable: 'đã thanh toán',
+    color: 'success',
+  },
   10: {
     lable: 'đã thanh toán',
     color: 'success',
