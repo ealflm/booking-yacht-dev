@@ -127,6 +127,7 @@ namespace BookingYacht.Business.Implement.Admin
         public async Task<List<BusinessPaymentModel>> GetPayment(PaymentSearchModel model)
         {
             var businesses = await _unitOfWork.BusinessRepository.Query()
+                .Where(x => x.Status != (int)Status.DISABLE)
                 .Select(x => new BusinessPaymentModel()
                 {
                     Id = x.Id,
@@ -246,6 +247,7 @@ namespace BookingYacht.Business.Implement.Admin
         public async Task<BusinessPaymentModel> GetPaymentById(Guid id , PaymentSearchModel model)
         {
             var business = await _unitOfWork.BusinessRepository.Query()
+                .Where(x=> x.Status!=(int) Status.DISABLE)
                 .Where(x=> x.Id.Equals(id))
                 .Select(x => new BusinessPaymentModel()
                 {
@@ -306,29 +308,48 @@ namespace BookingYacht.Business.Implement.Admin
                     }).OrderBy(z => z.IdTour).ToList()
                 }).FirstOrDefaultAsync();
 
-                double businessTotalPrice = 0;
-                foreach (BusinessTourPaymentModel businessTour in business.BusinessTours)
+            double businessTotalPrice = 0;
+            for (int j = 0; j < business.BusinessTours.Count;)
+            {
+
+                double businessTourTotalPrice = 0;
+                for (int i = 0; i < business.BusinessTours[j].Trips.Count;)
                 {
-                    double businessTourTotalPrice = 0;
-                    foreach (TripPaymentModel trip in businessTour.Trips)
+
+                    double tripTotalPrice = 0;
+                    foreach (OrderPaymentModel order in business.BusinessTours[j].Trips[i].Orders)
                     {
-                        double tripTotalPrice = 0;
-                        foreach (OrderPaymentModel order in trip.Orders)
+                        double orderTotalPrice = 0;
+                        foreach (Ticket ticket in order.Tickets)
                         {
-                            double orderTotalPrice = 0;
-                            foreach (Ticket ticket in order.Tickets)
-                            {
-                                orderTotalPrice += ticket.Price * (100 - ticket.IdTicketTypeNavigation.ServiceFeePercentage.Value - ticket.IdTicketTypeNavigation.CommissionFeePercentage.Value) / 100;
-                            }
-                            tripTotalPrice += orderTotalPrice;
+                            orderTotalPrice += ticket.Price * (100 - ticket.IdTicketTypeNavigation.ServiceFeePercentage.Value - ticket.IdTicketTypeNavigation.CommissionFeePercentage.Value) / 100;
                         }
-                        trip.TotalPrice = tripTotalPrice;
-                        businessTourTotalPrice += trip.TotalPrice;
+                        tripTotalPrice += orderTotalPrice;
                     }
-                    businessTour.TotalPrice = businessTourTotalPrice;
-                    businessTotalPrice += businessTour.TotalPrice;
+                    business.BusinessTours[j].Trips[i].TotalPrice = tripTotalPrice;
+                    businessTourTotalPrice += business.BusinessTours[j].Trips[i].TotalPrice;
+                    if (business.BusinessTours[j].Trips[i].Orders.Count == 0)
+                    {
+                        business.BusinessTours[j].Trips.RemoveAt(i);
+
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
-                business.TotalPrice = businessTotalPrice;
+                business.BusinessTours[j].TotalPrice = businessTourTotalPrice;
+                businessTotalPrice += business.BusinessTours[j].TotalPrice;
+                if (business.BusinessTours[j].Trips.Count == 0)
+                {
+                    business.BusinessTours.RemoveAt(j);
+                }
+                else
+                {
+                    j++;
+                }
+            }
+            business.TotalPrice = businessTotalPrice;
             return business;
         }
 
