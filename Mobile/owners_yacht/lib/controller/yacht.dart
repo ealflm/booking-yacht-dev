@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/category.dart';
 import 'package:owners_yacht/screens/yacht_detail.dart';
@@ -9,6 +12,7 @@ import '/models/yacht.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 class YachtController extends GetxController {
   final GlobalKey<FormState> yachtFormKey = GlobalKey<FormState>();
@@ -19,8 +23,10 @@ class YachtController extends GetxController {
   var yachtDetail = Yacht();
 
   bool isAdding = true;
+  final ImagePicker _picker = ImagePicker();
 
   String id = "";
+  File? image;
   String idBusiness = "68554b5a-817b-453c-992c-149662a8e710";
   var categoryController = "";
   TextEditingController nameController = TextEditingController();
@@ -356,6 +362,26 @@ class YachtController extends GetxController {
       }
     } catch (error) {
       print(error);
+    }
+  }
+
+  Future pickImage(bool isCamera) async {
+    try {
+      final image;
+      if (!isCamera) {
+        image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      } else {
+        image = await ImagePicker().pickImage(source: ImageSource.camera);
+      }
+      if (image == null) {
+        print('loi');
+      } else {
+        final imageTemporary = File(image.path);
+        this.image = imageTemporary;
+        print(imageTemporary);
+      }
+    } on PlatformException catch (e) {
+      print('exception');
     }
   }
 

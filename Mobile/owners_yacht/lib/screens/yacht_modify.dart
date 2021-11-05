@@ -92,16 +92,22 @@ class YachtModify extends StatelessWidget {
                   return controller.validate(value!, 'Vui lòng nhập số ghế');
                 },
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Mô tả'),
-                keyboardType: TextInputType.multiline,
-                maxLines: 3,
-                validator: (value) {},
-                onSaved: (value) {},
-                controller: controller.descriptionsController,
+              FlatButton(
+                child: Text(
+                  'Chọn hình từ camera',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                onPressed: () => controller.pickImage(true),
+              ),
+              FlatButton(
+                child: Text(
+                  'Chọn hình từ thư viện',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                onPressed: () => controller.pickImage(false),
               ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(1.0),
                 child: Wrap(
                   children: [
                     const Text(
@@ -112,7 +118,7 @@ class YachtModify extends StatelessWidget {
                       builder: (controller) => Column(
                         children: [
                           SizedBox(
-                            height: 250,
+                            height: 150,
                             child: ListView.builder(
                               itemBuilder: (ctx, i) => RadioCategory(
                                   controller.listCategory[i].id,
@@ -126,6 +132,14 @@ class YachtModify extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Mô tả'),
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                validator: (value) {},
+                onSaved: (value) {},
+                controller: controller.descriptionsController,
               ),
             ],
           ),

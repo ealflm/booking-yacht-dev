@@ -95,6 +95,7 @@ class OrderCard extends StatelessWidget {
               Text(
                   'Trạng thái: ${BookingYachtStatus.status[order.status].toString()}'),
               Text('Số vé: ${order.quantityOfPerson}'),
+              Text('${order.orderDate}'),
               Text(
                   'Thời gian đặt: ${DateFormat('hh:mm a - dd MMMM yyyy', 'vi-VN').format(order.orderDate ?? DateTime.now())}'),
             ],
