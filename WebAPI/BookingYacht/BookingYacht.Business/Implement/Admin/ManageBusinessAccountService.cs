@@ -271,7 +271,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = model.Name,
                     EmailAddress = model.EmailAddress,
                     Password = passwordHash,
-                    Salt = passwordSalt
+                    Salt = passwordSalt,
+                    Status = 1,
                 };
 
               //  if (model.EmailAddress.Contains("@bookingyacht.site")) admin.Status = 1;
