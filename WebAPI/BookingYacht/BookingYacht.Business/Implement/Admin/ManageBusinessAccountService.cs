@@ -168,6 +168,7 @@ namespace BookingYacht.Business.Implement.Admin
                     AmountTicket = t.AmountTicket,
                     Orders = _unitOfWork.OrderRepository.Query()
                     .Where(v=> v.IdTrip.Equals(t.Id))
+                    .Where(v=> v.Status==(int)Status.COMPLETELY_PAYMENT)
                     .Select(v=> new OrderPaymentModel() 
                     {
                         Id=v.Id,
