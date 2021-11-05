@@ -143,8 +143,8 @@ namespace BookingYacht.Business.Implement.Admin
 
                 if (user != null)
                 {
-                    if (user.Status == 1)
-                    {
+                    //if (user.Status == 1)
+                    //{
                         result = new AdminViewModel()
                         {
                             Id = user.Id,
@@ -156,11 +156,11 @@ namespace BookingYacht.Business.Implement.Admin
                             PhotoUrl = user.PhotoUrl,
                             Status = user.Status
                         };
-                    }
-                    else
-                    {
-                        message = "The user doesn't have permission to access this resource";
-                    }
+                    //}
+                    //else
+                    //{
+                        //message = "The user doesn't have permission to access this resource";
+                    //}
                 }
                 else
                 {
@@ -188,12 +188,12 @@ namespace BookingYacht.Business.Implement.Admin
                         await _unitOfWork.BusinessRepository.Add(adminModel);
                     }
 
-                    if (status != 1)
-                    {
-                        message = "The user doesn't have permission to access this resource";
-                    }
-                    else
-                    {
+                    //if (status != 1)
+                    //{
+                        //message = "The user doesn't have permission to access this resource";
+                    //}
+                    //else
+                    //{
                         result = new AdminViewModel()
                         {
                             Id = model.Id,
@@ -205,7 +205,7 @@ namespace BookingYacht.Business.Implement.Admin
                             PhotoUrl = model.PhotoUrl,
                             Status = model.Status
                         };
-                    }
+                    //}
 
                     await _unitOfWork.SaveChangesAsync();
                 }
