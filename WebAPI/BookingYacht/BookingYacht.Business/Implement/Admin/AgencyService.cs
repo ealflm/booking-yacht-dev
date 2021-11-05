@@ -164,7 +164,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         private async Task<MessageResult> LoginGoogle(string idToken)
         {
-            AdminViewModel result = null;
+            Agency result = null;
             string message = null;
 
             string uid = null;
@@ -188,7 +188,8 @@ namespace BookingYacht.Business.Implement.Admin
                 {
                     //if (user.Status == 1)
                     //{
-                        result = new AdminViewModel()
+                        result = new Agency()
+
                         {
                             Id = user.Id,
                             Uid = user.Uid,
@@ -231,13 +232,15 @@ namespace BookingYacht.Business.Implement.Admin
                         await _unitOfWork.AgencyRepository.Add(adminModel);
                     }
 
+
                     //if (status != 1)
                     //{
                         //message = "The user doesn't have permission to access this resource";
                     //}
                     //else
                     //{
-                        result = new AdminViewModel()
+                        result = new Agency()
+
                         {
                             Id = model.Id,
                             Uid = model.Uid,
