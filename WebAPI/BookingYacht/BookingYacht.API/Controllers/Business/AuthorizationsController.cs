@@ -3,16 +3,16 @@ using BookingYacht.Business.SearchModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace BookingYacht.API.Controllers.Agency
+namespace BookingYacht.API.Controllers.Business
 {
     [Route("api/" + Version + "/" + Role)]
     [ApiController]
     [ApiExplorerSettings(GroupName = " " + Role)]
-    public class AuthorizationsController : BaseAgencyController
+    public class AuthorizationsController : BaseBusinessController
     {
-        private readonly IAgencyService _adminService;
+        private readonly IManageBusinessAccountService _adminService;
 
-        public AuthorizationsController(IAgencyService adminService)
+        public AuthorizationsController(IManageBusinessAccountService adminService)
         {
             _adminService = adminService;
         }

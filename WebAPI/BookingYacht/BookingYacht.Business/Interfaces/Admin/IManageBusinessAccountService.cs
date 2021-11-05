@@ -11,6 +11,14 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IManageBusinessAccountService
     {
+
+        #region Authorization
+
+        Task<MessageResult> Login(LoginSearchModel model);
+        Task<MessageResult> OpenLogin(OpenLoginSearchModel model);
+        Task<Guid?> Register(RegisterSearchModel model);
+
+        #endregion
         Task<List<BusinessViewModel>> SearchBusinesses(BusinessSearchModel model=null);
         Task<BusinessViewModel> GetBusiness(Guid id);
         Task<Guid> AddBusiness(BusinessViewModel model);
