@@ -143,8 +143,9 @@ namespace BookingYacht.Business.Implement.Admin
 
                 if (user != null)
                 {
-                    if (user.Status == 1)
-                    {
+
+                    //if (user.Status == 1)
+                    //{
                         result = new Data.Models.Business()
                         {
                             Id = user.Id,
@@ -156,11 +157,11 @@ namespace BookingYacht.Business.Implement.Admin
                             PhotoUrl = user.PhotoUrl,
                             Status = user.Status
                         };
-                    }
-                    else
-                    {
-                        message = "The user doesn't have permission to access this resource";
-                    }
+                    //}
+                    //else
+                    //{
+                        //message = "The user doesn't have permission to access this resource";
+                    //}
                 }
                 else
                 {
@@ -178,7 +179,8 @@ namespace BookingYacht.Business.Implement.Admin
                         model.EmailAddress = adminModel.EmailAddress;
                         model.PhoneNumber = adminModel.PhoneNumber;
                         model.PhotoUrl = adminModel.PhotoUrl;
-                        status = model.Status;
+                        model.Status = 1;
+                        status = 1;
 
                         _unitOfWork.BusinessRepository.Update(model);
                     }
@@ -187,12 +189,12 @@ namespace BookingYacht.Business.Implement.Admin
                         await _unitOfWork.BusinessRepository.Add(adminModel);
                     }
 
-                    if (status != 1)
-                    {
-                        message = "The user doesn't have permission to access this resource";
-                    }
-                    else
-                    {
+                    //if (status != 1)
+                    //{
+                        //message = "The user doesn't have permission to access this resource";
+                    //}
+                    //else
+                    //{
                         result = new Data.Models.Business()
                         {
                             Id = model.Id,
@@ -204,7 +206,7 @@ namespace BookingYacht.Business.Implement.Admin
                             PhotoUrl = model.PhotoUrl,
                             Status = model.Status
                         };
-                    }
+                    //}
 
                     await _unitOfWork.SaveChangesAsync();
                 }

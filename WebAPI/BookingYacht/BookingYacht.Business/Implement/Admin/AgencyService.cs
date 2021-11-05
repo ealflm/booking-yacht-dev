@@ -186,9 +186,10 @@ namespace BookingYacht.Business.Implement.Admin
 
                 if (user != null)
                 {
-                    if (user.Status == 1)
-                    {
+                    //if (user.Status == 1)
+                    //{
                         result = new Agency()
+
                         {
                             Id = user.Id,
                             Uid = user.Uid,
@@ -199,11 +200,11 @@ namespace BookingYacht.Business.Implement.Admin
                             PhotoUrl = user.PhotoUrl,
                             Status = user.Status
                         };
-                    }
-                    else
-                    {
-                        message = "The user doesn't have permission to access this resource";
-                    }
+                    //}
+                    //else
+                    //{
+                        //message = "The user doesn't have permission to access this resource";
+                    //}
                 }
                 else
                 {
@@ -221,7 +222,8 @@ namespace BookingYacht.Business.Implement.Admin
                         model.EmailAddress = adminModel.EmailAddress;
                         model.PhoneNumber = adminModel.PhoneNumber;
                         model.PhotoUrl = adminModel.PhotoUrl;
-                        status = model.Status;
+                        model.Status = 1;
+                        status = 1;
 
                         _unitOfWork.AgencyRepository.Update(model);
                     }
@@ -230,13 +232,15 @@ namespace BookingYacht.Business.Implement.Admin
                         await _unitOfWork.AgencyRepository.Add(adminModel);
                     }
 
-                    if (status != 1)
-                    {
-                        message = "The user doesn't have permission to access this resource";
-                    }
-                    else
-                    {
+
+                    //if (status != 1)
+                    //{
+                        //message = "The user doesn't have permission to access this resource";
+                    //}
+                    //else
+                    //{
                         result = new Agency()
+
                         {
                             Id = model.Id,
                             Uid = model.Uid,
@@ -247,7 +251,7 @@ namespace BookingYacht.Business.Implement.Admin
                             PhotoUrl = model.PhotoUrl,
                             Status = model.Status
                         };
-                    }
+                    //}
 
                     await _unitOfWork.SaveChangesAsync();
                 }
