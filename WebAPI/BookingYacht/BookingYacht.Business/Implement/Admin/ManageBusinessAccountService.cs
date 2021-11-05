@@ -63,7 +63,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         private async Task<MessageResult> LoginEmailPassword(string email, string password)
         {
-            AdminViewModel result = null;
+            BusinessViewModel result = null;
             string message = null;
             var user = await _unitOfWork.BusinessRepository.Query()
                 .Where(x => x.EmailAddress == email && x.Password != null)
@@ -73,7 +73,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 if (user.Status == 1)
                 {
-                    result = new AdminViewModel()
+                    result = new BusinessViewModel()
                     {
                         Id = user.Id,
                         Uid = user.Uid,
@@ -272,7 +272,7 @@ namespace BookingYacht.Business.Implement.Admin
                     EmailAddress = model.EmailAddress,
                     Password = passwordHash,
                     Salt = passwordSalt,
-                    Status = 1,
+                    Status= (int) Status.ENABLE
                 };
 
               //  if (model.EmailAddress.Contains("@bookingyacht.site")) admin.Status = 1;

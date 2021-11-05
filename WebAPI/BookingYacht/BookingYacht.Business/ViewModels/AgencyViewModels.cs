@@ -11,5 +11,7 @@ namespace BookingYacht.Business.ViewModels
         public string? EmailAddress { get; set; }
         public string? PhoneNumber { get; set; }
         public int? Status { get; set; }
+        public string PhotoUrl { get; set; }
+        public string Uid { get; set; }
     }
 }

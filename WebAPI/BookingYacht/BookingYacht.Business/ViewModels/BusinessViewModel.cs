@@ -16,5 +16,7 @@ namespace BookingYacht.Business.ViewModels
         public int Status { get; set; }
         public string VnpTmnCode { get; set; }
         public string VnpHashSecret { get; set; }
+        public string PhotoUrl { get; set; }
+        public string Uid { get; set; }
     }
 }

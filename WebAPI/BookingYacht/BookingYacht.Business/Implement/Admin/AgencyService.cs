@@ -106,7 +106,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         private async Task<MessageResult> LoginEmailPassword(string email, string password)
         {
-            AdminViewModel result = null;
+            AgencyViewModels result = null;
             string message = null;
             var user = await _unitOfWork.AgencyRepository.Query()
                 .Where(x => x.EmailAddress == email && x.Password != null)
@@ -116,7 +116,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 if (user.Status == 1)
                 {
-                    result = new AdminViewModel()
+                    result = new AgencyViewModels()
                     {
                         Id = user.Id,
                         Uid = user.Uid,
