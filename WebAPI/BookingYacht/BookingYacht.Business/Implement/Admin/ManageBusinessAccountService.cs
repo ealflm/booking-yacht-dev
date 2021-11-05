@@ -193,13 +193,15 @@ namespace BookingYacht.Business.Implement.Admin
             foreach(BusinessPaymentModel business in businesses)
             {
                 double businessTotalPrice = 0;
-                foreach(BusinessTourPaymentModel businessTour in business.BusinessTours)
+                for (int j=0; j < business.BusinessTours.Count;)
                 {
+                   
                     double businessTourTotalPrice = 0;
-                    foreach(TripPaymentModel trip in businessTour.Trips)
+                    for(int i=0; i< business.BusinessTours[j].Trips.Count; )
                     {
+                        
                         double tripTotalPrice = 0;
-                        foreach(OrderPaymentModel order in trip.Orders)
+                        foreach(OrderPaymentModel order in business.BusinessTours[j].Trips[i].Orders)
                         {
                             double orderTotalPrice = 0;
                             foreach(Ticket ticket in order.Tickets)
@@ -208,13 +210,31 @@ namespace BookingYacht.Business.Implement.Admin
                             }
                             tripTotalPrice += orderTotalPrice;
                         }
-                        trip.TotalPrice = tripTotalPrice;
-                        businessTourTotalPrice += trip.TotalPrice;
+                        business.BusinessTours[j].Trips[i].TotalPrice = tripTotalPrice;
+                        businessTourTotalPrice += business.BusinessTours[j].Trips[i].TotalPrice;
+                        if (business.BusinessTours[j].Trips[i].Orders.Count == 0)
+                        {
+                            business.BusinessTours[j].Trips.RemoveAt(i);
+
+                        }
+                        else
+                        {
+                            i++;
+                        }
                     }
-                    businessTour.TotalPrice = businessTourTotalPrice;
-                    businessTotalPrice += businessTour.TotalPrice;
+                    business.BusinessTours[j].TotalPrice = businessTourTotalPrice;
+                    businessTotalPrice += business.BusinessTours[j].TotalPrice;
+                    if (business.BusinessTours[j].Trips.Count == 0)
+                    {
+                        business.BusinessTours.RemoveAt(j);
+                    }
+                    else
+                    {
+                        j++;
+                    }                    
                 }
                 business.TotalPrice = businessTotalPrice;
+
             }
             return businesses;
         }
