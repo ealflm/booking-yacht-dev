@@ -657,14 +657,18 @@ namespace BookingYacht.Business.Implement.Admin
             var result = await _unitOfWork.BusinessRepository.Query()
                 .Where(x => model.Id == null || x.Id.Equals(model.Id))
                 .FirstOrDefaultAsync();
-            if (result is not null && model.Token is not  null)
+            if (result is not null && 
+                model.Token is not  null && 
+                model.Token.Length > 0)
             {
                 result.FcmToken = model.Token;
                 _unitOfWork.BusinessRepository.Update(result);
                 await _unitOfWork.SaveChangesAsync();
             }            
 
-            return !(result is null || model.Token is null);
+            return !( result is null || 
+                      model.Token is null ||
+                      model.Token.Length <= 0);
         }
 
         #endregion
