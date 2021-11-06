@@ -40,6 +40,7 @@ import { VehicleComponent } from './shared/vehicle/vehicle.component';
 import { DoashboardComponent } from './pages/doashboard/doashboard.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { PaymentDetailsComponent } from './pages/payment/payment-details/payment-details.component';
+import { MaterialModule } from './material/material.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,7 @@ import { PaymentDetailsComponent } from './pages/payment/payment-details/payment
     PaymentDetailsComponent,
   ],
   imports: [
-    // MaterialModule,
+    MaterialModule,
     BrowserModule,
     CommonModule,
     BrowserAnimationsModule,

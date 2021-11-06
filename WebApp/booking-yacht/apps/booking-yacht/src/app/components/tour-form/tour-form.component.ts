@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { DestinationsService } from './../../services/destinations.service';
 import { SECONDARY_STATUS, AGENCY_STATUS } from './../../constants/STATUS';
 import { BehaviorSubject, Subject, timer } from 'rxjs';
@@ -9,6 +10,9 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { CdkDragDrop, moveItemInArray, CdkDrag } from '@angular/cdk/drag-drop';
+import { DestinationsTours } from '../../models/destinations-tours';
+import { Destination } from '../../models/destinations';
 
 @Component({
   selector: 'booking-yacht-tour-form',
@@ -21,15 +25,17 @@ export class TourFormComponent implements OnInit {
   form!: FormGroup;
   isSubmit = false;
   status: any[] = [];
-  currentUser!: string;
+  currentTour!: string;
   tour: [] = [];
-  selectedDes!: any[];
+  selectedDes!: unknown[];
   destiations?: any[];
   previewImage?: string | ArrayBuffer | null =
     '../../../assets/img/noimage.png';
   imageLink?: string;
   progress!: number;
-  ListDes: any[] = [];
+  ListDes: Destination[] = [];
+  ListDesID: any = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private tourService: ToursService,
@@ -59,11 +65,21 @@ export class TourFormComponent implements OnInit {
       this.loading = false;
     }, 500);
   }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.ListDes, event.previousIndex, event.currentIndex);
+    // console.log(this.ListDes);
+    this.ListDesID = [];
+    this.ListDes.map((destinationID) => {
+      this.ListDesID.push(destinationID.id);
+    });
+    console.log(this.ListDesID);
+  }
+
   onChange() {
-    // console.log(this.selectedDes);
+    console.log(this.selectedDes);
     const arrDeS: any[] = [];
     this.selectedDes.map((desSelect) => {
-      arrDeS.push(desSelect.id);
+      arrDeS.push(desSelect);
     });
     // console.log(arrDeS);
     this.ListDes = arrDeS;
@@ -103,18 +119,18 @@ export class TourFormComponent implements OnInit {
 
           switch (res.type) {
             case HttpEventType.Sent:
-              console.log('Request has been made!');
+              // console.log('Request has been made!');
               break;
             case HttpEventType.ResponseHeader:
-              console.log('Response header has been received!');
+              // console.log('Response header has been received!');
               break;
             case HttpEventType.UploadProgress:
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               this.progress = Math.round((res.loaded / res.total!) * 100);
-              console.log(`Uploaded! ${this.progress}%`);
+              // console.log(`Uploaded! ${this.progress}%`);
               break;
             case HttpEventType.Response:
-              console.log('User successfully created!', res.body);
+              // console.log('User successfully created!', res.body);
               this.messageService.add({
                 severity: 'success',
                 summary: 'Upload hình thành công',
@@ -132,9 +148,9 @@ export class TourFormComponent implements OnInit {
   _checkEditMode() {
     this.route.params.subscribe((params) => {
       if (params.id) {
-        this.currentUser = params.id;
+        this.currentTour = params.id;
         this.editMode = true;
-        this.tourService.getTour(this.currentUser).subscribe((res) => {
+        this.tourService.getTour(this.currentTour).subscribe((res) => {
           this.tourForm.id.setValue(res.data.id);
           this.tourForm.tittle.setValue(res.data.tittle);
           this.tourForm.status.setValue(res.data.status.toString());
@@ -142,6 +158,19 @@ export class TourFormComponent implements OnInit {
           this.previewImage = res.data.imageLink;
           // console.log(this.previewImage);
         });
+        this.desService
+          .getDestinationTours(this.currentTour)
+          .subscribe((desti: any) => {
+            desti.data.map((res: any) => {
+              this.ListDes.push({
+                id: res.id,
+                name: res.idDestinationNavigation.name,
+              });
+              // this.selectedDes = res.idDestination;
+              // console.log('selected Des', this.selectedDes);
+              console.log(this.ListDes);
+            });
+          });
       }
     });
   }
@@ -177,9 +206,11 @@ export class TourFormComponent implements OnInit {
       // console.log(tour);
 
       this.tourService.createTour(tour).subscribe(
-        (res) => {
-          this.desService
-            .createDesTour(res.data, this.ListDes)
+        async (res) => {
+          console.log(res.data);
+
+          await this.desService
+            .createDesTour(res.data, this.ListDesID)
             .subscribe((res) => {});
           this.messageService.add({
             severity: 'success',
@@ -212,11 +243,11 @@ export class TourFormComponent implements OnInit {
       };
       console.log(tour);
       this.desService
-        .createDesTour(this.currentUser, this.ListDes)
+        .createDesTour(this.currentTour, this.ListDesID)
         .subscribe((res) => {
           // console.log(res);
         });
-      this.tourService.updateTour(tour, this.currentUser).subscribe(
+      this.tourService.updateTour(tour, this.currentTour).subscribe(
         (res) => {
           this.messageService.add({
             severity: 'success',
@@ -241,6 +272,15 @@ export class TourFormComponent implements OnInit {
         }
       );
     }
+  }
+  removeListDes(i: number, id: any) {
+    console.log(i, id);
+    this.ListDes.splice(i, 1);
+    // console.log(this.ListDes);
+
+    this.selectedDes = this.selectedDes.filter((item: any) => {
+      item.id !== id;
+    });
   }
   onCancle() {
     this.location.back();

@@ -40,4 +40,14 @@ export class DestinationsService {
       }
     );
   }
+  getDestinationTours(idTour: string): Observable<any> {
+    let params = new HttpParams();
+    if (idTour) {
+      params = params.append('id-tour', idTour);
+    }
+    return this.http.get(
+      `https://booking-yacht.azurewebsites.net/api/v1.0/admin/desination-tours`,
+      { params: params }
+    );
+  }
 }

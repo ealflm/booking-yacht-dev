@@ -1,7 +1,8 @@
 export class DestinationsTours {
   id?: string;
-  idPier?: string;
-  idTour?: string;
+  idPlaceType?: string;
+  address?: string;
+  location?: string;
+  name?: string;
   status?: string;
-  way?: string;
 }
