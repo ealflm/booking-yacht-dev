@@ -171,12 +171,12 @@ export class TourFormComponent implements OnInit {
                 name: res.idDestinationNavigation.name,
               });
               this.ListDesID.push(res.idDestination);
-              console.log(this.ListDesID);
 
               // this.selectedDes = res.idDestination;
               // console.log('selected Des', this.selectedDes);
               // console.log(this.ListDes);
             });
+            console.log(this.ListDesID);
           });
       }
     });
