@@ -66,6 +66,7 @@ export class VehicleTypeComponent implements OnInit {
           summary: 'Success',
           detail: 'Disable success full',
         });
+        this.getVehiclesType();
       },
       (error) => {
         console.log(error);

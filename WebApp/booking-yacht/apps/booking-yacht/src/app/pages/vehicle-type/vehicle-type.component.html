@@ -23,7 +23,7 @@
           ></button>
         </span>
       </ng-template>
-      <!-- <ng-template pTemplate="right">
+      <ng-template pTemplate="right">
         <button
           pButton
           pRipple
@@ -32,7 +32,7 @@
           class="p-button-success p-mr-2"
           (click)="newVehicleType()"
         ></button>
-      </ng-template> -->
+      </ng-template>
     </p-toolbar>
     <div class="mt-5"></div>
 
@@ -58,7 +58,7 @@
                 Loại Tàu <p-sortIcon field="address"></p-sortIcon>
               </th>
               <th>Trạng thái</th>
-              <!-- <th></th> -->
+              <th></th>
             </tr>
           </ng-template>
 
@@ -75,6 +75,23 @@
                   [severity]="vehicleTypeStatus[vehicleType.status]?.color"
                   [value]="vehicleTypeStatus[vehicleType.status]?.lable"
                 ></p-tag>
+              </td>
+              <td>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editVehicleType(vehicleType.id)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-ban"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deleteVehicleType(vehicleType.id)"
+                  *ngIf="vehicleType.status !== 2"
+                ></button>
               </td>
             </tr>
           </ng-template>

@@ -1,1 +1,78 @@
-<p>vehicle-type-form works!</p>
+<p-toast position="top-right"></p-toast>
+<div class="admin-page p-3">
+  <p-card header="Thêm loại tàu" class="p-shadow-14">
+    <p-toolbar>
+      <div class="p-toolbar-group-left"></div>
+      <div class="p-toolbar-group-right">
+        <p-button
+          [label]="editMode ? 'Cập nhật' : 'Lưu'"
+          icon="pi pi-check"
+          [styleClass]="
+            editMode ? 'p-button-warning mr-2' : 'p-button-info mr-2'
+          "
+          (click)="onSubmit()"
+        ></p-button>
+
+        <p-button
+          icon="pi pi-times"
+          styleClass="p-button-danger"
+          (click)="onCancle()"
+        ></p-button>
+      </div>
+    </p-toolbar>
+
+    <div class="p-grid" *ngIf="!loading">
+      <div class="col-12 mt-4">
+        <form [formGroup]="form">
+          <div class="p-fluid formgrid grid">
+            <div class="col-6">
+              <label for="name">Loại tàu</label>
+              <input id="name" type="text" pInputText formControlName="name" />
+              <small
+                *ngIf="vehicleForm.name.invalid && isSubmit"
+                class="p-error"
+                >Loại tàu không được trống</small
+              >
+            </div>
+            <div class="col-6">
+              <label for="status">Status</label>
+              <p-dropdown
+                optionLabel="name"
+                optionValue="id"
+                [options]="vehicleTypeStatus"
+                formControlName="status"
+                placeholder="Chọn trạng thái"
+                [showClear]="true"
+              ></p-dropdown>
+              <small
+                *ngIf="vehicleForm.status.invalid && isSubmit"
+                class="p-error"
+                >Trạng thái không được trống</small
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="p-grid" *ngIf="loading">
+      <div class="col-12 mt-4">
+        <form>
+          <div class="p-fluid formgrid grid">
+            <div class="col-12">
+              <div class="grid">
+                <div class="p-field col-6 mb-3">
+                  <label for="name">Loại Tàu:</label>
+                  <p-skeleton></p-skeleton>
+                </div>
+                <div class="p-field col-6 mb-3">
+                  <label for="price">Trạng thái:</label>
+                  <p-skeleton></p-skeleton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>
