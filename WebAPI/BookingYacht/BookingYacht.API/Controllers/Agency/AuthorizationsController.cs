@@ -50,7 +50,7 @@ namespace BookingYacht.API.Controllers.Agency
 
             if (result == null)
             {
-                return Fail("This email address has already been registered");
+                return Fail("Email này đã có người sử dụng");
             }
             return Success(result);
         }

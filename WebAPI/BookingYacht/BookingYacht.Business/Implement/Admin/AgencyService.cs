@@ -130,12 +130,14 @@ namespace BookingYacht.Business.Implement.Admin
                 }
                 else
                 {
-                    message = "The user doesn't have permission to access this resource";
+                    //message = "The user doesn't have permission to access this resource";
+                    message = "Tài khoản không có quyền truy cập";
                 }
             }
             else
             {
-                message = "Invalid user name or password";
+                //message = "Invalid user name or password";
+                message = "Sai email hoặc mật khẩu";
             }
 
             return new MessageResult(result, message);
