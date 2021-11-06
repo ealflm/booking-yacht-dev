@@ -31,20 +31,19 @@ export class PaymentComponent implements OnInit {
       this.businessPayment = res.data;
       console.log(res);
     });
-
   }
   confirmPayment(id: string, totalPrice: number) {
     this.paymentService
       .getPayment(this.ipAddress, totalPrice, id)
       .subscribe((resURL: any) => {
         window.location.href = resURL.data;
-        console.log(resURL);
+        // console.log(resURL);
       });
   }
   getIPAdress() {
     this.businessService.getIpAdrress().subscribe((res: any) => {
       this.ipAddress = res.ip;
-      console.log(this.ipAddress);
+      // console.log(this.ipAddress);
     });
   }
   getValue(event: Event) {

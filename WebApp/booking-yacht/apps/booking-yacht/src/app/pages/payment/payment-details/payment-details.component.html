@@ -1,1 +1,95 @@
-<p>payment-details works!</p>
+<p-toast position="top-right"></p-toast>
+<div class="admin-page p-3">
+  <p-card class="p-shadow-14">
+    <div class="p-grid">
+      <h1 class="text-lg-center text-red">THANH TOÁN THÀNH CÔNG</h1>
+      <div class="col-12 mt-4">
+        <div class="col-12 p-shadow-14">
+          <p-card subheader="Thông tin chủ tàu">
+            <div class="grid">
+              <div class="col-4 flex">
+                <div class="text-primary">Tên Chủ Tàu: &nbsp;</div>
+                <p>{{ paymentDetails.name }}</p>
+              </div>
+              <div class="col-4 flex">
+                <div class="text-primary">Số điện thoại: &nbsp;</div>
+                <p>{{ paymentDetails.phoneNumber }}</p>
+              </div>
+              <div class="col-4 flex">
+                <div class="text-primary">Email: &nbsp;</div>
+                <p>{{ paymentDetails.emailAddress }}</p>
+              </div>
+              <div class="col-6 flex">
+                <div class="text-primary">Địa chỉ: &nbsp;</div>
+                <p>
+                  {{ paymentDetails.address }}
+                </p>
+              </div>
+              <div class="col-6 flex">
+                <div class="text-primary">Tổng tiền &nbsp;</div>
+                <p>
+                  {{ paymentDetails.totalPrice | currency: 'VND' }}
+                </p>
+              </div>
+            </div>
+          </p-card>
+          <div class="mt-2"></div>
+          <p-card subheader="Thông tin tất cả tour ">
+            <div *ngFor="let businessTours of paymentDetails.businessTours">
+              <p-accordion>
+                <p-accordionTab [header]="businessTours.tour.title">
+                  <div class="grid">
+                    <div class="col-12">
+                      <div *ngFor="let trip of businessTours.trips">
+                        <div class="grid">
+                          <div class="col-6 flex">
+                            <div class="text-primary">Thời gian: &nbsp;</div>
+                            <div>{{ trip.time }}</div>
+                          </div>
+                          <div class="col-6 flex">
+                            <div class="text-primary">Số lượng vé: &nbsp;</div>
+                            <div>{{ trip.amountTicket }}</div>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div *ngFor="let order of trip.orders">
+                            <div class="grid">
+                              <div class="col-3 flex">
+                                <div class="text-primary">Đại lý: &nbsp;</div>
+                                <div class="">{{ order.agencyName }}</div>
+                              </div>
+                              <div class="col-3 flex">
+                                <div class="text-primary">Ngày đặt: &nbsp;</div>
+                                <div class="">
+                                  {{ order.dateOrder | date: 'YYYY/MM/dd' }}
+                                </div>
+                              </div>
+                              <div class="col-3 flex">
+                                <div class="text-primary">Số Người:&nbsp;</div>
+                                <div class="">
+                                  {{ order.quantityOfPerson }}
+                                </div>
+                              </div>
+                              <div class="col-3 flex">
+                                <div class="text-primary">Số tiền:&nbsp;</div>
+                                <div class="">
+                                  {{ order.totalPrice | currency: 'VND' }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <p-divider type="dashed"></p-divider>
+                      </div>
+                    </div>
+                  </div>
+                </p-accordionTab>
+                <div class="mt-2"></div>
+              </p-accordion>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>
