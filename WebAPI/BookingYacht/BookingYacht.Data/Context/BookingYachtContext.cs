@@ -48,6 +48,11 @@ namespace BookingYacht.Data.Context
                     .HasMaxLength(128)
                     .IsUnicode(false);
 
+                entity.Property(e => e.FcmToken)
+                    .HasMaxLength(230)
+                    .IsUnicode(false)
+                    .HasColumnName("fcm_token");
+
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Password)
@@ -99,6 +104,11 @@ namespace BookingYacht.Data.Context
                     .IsRequired()
                     .HasMaxLength(128)
                     .IsUnicode(false);
+
+                entity.Property(e => e.FcmToken)
+                    .HasMaxLength(230)
+                    .IsUnicode(false)
+                    .HasColumnName("fcm_token");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 

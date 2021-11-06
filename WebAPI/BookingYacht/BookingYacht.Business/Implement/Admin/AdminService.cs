@@ -15,6 +15,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using FirebaseAdmin.Messaging;
+using Google.Apis.Auth.OAuth2;
 using AdminModel = BookingYacht.Data.Models.Admin;
 
 namespace BookingYacht.Business.Implement.Admin
@@ -130,6 +132,7 @@ namespace BookingYacht.Business.Implement.Admin
             }
             catch
             {
+                // ignored
             }
 
             if (uid != null)
@@ -402,6 +405,7 @@ namespace BookingYacht.Business.Implement.Admin
             _unitOfWork.AdminRepository.Update(admin);
             await _unitOfWork.SaveChangesAsync();
         }
-
+        
+        
     }
 }

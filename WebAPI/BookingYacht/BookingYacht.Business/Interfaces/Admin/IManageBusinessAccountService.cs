@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingYacht.Business.NotificationUtils.NotificationModel;
 
 namespace BookingYacht.Business.Interfaces.Admin
 {
@@ -26,5 +27,7 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task DeleteBusiness(Guid id);
         Task<List<BusinessPaymentModel>> GetPayment(PaymentSearchModel model);
         Task<BusinessPaymentModel> GetPaymentById(Guid id,PaymentSearchModel model);
+
+        Task<bool> SaveRegistrationToken(RegistrationTokenModel model);
     }
 }
