@@ -41,6 +41,7 @@
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/primeflex/primeflex.css",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/booking-yacht/src/styles.scss"
             ],
             "scripts": ["node_modules/quill/dist/quill.js"]

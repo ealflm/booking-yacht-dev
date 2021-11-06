@@ -94,11 +94,11 @@
       <div class="p-fluid formgrid grid mt-4">
         <div class="col-12">
           <div class="col-12">
-            <h2>Thêm chặn đi cho tour</h2>
+            <h2>Chọn chặn cho tour</h2>
           </div>
           <div class="col-12 mt-4">
             <div class="grid">
-              <div class="col-12">
+              <div class="col-6">
                 <p-multiSelect
                   [options]="destiations!"
                   [(ngModel)]="selectedDes"
@@ -106,6 +106,30 @@
                   optionLabel="name"
                   (onChange)="onChange()"
                 ></p-multiSelect>
+              </div>
+              <div class="col-6">
+                <div
+                  cdkDropList
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                >
+                  <div
+                    class="example-box"
+                    *ngFor="let list of ListDes; let i = index"
+                    [cdkDragData]="list"
+                    cdkDrag
+                  >
+                    Chặng {{ i + 1 }}: {{ list.name }}
+                    <button
+                      pButton
+                      pRipple
+                      type="button"
+                      icon="pi pi-times"
+                      class="p-button-rounded p-button-danger p-button-text"
+                      (click)="removeListDes(i, list.id)"
+                    ></button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
