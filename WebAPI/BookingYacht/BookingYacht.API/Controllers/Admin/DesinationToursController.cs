@@ -47,6 +47,11 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] DestinationTourInsertModel model)
         {
+            var removeList = await _destinationTourService.SearchDestinationTours(new DestinationTourSearchModel() { IdTour = model.IdTour });
+            foreach(DestinationTourViewModel destination in removeList)
+            {
+                await _destinationTourService.DeleteDestinationTour(destination.Id);
+            }
             for(int i=0; i<model.IdDestinationList.Count; i++)
             {
                 DestinationTourViewModel destinationTour = new DestinationTourViewModel();
