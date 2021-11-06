@@ -165,7 +165,6 @@ namespace BookingYacht.Business.Implement.Admin
                 else
                 {
                     var adminModel = await GetUserInfo(uid);
-                    var status = 0;
 
                     var model = await _unitOfWork.BusinessRepository.Query()
                         .Where(x => x.EmailAddress == adminModel.EmailAddress)
@@ -179,7 +178,6 @@ namespace BookingYacht.Business.Implement.Admin
                         model.PhoneNumber = adminModel.PhoneNumber;
                         model.PhotoUrl = adminModel.PhotoUrl;
                         model.Status = 1;
-                        status = 1;
 
                         _unitOfWork.BusinessRepository.Update(model);
                     }
@@ -655,7 +653,7 @@ namespace BookingYacht.Business.Implement.Admin
         public async Task<bool> SaveRegistrationToken(RegistrationTokenModel model)
         {
             var result = await _unitOfWork.BusinessRepository.Query()
-                .Where(x => model.Id == null || x.Id.Equals(model.Id))
+                .Where(x => model.Id == Guid.Empty || x.Id.Equals(model.Id))
                 .FirstOrDefaultAsync();
             if (result is not null && 
                 model.Token is not  null && 

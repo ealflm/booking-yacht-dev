@@ -19,7 +19,7 @@ namespace BookingYacht.Data.Models
         public Guid IdAgency { get; set; }
         public int Status { get; set; }
         public DateTime? DateOrder { get; set; }
-        public Guid? IdTrip { get; set; }
+        public Guid IdTrip { get; set; }
 
         public virtual Agency IdAgencyNavigation { get; set; }
         public virtual Trip IdTripNavigation { get; set; }
