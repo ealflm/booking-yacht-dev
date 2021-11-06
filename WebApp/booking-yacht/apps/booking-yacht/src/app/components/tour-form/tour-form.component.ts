@@ -34,7 +34,7 @@ export class TourFormComponent implements OnInit {
   imageLink?: string;
   progress!: number;
   ListDes: Destination[] = [];
-  ListDesID: any = [];
+  ListDesID: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -76,14 +76,18 @@ export class TourFormComponent implements OnInit {
   }
 
   onChange() {
-    console.log(this.selectedDes);
+    // console.log(this.selectedDes);
     const arrDeS: any[] = [];
-    this.selectedDes.map((desSelect) => {
+    this.selectedDes.map((desSelect: any) => {
       arrDeS.push(desSelect);
     });
-    // console.log(arrDeS);
+    console.log(arrDeS);
     this.ListDes = arrDeS;
-    // console.log(this.ListDes);
+    this.ListDesID = [];
+    arrDeS.map((res) => {
+      this.ListDesID.push(res.id);
+    });
+    console.log(this.ListDesID);
   }
   onFileChanged(event: any) {
     const file = event.target.files[0];
@@ -163,12 +167,15 @@ export class TourFormComponent implements OnInit {
           .subscribe((desti: any) => {
             desti.data.map((res: any) => {
               this.ListDes.push({
-                id: res.id,
+                id: res.idDestination,
                 name: res.idDestinationNavigation.name,
               });
+              this.ListDesID.push(res.idDestination);
+              console.log(this.ListDesID);
+
               // this.selectedDes = res.idDestination;
               // console.log('selected Des', this.selectedDes);
-              console.log(this.ListDes);
+              // console.log(this.ListDes);
             });
           });
       }
@@ -273,15 +280,21 @@ export class TourFormComponent implements OnInit {
       );
     }
   }
-  removeListDes(i: number, id: any) {
-    console.log(i, id);
-    this.ListDes.splice(i, 1);
-    // console.log(this.ListDes);
+  // removeListDes(i: number, id: any) {
+  //   // console.log(i, id);
 
-    this.selectedDes = this.selectedDes.filter((item: any) => {
-      item.id !== id;
-    });
-  }
+  //   this.ListDes.splice(i, 1);
+  //   this.ListDesID = [];
+  //   this.ListDes.map((listDesRes) => {
+  //     this.ListDesID.push(listDesRes.id);
+  //   });
+  //   console.log(this.ListDesID);
+
+  //   if (!this.editMode) {
+  //     this.selectedDes.splice(id, 1);
+  //   }
+  //   // console.log(this.selectedDes);
+  // }
   onCancle() {
     this.location.back();
   }
