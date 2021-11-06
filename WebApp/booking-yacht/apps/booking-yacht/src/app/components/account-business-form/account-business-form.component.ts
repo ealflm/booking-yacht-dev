@@ -131,7 +131,7 @@ export class AccountBusinessFormComponent implements OnInit {
     }
   }
 
-  _newBusiness(business: BusinessAccount) {
+  private _newBusiness(business: BusinessAccount) {
     this.businessAccountService
       .createBusinessAccount(business)
       .subscribe((res) => {
