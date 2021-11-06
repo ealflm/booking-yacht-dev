@@ -16,5 +16,6 @@ namespace BookingYacht.Data.Models
         public string PhoneNumber { get; set; }
         public string PhotoUrl { get; set; }
         public int Status { get; set; }
+        public string FcmToken { get; set; }
     }
 }

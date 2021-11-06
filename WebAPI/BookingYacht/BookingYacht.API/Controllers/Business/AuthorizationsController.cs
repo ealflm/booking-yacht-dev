@@ -1,7 +1,9 @@
-﻿using BookingYacht.Business.Interfaces.Admin;
+﻿using System;
+using BookingYacht.Business.Interfaces.Admin;
 using BookingYacht.Business.SearchModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using BookingYacht.Business.NotificationUtils.NotificationModel;
 
 namespace BookingYacht.API.Controllers.Business
 {
@@ -55,5 +57,13 @@ namespace BookingYacht.API.Controllers.Business
             return Success(result);
         }
 
+        [HttpPost("registrationToken")]
+        public async Task<IActionResult> GetRegistrationToken(
+            [FromBody] RegistrationTokenModel model)
+        {
+            var result = await _adminService.SaveRegistrationToken(model);
+            return result ? Success() : Fail("Token or id is invalid!!!");
+        }
+        
     }
 }

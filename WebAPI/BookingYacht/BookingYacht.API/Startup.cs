@@ -49,6 +49,8 @@ namespace BookingYacht.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            // var googleCredential = _hoistingEnvironment.ContentRootPath;
+            
             services.AddDbContext<BookingYachtContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("BookingYacht")));
 
