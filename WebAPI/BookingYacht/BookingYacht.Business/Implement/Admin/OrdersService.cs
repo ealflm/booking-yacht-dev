@@ -4,13 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookingYacht.Business.Enum;
 using BookingYacht.Business.Interfaces.Admin;
+using BookingYacht.Business.NotificationUtils;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Models;
-using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
-using Google.Apis.Auth.OAuth2;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
@@ -32,19 +31,16 @@ namespace BookingYacht.Business.Implement.Admin
             });
         }
 
-        public static async Task<Order> GetEntity(OrdersViewModel model)
-        {
-            return await Task.Run(() => new Order
-            {
-                Id = model.Id,
-                AgencyName = model.AgencyName,
-                IdAgency = model.IdAgency,
-                QuantityOfPerson = model.QuantityOfPerson,
-                Status = (int) model.Status,
-                TotalPrice = model.TotalPrice,
-                IdTrip= model.IdTrip
-            });
-        }
+        // public static async Task<Order> GetEntity(OrderCreateModel model)
+        // {
+        //     return await Task.Run(() => new Order
+        //     {
+        //         IdAgency = model.IdAgency,
+        //         QuantityOfPerson = model.QuantityOfPerson ?? 0,
+        //         TotalPrice = model.TotalPrice,
+        //         IdTrip= model.IdTrip
+        //     });
+        // }
         
     }
     
@@ -110,26 +106,6 @@ namespace BookingYacht.Business.Implement.Admin
                 .ToListAsync();
             return list;
         }
-        
-        //
-        // public async Task<List<Order>> SearchNavigation(OrdersSearchModel model)
-        // {
-        //     model ??= new OrdersSearchModel();
-        //     var list = await _unitOfWork.Context().Orders
-        //         .Include(x => x.IdAgencyNavigation)
-        //         .Where(x => model.AgencyName == null || x.AgencyName.Contains(model.AgencyName))
-        //         .Where(x => model.IdAgency == null || x.IdAgency.Equals(model.IdAgency))
-        //         // ReSharper disable once CompareOfFloatsByEqualityOperator
-        //         .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
-        //         .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
-        //         .Where(x => model.Status == null || x.Status == (int)model.Status)
-        //         .Where(x => model.OrderDate == null || x.DateOrder.Value.Date == model.OrderDate.Value.Date)
-        //         .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-        //         .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
-        //         .OrderBy(x => x.AgencyName)
-        //         .ToListAsync();
-        //     return list;
-        // }
 
         public async Task<OrdersViewModel> Get(Guid id)
         {
@@ -148,16 +124,31 @@ namespace BookingYacht.Business.Implement.Admin
         }
 
 
-        public async Task<Guid> Add(OrdersViewModel model)
+        public async Task<Order> Add(OrderCreateModel model)
         {
-            var order = _unitOfWork.OrderRepository.Query()
-                .Add(MapperOrder.GetEntity(model).Result);
-                      
+            var trip = await _unitOfWork.TripRepository.GetById(model.IdTrip);
 
+            var agency = await _unitOfWork.AgencyRepository.GetById(model.IdAgency);
+            
+            var addOrder = new Order()
+            {
+                
+                QuantityOfPerson = model.QuantityOfPerson ?? 0,
+                IdAgency = model.IdAgency,
+                IdTrip = model.IdTrip!,
+                AgencyName = agency.Name,
+                DateOrder = model.OrderDate,
+                Status = (int)Status.ENABLE,
+                TotalPrice = model.TotalPrice 
+            };
+
+            var result = await _unitOfWork.Context().Orders.AddAsync(addOrder);
             await _unitOfWork.SaveChangesAsync();
-            return order.Entity.Id;
+            return result.Entity;
         }
 
+      
+        
         public async Task<bool> Update(Guid id, OrdersViewModel model)
         {
             var order = await _unitOfWork.OrderRepository.GetById(id);

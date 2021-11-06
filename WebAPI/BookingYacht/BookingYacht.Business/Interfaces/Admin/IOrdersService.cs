@@ -17,7 +17,7 @@ namespace BookingYacht.Business.Interfaces.Admin
 
         Task<Order> GetNavigation(Guid id);
 
-        Task<Guid> Add(OrdersViewModel model);
+        Task<Order> Add(OrderCreateModel model);
 
         Task<bool> Update(Guid id, OrdersViewModel model);
 
@@ -25,5 +25,6 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<bool> UpdateStatus(Guid id, Enum.Status status);
 
         Task<int> Count();
+        
     }
 }
