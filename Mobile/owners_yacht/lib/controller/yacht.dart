@@ -365,6 +365,48 @@ class YachtController extends GetxController {
     }
   }
 
+  Future<void> uploadImage(File image) async {
+    print('upload hinh');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    try {
+      String body = json.encode({'ImageFile': image});
+      final response = await http.post(
+        Uri.parse(
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/upload"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print('status dia');
+        Fluttertoast.showToast(
+            msg: "Lưu thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+      } else {
+        print('loi upload hinh');
+        // Fluttertoast.showToast(
+        //     msg: "Lỗi rồi",
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.BOTTOM,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Colors.white,
+        //     textColor: Colors.black,
+        //     fontSize: 16.0);
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
   Future pickImage(bool isCamera) async {
     try {
       final image;
@@ -378,7 +420,8 @@ class YachtController extends GetxController {
       } else {
         final imageTemporary = File(image.path);
         this.image = imageTemporary;
-        print(imageTemporary);
+        uploadImage(imageTemporary);
+        print('oke');
       }
     } on PlatformException catch (e) {
       print('exception');

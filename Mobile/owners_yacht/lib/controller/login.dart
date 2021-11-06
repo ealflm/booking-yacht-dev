@@ -39,13 +39,13 @@ class LoginController extends GetxController {
           await FirebaseAuth.instance.signInWithCredential(credential);
       firebaseUser = userCredentialData.user!;
       var idToken = await firebaseUser.getIdToken();
+      
       Map data = {'idToken': idToken};
       var body = json.encode(data);
       Map<String, String> headers = {"Content-Type": "application/json"};
-
       var response = await http.post(
           Uri.parse(
-              "https://booking-yacht.azurewebsites.net/api/v1.0/admin/open-login"),
+              "https://booking-yacht.azurewebsites.net/api/v1.0/business/open-login"),
           headers: headers,
           body: body);
       if (response.statusCode == 200) {
