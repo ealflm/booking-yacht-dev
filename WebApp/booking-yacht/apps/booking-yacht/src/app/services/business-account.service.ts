@@ -53,4 +53,11 @@ export class BusinessAccountService {
   getIpAdrress() {
     return this.http.get('https://jsonip.com');
   }
+  getPaymentID(id: string, date: string): Observable<any> {
+    let params = new HttpParams();
+    if (date) {
+      params = params.append('date-time', date);
+    }
+    return this.http.get(`${this.apiURLBusiness}/payment/${id}`, { params: params });
+  }
 }

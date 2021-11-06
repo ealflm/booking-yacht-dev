@@ -1,6 +1,6 @@
 <p-toast position="top-right"></p-toast>
 <div class="admin-page p-3">
-  <p-card header="Danh sách thanh toán">
+  <p-card header="DANH SÁCH TÀI KHOẢN CẦN THANH TOÁN">
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
         <span class="p-input-icon-right">
@@ -39,7 +39,7 @@
               <th>Số điện thoại</th>
 
               <th>Tổng tiền</th>
-              <th>Trạng thái</th>
+              <!-- <th>Trạng thái</th> -->
               <th style="width: 16%"></th>
             </tr>
           </ng-template>
@@ -53,11 +53,11 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
             </tr> -->
-            <tr *ngIf="!loading">
+            <tr *ngIf="!loading && businessPayment?.totalPrice > 0">
               <td>{{ businessPayment?.name }}</td>
               <td>{{ businessPayment?.phoneNumber }}</td>
               <td>{{ businessPayment?.totalPrice | currency: 'VND' }}</td>
-              <td></td>
+              <!-- <td></td> -->
               <td>
                 <button
                   pButton
@@ -71,6 +71,7 @@
                       businessPayment?.totalPrice
                     )
                   "
+                  *ngIf="businessPayment?.totalPrice > 0"
                 ></button>
               </td>
             </tr>

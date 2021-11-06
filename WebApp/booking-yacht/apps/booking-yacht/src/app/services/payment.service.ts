@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
@@ -17,5 +18,12 @@ export class PaymentService {
       params = params.append('amount', amount);
     }
     return this.http.get(`${this.apiURL}`, { params: params });
+  }
+
+  updateStatusOrder(id: string, idOrder: []): Observable<any> {
+    return this.http.put(`${this.apiURL}`, {
+      idBusiness: id,
+      idOrders: idOrder,
+    });
   }
 }
