@@ -164,7 +164,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         private async Task<MessageResult> LoginGoogle(string idToken)
         {
-            Agency result = null;
+            AgencyViewModels result = null;
             string message = null;
 
             string uid = null;
@@ -188,7 +188,7 @@ namespace BookingYacht.Business.Implement.Admin
                 {
                     //if (user.Status == 1)
                     //{
-                        result = new Agency()
+                        result = new AgencyViewModels()
 
                         {
                             Id = user.Id,
@@ -239,7 +239,7 @@ namespace BookingYacht.Business.Implement.Admin
                     //}
                     //else
                     //{
-                        result = new Agency()
+                        result = new AgencyViewModels()
 
                         {
                             Id = model.Id,
