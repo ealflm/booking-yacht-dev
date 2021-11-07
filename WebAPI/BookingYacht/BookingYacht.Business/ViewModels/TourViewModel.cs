@@ -9,7 +9,7 @@ namespace BookingYacht.Business.ViewModels
     public class TourViewModel
     {
         public Guid Id { get; set; }
-        public string Tittle { get; set; }
+        public string Title { get; set; }
         public string Descriptions { get; set; }
         public int Status { get; set; }
         public string ImageLink { get; set; }

@@ -13,7 +13,6 @@ namespace BookingYacht.Business.InsertModels
         public List<string> CustomerNames { get; set; }
         public List<string> Phones { get; set; }
         public List<Guid> IdTicketTypes { get; set; }
-        public List<int> AmountTickets { get; set; }
 
     }
 }

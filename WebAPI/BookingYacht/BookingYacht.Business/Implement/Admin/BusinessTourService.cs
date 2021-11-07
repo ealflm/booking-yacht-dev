@@ -73,6 +73,68 @@ namespace BookingYacht.Business.Implement.Admin
             return list;
         }
 
+
+        public async Task<List<BusinessTourViewModel>> SearchBusinessTourForAgency(BusinessTourSearchModel model = null)
+        {
+            model ??= new BusinessTourSearchModel();
+            var list = await _unitOfWork.Context().BusinessTours
+                .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
+                .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
+                .Where(x => model.Status == null | x.Status == (int)model.Status)
+                .Select(x => new BusinessTourViewModel()
+                {
+                    id = x.Id,
+                    idBusiness = x.IdBusiness,
+                    idTour = x.IdTour,
+                    Status = x.Status,
+                    Trips = _unitOfWork.TripRepository.Query()
+                .Where(y => y.IdBusinessTour.Equals(x.Id))
+                .Where(y => model.Time == null | y.Time.Date.Equals(model.Time))
+                .OrderBy(y => y.Time)
+                .Select(y => new TripViewModel()
+                {
+                    Id = y.Id,
+                    AmountTicket = y.AmountTicket,
+                    IdVehicleNavigation = _unitOfWork.VehicleRepository.Query().Include(z=> z.IdVehicleTypeNavigation).Where(z => z.Id.Equals(y.IdVehicle)).FirstOrDefault(),
+                    Time = y.Time,
+                    Status = y.Status,
+                })
+                .ToList(),
+                    TicketTypes = _unitOfWork.TicketTypeRepository.Query()
+                .Where(y => y.IdBusinessTour.Equals(x.Id))
+                .OrderBy(y => y.Id)
+                .ToList(),
+                    IdTourNavigation = _unitOfWork.TourRepository.Query()
+                .Where(y => y.Id.Equals(x.IdTour))
+                .FirstOrDefault(),
+                    IdBusinessNavigation = _unitOfWork.BusinessRepository.Query()
+                .Where(y => y.Id.Equals(x.IdBusiness))
+                .FirstOrDefault()
+                })
+                .OrderBy(x => x.Status)
+                .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessTourRepository.Query().Count())
+                .ToListAsync();
+            for (int i=0; i<list.Count;)
+            {
+                if ((model.Query==null ||list[i].IdTourNavigation.Title.Contains(model.Query) || list[i].IdTourNavigation.Descriptions.Contains(model.Query))&& list[i].Trips.Count>0)
+                {
+                    foreach (TripViewModel trip in list[i].Trips)
+                    {
+                        trip.IdVehicleNavigation.IdBusinessNavigation = null;
+                    }
+                    i++;
+                }
+                else
+                {
+                    list.RemoveAt(i);
+                }
+            }
+            return list;
+        }
+
+
+
         public async Task<BusinessTour> GetBusinessTourNavigation(Guid id)
         {
             return await _unitOfWork.Context().BusinessTours

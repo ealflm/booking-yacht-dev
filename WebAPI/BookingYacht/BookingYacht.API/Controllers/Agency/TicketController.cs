@@ -54,21 +54,15 @@ namespace BookingYacht.API.Controllers.Agency
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TicketsInsertModel model)
         {
-            int j=0;
-            int sum=model.AmountTickets[j];
+
             for(int i=0; i< model.CustomerNames.Count; i++)
             {
-                if (i >= sum && j < model.IdTicketTypes.Count)
-                {
-                    j++;
-                    sum += model.AmountTickets[j];
-                }
                 TicketViewModel ticket = new TicketViewModel();
                 ticket.IdOrder = model.IdOrder;
                 ticket.IdTrip = model.IdTrip;
                 ticket.NameCustomer = model.CustomerNames[i];
                 ticket.Phone = model.Phones[i];
-                ticket.IdTicketType = model.IdTicketTypes[j];
+                ticket.IdTicketType = model.IdTicketTypes[i];
                 await _service.AddTicket(ticket);
             }
             return Success();
