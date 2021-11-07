@@ -5,6 +5,7 @@ namespace BookingYacht.Business.SearchModels
 {
     public class BusinessTourSearchModel
     {
+        public string Query { get; set; }
         public Guid? IdBusiness { get; set; }
         public Guid? IdTour { get; set; }
         public DateTime? Time { get; set; }

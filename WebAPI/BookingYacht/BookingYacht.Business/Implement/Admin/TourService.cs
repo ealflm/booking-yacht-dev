@@ -25,7 +25,7 @@ namespace BookingYacht.Business.Implement.Admin
             var tour = new Tour()
             {
                 Id = model.Id,
-                Title= model.Tittle,
+                Title= model.Title,
                 Descriptions= model.Descriptions,
                 Status = model.Status,
                 ImageLink= model.ImageLink
@@ -60,7 +60,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new TourViewModel()
                 {
                     Id = x.Id,
-                    Tittle= x.Title,
+                    Title= x.Title,
                     Descriptions= x.Descriptions,
                     Status = x.Status,
                     ImageLink= x.ImageLink,
@@ -93,18 +93,17 @@ namespace BookingYacht.Business.Implement.Admin
                 model = new TourSearchModel();
             }
             var tours = await _unitOfWork.TourRepository.Query()
-                .Where(x => model.Tittle == null | x.Title.Contains(model.Tittle))
-                .Where(x => model.Descriptions == null | x.Descriptions.Contains(model.Descriptions))
+                .Where(x => model.Title == null | x.Title.Contains(model.Title) || x.Descriptions.Contains(model.Descriptions))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
                 .Select(x => new TourViewModel()
                 {
                     Id = x.Id,
-                    Tittle= x.Title,
+                    Title= x.Title,
                     Descriptions= x.Descriptions,
                     Status = x.Status,
                     ImageLink= x.ImageLink
                 })
-                .OrderBy(x => x.Tittle)
+                .OrderBy(x => x.Title)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
 
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TourRepository.Query()
@@ -118,7 +117,7 @@ namespace BookingYacht.Business.Implement.Admin
             var tour = new Tour()
             {
                 Id = id,
-                Title= model.Tittle,
+                Title= model.Title,
                 Descriptions= model.Descriptions,
                 Status = model.Status,
                 ImageLink= model.ImageLink
