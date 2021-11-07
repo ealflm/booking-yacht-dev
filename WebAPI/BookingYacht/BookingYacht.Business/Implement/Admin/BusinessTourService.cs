@@ -89,7 +89,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Status = x.Status,
                     Trips = _unitOfWork.TripRepository.Query()
                 .Where(y => y.IdBusinessTour.Equals(x.Id))
-                .Where(y => model.Time == null | y.Time.Date.Equals(model.Time))
+                .Where(y =>  y.Time.Date.CompareTo(DateTime.Now.Date)>0)
                 .OrderBy(y => y.Time)
                 .Select(y => new TripViewModel()
                 {
