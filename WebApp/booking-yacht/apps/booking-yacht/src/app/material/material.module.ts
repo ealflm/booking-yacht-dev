@@ -37,6 +37,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [],
@@ -78,6 +79,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTooltipModule,
     MatTreeModule,
     DragDropModule,
+    ScrollingModule,
   ],
   exports: [
     MatButtonModule,
@@ -116,6 +118,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTooltipModule,
     MatTreeModule,
     DragDropModule,
+    ScrollingModule,
   ],
   providers: [MatDatepickerModule],
 })

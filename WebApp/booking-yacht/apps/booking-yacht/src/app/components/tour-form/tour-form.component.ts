@@ -1,3 +1,4 @@
+import { Desti } from './../../models/destinations';
 import { async } from '@angular/core/testing';
 import { DestinationsService } from './../../services/destinations.service';
 import { SECONDARY_STATUS, AGENCY_STATUS } from './../../constants/STATUS';
@@ -10,7 +11,13 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { CdkDragDrop, moveItemInArray, CdkDrag } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  CdkDrag,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+
 import { DestinationsTours } from '../../models/destinations-tours';
 import { Destination } from '../../models/destinations';
 
@@ -28,12 +35,14 @@ export class TourFormComponent implements OnInit {
   currentTour!: string;
   tour: [] = [];
   selectedDes!: unknown[];
-  destiations?: any[];
   previewImage?: string | ArrayBuffer | null =
     '../../../assets/img/noimage.png';
   imageLink?: string;
   progress!: number;
-  ListDes: Destination[] = [];
+
+  //
+  destiations: Desti[] = [];
+  ListDes: Desti[] = [];
   ListDesID: any[] = [];
 
   constructor(
@@ -43,15 +52,7 @@ export class TourFormComponent implements OnInit {
     private location: Location,
     private messageService: MessageService,
     private desService: DestinationsService
-  ) {
-    // this.destiations = [
-    //   { name: 'Đi từ Hà Tiên đến Phú Quốc', code: 'NY' },
-    //   { name: 'Đi từ Hà Tiên đến đảo Cát Bà', code: 'RM' },
-    //   { name: 'Đi từ Hà Tiên đến đảo Hòn Bà', code: 'LDN' },
-    //   { name: 'Istanbul', code: 'IST' },
-    //   { name: 'Paris', code: 'PRS' },
-    // ];
-  }
+  ) {}
 
   ngOnInit(): void {
     this._initForm();
@@ -65,8 +66,25 @@ export class TourFormComponent implements OnInit {
       this.loading = false;
     }, 500);
   }
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.ListDes, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<any>) {
+    // moveItemInArray(this.ListDes, event.previousIndex, event.currentIndex);
+    // console.log(event);
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+
     // console.log(this.ListDes);
     this.ListDesID = [];
     this.ListDes.map((destinationID) => {
@@ -76,7 +94,7 @@ export class TourFormComponent implements OnInit {
   }
 
   onChange() {
-    console.log(this.selectedDes);
+    // console.log(this.selectedDes);
     const arrDeS: any[] = [];
     this.selectedDes.map((desSelect: any) => {
       arrDeS.push(desSelect);
@@ -119,7 +137,7 @@ export class TourFormComponent implements OnInit {
         .uploadTourImage(formData)
         .subscribe((res: HttpEvent<any>) => {
           // console.log(this.imageLink);
-          console.log(res);
+          // console.log(res);
 
           switch (res.type) {
             case HttpEventType.Sent:
@@ -156,7 +174,7 @@ export class TourFormComponent implements OnInit {
         this.editMode = true;
         this.tourService.getTour(this.currentTour).subscribe((res) => {
           this.tourForm.id.setValue(res.data.id);
-          this.tourForm.tittle.setValue(res.data.tittle);
+          this.tourForm.title.setValue(res.data.title);
           this.tourForm.status.setValue(res.data.status.toString());
           this.tourForm.descriptions.setValue(res.data.descriptions);
           this.previewImage = res.data.imageLink;
@@ -184,7 +202,7 @@ export class TourFormComponent implements OnInit {
   _initForm() {
     this.form = this.formBuilder.group({
       id: [{ value: '', disabled: true }],
-      tittle: ['', [Validators.required]],
+      title: ['', [Validators.required]],
       descriptions: ['', Validators.required],
       status: [''],
     });
@@ -205,7 +223,7 @@ export class TourFormComponent implements OnInit {
 
     if (this.editMode !== true) {
       const tour: Tour = {
-        tittle: this.tourForm.tittle.value,
+        title: this.tourForm.title.value,
         status: '1',
         descriptions: this.tourForm.descriptions.value,
         imageLink: this.imageLink,
@@ -243,12 +261,12 @@ export class TourFormComponent implements OnInit {
       );
     } else {
       const tour: Tour = {
-        tittle: this.tourForm.tittle.value,
+        title: this.tourForm.title.value,
         status: this.tourForm.status.value,
         descriptions: this.tourForm.descriptions.value,
         imageLink: this.imageLink,
       };
-      console.log(tour);
+      // console.log(tour);
       this.desService
         .createDesTour(this.currentTour, this.ListDesID)
         .subscribe((res) => {

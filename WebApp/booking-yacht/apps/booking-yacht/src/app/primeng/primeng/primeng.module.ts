@@ -38,6 +38,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { PaginatorModule } from 'primeng/paginator';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DialogModule } from 'primeng/dialog';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
 
 @NgModule({
   declarations: [],
@@ -79,6 +80,7 @@ import { DialogModule } from 'primeng/dialog';
     PaginatorModule,
     MultiSelectModule,
     DialogModule,
+    ScrollPanelModule
   ],
   exports: [
     CardModule,
@@ -118,6 +120,7 @@ import { DialogModule } from 'primeng/dialog';
     PaginatorModule,
     MultiSelectModule,
     DialogModule,
+    ScrollPanelModule
   ],
 })
 export class PrimengModule {}

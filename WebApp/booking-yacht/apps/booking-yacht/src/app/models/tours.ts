@@ -1,6 +1,6 @@
 export class Tour {
   id?: string;
-  tittle?: string;
+  title?: string;
   descriptions?: string;
   status?: string;
   imageLink?: string;

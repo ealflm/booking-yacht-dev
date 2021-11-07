@@ -50,7 +50,7 @@
       [rows]="10"
       [totalRecords]="120"
       [rowsPerPageOptions]="[10, 20, 30]"
-      filterBy="tittle"
+      filterBy="title"
       layout="grid"
     >
       <ng-template class="grid" pTemplate="gridItem" let-tours>
@@ -121,7 +121,7 @@
           >
             <div class="flex justify-content-between">
               <h2 class="pl-3 pt-3" [style]="{ width: '75%' }">
-                {{ tours.tittle | uppercase }}
+                {{ tours.title | uppercase }}
               </h2>
               <div
                 class="mt-3"
