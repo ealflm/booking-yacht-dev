@@ -72,22 +72,22 @@ export class TourFormComponent implements OnInit {
     this.ListDes.map((destinationID) => {
       this.ListDesID.push(destinationID.id);
     });
-    console.log(this.ListDesID);
+    // console.log(this.ListDesID);
   }
 
   onChange() {
-    // console.log(this.selectedDes);
+    console.log(this.selectedDes);
     const arrDeS: any[] = [];
     this.selectedDes.map((desSelect: any) => {
       arrDeS.push(desSelect);
     });
-    console.log(arrDeS);
+    // console.log(arrDeS);
     this.ListDes = arrDeS;
     this.ListDesID = [];
     arrDeS.map((res) => {
       this.ListDesID.push(res.id);
     });
-    console.log(this.ListDesID);
+    // console.log(this.ListDesID);
   }
   onFileChanged(event: any) {
     const file = event.target.files[0];
@@ -176,7 +176,7 @@ export class TourFormComponent implements OnInit {
               // console.log('selected Des', this.selectedDes);
               // console.log(this.ListDes);
             });
-            console.log(this.ListDesID);
+            // console.log(this.ListDesID);
           });
       }
     });
@@ -214,7 +214,7 @@ export class TourFormComponent implements OnInit {
 
       this.tourService.createTour(tour).subscribe(
         async (res) => {
-          console.log(res.data);
+          // console.log(res.data);
 
           await this.desService
             .createDesTour(res.data, this.ListDesID)
