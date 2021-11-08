@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:owners_yacht/controller/notification.dart';
+import 'package:owners_yacht/controller/ticket.dart';
 import 'package:owners_yacht/controller/ticket_type.dart';
 import 'package:owners_yacht/controller/tour.dart';
 import 'package:owners_yacht/controller/trip.dart';
@@ -22,6 +23,7 @@ class Binding implements Bindings {
     Get.lazyPut(() => TourController());
     Get.lazyPut(() => TicketTypeController());
     Get.lazyPut(() => MenuController());
+    Get.lazyPut(() => TicketController());
     Get.lazyPut(() => NotificationController());
   }
 }

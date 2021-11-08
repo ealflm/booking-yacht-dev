@@ -97,7 +97,7 @@ class TicketTypeModify extends StatelessWidget {
                         items: _tourController.listTour.map((Tour value) {
                           return DropdownMenuItem<String>(
                             value: value.id,
-                            child: Text(value.tittle!,
+                            child: Text(value.title!,
                                 overflow: TextOverflow.ellipsis),
                           );
                         }).toList(),

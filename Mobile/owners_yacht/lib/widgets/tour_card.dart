@@ -36,7 +36,7 @@ class TourCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
-                              child: Text('Tên: ${tour.tittle!}',
+                              child: Text('Tên: ${tour.title!}',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 4,
                                   style: const TextStyle(
