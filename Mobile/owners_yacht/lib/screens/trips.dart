@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:owners_yacht/constants/status.dart';
 import 'package:owners_yacht/controller/trip.dart';
 
 import 'package:owners_yacht/widgets/nav_bar.dart';
@@ -35,6 +36,7 @@ class _TripsState extends State<Trips> {
               CalendarFormat.twoWeeks: '2 tuần',
               CalendarFormat.week: 'Tuần'
             },
+            startingDayOfWeek: StartingDayOfWeek.monday,
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2025, 1, 1),
             focusedDay: _focusedDay,
@@ -51,7 +53,7 @@ class _TripsState extends State<Trips> {
               if (!isSameDay(_selectedDay, selectedDay)) {
                 // Call `setState()` when updating the selected day
                 setState(() {
-                 _tripController.getBusinessTour();
+                  _tripController.getBusinessTour();
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });
@@ -81,48 +83,59 @@ class _TripsState extends State<Trips> {
                             padding: const EdgeInsets.only(top: 10.0),
                             child: ListView.builder(
                               shrinkWrap: true,
-                              itemBuilder: (ctx, i) => Padding(
+                              itemBuilder: (ctx, index) => Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Card(
                                   elevation: 3,
-                                  color: Colors.grey[200],
                                   child: ExpansionTile(
-                                    title: Text(
-                                      'Tour: ${controller.listBusinessTour[i].idTourNavigation!.title}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w600),
+                                    title: ListTile(
+                                      title: Text(
+                                          '${controller.listBusinessTour[index].idTourNavigation!.title}'),
                                     ),
                                     children: [
                                       ListView.builder(
                                         shrinkWrap: true,
-                                        itemBuilder: (ctx, i) => Column(
-                                          children: [
-                                            ExpansionTile(
-                                              title: Text(
-                                                  'Time: ${DateFormat('hh:mm a', 'vi-VN').format(DateTime.now())}'),
-                                              subtitle: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                        itemBuilder: (ctx, i) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 30.0),
+                                          child: Column(
+                                            children: [
+                                              ExpansionTile(
+                                                title: ListTile(
+                                                  title: Text(
+                                                      'Chuyến đi lúc: ${DateFormat('hh:mm a', 'vi-VN').format(controller.listBusinessTour[index].trips![i].time ?? DateTime.now())}'),
+                                                  subtitle: Column(
+                                                    children: [
+                                                      ListTile(
+                                                          title: Text(
+                                                              'Số người đi: ${controller.listBusinessTour[index].trips![i].amountTicket}'),
+                                                          subtitle: Text(
+                                                              'Trạng thái: ${BookingYachtStatus.status[controller.listBusinessTour[index].trips![i].status]}'))
+                                                    ],
+                                                  ),
+                                                ),
                                                 children: [
-                                                  Text('Số lượng người đi: 3'),
-                                                  Text('Trạng thái: Đang đi'),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 30.0),
+                                                    child: ListTile(
+                                                        title: Text(
+                                                            'Tàu ${controller.listBusinessTour[index].trips![i].idVehicleNavigation!.name}'),
+                                                        subtitle: Text(
+                                                            'Số ghế: ${controller.listBusinessTour[index].trips![i].idVehicleNavigation!.seat}')),
+                                                  )
                                                 ],
                                               ),
-                                              children: [
-                                                Text('Tàu: vip'),
-                                                Text('Số ghế: 36'),
-                                              ],
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                         itemCount: controller
-                                                .listBusinessTour[i]
+                                                .listBusinessTour[index]
                                                 .trips!
                                                 .isEmpty
                                             ? 0
-                                            : controller.listBusinessTour[i]
+                                            : controller.listBusinessTour[index]
                                                 .trips!.length,
                                       ),
                                     ],
@@ -140,172 +153,3 @@ class _TripsState extends State<Trips> {
     );
   }
 }
-
-      //  GetBuilder<TripController>(
-      //   builder: (controller) => (controller.isLoading.isTrue)
-      //       ? const Center(child: CircularProgressIndicator())
-      //       : controller.listTrip.isEmpty
-      //           ? const Center(child: Text('Không có chuyến đi nào!'))
-      //           : Padding(
-      //               padding: const EdgeInsets.only(top: 10.0),
-      //               child: ListView.builder(
-      //                 itemBuilder: (ctx, i) => TripCard(controller.listTrip[i]),
-      //                 itemCount: controller.listTrip.length,
-      //               ),
-      //             ),
-      // ),
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//       // ListView.builder(
-//       // itemCount: transactions.length,
-//       // itemBuilder: (context, index) {
-//       //   Transaction1 transaction = transactions[index];
-//       //   DateTime date =
-//       //       DateTime.fromMillisecondsSinceEpoch(transaction.createdMillis);
-//       //   String dateString = DateFormat("EEE, MMM d, y").format(date);
-
-//       //   if (today == dateString) {
-//       //     dateString = "Hôm nay";
-//       //   } else if (yesterday == dateString) {
-//       //     dateString = "Hôm qua";
-//       //   }
-
-//       //   bool showHeader = prevDay != dateString;
-//       //   prevDay = dateString;
-//       //   return Column(
-//       //     crossAxisAlignment: CrossAxisAlignment.start,
-//       //     children: <Widget>[
-//       //       showHeader
-//       //           ? Container(
-//       //               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-//       //               child: Text(
-//       //                 dateString,
-//       //                 style: TextStyle(
-//       //                     color: Colors.black, fontWeight: FontWeight.bold),
-//       //               ),
-//       //             )
-//       //           : Offstage(),
-//       //       buildItem(index, context, date, transaction),
-//       //     ],
-//       //   );
-//       // ),
-//     );
-//   }
-
-//   ListView buildListView() {
-//     return 
-//   }
-
-//   Widget buildItem(int index, BuildContext context, DateTime date,
-//       Transaction1 transaction) {
-//     return IntrinsicHeight(
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.stretch,
-//         children: <Widget>[
-//           SizedBox(width: 20),
-//           buildLine(index, context),
-//           Container(
-//             alignment: Alignment.centerLeft,
-//             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-//             // color: Theme.of(context).accentColor,
-//             child: Text(
-//               DateFormat("hh:mm a").format(date),
-//               style: TextStyle(
-//                 // color: Colors.white,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//           ),
-//           Expanded(
-//             flex: 1,
-//             child: buildItemInfo(transaction, context),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Card buildItemInfo(Transaction1 transaction, BuildContext context) {
-//     return Card(
-//       clipBehavior: Clip.antiAliasWithSaveLayer,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//               colors: transaction.point.isNegative
-//                   ? [Colors.deepOrange, Colors.red]
-//                   : [Colors.green, Colors.teal]),
-//         ),
-//         child: Row(
-//           children: <Widget>[
-//             Expanded(
-//               flex: 1,
-//               child: Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-//                 child: Text(
-//                   transaction.name,
-//                   style: TextStyle(
-//                       color: Colors.white, fontWeight: FontWeight.bold),
-//                 ),
-//               ),
-//             ),
-//             Container(
-//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-//               child: Text(
-//                 NumberFormat("###,###,####k VND").format(transaction.point),
-//                 style:
-//                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Container buildLine(int index, BuildContext context) {
-//     return Container(
-//       child: Column(
-//         mainAxisSize: MainAxisSize.max,
-//         children: <Widget>[
-//           Expanded(
-//             flex: 1,
-//             child: Container(
-//               width: 2,
-//               color: Theme.of(context).accentColor,
-//             ),
-//           ),
-//           Container(
-//             width: 6,
-//             height: 6,
-//             decoration: BoxDecoration(
-//                 color: Theme.of(context).accentColor, shape: BoxShape.circle),
-//           ),
-//           Expanded(
-//             flex: 1,
-//             child: Container(
-//               width: 2,
-//               color: Theme.of(context).accentColor,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

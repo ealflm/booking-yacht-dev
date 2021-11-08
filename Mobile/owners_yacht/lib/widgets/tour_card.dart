@@ -36,12 +36,12 @@ class TourCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
-                              child: Expanded(
-                                child: Text('Tên: ${tour.tittle!}',
-                                    style: const TextStyle(
-                                        color: BookingYachtColors.caption,
-                                        fontSize: 16)),
-                              ),
+                              child: Text('Tên: ${tour.tittle!}',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
+                                  style: const TextStyle(
+                                      color: BookingYachtColors.caption,
+                                      fontSize: 16)),
                             ),
                             Text(
                                 'Trạng thái: ${BookingYachtStatus.status[tour.status!]}',

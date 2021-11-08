@@ -1,5 +1,5 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:owners_yacht/controller/notification.dart';
 import 'package:owners_yacht/screens/menu.dart';
 import 'package:owners_yacht/screens/tours.dart';
 import 'screens/ticket_type.dart';
@@ -18,6 +18,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting();
+  NotificationController.initialize();
   await Firebase.initializeApp();
   Binding().dependencies();
   runApp(

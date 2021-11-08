@@ -22,8 +22,8 @@ class Login extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 80),
+                const Padding(
+                  padding: EdgeInsets.only(top: 80),
                   child: Text(
                     'Chủ Tàu',
                     style: TextStyle(
