@@ -131,7 +131,11 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
             </tr>
-            <tr *ngIf="!loading">
+            <tr
+              *ngIf="
+                !loading && order.totalPrice > 0 && order.quantityOfPerson > 0
+              "
+            >
               <td class="hidden">{{ order.id }}</td>
               <td>{{ order.tourName }}</td>
               <td>{{ order.agencyName }}</td>
