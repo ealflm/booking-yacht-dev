@@ -8,6 +8,7 @@ import '/screens/home.dart';
 import '/screens/login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class LoginController extends GetxController {
   late FirebaseApp firebaseApp;
@@ -39,7 +40,7 @@ class LoginController extends GetxController {
           await FirebaseAuth.instance.signInWithCredential(credential);
       firebaseUser = userCredentialData.user!;
       var idToken = await firebaseUser.getIdToken();
-      
+
       Map data = {'idToken': idToken};
       var body = json.encode(data);
       Map<String, String> headers = {"Content-Type": "application/json"};
@@ -51,8 +52,11 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         final responseData = json.decode(response.body);
+        Map<String, dynamic> payload = Jwt.parseJwt(response.body);
+        print(payload);
         var token = responseData['data'];
         prefs.setString('token', token);
+        prefs.setString('idBusiness', payload['Id']);
         Get.to(Home());
       } else {
         Get.back();
@@ -67,9 +71,33 @@ class LoginController extends GetxController {
     prefs.clear();
     HomeController controller = Get.find<HomeController>();
     controller.tabIndex = 0;
-    
+
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
     Get.to(Login());
+  }
+
+  void sendToken(String tokenDevice) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    // final String? idBusiness = prefs.getString('idBusiness');
+    try {
+      String body = json.encode({'id': '68554b5a-817b-453c-992c-149662a8e710', 'token': tokenDevice});
+
+      final response = await http.post(
+        Uri.parse("https://booking-yacht.azurewebsites.net/api/v1.0/business/registrationtoken"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
+      );
+      if (response.statusCode == 200) {
+        print('ok device len');
+        print(tokenDevice);
+      } else {
+        print('loi o save roi ');
+      }
+    } catch (e) {}
   }
 }

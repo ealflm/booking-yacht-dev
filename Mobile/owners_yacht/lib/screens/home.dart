@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:owners_yacht/controller/login.dart';
 import 'package:owners_yacht/controller/notification.dart';
 import 'package:owners_yacht/screens/ticket_type.dart';
 import '/controller/home.dart';
@@ -15,15 +16,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final HomeController _homeController = Get.find<HomeController>();
+  final LoginController _loginController = Get.find<LoginController>();
   @override
   void initState() {
     super.initState();
-
+    FirebaseMessaging.instance.getToken().then((value) => _loginController.sendToken(value!));
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         final routeFromMessage = message.data['route'];
-        // Get.to(OrderScreen(), binding: OrderBinding());
-        // print(routeFromMessage + 'Hlsssslo');
         _homeController.changeTabIndex(2);
         var _fcm = FirebaseMessaging.instance;
         _fcm.getToken().then((value) => print('The |||' + value!));
@@ -31,8 +31,6 @@ class _HomeState extends State<Home> {
     });
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
-        print(message.notification!.body);
-        print(message.notification!.title);
         NotificationController.display(message);
       }
       var _fcm = FirebaseMessaging.instance;
@@ -41,11 +39,7 @@ class _HomeState extends State<Home> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       final routeFromMessage = message.data['route'];
-      // Get.to(OrderScreen(), binding: OrderBinding());
-      // Get.to(routeFromMessage);
-      print(routeFromMessage + 'Hllo');
       _homeController.changeTabIndex(2);
-      // Get.toNamed(routeFromMessage);
       var _fcm = FirebaseMessaging.instance;
       _fcm.getToken().then((value) => print('The|||' + value!));
     });

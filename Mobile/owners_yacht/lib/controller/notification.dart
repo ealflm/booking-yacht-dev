@@ -1,3 +1,4 @@
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -14,11 +15,8 @@ class NotificationController extends GetxController {
         onSelectNotification: (String? route) async {
       if (route != null) {
         print("object ne bn oi" + route);
-        // Get.to(OrderScreen(), binding: OrderBinding());
-        // Get.to(route);
         HomeController _homeController = Get.find<HomeController>();
         _homeController.changeTabIndex(1);
-        // Get.toNamed(route);
       }
     });
   }
@@ -27,13 +25,14 @@ class NotificationController extends GetxController {
     try {
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       const NotificationDetails notificationDetails = NotificationDetails(
-        android: AndroidNotificationDetails('booking_yacht', 'booking_yacht channel',
+        android: AndroidNotificationDetails(
+            'booking_yacht', 'booking_yacht channel',
             importance: Importance.max, priority: Priority.high),
       );
       await _notificationsPlugin.show(
         id,
         message.notification!.title,
-        message.notification!.title,
+        message.notification!.body,
         notificationDetails,
         payload: message.data['route'],
       );

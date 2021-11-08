@@ -34,10 +34,16 @@ class TicketTypeController extends GetxController {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
+    final String? idBusiness = prefs.getString('idBusiness');
     try {
+      Map<String, String> queryParams = {
+        'idBusiness': idBusiness!,
+      };
+
       final response = await http.get(
         Uri.parse(
-            "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types"),
+                "https://booking-yacht.azurewebsites.net/api/v1.0/business/ticket-types")
+            .replace(queryParameters: queryParams),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token"
@@ -66,6 +72,7 @@ class TicketTypeController extends GetxController {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
+
     try {
       final response = await http.get(
         Uri.parse(
