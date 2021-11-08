@@ -69,7 +69,7 @@ namespace BookingYacht.Business.Implement.Admin
                     agency => agency.Id,
                     (__, agencies) => new {Agency = agencies, __.order, __.Tour})
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessRepository.Query().Count())
+                .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.OrderRepository.Query().Count())
                 .OrderBy(x => x.Tour.Title)
                 .Select( arg => new OrdersViewModel
                 {
