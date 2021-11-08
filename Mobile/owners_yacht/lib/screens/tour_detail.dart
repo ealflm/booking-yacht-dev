@@ -24,7 +24,7 @@ class TourDetail extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: NavBar(
-        title: _tourController.tourDetail.tittle!,
+        title: _tourController.tourDetail.title!,
         color: BookingYachtColors.appBarDetail,
       ),
       body: Stack(

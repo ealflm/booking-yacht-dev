@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/controller/notification.dart';
 import 'package:owners_yacht/screens/menu.dart';
+import 'package:owners_yacht/screens/ticket.dart';
 import 'package:owners_yacht/screens/tours.dart';
 import 'screens/ticket_type.dart';
 import 'package:owners_yacht/screens/trips.dart';
@@ -59,6 +60,11 @@ void main() async {
         GetPage(
           name: '/ticket_type',
           page: () => TicketType(),
+          binding: Binding(),
+        ),
+        GetPage(
+          name: '/ticket',
+          page: () => Tickets (),
           binding: Binding(),
         ),
         GetPage(

@@ -73,7 +73,7 @@ class TourController extends GetxController {
         var jsonString = json.decode(response.body);
         tourDetail = Tour(
           id: jsonString['data']['id'],
-          tittle: jsonString['data']['tittle'],
+          title: jsonString['data']['title'],
           status: jsonString['data']['status'] as int,
           descriptions: jsonString['data']['descriptions'],
           imageLink: jsonString['data']["imageLink"],

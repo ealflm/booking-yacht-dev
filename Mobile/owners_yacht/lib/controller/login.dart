@@ -24,22 +24,26 @@ class LoginController extends GetxController {
       // Get.dialog(Center(child: LoadingWidget()), barrierDismissible: false);
 
       await initlizeFirebaseApp();
-
+      var idToken;
       firebaseAuth = FirebaseAuth.instance;
 
-      final googleUser = await GoogleSignIn().signIn();
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        final googleUser = await GoogleSignIn().signIn();
 
-      final googleAuth = await googleUser!.authentication;
+        final googleAuth = await googleUser!.authentication;
 
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final userCredentialData =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      firebaseUser = userCredentialData.user!;
-      var idToken = await firebaseUser.getIdToken();
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        final userCredentialData =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        firebaseUser = userCredentialData.user!;
+        idToken = await firebaseUser.getIdToken();
+      } else {
+        idToken = await currentUser.getIdToken();
+      }
 
       Map data = {'idToken': idToken};
       var body = json.encode(data);
@@ -82,10 +86,12 @@ class LoginController extends GetxController {
     final String? token = prefs.getString('token');
     // final String? idBusiness = prefs.getString('idBusiness');
     try {
-      String body = json.encode({'id': '68554b5a-817b-453c-992c-149662a8e710', 'token': tokenDevice});
+      String body = json.encode(
+          {'id': '68554b5a-817b-453c-992c-149662a8e710', 'token': tokenDevice});
 
       final response = await http.post(
-        Uri.parse("https://booking-yacht.azurewebsites.net/api/v1.0/business/registrationtoken"),
+        Uri.parse(
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/registrationtoken"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
