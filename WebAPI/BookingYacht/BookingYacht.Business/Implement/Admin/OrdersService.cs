@@ -127,7 +127,7 @@ namespace BookingYacht.Business.Implement.Admin
                 IdTrip = model.IdTrip!,
                 AgencyName = agency.Name,
                 DateOrder = model.OrderDate,
-                Status = (int)Status.ENABLE,
+                Status = (int)Status.COMPLETELY_PAYMENT,
                 TotalPrice = model.TotalPrice 
             };
 
