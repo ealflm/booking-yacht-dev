@@ -19,10 +19,8 @@ namespace BookingYacht.Business.NotificationUtils
                 Token = clientToken,
                 Notification = new Notification()
                 {
-                    
                     Title = "Đặt Tàu",
-                    Body = $"{order.AgencyName} đã đặt {order.QuantityOfPerson} vé {order.DateOrder}",
-                    ImageUrl = "https://swd3915.blob.core.windows.net/images/steve-lacey-TtsuvND2Ick-unsplash.jpg"
+                    Body = $"{order.AgencyName} đã đặt {order.QuantityOfPerson} vé \n {order.DateOrder}",
                 },
                 
             };
