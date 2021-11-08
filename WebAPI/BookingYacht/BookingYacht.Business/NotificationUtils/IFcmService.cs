@@ -6,12 +6,6 @@ namespace BookingYacht.Business.NotificationUtils
 {
     public interface IFcmService
     {
-        public Task SendNotification(
-            Guid idTrip,
-            string privateKey,
-            Order order);
-        
-        
-        
+        public Task SendNotification(Order order);
     }
 }

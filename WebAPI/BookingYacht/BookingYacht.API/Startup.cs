@@ -184,11 +184,8 @@ namespace BookingYacht.API
             services.AddTransient<Business.Interfaces.Business.ITicketTypeService, Business.Implement.Business.TicketTypeService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IBusinessTourService, BusinessTourService>();
-            services.AddTransient<IFcmService, FcmService>();
 
-            services.AddScoped(_ => {
-                return new BlobServiceClient(Configuration.GetConnectionString("AzureBlobStorage"));
-            });
+            services.AddScoped(_ => new BlobServiceClient(Configuration.GetConnectionString("AzureBlobStorage")));
 
             services.AddScoped<IFileManagerLogic, FileManagerLogic>();
 

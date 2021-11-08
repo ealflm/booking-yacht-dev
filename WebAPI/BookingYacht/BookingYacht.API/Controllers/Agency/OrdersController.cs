@@ -17,13 +17,11 @@ namespace BookingYacht.API.Controllers.Agency
     public class OrdersController: BaseAgencyController
     {
         private readonly IOrdersService _service;
-        private readonly IFcmService _fcmService;
         private const string PrivateKey = "AppData/Firebase/firebase-admin.json";
 
-        public OrdersController(IOrdersService service, IFcmService fcmService)
+        public OrdersController(IOrdersService service)
         {
             _service = service;
-            _fcmService = fcmService;
         }
 
         [HttpGet]
@@ -43,10 +41,8 @@ namespace BookingYacht.API.Controllers.Agency
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] OrderCreateModel model)
         {
-            // var id = await _service.Test(model);
-            // return Success(id);
             var res = await _service.Add(model);
-            await _fcmService.SendNotification(res.IdTrip, PrivateKey, res);
+            var end = DateTime.Now;
             return Success(res.Id);
         }
 
