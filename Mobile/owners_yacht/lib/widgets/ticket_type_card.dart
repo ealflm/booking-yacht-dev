@@ -15,16 +15,8 @@ class TicketTypeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      // key: Key(_ticketType.id!),
       actionPane: const SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
-      // controller: SlidableController(),
-      // SlidableDismissal(
-      //   child: SlidableDrawerDismissal(),
-      //   onDismissed: (actionType) {
-      //     print('hihi');
-      //   },
-      // ),
       child: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
         child: Column(

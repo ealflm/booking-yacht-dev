@@ -56,15 +56,9 @@ class _QRScanState extends State<QRScan> {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.all(8),
-            child: ElevatedButton(
-              onPressed: () => _ticketController.checkTicket('M2Q1MGZhM2UtZmExMy00Mzc4LWI4YjEtYWJlNDU0ZmU4ZjIyfGJvb2t5YWNodA=='),
-              child: const Text('Check', style: TextStyle(fontSize: 20)),
-            ),
-          ),
         ],
       ),
+
       // Expanded(
       //   flex: 1,
       //   child: FittedBox(
@@ -144,6 +138,7 @@ class _QRScanState extends State<QRScan> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        _ticketController.checkTicket(scanData.code);
       });
     });
   }
