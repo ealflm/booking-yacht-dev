@@ -1,7 +1,9 @@
 ﻿using BookingYacht.Business.Enum;
 using BookingYacht.Business.Interfaces.Admin;
+using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Business.VNPay;
+using BookingYacht.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -21,11 +23,12 @@ namespace BookingYacht.API.Controllers.Agency
     {
         IConfiguration _configuration;
         private readonly IOrdersService _service;
-
-        public VnPayController(IConfiguration configuration, IOrdersService service)
+        private readonly ITicketService _ticketService;
+        public VnPayController(IConfiguration configuration, IOrdersService service, ITicketService ticketService)
         {
             _configuration = configuration;
             _service = service;
+            _ticketService = ticketService;
         }
 
         // GET: api/<VnPayController>
@@ -39,12 +42,18 @@ namespace BookingYacht.API.Controllers.Agency
             string tmnCode = _configuration["VnPay:TmnCode"];
             string hashSecret = _configuration["VnPay:HashSecret"];
             OrdersViewModel model = await _service.Get(orderRequest.IdOrder);
+            var ticketList = await _ticketService.SearchTicketsNavigation(new TicketSearchModel() { IdOrder = orderRequest.IdOrder });
+            double totalPrice = 0;
+            foreach(Ticket ticket in ticketList)
+            {
+                totalPrice += ticket.IdTicketTypeNavigation.Price * (100 - ticket.IdTicketTypeNavigation.ServiceFeePercentage.Value - ticket.IdTicketTypeNavigation.CommissionFeePercentage.Value);
+            }
             VnPayLibrary pay = new VnPayLibrary();
 
             pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
             pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
             pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-            pay.AddRequestData("vnp_Amount",  model.TotalPrice.ToString()+"00"); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+            pay.AddRequestData("vnp_Amount",  totalPrice.ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
             pay.AddRequestData("vnp_CreateDate", model.OrderDate.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
             pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
             pay.AddRequestData("vnp_IpAddr", orderRequest.Ip); //Địa chỉ IP của khách hàng thực hiện giao dịch
