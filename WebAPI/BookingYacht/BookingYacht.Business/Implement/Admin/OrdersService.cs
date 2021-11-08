@@ -9,6 +9,7 @@ using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using BookingYacht.Data.Interfaces;
 using BookingYacht.Data.Models;
+using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,18 +31,6 @@ namespace BookingYacht.Business.Implement.Admin
                 IdTrip= order.IdTrip
             });
         }
-
-        // public static async Task<Order> GetEntity(OrderCreateModel model)
-        // {
-        //     return await Task.Run(() => new Order
-        //     {
-        //         IdAgency = model.IdAgency,
-        //         QuantityOfPerson = model.QuantityOfPerson ?? 0,
-        //         TotalPrice = model.TotalPrice,
-        //         IdTrip= model.IdTrip
-        //     });
-        // }
-        
     }
     
     public class OrdersService : BaseService, IOrdersService
@@ -126,8 +115,8 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task<Order> Add(OrderCreateModel model)
         {
-            var trip = await _unitOfWork.TripRepository.GetById(model.IdTrip);
-
+            
+            //Add Order to DB
             var agency = await _unitOfWork.AgencyRepository.GetById(model.IdAgency);
             
             var addOrder = new Order()
@@ -144,6 +133,24 @@ namespace BookingYacht.Business.Implement.Admin
 
             var result = await _unitOfWork.Context().Orders.AddAsync(addOrder);
             await _unitOfWork.SaveChangesAsync();
+            //Get Token Business:
+            var token = await _unitOfWork.TripRepository.Query()
+                .Where(x => x.Id.Equals(result.Entity.IdTrip))
+                .Join(_unitOfWork.Context().BusinessTours,
+                    arg => arg.IdBusinessTour,
+                    tour => tour.Id,
+                    (arg, tour) => new { BusinessTour = tour })
+                .Join(_unitOfWork.Context().Businesses,
+                    arg => arg.BusinessTour.IdBusiness,
+                    business => business.Id,
+                    (__, business) => business.FcmToken)
+                .FirstOrDefaultAsync();
+        
+            //Send notification - FCM: 
+            var name = FirebaseApp.DefaultInstance.Name;
+            Console.WriteLine("Firebase:" + name);
+
+            await FcmService.SendNotification(result.Entity, token);
             return result.Entity;
         }
 
