@@ -53,7 +53,8 @@ class _TripsState extends State<Trips> {
               if (!isSameDay(_selectedDay, selectedDay)) {
                 // Call `setState()` when updating the selected day
                 setState(() {
-                  _tripController.getBusinessTour();
+                  
+                  _tripController.getBusinessTour(focusedDay);
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });

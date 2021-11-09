@@ -12,7 +12,7 @@ import 'package:settings_ui/settings_ui.dart';
 class Menu extends StatelessWidget {
   final LoginController loginController = Get.find<LoginController>();
   final YachtController yachtController = Get.find<YachtController>();
-  final QRCodeController qrCodeController = Get.find<QRCodeController>();
+  // final QRCodeController qrCodeController = Get.find<QRCodeController>();
   final TourController tourController = Get.find<TourController>();
   final TripController tripController = Get.find<TripController>();
   @override
@@ -43,8 +43,7 @@ class Menu extends StatelessWidget {
                 SettingsTile(
                   title: 'Quét mã QR',
                   leading: const Icon(Icons.qr_code_2_outlined),
-                  onPressed: (BuildContext context) =>
-                      qrCodeController.scanQRCode(),
+                  onPressed: (BuildContext context) => Get.to(QRScan()),
                 ),
               ],
             ),

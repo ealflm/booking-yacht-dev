@@ -7,8 +7,7 @@ import 'package:owners_yacht/controller/trip.dart';
 class HomeController extends GetxController {
   var tabIndex = 0;
   final TripController _tripController = Get.find<TripController>();
-  final OrderController _orderController =
-      Get.find<OrderController>();
+  final OrderController _orderController = Get.find<OrderController>();
   final TicketTypeController _ticketTypeController =
       Get.find<TicketTypeController>();
   final MenuController _menuController = Get.find<MenuController>();
@@ -17,7 +16,7 @@ class HomeController extends GetxController {
     update();
     switch (index) {
       case 0:
-        _tripController.getBusinessTour();
+        _tripController.getBusinessTour(DateTime.now());
         break;
       case 1:
         _orderController.getOrder();

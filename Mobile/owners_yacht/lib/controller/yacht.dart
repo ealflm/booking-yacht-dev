@@ -394,66 +394,27 @@ class YachtController extends GetxController {
   Future<void> uploadImage(File? image) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    try {
-      // String body =
-      //     json.encode({'ImageFile': base64Encode(image!.readAsBytesSync())});
 
-      // final response = await http.post(
-      //   Uri.parse(
-      //       "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/upload"),
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //     "Authorization": "Bearer $token",
-      //   },
-      //   body: {'ImageFile': base64Encode(image!.readAsBytesSync())},
-      // );
-      print(image!.path);
+    try {
+      Map<String, String> headers = {
+        "Authorization": "Bearer $token",
+        "Content-Type": "multipart/form-data"
+      };
       var postUri = Uri.parse(
           "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/upload");
 
-      http.MultipartRequest request = http.MultipartRequest("POST", postUri);
+      var request = http.MultipartRequest("POST", postUri);
 
       http.MultipartFile multipartFile =
           await http.MultipartFile.fromPath('ImageFile', image!.path);
-
+      request.headers.addAll(headers);
       request.files.add(multipartFile);
 
       http.StreamedResponse response = await request.send();
       var responseString = await response.stream.bytesToString();
       imageLink = (json.decode(responseString))['data'];
       print(imageLink);
-      //   var response = Uri.parse("https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/upload");
-      // var request = new http.MultipartRequest("POST", response);
-      // request.fields['user'] = 'blah';
-      // request.files.add(new http.MultipartFile.fromBytes('file', await File.fromUri("${image.path}").readAsBytes(), contentType: new MediaType('image', 'jpeg')))
-
-      // request.send().then((response) {
-      //   if (response.statusCode == 200) print("Uploaded!");
-      // });
-      //   print(response.statusCode);
-      //   if (response.statusCode == 200) {
-      //     Fluttertoast.showToast(
-      //         msg: "Lưu thành công",
-      //         toastLength: Toast.LENGTH_SHORT,
-      //         gravity: ToastGravity.BOTTOM,
-      //         timeInSecForIosWeb: 1,
-      //         backgroundColor: Colors.white,
-      //         textColor: Colors.black,
-      //         fontSize: 16.0);
-      //   } else {
-      //     print('loi upload hinh');
-      //     // Fluttertoast.showToast(
-      //     //     msg: "Lỗi rồi",
-      //     //     toastLength: Toast.LENGTH_SHORT,
-      //     //     gravity: ToastGravity.BOTTOM,
-      //     //     timeInSecForIosWeb: 1,
-      //     //     backgroundColor: Colors.white,
-      //     //     textColor: Colors.black,
-      //     //     fontSize: 16.0);
-      //   }
-    } catch (error) {
-      print(error);
-    }
+    } catch (e) {}
   }
 
   Future pickImage(bool isCamera) async {

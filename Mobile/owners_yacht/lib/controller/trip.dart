@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/business_tour.dart';
 import 'package:owners_yacht/screens/trip_modify.dart';
@@ -15,11 +16,11 @@ class TripController extends GetxController {
   List<BusinessTour> listBusinessTour = <BusinessTour>[].obs;
   @override
   onInit() {
-    getBusinessTour();
+    getBusinessTour(DateTime.now());
     super.onInit();
   }
 
-  Future<List<BusinessTour>?> getBusinessTour() async {
+  Future<List<BusinessTour>?> getBusinessTour(DateTime time) async {
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -27,6 +28,7 @@ class TripController extends GetxController {
     try {
       Map<String, String> queryParams = {
         'idBusiness': idBusiness!,
+        'time': time.toString(),
       };
 
       final response = await http.get(
@@ -38,6 +40,7 @@ class TripController extends GetxController {
           "Authorization": "Bearer $token"
         },
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         var jsonString = response.body;
         var businessTour = businessTourReponseFromJson(jsonString);
