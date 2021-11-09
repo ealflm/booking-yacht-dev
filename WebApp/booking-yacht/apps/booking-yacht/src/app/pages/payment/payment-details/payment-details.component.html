@@ -44,12 +44,12 @@
                         <div class="grid">
                           <div class="col-6 flex">
                             <div class="text-primary">Thời gian: &nbsp;</div>
-                            <div>{{ trip.time }}</div>
+                            <div>{{ trip.time | date: 'medium' }}</div>
                           </div>
-                          <div class="col-6 flex">
+                          <!-- <div class="col-6 flex">
                             <div class="text-primary">Số lượng vé: &nbsp;</div>
                             <div>{{ trip.amountTicket }}</div>
-                          </div>
+                          </div> -->
                         </div>
                         <div class="col-12">
                           <div *ngFor="let order of trip.orders">
