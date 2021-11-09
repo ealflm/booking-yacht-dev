@@ -28,10 +28,12 @@ namespace BookingYacht.Business.Implement.Business
                 .FirstOrDefaultAsync();
             if (businessTour == null)
             {
-                businessTour = new BusinessTour();
-                businessTour.IdTour = model.IdTour;
-                businessTour.IdBusiness = model.IdBusiness;
-                businessTour.Status = (int)Status.ENABLE;
+                businessTour = new BusinessTour
+                {
+                    IdTour = model.IdTour,
+                    IdBusiness = model.IdBusiness,
+                    Status = (int)Status.ENABLE
+                };
                 _unitOfWork.BusinessTourRepository.Query().Add(businessTour);
             }
             await _unitOfWork.SaveChangesAsync();
