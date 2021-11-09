@@ -28,18 +28,17 @@ namespace BookingYacht.API.Controllers.Agency
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TicketSearchModel model)
         {
-            var tickets = await _service.SearchTicketsNavigation(model);
-            List<string> qrList = new List<string>();
-            foreach (Ticket ticket in tickets)
+            var tickets = await _service.SearchTickets(model);
+            foreach (TicketViewModel ticket in tickets)
             {
                 var qr = await _service.GetQRString(ticket.Id);
                 if (!string.IsNullOrEmpty(qr))
                 {
-                    qrList.Add(qr);
+                    ticket.Qr = qr;
                 }
             }
 
-            return Success(qrList);
+            return Success(tickets);
         }
 
         [HttpGet("{id:guid}")]

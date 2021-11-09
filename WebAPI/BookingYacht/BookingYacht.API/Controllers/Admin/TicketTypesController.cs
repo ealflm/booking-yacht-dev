@@ -1,4 +1,4 @@
-﻿using BookingYacht.Business.Interfaces.Business;
+﻿using BookingYacht.Business;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -16,11 +16,12 @@ namespace BookingYacht.API.Controllers.Admin
     [ApiExplorerSettings(GroupName = Role)]
     public class TicketTypesController : BaseAdminController
     {
-        private readonly ITicketTypeService _ticketTypeService;
-
-        public TicketTypesController(ITicketTypeService ticketTypeService)
+        private readonly BookingYacht.Business.Interfaces.Business.ITicketTypeService _ticketTypeService;
+        private readonly BookingYacht.Business.Interfaces.Admin.ITicketTypeService _ticketTypeServiceAdmin;
+        public TicketTypesController(BookingYacht.Business.Interfaces.Business.ITicketTypeService ticketTypeService, BookingYacht.Business.Interfaces.Admin.ITicketTypeService ticketTypeServiceAdmin)
         {
             _ticketTypeService = ticketTypeService;
+            _ticketTypeServiceAdmin = ticketTypeServiceAdmin;
         }
 
 
@@ -35,7 +36,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var ticketType = await _ticketTypeService.GetTicketType(id);
+            var ticketType = await _ticketTypeServiceAdmin.GetNavigation(id);
 
             return Success(ticketType);
         }
@@ -45,7 +46,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Put(Guid id, [FromBody] TicketTypeViewModel model)
         {
             //Set -> Update
-            await _ticketTypeService.UpdateTicketType(id, model);
+            await _ticketTypeServiceAdmin.Set(id, model);
             return Success();
         }
     }

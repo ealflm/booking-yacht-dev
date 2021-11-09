@@ -13,5 +13,6 @@ namespace BookingYacht.Business.ViewModels
         public Guid IdTrip { get; set; }
         public double Price { get; set; }
         public int Status { get; set; }
+        public string Qr { get; set; }
     }
 }
