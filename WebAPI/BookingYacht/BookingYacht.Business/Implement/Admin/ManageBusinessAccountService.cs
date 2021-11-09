@@ -358,7 +358,8 @@ namespace BookingYacht.Business.Implement.Admin
                     PhoneNumber = x.PhoneNumber,
                     Status = x.Status,
                     VnpTmnCode = x.VnpTmnCode,
-                    VnpHashSecret = x.VnpHashSecret
+                    VnpHashSecret = x.VnpHashSecret,
+                    PhotoUrl= x.PhotoUrl
                 }).FirstOrDefaultAsync();
             return business;
         }
@@ -383,7 +384,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Address = x.Address,
                     EmailAddress = x.EmailAddress,
                     PhoneNumber = x.PhoneNumber,
-                    Status = x.Status
+                    Status = x.Status,
+                    PhotoUrl=x.PhotoUrl
                 })
                 .OrderBy(x => x.Name)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))

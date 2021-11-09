@@ -32,6 +32,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Name = x.Name,
                 PhoneNumber = x.PhoneNumber,
                 Status = x.Status,
+                PhotoUrl= x.PhotoUrl
             });
         }
         public static async Task<Data.Models.Agency> CreateNewEntity(AgencyViewModels model)
@@ -44,6 +45,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = model.Name,
                     PhoneNumber = model.PhoneNumber,
                     Status = (int) Status.ENABLE,
+                    PhotoUrl= model.PhotoUrl
                 }
             );
         }
