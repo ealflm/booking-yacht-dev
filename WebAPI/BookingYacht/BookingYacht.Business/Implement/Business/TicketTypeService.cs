@@ -100,10 +100,22 @@ namespace BookingYacht.Business.Implement.Business
                         type => type.IdBusinessTour,
                         tour => tour.Id,
                         (type, tour) => new {TicketType = type, BusinessTour = tour})
+                .Join(_unitOfWork.Context().Businesses,
+                    business => business.BusinessTour.IdBusiness,
+                    arg => arg.Id,
+                    (__, business) => new {Business = business, __.TicketType, __.BusinessTour} )
                 .Join(_unitOfWork.Context().Tours, 
                     arg => arg.BusinessTour.IdTour,
                     tour => tour.Id,
-                    (__, tour) => new {__.TicketType, tour.Id, tour.Title})
+                    (__, tour) => new
+                    {
+                        __.TicketType, 
+                        tour.Id, 
+                        tour.Title,
+                        __.Business.Name,
+                        IdBusiness = __.Business.Id
+                    })
+                //Business Name, Business Id,
                 .Select(x => new TicketTypeViewModel()
                 {
                     Id = x.TicketType.Id,
@@ -115,6 +127,9 @@ namespace BookingYacht.Business.Implement.Business
                     TourName = x.Title,
                     IdBusinessTour = x.TicketType.IdBusinessTour,
                     Status = x.TicketType.Status,
+                    //Field Need
+                    BusinessName = x.Name,
+                    IdBusiness = x.IdBusiness
                 })
                 .OrderBy(x => x.Name)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
