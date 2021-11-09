@@ -84,6 +84,7 @@ class AgencyViewModels {
         this.emailAddress,
         this.phoneNumber,
         this.status,
+        this.photoUrl,
     });
 
     String? id;
@@ -92,7 +93,7 @@ class AgencyViewModels {
     String? emailAddress;
     String? phoneNumber;
     int? status;
-
+    String? photoUrl;
     factory AgencyViewModels.fromJson(Map<String, dynamic> json) => AgencyViewModels(
         id: json["id"],
         name: json["name"],
@@ -100,6 +101,7 @@ class AgencyViewModels {
         emailAddress: json["emailAddress"],
         phoneNumber: json["phoneNumber"],
         status: json["status"],
+        photoUrl: json["photoUrl"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -109,5 +111,6 @@ class AgencyViewModels {
         "emailAddress": emailAddress,
         "phoneNumber": phoneNumber,
         "status": status,
+        "photoUrl": photoUrl,
     };
 }

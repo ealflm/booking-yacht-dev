@@ -38,9 +38,24 @@ class YachtController extends GetxController {
   TextEditingController statusController = TextEditingController();
   TextEditingController descriptionsController = TextEditingController();
 
+  @override
+  onInit() {
+    fetchYachts();
+    super.onInit();
+  }
+
   void changeCategory(value) {
     categoryController = value;
     update();
+  }
+
+  void getYacht() {
+    if (listYacht.isNotEmpty) {
+      update();
+      Get.to(Yachts());
+    } else {
+      print('loi o get yacht');
+    }
   }
 
   Future<List<Yacht>?> fetchYachts() async {
@@ -62,22 +77,6 @@ class YachtController extends GetxController {
           "Authorization": "Bearer $token"
         },
       );
-
-      // final response = await http.get(
-      //   Uri.parse(
-      //       "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles"),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": "Bearer $token"
-      //   },
-      // );
-
-      // final uri = Uri.https("https://booking-yacht.azurewebsites.net", "/api/v1.0/business/vehicles", queryParams);
-      // final response = await http.get(uri, headers: {
-      //   HttpHeaders.authorizationHeader: 'Bearer $token',
-      //   HttpHeaders.contentTypeHeader: 'application/json',
-      // });
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var yachts = yachtReponseFromJson(response.body);
         print(response.body);
@@ -86,7 +85,7 @@ class YachtController extends GetxController {
         }
         getCategory();
         update();
-        Get.to(Yachts());
+        // Get.to(Yachts());
       } else {
         return null;
       }
@@ -394,66 +393,27 @@ class YachtController extends GetxController {
   Future<void> uploadImage(File? image) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    try {
-      // String body =
-      //     json.encode({'ImageFile': base64Encode(image!.readAsBytesSync())});
 
-      // final response = await http.post(
-      //   Uri.parse(
-      //       "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/upload"),
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //     "Authorization": "Bearer $token",
-      //   },
-      //   body: {'ImageFile': base64Encode(image!.readAsBytesSync())},
-      // );
-      print(image!.path);
+    try {
+      Map<String, String> headers = {
+        "Authorization": "Bearer $token",
+        "Content-Type": "multipart/form-data"
+      };
       var postUri = Uri.parse(
           "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/upload");
 
-      http.MultipartRequest request = http.MultipartRequest("POST", postUri);
+      var request = http.MultipartRequest("POST", postUri);
 
       http.MultipartFile multipartFile =
           await http.MultipartFile.fromPath('ImageFile', image!.path);
-
+      request.headers.addAll(headers);
       request.files.add(multipartFile);
 
       http.StreamedResponse response = await request.send();
       var responseString = await response.stream.bytesToString();
       imageLink = (json.decode(responseString))['data'];
       print(imageLink);
-      //   var response = Uri.parse("https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles/upload");
-      // var request = new http.MultipartRequest("POST", response);
-      // request.fields['user'] = 'blah';
-      // request.files.add(new http.MultipartFile.fromBytes('file', await File.fromUri("${image.path}").readAsBytes(), contentType: new MediaType('image', 'jpeg')))
-
-      // request.send().then((response) {
-      //   if (response.statusCode == 200) print("Uploaded!");
-      // });
-      //   print(response.statusCode);
-      //   if (response.statusCode == 200) {
-      //     Fluttertoast.showToast(
-      //         msg: "Lưu thành công",
-      //         toastLength: Toast.LENGTH_SHORT,
-      //         gravity: ToastGravity.BOTTOM,
-      //         timeInSecForIosWeb: 1,
-      //         backgroundColor: Colors.white,
-      //         textColor: Colors.black,
-      //         fontSize: 16.0);
-      //   } else {
-      //     print('loi upload hinh');
-      //     // Fluttertoast.showToast(
-      //     //     msg: "Lỗi rồi",
-      //     //     toastLength: Toast.LENGTH_SHORT,
-      //     //     gravity: ToastGravity.BOTTOM,
-      //     //     timeInSecForIosWeb: 1,
-      //     //     backgroundColor: Colors.white,
-      //     //     textColor: Colors.black,
-      //     //     fontSize: 16.0);
-      //   }
-    } catch (error) {
-      print(error);
-    }
+    } catch (e) {}
   }
 
   Future pickImage(bool isCamera) async {

@@ -28,9 +28,10 @@ class LoginController extends GetxController {
       firebaseAuth = FirebaseAuth.instance;
 
       User? currentUser = FirebaseAuth.instance.currentUser;
+      print(currentUser);
       if (currentUser == null) {
         final googleUser = await GoogleSignIn().signIn();
-
+        print(googleUser);
         final googleAuth = await googleUser!.authentication;
 
         final credential = GoogleAuthProvider.credential(
@@ -56,6 +57,7 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         final responseData = json.decode(response.body);
+
         Map<String, dynamic> payload = Jwt.parseJwt(response.body);
         print(payload);
         var token = responseData['data'];
@@ -84,10 +86,10 @@ class LoginController extends GetxController {
   void sendToken(String tokenDevice) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    // final String? idBusiness = prefs.getString('idBusiness');
+    final String? idBusiness = prefs.getString('idBusiness');
     try {
       String body = json.encode(
-          {'id': '68554b5a-817b-453c-992c-149662a8e710', 'token': tokenDevice});
+          {'id': idBusiness, 'token': tokenDevice});
 
       final response = await http.post(
         Uri.parse(
@@ -99,11 +101,7 @@ class LoginController extends GetxController {
         body: body,
       );
       if (response.statusCode == 200) {
-        print('ok device len');
-        print(tokenDevice);
-      } else {
-        print('loi o save roi ');
-      }
+      } else {}
     } catch (e) {}
   }
 }
