@@ -4,13 +4,17 @@ import { BusinessAccount } from './../../models/business-account';
 import { async } from '@angular/core/testing';
 import { MessageService } from 'primeng/api';
 import { TicketType } from './../../models/ticket-types';
-import { SECONDARY_STATUS, TICKET_STATUS, AGENCY_STATUS } from './../../constants/STATUS';
+import {
+  SECONDARY_STATUS,
+  TICKET_STATUS,
+  AGENCY_STATUS,
+} from './../../constants/STATUS';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TicketTypeService } from './../../services/ticket-type.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { timer } from 'rxjs';
+import { timer, Subscription } from 'rxjs';
 import { Tour } from '../../models/tours';
 
 @Component({
@@ -28,6 +32,7 @@ export class TicketTypeFormComponent implements OnInit {
   business?: BusinessAccount;
   tour!: Tour;
   tourStatus = AGENCY_STATUS;
+  subscription$ = new Subscription();
   constructor(
     private router: Router,
     private location: Location,
@@ -37,19 +42,20 @@ export class TicketTypeFormComponent implements OnInit {
     private messageService: MessageService,
     private bussinessService: BusinessAccountService,
     private tourService: ToursService
-
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params.id) {
         this.currentUser = params.id;
-        this.ticketTypeService
+        this.subscription$ = this.ticketTypeService
           .getTicketType(this.currentUser)
           .subscribe(async (res) => {
             this.tickesType = await res.data;
             // console.log(res.data);
-
+            if (res.data == null) {
+              this.subscription$.unsubscribe();
+            }
             this.bussinessService
               .getBusinessAccountByID(
                 res.data.idBusinessTourNavigation.idBusiness
