@@ -72,7 +72,8 @@ namespace BookingYacht.Business.Implement.Admin
                         Id = arg.Agency.Id,
                         Name = arg.Agency.Name,
                         PhoneNumber = arg.Agency.PhoneNumber,
-                        Status = arg.Agency.Status
+                        Status = arg.Agency.Status,
+                        PhotoUrl = arg.Agency.PhotoUrl
                     }
                 })
                 .ToListAsync();
