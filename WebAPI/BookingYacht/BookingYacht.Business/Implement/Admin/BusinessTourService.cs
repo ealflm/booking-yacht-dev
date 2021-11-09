@@ -63,12 +63,21 @@ namespace BookingYacht.Business.Implement.Admin
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessTourRepository.Query().Count())
                 .ToListAsync();
-            foreach(BusinessTourViewModel businessTour in list)
+            for(int i=0;i<list.Count;)
             {
-                foreach(TripViewModel trip in businessTour.Trips)
+                if (list[i].IdTourNavigation.Status == (int)Status.DISABLE)
                 {
-                    trip.IdVehicleNavigation.IdBusinessNavigation = null;
+                    list.RemoveAt(i);
                 }
+                else
+                {
+                    foreach (TripViewModel trip in list[i].Trips)
+                    {
+                        trip.IdVehicleNavigation.IdBusinessNavigation = null;
+                    }
+                    i++;
+                }
+                
             }
             return list;
         }
