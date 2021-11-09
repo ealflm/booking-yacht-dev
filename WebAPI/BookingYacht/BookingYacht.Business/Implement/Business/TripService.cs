@@ -22,19 +22,12 @@ namespace BookingYacht.Business.Implement.Business
 
         public async Task<Guid> AddTrip(TripViewModel model)
         {
-
-            var businessTour = await _unitOfWork.BusinessTourRepository.Query()
-                .Where(x => x.IdBusiness.Equals(model.IdBusiness))
-                .Where(x => x.IdTour.Equals(model.IdTour))
-                .FirstOrDefaultAsync();
-            
-            await _unitOfWork.SaveChangesAsync();
-
+          
             var trip = new Trip()
             {
                 Id = model.Id,
                 Time= model.Time ,
-                IdBusinessTour= businessTour.Id,
+                IdBusinessTour= model.IdBusinessTour,
                 IdVehicle= model.IdVehicle,
                 AmountTicket = model.AmountTicket,
                 Status = model.Status
