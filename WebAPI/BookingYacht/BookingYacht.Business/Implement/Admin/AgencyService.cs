@@ -270,6 +270,7 @@ namespace BookingYacht.Business.Implement.Admin
                 new Claim("Name", model.Name ?? ""),
                 new Claim("EmailAdress", model.EmailAddress ?? ""),
                 new Claim("PhoneNumber", model.PhoneNumber ?? ""),
+                new Claim("PhotoUrl", model.PhotoUrl ?? ""),
                 new Claim("Role", model.Status == 1 ? "admin" : "non-admin"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
