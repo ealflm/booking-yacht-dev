@@ -34,18 +34,20 @@ export class TicketTypeComponent implements OnInit {
   getTicketTypes() {
     this.ticketTypeService.getTicketTypes().subscribe((ticketTypeRes) => {
       this.ticketType = ticketTypeRes.data;
-      this.ticketType.map((ticketTypeRes2: any | TicketType) => {
-        // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
-        this.business
-          .getBusinessAccountByID(
-            ticketTypeRes2.idBusinessTourNavigation?.idBusiness
-          )
-          .subscribe((bussinessRes) => {
-            // console.log(bussinessRes);
+      console.log(ticketTypeRes);
 
-            ticketTypeRes2.nameBusiness = bussinessRes.data.name;
-          });
-      });
+      // this.ticketType.map((ticketTypeRes2: any | TicketType) => {
+      //   console.log(ticketTypeRes2);
+      //   this.business
+      //     .getBusinessAccountByID(
+      //       ticketTypeRes2.idBusinessTourNavigation?.idBusiness
+      //     )
+      // .subscribe((bussinessRes) => {
+      // console.log(bussinessRes);
+
+      //   ticketTypeRes2.nameBusiness = bussinessRes.data.name;
+      // });
+      // });
       timer(1000).subscribe(() => {
         this.loading = false;
       });
@@ -60,18 +62,18 @@ export class TicketTypeComponent implements OnInit {
         .getTicketTypes(status)
         .subscribe((ticketTypeRes) => {
           this.ticketType = ticketTypeRes.data;
-          this.ticketType.map((ticketTypeRes2: any | TicketType) => {
-            // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
-            this.business
-              .getBusinessAccountByID(
-                ticketTypeRes2.idBusinessTourNavigation?.idBusiness
-              )
-              .subscribe((bussinessRes) => {
-                // console.log(bussinessRes);
+          // this.ticketType.map((ticketTypeRes2: any | TicketType) => {
+          //   // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
+          //   this.business
+          //     .getBusinessAccountByID(
+          //       ticketTypeRes2.idBusinessTourNavigation?.idBusiness
+          //     )
+          //     .subscribe((bussinessRes) => {
+          //       // console.log(bussinessRes);
 
-                ticketTypeRes2.nameBusiness = bussinessRes.data.name;
-              });
-          });
+          //       ticketTypeRes2.nameBusiness = bussinessRes.data.name;
+          //     });
+          // });
           timer(1000).subscribe(() => {
             this.loading = false;
           });
@@ -84,18 +86,18 @@ export class TicketTypeComponent implements OnInit {
             this.loading = false;
           });
           this.ticketType = ticketTypeRes.data;
-          this.ticketType.map((ticketTypeRes2: any | TicketType) => {
-            // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
-            this.business
-              .getBusinessAccountByID(
-                ticketTypeRes2.idBusinessTourNavigation?.idBusiness
-              )
-              .subscribe((bussinessRes) => {
-                // console.log(bussinessRes);
+          // this.ticketType.map((ticketTypeRes2: any | TicketType) => {
+          //   // console.log(ticketTypeRes2.idBusinessTourNavigation.idBusiness);
+          //   this.business
+          //     .getBusinessAccountByID(
+          //       ticketTypeRes2.idBusinessTourNavigation?.idBusiness
+          //     )
+          //     .subscribe((bussinessRes) => {
+          //       // console.log(bussinessRes);
 
-                ticketTypeRes2.nameBusiness = bussinessRes.data.name;
-              });
-          });
+          //       ticketTypeRes2.nameBusiness = bussinessRes.data.name;
+          //     });
+          // });
         });
     }
   }
