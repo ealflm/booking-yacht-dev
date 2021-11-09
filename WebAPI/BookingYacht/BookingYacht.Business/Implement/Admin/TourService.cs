@@ -15,20 +15,19 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class TourService : BaseService, ITourService
     {
-
         public TourService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
+
         public async Task<Guid> AddTour(TourViewModel model)
         {
             var tour = new Tour()
             {
                 Id = model.Id,
-                Title= model.Title,
-                Descriptions= model.Descriptions,
+                Title = model.Title,
+                Descriptions = model.Descriptions,
                 Status = model.Status,
-                ImageLink= model.ImageLink
+                ImageLink = model.ImageLink
             };
             tour.Status = (int)Status.ENABLE;
             await _unitOfWork.TourRepository.Add(tour);
@@ -43,10 +42,10 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new Tour()
                 {
                     Id = x.Id,
-                    Title=x.Title,
-                    Descriptions= x.Descriptions,
+                    Title = x.Title,
+                    Descriptions = x.Descriptions,
                     Status = x.Status,
-                    ImageLink= x.ImageLink
+                    ImageLink = x.ImageLink
                 }).FirstOrDefaultAsync();
             tour.Status = (int)Status.DISABLE;
             _unitOfWork.TourRepository.Update(tour);
@@ -60,29 +59,31 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new TourViewModel()
                 {
                     Id = x.Id,
-                    Title= x.Title,
-                    Descriptions= x.Descriptions,
+                    Title = x.Title,
+                    Descriptions = x.Descriptions,
                     Status = x.Status,
-                    ImageLink= x.ImageLink,
-                    DestinationTours= _unitOfWork.DestinationTourRepository.Query()
-                .Where(y =>  y.IdTour.Equals(x.Id))
-                .Select(y => new DestinationTourViewModel()
-                {
-                    Id = y.Id,
-                    IdDestination = y.IdDestination,
-                    IdTour = y.IdTour,
-                    Order = y.Order,
-                    Destination= _unitOfWork.DestinationRepository.Query()
-                .Where(z => z.Id.Equals(y.IdDestination))
-               .FirstOrDefault()
-        })
-                .OrderBy(x => x.Order)
-                .ToList()
-        }).FirstOrDefaultAsync();
-            foreach(DestinationTourViewModel destinationTour in tour.DestinationTours)
+                    ImageLink = x.ImageLink,
+                    DestinationTours = _unitOfWork.DestinationTourRepository.Query()
+                        .Where(y => y.IdTour.Equals(x.Id))
+                        .Select(y => new DestinationTourViewModel()
+                        {
+                            Id = y.Id,
+                            IdDestination = y.IdDestination,
+                            IdTour = y.IdTour,
+                            Order = y.Order,
+                            Destination = _unitOfWork.DestinationRepository.Query()
+                                .Where(z => z.Id.Equals(y.IdDestination))
+                                .FirstOrDefault()
+                        })
+                        .OrderBy(x => x.Order)
+                        .ToList()
+                }).FirstOrDefaultAsync();
+            foreach (DestinationTourViewModel destinationTour in tour.DestinationTours)
             {
-                destinationTour.PlaceType = _unitOfWork.PlaceTypeRepository.GetById(destinationTour.Destination.IdPlaceType).Result.Name;
+                destinationTour.PlaceType = _unitOfWork.PlaceTypeRepository
+                    .GetById(destinationTour.Destination.IdPlaceType).Result.Name;
             }
+
             return tour;
         }
 
@@ -92,22 +93,25 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 model = new TourSearchModel();
             }
+
             var tours = await _unitOfWork.TourRepository.Query()
-                .Where(x => model.Title == null | x.Title.Contains(model.Title) || x.Descriptions.Contains(model.Descriptions))
+                .Where(x => model.Title == null | x.Title.Contains(model.Title) ||
+                            x.Descriptions.Contains(model.Descriptions))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
                 .Select(x => new TourViewModel()
                 {
                     Id = x.Id,
-                    Title= x.Title,
-                    Descriptions= x.Descriptions,
+                    Title = x.Title,
+                    Descriptions = x.Descriptions,
                     Status = x.Status,
-                    ImageLink= x.ImageLink
+                    ImageLink = x.ImageLink
                 })
                 .OrderBy(x => x.Title)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
-
-                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TourRepository.Query()
-                    .Count())
+                .Take((model.Page != 0)
+                    ? model.AmountItem
+                    : _unitOfWork.TourRepository.Query()
+                        .Count())
                 .ToListAsync();
             return tours;
         }
@@ -117,10 +121,10 @@ namespace BookingYacht.Business.Implement.Admin
             var tour = new Tour()
             {
                 Id = id,
-                Title= model.Title,
-                Descriptions= model.Descriptions,
+                Title = model.Title,
+                Descriptions = model.Descriptions,
                 Status = model.Status,
-                ImageLink= model.ImageLink
+                ImageLink = model.ImageLink
             };
             _unitOfWork.TourRepository.Update(tour);
             await _unitOfWork.SaveChangesAsync();

@@ -4,7 +4,6 @@ namespace BookingYacht.Business.SearchModels
 {
     public class OpenLoginSearchModel
     {
-        [Required]
-        public string IdToken { get; set; }
+        [Required] public string IdToken { get; set; }
     }
 }

@@ -20,7 +20,9 @@ namespace BookingYacht.API.Utilities.Swagger
 
         private static string ToPascalCase(string kebabCase)
         {
-            return string.Join(string.Empty, kebabCase.Split(new char[] { '-', '_' }).Select(str => str.Length > 0 ? char.ToUpper(str[0]) + str.Substring(1) : str));
+            return string.Join(string.Empty,
+                kebabCase.Split(new char[] { '-', '_' })
+                    .Select(str => str.Length > 0 ? char.ToUpper(str[0]) + str.Substring(1) : str));
         }
     }
 }

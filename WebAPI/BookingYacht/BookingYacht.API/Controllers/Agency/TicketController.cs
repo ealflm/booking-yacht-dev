@@ -18,7 +18,6 @@ namespace BookingYacht.API.Controllers.Agency
     [ApiExplorerSettings(GroupName = Role)]
     public class TicketController : BaseAgencyController
     {
-        
         private readonly ITicketService _service;
 
         public TicketController(ITicketService service)
@@ -31,15 +30,15 @@ namespace BookingYacht.API.Controllers.Agency
         {
             var tickets = await _service.SearchTicketsNavigation(model);
             List<string> qrList = new List<string>();
-            foreach(Ticket ticket in tickets)
+            foreach (Ticket ticket in tickets)
             {
                 var qr = await _service.GetQRString(ticket.Id);
                 if (!string.IsNullOrEmpty(qr))
                 {
                     qrList.Add(qr);
                 }
-                
             }
+
             return Success(qrList);
         }
 
@@ -54,8 +53,7 @@ namespace BookingYacht.API.Controllers.Agency
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TicketsInsertModel model)
         {
-
-            for(int i=0; i< model.CustomerNames.Count; i++)
+            for (int i = 0; i < model.CustomerNames.Count; i++)
             {
                 TicketViewModel ticket = new TicketViewModel();
                 ticket.IdOrder = model.IdOrder;
@@ -65,6 +63,7 @@ namespace BookingYacht.API.Controllers.Agency
                 ticket.IdTicketType = model.IdTicketTypes[i];
                 await _service.AddTicket(ticket);
             }
+
             return Success();
         }
     }

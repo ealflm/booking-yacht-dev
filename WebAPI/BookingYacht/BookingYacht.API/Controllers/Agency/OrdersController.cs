@@ -14,7 +14,7 @@ namespace BookingYacht.API.Controllers.Agency
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(GroupName = Role)]
-    public class OrdersController: BaseAgencyController
+    public class OrdersController : BaseAgencyController
     {
         private readonly IOrdersService _service;
         private const string PrivateKey = "AppData/Firebase/firebase-admin.json";
@@ -59,6 +59,5 @@ namespace BookingYacht.API.Controllers.Agency
             var delete = await _service.Delete(id);
             return delete ? Success() : Fail("The Order's not exist");
         }
-        
     }
 }

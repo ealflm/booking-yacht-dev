@@ -32,7 +32,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
             var agencies = await _service.GetAgency(id);
-           
+
             return Success(agencies);
         }
 
@@ -62,6 +62,5 @@ namespace BookingYacht.API.Controllers.Admin
         {
             return Success(await _service.Count());
         }
-        
     }
 }

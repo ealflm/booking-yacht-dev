@@ -181,33 +181,33 @@ namespace BookingYacht.Business.Implement.Admin
 
                         _unitOfWork.BusinessRepository.Update(model);
 
-					    result = new BusinessViewModel()
-					    {
-							Id = model.Id,
-							Uid = model.Uid,
-							Name = model.Name,
-							EmailAddress = model.EmailAddress,
-							//Password = model.Password,
-							PhoneNumber = model.PhoneNumber,
-							PhotoUrl = model.PhotoUrl,
-							Status = model.Status
-					    };
+                        result = new BusinessViewModel()
+                        {
+                            Id = model.Id,
+                            Uid = model.Uid,
+                            Name = model.Name,
+                            EmailAddress = model.EmailAddress,
+                            //Password = model.Password,
+                            PhoneNumber = model.PhoneNumber,
+                            PhotoUrl = model.PhotoUrl,
+                            Status = model.Status
+                        };
                     }
                     else
                     {
                         await _unitOfWork.BusinessRepository.Add(adminModel);
 
-					    result = new BusinessViewModel()
-					    {
-							Id = adminModel.Id,
-							Uid = adminModel.Uid,
-							Name = adminModel.Name,
-							EmailAddress = adminModel.EmailAddress,
+                        result = new BusinessViewModel()
+                        {
+                            Id = adminModel.Id,
+                            Uid = adminModel.Uid,
+                            Name = adminModel.Name,
+                            EmailAddress = adminModel.EmailAddress,
                             //Password = adminModel.Password,
                             PhoneNumber = adminModel.PhoneNumber,
-							PhotoUrl = adminModel.PhotoUrl,
-							Status = adminModel.Status
-					    };
+                            PhotoUrl = adminModel.PhotoUrl,
+                            Status = adminModel.Status
+                        };
                     }
 
                     //if (status != 1)
@@ -383,7 +383,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Status = x.Status,
                     VnpTmnCode = x.VnpTmnCode,
                     VnpHashSecret = x.VnpHashSecret,
-                    PhotoUrl= x.PhotoUrl
+                    PhotoUrl = x.PhotoUrl
                 }).FirstOrDefaultAsync();
             return business;
         }
@@ -409,7 +409,7 @@ namespace BookingYacht.Business.Implement.Admin
                     EmailAddress = x.EmailAddress,
                     PhoneNumber = x.PhoneNumber,
                     Status = x.Status,
-                    PhotoUrl=x.PhotoUrl
+                    PhotoUrl = x.PhotoUrl
                 })
                 .OrderBy(x => x.Name)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
@@ -681,18 +681,18 @@ namespace BookingYacht.Business.Implement.Admin
             var result = await _unitOfWork.BusinessRepository.Query()
                 .Where(x => model.Id == Guid.Empty || x.Id.Equals(model.Id))
                 .FirstOrDefaultAsync();
-            if (result is not null && 
-                model.Token is not  null && 
+            if (result is not null &&
+                model.Token is not null &&
                 model.Token.Length > 0)
             {
                 result.FcmToken = model.Token;
                 _unitOfWork.BusinessRepository.Update(result);
                 await _unitOfWork.SaveChangesAsync();
-            }            
+            }
 
-            return !( result is null || 
-                      model.Token is null ||
-                      model.Token.Length <= 0);
+            return !(result is null ||
+                     model.Token is null ||
+                     model.Token.Length <= 0);
         }
 
         #endregion

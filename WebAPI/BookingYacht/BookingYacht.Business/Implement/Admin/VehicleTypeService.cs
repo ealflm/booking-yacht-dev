@@ -14,8 +14,8 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class VehicleTypeService : BaseService, IVehicleTypeService
     {
-        private const int Count = (int) CountElement.AtLeast;
-        
+        private const int Count = (int)CountElement.AtLeast;
+
         public VehicleTypeService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
@@ -57,9 +57,9 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 Id = model.Id,
                 Name = model.Name,
-                Status = (int) Status.ENABLE
+                Status = (int)Status.ENABLE
             };
-            var add =  _unitOfWork.VehicleTypeRepository.Query().Add(type);
+            var add = _unitOfWork.VehicleTypeRepository.Query().Add(type);
             await _unitOfWork.SaveChangesAsync();
             return add.Entity.Id;
         }
@@ -67,18 +67,16 @@ namespace BookingYacht.Business.Implement.Admin
         public async Task<bool> UpdateVehicleType(Guid id, VehicleTypeViewModel model)
         {
             var entity = _unitOfWork.VehicleTypeRepository.GetById(id).Result;
-            
+
             if (entity == null) return false;
-            
+
             entity.Name = model.Name;
             entity.Status = model.Status;
             _unitOfWork.VehicleTypeRepository.Update(entity);
             await _unitOfWork.SaveChangesAsync();
             return true;
-
         }
 
-     
 
         public async Task<bool> DeleteVehicleType(Guid id)
         {
@@ -88,7 +86,6 @@ namespace BookingYacht.Business.Implement.Admin
             _unitOfWork.VehicleTypeRepository.Update(entityById);
             await _unitOfWork.SaveChangesAsync();
             return true;
-
         }
     }
 }

@@ -24,12 +24,14 @@ namespace BookingYacht.API.Controllers.Business
 
         private readonly IVehicleService _agencyService;
         private readonly IFileManagerLogic _fileManagerLogic;
+
         [HttpGet()]
         public async Task<IActionResult> Search([FromQuery] VehicleSearchModel model)
         {
             var vehicles = await _agencyService.SearchVehicles(model);
             return Success(vehicles);
-        }  
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -45,13 +47,13 @@ namespace BookingYacht.API.Controllers.Business
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, 
-                                                [FromBody] VehicleViewModel model)
+        public async Task<IActionResult> Update(Guid id,
+            [FromBody] VehicleViewModel model)
         {
             await _agencyService.UpdateVehicle(id, model);
             return Success();
         }
-        
+
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Update(Guid id)
         {
@@ -67,9 +69,8 @@ namespace BookingYacht.API.Controllers.Business
             {
                 await _fileManagerLogic.Upload(model);
             }
-            return Success("https://swd3915.blob.core.windows.net/images/"+model.ImageFile.FileName);
+
+            return Success("https://swd3915.blob.core.windows.net/images/" + model.ImageFile.FileName);
         }
-
-
     }
 }

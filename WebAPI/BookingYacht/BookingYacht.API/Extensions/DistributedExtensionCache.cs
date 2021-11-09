@@ -23,15 +23,14 @@ namespace BookingYacht.API.Extensions
             };
 
 
-            var jsonData = JsonConvert.SerializeObject(data, Formatting.Indented, 
-                new JsonSerializerSettings 
-                { 
+            var jsonData = JsonConvert.SerializeObject(data, Formatting.Indented,
+                new JsonSerializerSettings
+                {
                     PreserveReferencesHandling = PreserveReferencesHandling.Objects
                 });
 
             // var jsonData = JsonSerializer.Serialize(data);
             await cache.SetStringAsync(recordId, jsonData, option);
-
         }
 
         public static async Task<T> GetRecordAsync<T>(

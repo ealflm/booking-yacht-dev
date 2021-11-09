@@ -15,11 +15,10 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class PlaceTypeService : BaseService, IPlaceTypeService
     {
-
         public PlaceTypeService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
+
         public async Task<Guid> AddPlaceType(PlaceTypeViewModel model)
         {
             var placeType = new PlaceType()
@@ -68,6 +67,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 model = new PlaceTypeSearchModel();
             }
+
             var placeType = await _unitOfWork.PlaceTypeRepository.Query()
                 .Where(x => model.Name == null | x.Name.Contains(model.Name))
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
@@ -95,6 +95,5 @@ namespace BookingYacht.Business.Implement.Admin
             _unitOfWork.PlaceTypeRepository.Update(placeType);
             await _unitOfWork.SaveChangesAsync();
         }
-
     }
 }

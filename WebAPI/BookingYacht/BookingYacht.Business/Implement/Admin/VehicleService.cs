@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
 {
-
     public class VehicleService : BaseService, IVehicleService
     {
         public VehicleService(IUnitOfWork unitOfWork) : base(unitOfWork)
@@ -26,7 +25,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.Name == null | x.Name.Equals(model.Name))
                 .Where(x => model.RegistrationNumber == null | x.RegistrationNumber.Equals(model.RegistrationNumber))
                 .Where(x => model.WhereProduction == null | x.WhereProduction.Equals(model.WhereProduction))
-                .Where(x => model.YearOfManufacture == null | x.YearOfManufacture==model.YearOfManufacture)
+                .Where(x => model.YearOfManufacture == null | x.YearOfManufacture == model.YearOfManufacture)
                 .Where(x => model.Descriptions == null | x.Descriptions.Equals(model.Descriptions))
                 .Where(x => model.Seat == null | x.Seat == model.Seat)
                 .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
@@ -38,16 +37,16 @@ namespace BookingYacht.Business.Implement.Admin
                 .Select(x => new VehicleViewModel()
                 {
                     Id = x.Id,
-                    RegistrationNumber=x.RegistrationNumber,
-                    WhereProduction=x.WhereProduction,
-                    YearOfManufacture=x.YearOfManufacture,
+                    RegistrationNumber = x.RegistrationNumber,
+                    WhereProduction = x.WhereProduction,
+                    YearOfManufacture = x.YearOfManufacture,
                     Descriptions = x.Descriptions,
                     IdBusiness = x.IdBusiness,
                     IdVehicleType = x.IdVehicleType,
                     Name = x.Name,
                     Seat = x.Seat,
                     Status = x.Status,
-                    ImageLink= x.ImageLink
+                    ImageLink = x.ImageLink
                 })
                 .OrderBy(x => x.Seat)
                 .ToListAsync();
@@ -93,10 +92,11 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = x.Name,
                     Seat = x.Seat,
                     Status = x.Status,
-                    ImageLink= x.ImageLink
+                    ImageLink = x.ImageLink
                 }).FirstOrDefaultAsync();
             return value;
-        } 
+        }
+
         public async Task<Vehicle> GetVehicleNavigation(Guid id)
         {
             var value = await _unitOfWork.Context().Vehicles
@@ -120,8 +120,8 @@ namespace BookingYacht.Business.Implement.Admin
                     IdVehicleType = model.IdVehicleType,
                     Name = model.Name,
                     Seat = model.Seat,
-                    Status = (int) Status.ENABLE,
-                    ImageLink= model.ImageLink
+                    Status = (int)Status.ENABLE,
+                    ImageLink = model.ImageLink
                 });
             await _unitOfWork.SaveChangesAsync();
             return vehicle.Entity.Id;
@@ -142,7 +142,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = model.Name,
                     Seat = model.Seat,
                     Status = model.Status,
-                    ImageLink= model.ImageLink
+                    ImageLink = model.ImageLink
                 });
             if (vehicle.Entity == null) return false;
 
@@ -153,9 +153,9 @@ namespace BookingYacht.Business.Implement.Admin
         public async Task<bool> DeleteVehicle(Guid id)
         {
             var vehicle = _unitOfWork.VehicleRepository.GetById(id).Result;
-            
+
             if (vehicle == null) return false;
-            
+
             vehicle.Status = (int)Status.DISABLE;
             _unitOfWork.VehicleRepository.Update(vehicle);
             await _unitOfWork.SaveChangesAsync();

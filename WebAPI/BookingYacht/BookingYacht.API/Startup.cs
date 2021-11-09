@@ -49,9 +49,8 @@ namespace BookingYacht.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             // var googleCredential = _hoistingEnvironment.ContentRootPath;
-            
+
             services.AddDbContext<BookingYachtContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("BookingYacht")));
 
@@ -87,10 +86,7 @@ namespace BookingYacht.API
 
             services.AddCors(option =>
             {
-                option.AddDefaultPolicy(builder =>
-                {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-                });
+                option.AddDefaultPolicy(builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -111,22 +107,22 @@ namespace BookingYacht.API
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                  {
+                {
                     {
-                      new OpenApiSecurityScheme
-                      {
-                        Reference = new OpenApiReference
-                          {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                          },
-                          Scheme = "oauth2",
-                          Name = "Bearer",
-                          In = ParameterLocation.Header,
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
                         },
                         new List<string>()
-                      }
-                    });
+                    }
+                });
 
                 c.DocumentFilter<KebabCaseDocumentFilter>();
 
@@ -155,9 +151,9 @@ namespace BookingYacht.API
             });
 
             services.AddSingleton(FirebaseApp.Create(new AppOptions()
-            {
-                Credential = GoogleCredential.FromFile(Configuration["Firebase:Admin"]),
-            })
+                {
+                    Credential = GoogleCredential.FromFile(Configuration["Firebase:Admin"]),
+                })
             );
 
             services.AddStackExchangeRedisCache(options =>
@@ -171,7 +167,9 @@ namespace BookingYacht.API
 
             services.AddTransient<IManageBusinessAccountService, ManageBusinessAccountService>();
             services.AddTransient<IPlaceTypeService, PlaceTypeService>();
-            services.AddTransient<Business.Interfaces.Admin.ITicketTypeService, Business.Implement.Admin.TicketTypeService>();
+            services
+                .AddTransient<Business.Interfaces.Admin.ITicketTypeService,
+                    Business.Implement.Admin.TicketTypeService>();
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<IDestinationTourService, DestinationTourService>();
             services.AddTransient<ITourService, TourService>();
@@ -181,14 +179,15 @@ namespace BookingYacht.API
             services.AddTransient<IAgencyService, AgencyService>();
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<ITicketService, TickService>();
-            services.AddTransient<Business.Interfaces.Business.ITicketTypeService, Business.Implement.Business.TicketTypeService>();
+            services
+                .AddTransient<Business.Interfaces.Business.ITicketTypeService,
+                    Business.Implement.Business.TicketTypeService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IBusinessTourService, BusinessTourService>();
 
             services.AddScoped(_ => new BlobServiceClient(Configuration.GetConnectionString("AzureBlobStorage")));
 
             services.AddScoped<IFileManagerLogic, FileManagerLogic>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

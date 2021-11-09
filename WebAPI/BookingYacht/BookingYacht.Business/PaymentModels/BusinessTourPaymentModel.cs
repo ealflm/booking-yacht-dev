@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.Business.PaymentModels
 {
-  public   class BusinessTourPaymentModel
+    public class BusinessTourPaymentModel
     {
         public Guid Id { get; set; }
         public Guid IdBusiness { get; set; }

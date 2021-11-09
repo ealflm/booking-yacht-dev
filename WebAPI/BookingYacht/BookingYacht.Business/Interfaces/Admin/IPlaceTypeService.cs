@@ -15,5 +15,5 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<Guid> AddPlaceType(PlaceTypeViewModel model);
         Task UpdatePlaceType(Guid id, PlaceTypeViewModel model);
         Task DeletePlaceType(Guid id);
-    }   
+    }
 }

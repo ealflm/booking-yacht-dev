@@ -27,21 +27,21 @@ namespace BookingYacht.Data.Repositories
         public IGenericRepository<VehicleType> VehicleTypeRepository { get; }
 
         public UnitOfWork(BookingYachtContext dbContext,
-                          IGenericRepository<Admin> adminRepository,
-                          IGenericRepository<Agency> agencyRepository,
-                          IGenericRepository<Business> businessRepository,
-                          IGenericRepository<BusinessTour> businessTourRepository,
-                          IGenericRepository<Destination> destinationRepository,
-                          IGenericRepository<DestinationTour> destinationTourRepository,
-                          IGenericRepository<Member> memberRepository,
-                          IGenericRepository<Order> orderRepository,
-                          IGenericRepository<PlaceType> placeTypeRepository,
-                          IGenericRepository<Ticket> ticketRepository,
-                          IGenericRepository<TicketType> ticketTypeRepository,
-                          IGenericRepository<Tour> tourRepository,
-                          IGenericRepository<Trip> tripRepository,
-                          IGenericRepository<Vehicle> vehicleRepository,
-                          IGenericRepository<VehicleType> vehicleTypeRepository)
+            IGenericRepository<Admin> adminRepository,
+            IGenericRepository<Agency> agencyRepository,
+            IGenericRepository<Business> businessRepository,
+            IGenericRepository<BusinessTour> businessTourRepository,
+            IGenericRepository<Destination> destinationRepository,
+            IGenericRepository<DestinationTour> destinationTourRepository,
+            IGenericRepository<Member> memberRepository,
+            IGenericRepository<Order> orderRepository,
+            IGenericRepository<PlaceType> placeTypeRepository,
+            IGenericRepository<Ticket> ticketRepository,
+            IGenericRepository<TicketType> ticketTypeRepository,
+            IGenericRepository<Tour> tourRepository,
+            IGenericRepository<Trip> tripRepository,
+            IGenericRepository<Vehicle> vehicleRepository,
+            IGenericRepository<VehicleType> vehicleTypeRepository)
         {
             _dbContext = dbContext;
 
@@ -76,6 +76,5 @@ namespace BookingYacht.Data.Repositories
         {
             await _dbContext.SaveChangesAsync();
         }
-
     }
 }

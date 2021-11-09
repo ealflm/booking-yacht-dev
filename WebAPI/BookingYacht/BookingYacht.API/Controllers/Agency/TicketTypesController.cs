@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Agency
 {
-
     [Route(AgencyRoute)]
     [ApiController]
     [Authorize]
@@ -41,7 +40,5 @@ namespace BookingYacht.API.Controllers.Agency
 
             return Success(ticketType);
         }
-
-      
     }
 }

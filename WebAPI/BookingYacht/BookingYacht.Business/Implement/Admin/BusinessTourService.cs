@@ -27,43 +27,44 @@ namespace BookingYacht.Business.Implement.Admin
                 .Include(x => x.IdBusinessNavigation)
                 .Where(x => model.IdBusiness == null | x.IdBusiness.Equals(model.IdBusiness))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
-                .Where(x => model.Status == null | x.Status == (int) model.Status)
-                .Select(x=>new BusinessTourViewModel()
+                .Where(x => model.Status == null | x.Status == (int)model.Status)
+                .Select(x => new BusinessTourViewModel()
                 {
-                    id=x.Id,
-                    idBusiness=x.IdBusiness,
-                    idTour=x.IdTour,
-                    Status=x.Status,
-                    Trips=  _unitOfWork.TripRepository.Query()
-                .Where(y => y.IdBusinessTour.Equals(x.Id))
-                .Where(y=>model.Time==null |y.Time.Date.Equals(model.Time))
-                .OrderBy(y => y.Time)
-                .Select(y=> new TripViewModel()
-                {
-                    Id= y.Id,
-                    AmountTicket= y.AmountTicket,
-                    IdVehicleNavigation= _unitOfWork.VehicleRepository.Query().Where(z=> z.Id.Equals(y.IdVehicle)).FirstOrDefault(),
-                    Time= y.Time,
-                    Status= y.Status,
-                    Orders= _unitOfWork.OrderRepository.Query().Where(z => z.IdTrip.Equals(y.Id)).ToList()
+                    id = x.Id,
+                    idBusiness = x.IdBusiness,
+                    idTour = x.IdTour,
+                    Status = x.Status,
+                    Trips = _unitOfWork.TripRepository.Query()
+                        .Where(y => y.IdBusinessTour.Equals(x.Id))
+                        .Where(y => model.Time == null | y.Time.Date.Equals(model.Time))
+                        .OrderBy(y => y.Time)
+                        .Select(y => new TripViewModel()
+                        {
+                            Id = y.Id,
+                            AmountTicket = y.AmountTicket,
+                            IdVehicleNavigation = _unitOfWork.VehicleRepository.Query()
+                                .Where(z => z.Id.Equals(y.IdVehicle)).FirstOrDefault(),
+                            Time = y.Time,
+                            Status = y.Status,
+                            Orders = _unitOfWork.OrderRepository.Query().Where(z => z.IdTrip.Equals(y.Id)).ToList()
+                        })
+                        .ToList(),
+                    TicketTypes = _unitOfWork.TicketTypeRepository.Query()
+                        .Where(y => y.IdBusinessTour.Equals(x.Id))
+                        .OrderBy(y => y.Id)
+                        .ToList(),
+                    IdTourNavigation = _unitOfWork.TourRepository.Query()
+                        .Where(y => y.Id.Equals(x.IdTour))
+                        .FirstOrDefault(),
+                    IdBusinessNavigation = _unitOfWork.BusinessRepository.Query()
+                        .Where(y => y.Id.Equals(x.IdBusiness))
+                        .FirstOrDefault()
                 })
-                .ToList(),
-                    TicketTypes= _unitOfWork.TicketTypeRepository.Query()
-                .Where(y => y.IdBusinessTour.Equals(x.Id))
-                .OrderBy(y => y.Id)
-                .ToList(),
-                    IdTourNavigation= _unitOfWork.TourRepository.Query()
-                .Where(y => y.Id.Equals(x.IdTour))
-                .FirstOrDefault(),
-                    IdBusinessNavigation= _unitOfWork.BusinessRepository.Query()
-                .Where(y => y.Id.Equals(x.IdBusiness))
-                .FirstOrDefault()
-        })
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessTourRepository.Query().Count())
                 .ToListAsync();
-            for(int i=0;i<list.Count;)
+            for (int i = 0; i < list.Count;)
             {
                 if (list[i].IdTourNavigation.Status == (int)Status.DISABLE)
                 {
@@ -75,10 +76,11 @@ namespace BookingYacht.Business.Implement.Admin
                     {
                         trip.IdVehicleNavigation.IdBusinessNavigation = null;
                     }
+
                     i++;
                 }
-                
             }
+
             return list;
         }
 
@@ -97,41 +99,45 @@ namespace BookingYacht.Business.Implement.Admin
                     idTour = x.IdTour,
                     Status = x.Status,
                     Trips = _unitOfWork.TripRepository.Query()
-                .Where(y => y.IdBusinessTour.Equals(x.Id))
-                .Where(y =>  y.Time.Date.CompareTo(DateTime.Now.Date)>0)
-                .OrderBy(y => y.Time)
-                .Select(y => new TripViewModel()
-                {
-                    Id = y.Id,
-                    AmountTicket = y.AmountTicket,
-                    IdVehicleNavigation = _unitOfWork.VehicleRepository.Query().Include(z=> z.IdVehicleTypeNavigation).Where(z => z.Id.Equals(y.IdVehicle)).FirstOrDefault(),
-                    Time = y.Time,
-                    Status = y.Status,
-                })
-                .ToList(),
+                        .Where(y => y.IdBusinessTour.Equals(x.Id))
+                        .Where(y => y.Time.Date.CompareTo(DateTime.Now.Date) > 0)
+                        .OrderBy(y => y.Time)
+                        .Select(y => new TripViewModel()
+                        {
+                            Id = y.Id,
+                            AmountTicket = y.AmountTicket,
+                            IdVehicleNavigation = _unitOfWork.VehicleRepository.Query()
+                                .Include(z => z.IdVehicleTypeNavigation).Where(z => z.Id.Equals(y.IdVehicle))
+                                .FirstOrDefault(),
+                            Time = y.Time,
+                            Status = y.Status,
+                        })
+                        .ToList(),
                     TicketTypes = _unitOfWork.TicketTypeRepository.Query()
-                .Where(y => y.IdBusinessTour.Equals(x.Id))
-                .OrderBy(y => y.Id)
-                .ToList(),
+                        .Where(y => y.IdBusinessTour.Equals(x.Id))
+                        .OrderBy(y => y.Id)
+                        .ToList(),
                     IdTourNavigation = _unitOfWork.TourRepository.Query()
-                .Where(y => y.Id.Equals(x.IdTour))
-                .FirstOrDefault(),
+                        .Where(y => y.Id.Equals(x.IdTour))
+                        .FirstOrDefault(),
                     IdBusinessNavigation = _unitOfWork.BusinessRepository.Query()
-                .Where(y => y.Id.Equals(x.IdBusiness))
-                .FirstOrDefault()
+                        .Where(y => y.Id.Equals(x.IdBusiness))
+                        .FirstOrDefault()
                 })
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.BusinessTourRepository.Query().Count())
                 .ToListAsync();
-            for (int i=0; i<list.Count;)
+            for (int i = 0; i < list.Count;)
             {
-                if ((model.Query==null ||list[i].IdTourNavigation.Title.Contains(model.Query) || list[i].IdTourNavigation.Descriptions.Contains(model.Query))&& list[i].Trips.Count>0)
+                if ((model.Query == null || list[i].IdTourNavigation.Title.Contains(model.Query) ||
+                     list[i].IdTourNavigation.Descriptions.Contains(model.Query)) && list[i].Trips.Count > 0)
                 {
                     foreach (TripViewModel trip in list[i].Trips)
                     {
                         trip.IdVehicleNavigation.IdBusinessNavigation = null;
                     }
+
                     i++;
                 }
                 else
@@ -139,16 +145,16 @@ namespace BookingYacht.Business.Implement.Admin
                     list.RemoveAt(i);
                 }
             }
+
             return list;
         }
-
 
 
         public async Task<BusinessTour> GetBusinessTourNavigation(Guid id)
         {
             return await _unitOfWork.Context().BusinessTours
-                .Include(x => x.IdBusinessNavigation) 
-                .Include(x => x.IdTourNavigation) 
+                .Include(x => x.IdBusinessNavigation)
+                .Include(x => x.IdTourNavigation)
                 .Where(x => x.Id.Equals(id))
                 .FirstOrDefaultAsync();
         }
@@ -193,6 +199,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 return false;
             }
+
             result.Status = (int)Status.DISABLE;
             _unitOfWork.BusinessTourRepository.Update(result);
             await _unitOfWork.SaveChangesAsync();

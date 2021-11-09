@@ -9,6 +9,6 @@ namespace BookingYacht.Business.InsertModels
     public class DestinationTourInsertModel
     {
         public Guid IdTour { get; set; }
-        public  List<Guid> IdDestinationList { get; set; }
+        public List<Guid> IdDestinationList { get; set; }
     }
 }

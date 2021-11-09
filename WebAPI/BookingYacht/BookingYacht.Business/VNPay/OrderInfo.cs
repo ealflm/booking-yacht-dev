@@ -16,7 +16,5 @@ namespace BookingYacht.Business.VNPay
         public long PaymentTranId { get; set; }
         public string BankCode { get; set; }
         public string PayStatus { get; set; }
-
-
     }
 }

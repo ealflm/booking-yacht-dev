@@ -9,20 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.NotificationUtils
 {
-    public static class FcmService {
+    public static class FcmService
+    {
         public static async Task SendNotification(Order order, string clientToken)
         {
             //Define Message: 
             var message = new Message()
             {
-                
                 Token = clientToken,
                 Notification = new Notification()
                 {
                     Title = "Đặt Tàu",
                     Body = $"{order.AgencyName} đã đặt {order.QuantityOfPerson} vé \n {order.DateOrder}",
                 },
-                
             };
 
             //Send message to device correspond 

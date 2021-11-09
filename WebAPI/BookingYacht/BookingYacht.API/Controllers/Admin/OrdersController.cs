@@ -12,7 +12,7 @@ namespace BookingYacht.API.Controllers.Admin
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(GroupName = Role)]
-    public class OrdersController: BaseAdminController
+    public class OrdersController : BaseAdminController
     {
         private readonly IOrdersService _service;
 
@@ -41,6 +41,5 @@ namespace BookingYacht.API.Controllers.Admin
         {
             return Success(await _service.Count());
         }
-        
     }
 }

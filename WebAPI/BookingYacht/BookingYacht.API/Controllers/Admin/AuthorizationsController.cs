@@ -52,8 +52,8 @@ namespace BookingYacht.API.Controllers.Admin
             {
                 return Fail("This email address has already been registered");
             }
+
             return Success(result);
         }
-
     }
 }

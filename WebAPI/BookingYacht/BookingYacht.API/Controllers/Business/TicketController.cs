@@ -14,7 +14,6 @@ namespace BookingYacht.API.Controllers.Business
     [ApiExplorerSettings(GroupName = Role)]
     public class TicketController : BaseBusinessController
     {
-        
         private readonly ITicketService _service;
 
         public TicketController(ITicketService service)
@@ -33,7 +32,7 @@ namespace BookingYacht.API.Controllers.Business
         public async Task<IActionResult> Get(Guid id)
         {
             var ticket = await _service.GetTicketNavigation(id);
-           
+
             return Success(ticket);
         }
 
@@ -41,12 +40,12 @@ namespace BookingYacht.API.Controllers.Business
         public async Task<IActionResult> Post([FromBody] QRViewModel model)
         {
             var ticket = await _service.CheckQRString(model.QR);
-            if(ticket != null)
+            if (ticket != null)
             {
                 return Success(ticket);
             }
+
             return Fail("Ticket does not exist");
         }
-
     }
 }

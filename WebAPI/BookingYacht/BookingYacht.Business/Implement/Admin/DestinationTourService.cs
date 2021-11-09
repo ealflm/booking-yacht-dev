@@ -17,8 +17,8 @@ namespace BookingYacht.Business.Implement.Admin
     {
         public DestinationTourService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
+
         public async Task<Guid> AddDestinationTour(DestinationTourViewModel model)
         {
             var destinationTour = new DestinationTour()
@@ -35,7 +35,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task DeleteDestinationTour(Guid id)
         {
-            var destinationTour = await  _unitOfWork.DestinationTourRepository.Query()
+            var destinationTour = await _unitOfWork.DestinationTourRepository.Query()
                 .Where(x => x.Id.Equals(id))
                 .Select(x => new DestinationTourViewModel()
                 {
@@ -48,7 +48,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => x.IdTour.Equals(destinationTour.IdTour))
                 .OrderBy(x => x.Id)
                 .ToListAsync();
-            foreach(DestinationTour destinationTourItem in destinationTours)
+            foreach (DestinationTour destinationTourItem in destinationTours)
             {
                 if (destinationTourItem.Order > destinationTour.Order)
                 {
@@ -56,6 +56,7 @@ namespace BookingYacht.Business.Implement.Admin
                     _unitOfWork.DestinationTourRepository.Update(destinationTourItem);
                 }
             }
+
             await _unitOfWork.DestinationTourRepository.Remove(id);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -69,8 +70,9 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
-                    Order=x.Order,
-                    Destination= _unitOfWork.DestinationRepository.Query().Include(y => y.IdPlaceTypeNavigation).Where(y => y.Id.Equals(x.IdDestination)).FirstOrDefault()
+                    Order = x.Order,
+                    Destination = _unitOfWork.DestinationRepository.Query().Include(y => y.IdPlaceTypeNavigation)
+                        .Where(y => y.Id.Equals(x.IdDestination)).FirstOrDefault()
                 }).FirstOrDefaultAsync();
             return destinationTour;
         }
@@ -86,13 +88,14 @@ namespace BookingYacht.Business.Implement.Admin
         }
 
 
-
-        public async Task<List<DestinationTourViewModel>> SearchDestinationTours(DestinationTourSearchModel model = null)
+        public async Task<List<DestinationTourViewModel>> SearchDestinationTours(
+            DestinationTourSearchModel model = null)
         {
             if (model == null)
             {
                 model = new DestinationTourSearchModel();
             }
+
             var destinationTour = await _unitOfWork.DestinationTourRepository.Query()
                 .Where(x => model.IdDestination == null | x.IdDestination.Equals(model.IdDestination))
                 .Where(x => model.IdTour == null | x.IdTour.Equals(model.IdTour))
@@ -102,8 +105,9 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     IdDestination = x.IdDestination,
                     IdTour = x.IdTour,
-                    Order= x.Order,
-                    Destination= _unitOfWork.DestinationRepository.Query().Include(y=> y.IdPlaceTypeNavigation).Where(y=> y.Id.Equals(x.IdDestination)).FirstOrDefault()
+                    Order = x.Order,
+                    Destination = _unitOfWork.DestinationRepository.Query().Include(y => y.IdPlaceTypeNavigation)
+                        .Where(y => y.Id.Equals(x.IdDestination)).FirstOrDefault()
                 })
                 .OrderBy(x => x.Order)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
@@ -112,12 +116,14 @@ namespace BookingYacht.Business.Implement.Admin
             return destinationTour;
         }
 
-        public async Task<List<DestinationTour>> SearchDestinationToursNavigation(DestinationTourSearchModel model = null)
+        public async Task<List<DestinationTour>> SearchDestinationToursNavigation(
+            DestinationTourSearchModel model = null)
         {
             if (model == null)
             {
                 model = new DestinationTourSearchModel();
             }
+
             var destinationTour = await _unitOfWork.Context().DestinationTours
                 .Include(x => x.IdDestinationNavigation)
                 .Include(x => x.IdTourNavigation)

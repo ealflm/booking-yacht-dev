@@ -19,13 +19,14 @@ namespace BookingYacht.API.Controllers.Admin
         }
 
         private readonly IVehicleService _agencyService;
-        
+
         [HttpGet()]
         public async Task<IActionResult> Search([FromQuery] VehicleSearchModel model)
         {
             var vehicles = await _agencyService.SearchVehiclesNavigation(model);
             return Success(vehicles);
-        }  
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -38,8 +39,5 @@ namespace BookingYacht.API.Controllers.Admin
         {
             return Success(await _agencyService.Count());
         }
-        
-       
-
     }
 }
