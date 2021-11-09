@@ -27,6 +27,7 @@ namespace BookingYacht.Business.Implement.Business
                 .Where(x => x.IdBusiness.Equals(model.IdBusiness))
                 .Where(x => x.IdTour.Equals(model.IdTour))
                 .FirstOrDefaultAsync();
+            
             await _unitOfWork.SaveChangesAsync();
 
             var trip = new Trip()
@@ -35,6 +36,7 @@ namespace BookingYacht.Business.Implement.Business
                 Time= model.Time ,
                 IdBusinessTour= businessTour.Id,
                 IdVehicle= model.IdVehicle,
+                AmountTicket = model.AmountTicket,
                 Status = model.Status
             };
             trip.Status = (int)Status.ENABLE;
