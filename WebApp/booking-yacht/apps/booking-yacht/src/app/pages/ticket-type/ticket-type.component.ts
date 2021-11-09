@@ -1,4 +1,4 @@
-import { timer } from 'rxjs';
+import { timer, Subscription } from 'rxjs';
 import { TicketType } from './../../models/ticket-types';
 import { Router } from '@angular/router';
 import { TicketTypeService } from './../../services/ticket-type.service';
@@ -20,6 +20,7 @@ export class TicketTypeComponent implements OnInit {
   ];
   ticketType: TicketType[] = [];
   loading = true;
+  subscription$ = new Subscription();
   ticketTypeStatus = SECONDARY_STATUS;
   constructor(
     private ticketTypeService: TicketTypeService,
