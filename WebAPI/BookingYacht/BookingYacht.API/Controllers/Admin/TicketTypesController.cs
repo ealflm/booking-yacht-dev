@@ -1,4 +1,4 @@
-﻿using BookingYacht.Business.Interfaces.Admin;
+﻿using BookingYacht.Business.Interfaces.Business;
 using BookingYacht.Business.SearchModels;
 using BookingYacht.Business.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -29,14 +29,14 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TicketTypeSearchModel model)
         {
-            var ticketType = await _ticketTypeService.SearchNavigation(model);
+            var ticketType = await _ticketTypeService.SearchTicketTypes(model);
             return Success(ticketType);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var ticketType = await _ticketTypeService.GetNavigation(id);
+            var ticketType = await _ticketTypeService.GetTicketType(id);
 
             return Success(ticketType);
         }
@@ -45,7 +45,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] TicketTypeViewModel model)
         {
-            await _ticketTypeService.Set(id, model);
+            await _ticketTypeService.UpdateTicketType(id, model);
             return Success();
         }
     }
