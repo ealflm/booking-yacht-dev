@@ -15,24 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
 {
-    internal static class  MapperOrder
-    {
-        public static async Task<OrdersViewModel> GetViewModel(Order order)
-        {
-            return await Task.Run(() => new OrdersViewModel()
-            {
-                Id = order.Id,
-                AgencyName = order.AgencyName,
-                IdAgency = order.IdAgency,
-                QuantityOfPerson = order.QuantityOfPerson,
-                Status = (Status) order.Status,
-                OrderDate = order.DateOrder.GetValueOrDefault(),
-                TotalPrice = order.TotalPrice ?? 0,
-                IdTrip= order.IdTrip
-            });
-        }
-    }
-    
+
     public class OrdersService : BaseService, IOrdersService
     {
 
@@ -100,7 +83,17 @@ namespace BookingYacht.Business.Implement.Admin
         {
             return await _unitOfWork.OrderRepository.Query()
                 .Where(x => x.Id.Equals(id))
-                .Select(x => MapperOrder.GetViewModel(x).Result)
+                .Select(x => new OrdersViewModel()
+                {
+                    Id = x.Id,
+                    AgencyName = x.AgencyName,
+                    IdAgency = x.IdAgency,
+                    QuantityOfPerson = x.QuantityOfPerson,
+                    Status = (Status) x.Status,
+                    OrderDate = x.DateOrder.GetValueOrDefault(),
+                    TotalPrice = x.TotalPrice ?? 0,
+                    IdTrip= x.IdTrip
+                })
                 .FirstOrDefaultAsync();
         }
 
