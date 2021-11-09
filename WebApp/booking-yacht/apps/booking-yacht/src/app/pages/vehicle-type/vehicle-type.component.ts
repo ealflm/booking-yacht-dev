@@ -31,6 +31,8 @@ export class VehicleTypeComponent implements OnInit {
   getVehiclesType() {
     this.vehicleTypeService.getVehicleTypes().subscribe((vehicleTyperes) => {
       this.vehicleType = vehicleTyperes.data;
+      // console.log(vehicleTyperes);
+
       setTimeout(() => {
         this.loading = false;
       }, 1000);

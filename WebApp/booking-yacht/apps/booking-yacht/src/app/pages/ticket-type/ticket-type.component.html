@@ -37,7 +37,7 @@
           [rowsPerPageOptions]="[10, 20, 50]"
           [paginator]="true"
           [filterDelay]="0"
-          [globalFilterFields]="['address', 'apartmentName']"
+          [globalFilterFields]="['businessName', 'tourName', 'price']"
           styleClass="p-datatable-sm"
           responsiveLayout="scroll"
         >
@@ -47,13 +47,16 @@
               <th pSortableColumn="nameBusiness">
                 Chủ tàu <p-sortIcon field="nameBusiness"></p-sortIcon>
               </th>
-              <th>Hạng vé</th>
-              <th pSortableColumn="price">
+              <th pSortableColumn="tourName">
+                Tour Name<p-sortIcon field="tourName"></p-sortIcon>
+              </th>
+              <th style="width: 13%">Hạng vé</th>
+              <th pSortableColumn="price" style="width: 10%">
                 Giá vé <p-sortIcon field="price"></p-sortIcon>
               </th>
-              <th>Phí dịch vụ(%)</th>
-              <th>Hoa hồng đại lý(%)</th>
-              <th>Trạng thái</th>
+              <!-- <th>Phí dịch vụ(%)</th>
+              <th>Hoa hồng đại lý(%)</th> -->
+              <th style="width: 10%">Trạng thái</th>
               <th></th>
             </tr>
           </ng-template>
@@ -63,17 +66,18 @@
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
-              <td><p-skeleton></p-skeleton></td>
+              <!-- <td><p-skeleton></p-skeleton></td> -->
               <td><p-skeleton></p-skeleton></td>
               <td><p-skeleton></p-skeleton></td>
             </tr>
             <tr *ngIf="!loading">
               <td class="hidden">{{ ticketType.id }}</td>
-              <td>{{ ticketType?.nameBusiness }}</td>
+              <td>{{ ticketType?.businessName }}</td>
+              <td>{{ ticketType?.tourName }}</td>
               <td>{{ ticketType?.name }}</td>
               <td>{{ ticketType?.price | currency: 'VND' }}</td>
-              <td>{{ ticketType?.serviceFeePercentage }}%</td>
-              <td>{{ ticketType?.commissionFeePercentage }}%</td>
+              <!-- <td>{{ ticketType?.serviceFeePercentage }}%</td>
+              <td>{{ ticketType?.commissionFeePercentage }}%</td> -->
               <td class="p-ai-center p-pl-2">
                 <p-tag
                   [severity]="ticketTypeStatus[ticketType.status]?.color"
