@@ -37,10 +37,10 @@ namespace BookingYacht.Business.Implement.Admin
             var ticketTypes = await _unitOfWork.Context().TicketTypes
                 .Include(x => x.IdBusinessTourNavigation)
                 .Where(x => model.Status == Status.ALL | x.Status == (int)model.Status)
-                .Where(x => x.ServiceFeePercentage > 1.0 & x.ServiceFeePercentage < 10.0 )
+                // .Where(x => x.ServiceFeePercentage > 1.0 & x.ServiceFeePercentage < 10.0 )
                 .OrderBy(x => x.Status)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
-                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TicketRepository.Query().Count())
+                .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TicketTypeRepository.Query().Count())
                 .ToListAsync();
             return ticketTypes;
         }
