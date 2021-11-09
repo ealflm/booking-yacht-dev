@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings" : {
+    "Redis": "booking-yatch-dev.redis.cache.windows.net:6380,password=CZBB87VKgRj8nu5Ng22naFUVkjI5qyKtiAzCaLXoY88=,ssl=True,abortConnect=False"
+  }
+}

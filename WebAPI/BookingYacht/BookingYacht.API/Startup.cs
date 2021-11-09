@@ -160,11 +160,11 @@ namespace BookingYacht.API
             })
             );
 
-            // services.AddStackExchangeRedisCache(options =>
-            // {
-            //     options.Configuration = Configuration.GetConnectionString("Redis");
-            //     options.InstanceName = "Group5_";
-            // });
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("Redis");
+                options.InstanceName = "Group5_";
+            });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
