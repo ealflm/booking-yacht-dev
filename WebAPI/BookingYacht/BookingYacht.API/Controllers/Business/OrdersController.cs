@@ -42,7 +42,7 @@ namespace BookingYacht.API.Controllers.Business
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var navigation = Order + "_Nav" + id;
+            var navigation = Order + "_nav" + id;
             var order = await _cache.GetRecordAsync<Order>(navigation);
             if (order is null)
             {
