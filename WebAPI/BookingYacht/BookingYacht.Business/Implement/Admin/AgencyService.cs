@@ -19,54 +19,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace BookingYacht.Business.Implement.Admin
 {
-    internal static partial class Mapper
-    {
-
-        public static async Task<AgencyViewModels> CreateEntity(Data.Models.Agency x)
-        {
-            return await Task.Run(() => new AgencyViewModels
-            {
-                Id = x.Id,
-                Address = x.Address,
-                EmailAddress = x.EmailAddress,
-                Name = x.Name,
-                PhoneNumber = x.PhoneNumber,
-                Status = x.Status,
-                PhotoUrl= x.PhotoUrl
-            });
-        }
-        public static async Task<Data.Models.Agency> CreateNewEntity(AgencyViewModels model)
-        {
-            return await Task.Run(() =>
-                new Data.Models.Agency
-                {
-                    Address = model.Address,
-                    EmailAddress = model.EmailAddress,
-                    Name = model.Name,
-                    PhoneNumber = model.PhoneNumber,
-                    Status = (int) Status.ENABLE,
-                    PhotoUrl= model.PhotoUrl
-                }
-            );
-        }
-        
-        public static async Task<Data.Models.Agency> ModelToEntity(Guid id, AgencyViewModels model)
-        {
-            return await Task.Run(() =>
-                new Data.Models.Agency
-                {
-                    Id = id,
-                    Address = model.Address,
-                    EmailAddress = model.EmailAddress,
-                    Name = model.Name,
-                    PhoneNumber = model.PhoneNumber,
-                    Status = model.Status ?? 0
-                }
-            );
-        }
-
-        
-    }
     public class AgencyService : BaseService, IAgencyService
     {
 
@@ -369,7 +321,16 @@ namespace BookingYacht.Business.Implement.Admin
                 .OrderBy(x => x.Name)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.AgencyRepository.Query().Count())
-                .Select(x => Mapper.CreateEntity(x).Result)
+                .Select(x => new AgencyViewModels
+                {
+                    Id = x.Id,
+                    Address = x.Address,
+                    EmailAddress = x.EmailAddress,
+                    Name = x.Name,
+                    PhoneNumber = x.PhoneNumber,
+                    Status = x.Status,
+                    PhotoUrl= x.PhotoUrl
+                })
                 .ToListAsync();
             return agency;
         }
@@ -378,23 +339,48 @@ namespace BookingYacht.Business.Implement.Admin
         {
             var agency = await _unitOfWork.AgencyRepository.Query()
                 .Where(x => x.Id.Equals(id))
-                .Select(x => Mapper.CreateEntity(x).Result)
+                .Select(x => new AgencyViewModels
+                {
+                    Id = x.Id,
+                    Address = x.Address,
+                    EmailAddress = x.EmailAddress,
+                    Name = x.Name,
+                    PhoneNumber = x.PhoneNumber,
+                    Status = x.Status,
+                    PhotoUrl= x.PhotoUrl
+                })
                 .FirstOrDefaultAsync();
             return agency;
         }
 
         public async Task<Guid> AddAgency(AgencyViewModels model)
         {
-            var newEntity = Mapper.CreateNewEntity(model);
-            var viewModel = _unitOfWork.AgencyRepository.Query().Add(newEntity.Result);
+            var agency = new Agency
+            {
+                Address = model.Address,
+                EmailAddress = model.EmailAddress,
+                Name = model.Name,
+                PhoneNumber = model.PhoneNumber,
+                Status = (int)Status.ENABLE,
+                PhotoUrl = model.PhotoUrl
+            };
+            var viewModel = _unitOfWork.AgencyRepository.Query().Add(agency);
             await _unitOfWork.SaveChangesAsync();
             return viewModel.Entity.Id;
         }
 
         public async Task UpdateAgency(Guid id, AgencyViewModels model)
         {
-            var entity = Mapper.ModelToEntity(id, model);
-            _unitOfWork.AgencyRepository.Update(entity.Result);
+            var entity =  new Data.Models.Agency
+            {
+                Id = id,
+                Address = model.Address,
+                EmailAddress = model.EmailAddress,
+                Name = model.Name,
+                PhoneNumber = model.PhoneNumber,
+                Status = model.Status ?? 0
+            };
+            _unitOfWork.AgencyRepository.Update(entity);
             await _unitOfWork.SaveChangesAsync();
         }
         
