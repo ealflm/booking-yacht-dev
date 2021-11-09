@@ -16,7 +16,7 @@ class HomeController extends GetxController {
     update();
     switch (index) {
       case 0:
-        _tripController.getBusinessTour(DateTime.now());
+        _tripController.getBusinessTour();
         break;
       case 1:
         _orderController.getOrder();

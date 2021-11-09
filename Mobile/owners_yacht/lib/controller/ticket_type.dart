@@ -124,6 +124,7 @@ class TicketTypeController extends GetxController {
   void save() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
+    final String? idBusiness = prefs.getString('idBusiness');
     final isValid = ticketTypeFormKey.currentState!.validate();
     if (!isValid) {
       return;
@@ -138,7 +139,7 @@ class TicketTypeController extends GetxController {
         'commissionFeePercentage': double.parse(commissionFeeController.text),
         'serviceFeePercentage': double.parse(serviceFeeController.text),
         'idTour': idTourController.text,
-        'idBusiness': '68554b5a-817b-453c-992c-149662a8e710'
+        'idBusiness': idBusiness,
       });
       print(body);
       final response = await http.post(

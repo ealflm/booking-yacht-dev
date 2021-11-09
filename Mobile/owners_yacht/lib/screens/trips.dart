@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/constants/status.dart';
+import 'package:owners_yacht/constants/theme.dart';
 import 'package:owners_yacht/controller/trip.dart';
+import 'package:owners_yacht/controller/yacht.dart';
+import 'package:owners_yacht/models/yacht.dart';
 
 import 'package:owners_yacht/widgets/nav_bar.dart';
 import 'package:owners_yacht/widgets/trip_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Trips extends StatefulWidget {
   @override
@@ -19,6 +23,13 @@ class _TripsState extends State<Trips> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+
+  @override
+  initState() {
+    super.initState();
+    // Add listeners to this class
+    _tripController.focusedDay = _focusedDay;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +64,8 @@ class _TripsState extends State<Trips> {
               if (!isSameDay(_selectedDay, selectedDay)) {
                 // Call `setState()` when updating the selected day
                 setState(() {
-                  
-                  _tripController.getBusinessTour(focusedDay);
+                  _tripController.focusedDay = focusedDay;
+                  _tripController.getBusinessTour();
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });
@@ -94,50 +105,266 @@ class _TripsState extends State<Trips> {
                                           '${controller.listBusinessTour[index].idTourNavigation!.title}'),
                                     ),
                                     children: [
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        itemBuilder: (ctx, i) => Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 30.0),
-                                          child: Column(
-                                            children: [
-                                              ExpansionTile(
-                                                title: ListTile(
-                                                  title: Text(
-                                                      'Chuyến đi lúc: ${DateFormat('hh:mm a', 'vi-VN').format(controller.listBusinessTour[index].trips![i].time ?? DateTime.now())}'),
-                                                  subtitle: Column(
+                                      Column(
+                                        children: [
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            itemBuilder: (ctx, i) => Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 30.0),
+                                              child: Column(
+                                                children: [
+                                                  ExpansionTile(
+                                                    title: ListTile(
+                                                      title: Text(
+                                                          'Chuyến đi lúc: ${DateFormat('hh:mm a', 'vi-VN').format(controller.listBusinessTour[index].trips![i].time ?? DateTime.now())}'),
+                                                      subtitle: Column(
+                                                        children: [
+                                                          ListTile(
+                                                              title: Text(
+                                                                  'Số người đi: ${controller.listBusinessTour[index].trips![i].amountTicket}'),
+                                                              subtitle: Text(
+                                                                  'Trạng thái: ${BookingYachtStatus.status[controller.listBusinessTour[index].trips![i].status]}'))
+                                                        ],
+                                                      ),
+                                                    ),
                                                     children: [
-                                                      ListTile(
-                                                          title: Text(
-                                                              'Số người đi: ${controller.listBusinessTour[index].trips![i].amountTicket}'),
-                                                          subtitle: Text(
-                                                              'Trạng thái: ${BookingYachtStatus.status[controller.listBusinessTour[index].trips![i].status]}'))
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    30.0),
+                                                        child: ListTile(
+                                                            title: Text(
+                                                                'Tàu ${controller.listBusinessTour[index].trips![i].idVehicleNavigation!.name}'),
+                                                            subtitle: Text(
+                                                                'Số ghế: ${controller.listBusinessTour[index].trips![i].idVehicleNavigation!.seat}')),
+                                                      )
                                                     ],
                                                   ),
-                                                ),
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 30.0),
-                                                    child: ListTile(
-                                                        title: Text(
-                                                            'Tàu ${controller.listBusinessTour[index].trips![i].idVehicleNavigation!.name}'),
-                                                        subtitle: Text(
-                                                            'Số ghế: ${controller.listBusinessTour[index].trips![i].idVehicleNavigation!.seat}')),
-                                                  )
                                                 ],
                                               ),
-                                            ],
+                                            ),
+                                            itemCount: controller
+                                                    .listBusinessTour[index]
+                                                    .trips!
+                                                    .isEmpty
+                                                ? 0
+                                                : controller
+                                                    .listBusinessTour[index]
+                                                    .trips!
+                                                    .length,
                                           ),
-                                        ),
-                                        itemCount: controller
-                                                .listBusinessTour[index]
-                                                .trips!
-                                                .isEmpty
-                                            ? 0
-                                            : controller.listBusinessTour[index]
-                                                .trips!.length,
+                                          TextButton(
+                                            onPressed: () => showModalBottomSheet<
+                                                    void>(
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  20.0),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  20.0)),
+                                                ),
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return SingleChildScrollView(
+                                                    child: Container(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height /
+                                                              2,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            const Center(
+                                                                child: Text(
+                                                              'Chọn tàu',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14),
+                                                            )),
+                                                            GetBuilder<
+                                                                YachtController>(
+                                                              builder:
+                                                                  (_yachtController) =>
+                                                                      Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        5.0),
+                                                                child: Wrap(
+                                                                  children: [
+                                                                    DropdownButton<
+                                                                        String>(
+                                                                      isExpanded:
+                                                                          true,
+                                                                      hint:
+                                                                          const Text(
+                                                                        'Chọn tàu',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                16),
+                                                                      ),
+                                                                      value: controller
+                                                                          .selectedYacht,
+                                                                      items: _yachtController
+                                                                          .listYacht
+                                                                          .map((Yacht
+                                                                              value) {
+                                                                        return DropdownMenuItem<
+                                                                            String>(
+                                                                          value:
+                                                                              value.id,
+                                                                          child: Text(
+                                                                              value.name!,
+                                                                              overflow: TextOverflow.ellipsis),
+                                                                        );
+                                                                      }).toList(),
+                                                                      onChanged:
+                                                                          (String?
+                                                                              newValue) {
+                                                                        setState(
+                                                                            () {
+                                                                          controller.selectedYacht =
+                                                                              newValue!;
+                                                                        });
+                                                                      },
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const Center(
+                                                                child: Text(
+                                                              'Tổng vé',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14),
+                                                            )),
+                                                            TextFormField(
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                      labelText:
+                                                                          'Số lượng vé'),
+                                                              textInputAction:
+                                                                  TextInputAction
+                                                                      .next,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              controller: controller
+                                                                  .amountTicket,
+                                                              onSaved: (value) {
+                                                                controller
+                                                                    .amountTicket
+                                                                    .text = value!;
+                                                              },
+                                                            ),
+                                                            Divider(),
+                                                            const Center(
+                                                                child: Text(
+                                                              'Thời gian',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14),
+                                                            )),
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                DatePicker.showTimePicker(
+                                                                    context,
+                                                                    showTitleActions:
+                                                                        true,
+                                                                    onChanged:
+                                                                        (date) {},
+                                                                    onConfirm:
+                                                                        (date) {
+                                                                  _tripController
+                                                                          .time =
+                                                                      date;
+                                                                },
+                                                                    locale:
+                                                                        LocaleType
+                                                                            .vi);
+                                                              },
+                                                              child: Center(
+                                                                child: Text(
+                                                                  _tripController
+                                                                              .time ==
+                                                                          null
+                                                                      ? 'Chọn thời gian'
+                                                                      : ' ${DateFormat('hh:mm a', 'vi-VN').format(_tripController.time)}',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top:
+                                                                          10.0),
+                                                              child: Center(
+                                                                child:
+                                                                    OutlinedButton(
+                                                                  style: OutlinedButton
+                                                                      .styleFrom(
+                                                                    side: BorderSide(
+                                                                        color: BookingYachtColors
+                                                                            .appBar),
+                                                                  ),
+                                                                  onPressed: () =>
+                                                                      _tripController.save(controller
+                                                                          .listBusinessTour[
+                                                                              index]
+                                                                          .id!),
+                                                                  child:
+                                                                      const Text(
+                                                                    "Xác nhận",
+                                                                    style: TextStyle(
+                                                                        color: BookingYachtColors
+                                                                            .appBar),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                            child: Text(
+                                              'Thêm chuyến đi',
+                                              style:
+                                                  TextStyle(color: Colors.blue),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),

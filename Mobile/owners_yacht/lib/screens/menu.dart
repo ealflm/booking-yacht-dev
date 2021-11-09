@@ -33,7 +33,7 @@ class Menu extends StatelessWidget {
                   title: 'Quản lý tàu',
                   leading: const Icon(Icons.directions_boat_sharp),
                   onPressed: (BuildContext context) =>
-                      yachtController.fetchYachts(),
+                      yachtController.getYacht(),
                 ),
               ],
             ),

@@ -86,10 +86,10 @@ class LoginController extends GetxController {
   void sendToken(String tokenDevice) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    // final String? idBusiness = prefs.getString('idBusiness');
+    final String? idBusiness = prefs.getString('idBusiness');
     try {
       String body = json.encode(
-          {'id': '68554b5a-817b-453c-992c-149662a8e710', 'token': tokenDevice});
+          {'id': idBusiness, 'token': tokenDevice});
 
       final response = await http.post(
         Uri.parse(

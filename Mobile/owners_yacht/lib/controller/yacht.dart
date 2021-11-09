@@ -38,9 +38,24 @@ class YachtController extends GetxController {
   TextEditingController statusController = TextEditingController();
   TextEditingController descriptionsController = TextEditingController();
 
+  @override
+  onInit() {
+    fetchYachts();
+    super.onInit();
+  }
+
   void changeCategory(value) {
     categoryController = value;
     update();
+  }
+
+  void getYacht() {
+    if (listYacht.isNotEmpty) {
+      update();
+      Get.to(Yachts());
+    } else {
+      print('loi o get yacht');
+    }
   }
 
   Future<List<Yacht>?> fetchYachts() async {
@@ -62,22 +77,6 @@ class YachtController extends GetxController {
           "Authorization": "Bearer $token"
         },
       );
-
-      // final response = await http.get(
-      //   Uri.parse(
-      //       "https://booking-yacht.azurewebsites.net/api/v1.0/business/vehicles"),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": "Bearer $token"
-      //   },
-      // );
-
-      // final uri = Uri.https("https://booking-yacht.azurewebsites.net", "/api/v1.0/business/vehicles", queryParams);
-      // final response = await http.get(uri, headers: {
-      //   HttpHeaders.authorizationHeader: 'Bearer $token',
-      //   HttpHeaders.contentTypeHeader: 'application/json',
-      // });
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var yachts = yachtReponseFromJson(response.body);
         print(response.body);
@@ -86,7 +85,7 @@ class YachtController extends GetxController {
         }
         getCategory();
         update();
-        Get.to(Yachts());
+        // Get.to(Yachts());
       } else {
         return null;
       }
