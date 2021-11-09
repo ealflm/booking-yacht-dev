@@ -21,10 +21,10 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class AgencyService : BaseService, IAgencyService
     {
-
         private readonly IConfiguration _configuration;
         private readonly FirebaseApp _firebaseApp;
         private readonly FirebaseAuth _firebaseAuth;
+
         public AgencyService(IUnitOfWork unitOfWork, IConfiguration configuration,
             FirebaseApp firebaseApp) : base(unitOfWork)
         {
@@ -32,7 +32,6 @@ namespace BookingYacht.Business.Implement.Admin
             _firebaseApp = firebaseApp;
             _firebaseAuth = FirebaseAuth.GetAuth(_firebaseApp);
         }
-
 
 
         #region Authorization
@@ -113,6 +112,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 token = GetToken((AgencyViewModels)model.Data);
             }
+
             message = model.Message;
 
             return new MessageResult(token, message);
@@ -144,22 +144,22 @@ namespace BookingYacht.Business.Implement.Admin
                 {
                     //if (user.Status == 1)
                     //{
-                        result = new AgencyViewModels()
+                    result = new AgencyViewModels()
 
-                        {
-                            Id = user.Id,
-                            Uid = user.Uid,
-                            Name = user.Name,
-                            EmailAddress = user.EmailAddress,
-                            //Password = user.Password,
-                            PhoneNumber = user.PhoneNumber,
-                            PhotoUrl = user.PhotoUrl,
-                            Status = user.Status
-                        };
+                    {
+                        Id = user.Id,
+                        Uid = user.Uid,
+                        Name = user.Name,
+                        EmailAddress = user.EmailAddress,
+                        //Password = user.Password,
+                        PhoneNumber = user.PhoneNumber,
+                        PhotoUrl = user.PhotoUrl,
+                        Status = user.Status
+                    };
                     //}
                     //else
                     //{
-                        //message = "The user doesn't have permission to access this resource";
+                    //message = "The user doesn't have permission to access this resource";
                     //}
                 }
                 else
@@ -168,8 +168,8 @@ namespace BookingYacht.Business.Implement.Admin
                     var status = 0;
 
                     var model = await _unitOfWork.AgencyRepository.Query()
-                    .Where(x => x.EmailAddress == adminModel.EmailAddress)
-                    .FirstOrDefaultAsync();
+                        .Where(x => x.EmailAddress == adminModel.EmailAddress)
+                        .FirstOrDefaultAsync();
 
                     if (model != null)
                     {
@@ -215,22 +215,22 @@ namespace BookingYacht.Business.Implement.Admin
 
                     //if (status != 1)
                     //{
-                        //message = "The user doesn't have permission to access this resource";
+                    //message = "The user doesn't have permission to access this resource";
                     //}
                     //else
                     //{
-                        //result = new AgencyViewModels()
+                    //result = new AgencyViewModels()
 
-                        //{
-                        //    Id = model.Id,
-                        //    Uid = model.Uid,
-                        //    Name = model.Name,
-                        //    EmailAddress = model.EmailAddress,
-                        //    //Password = model.Password,
-                        //    PhoneNumber = model.PhoneNumber,
-                        //    PhotoUrl = model.PhotoUrl,
-                        //    Status = model.Status
-                        //};
+                    //{
+                    //    Id = model.Id,
+                    //    Uid = model.Uid,
+                    //    Name = model.Name,
+                    //    EmailAddress = model.EmailAddress,
+                    //    //Password = model.Password,
+                    //    PhoneNumber = model.PhoneNumber,
+                    //    PhotoUrl = model.PhotoUrl,
+                    //    Status = model.Status
+                    //};
                     //}
 
                     await _unitOfWork.SaveChangesAsync();
@@ -288,7 +288,7 @@ namespace BookingYacht.Business.Implement.Admin
         {
             Guid? result = null;
             bool isExist = await _unitOfWork.AgencyRepository.Query()
-                                    .AnyAsync(x => x.EmailAddress == model.EmailAddress);
+                .AnyAsync(x => x.EmailAddress == model.EmailAddress);
             if (!isExist)
             {
                 CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -299,15 +299,16 @@ namespace BookingYacht.Business.Implement.Admin
                     EmailAddress = model.EmailAddress,
                     Password = passwordHash,
                     Salt = passwordSalt,
-                    Status= (int)Status.ENABLE
+                    Status = (int)Status.ENABLE
                 };
 
-             //   if (model.EmailAddress.Contains("@bookingyacht.site")) admin.Status = 1;
+                //   if (model.EmailAddress.Contains("@bookingyacht.site")) admin.Status = 1;
 
                 await _unitOfWork.AgencyRepository.Add(admin);
                 await _unitOfWork.SaveChangesAsync();
                 result = admin.Id;
             }
+
             return result;
         }
 
@@ -326,14 +327,14 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 if (computedHash[i] != passwordHash[i]) return false;
             }
+
             return true;
         }
 
         #endregion
 
 
-
-        public async  Task<List<AgencyViewModels>> SearchAgencies(AgencySearchModel model = null)
+        public async Task<List<AgencyViewModels>> SearchAgencies(AgencySearchModel model = null)
         {
             model ??= new AgencySearchModel();
             var agency = await _unitOfWork.AgencyRepository.Query()
@@ -353,7 +354,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = x.Name,
                     PhoneNumber = x.PhoneNumber,
                     Status = x.Status,
-                    PhotoUrl= x.PhotoUrl
+                    PhotoUrl = x.PhotoUrl
                 })
                 .ToListAsync();
             return agency;
@@ -371,7 +372,7 @@ namespace BookingYacht.Business.Implement.Admin
                     Name = x.Name,
                     PhoneNumber = x.PhoneNumber,
                     Status = x.Status,
-                    PhotoUrl= x.PhotoUrl
+                    PhotoUrl = x.PhotoUrl
                 })
                 .FirstOrDefaultAsync();
             return agency;
@@ -395,7 +396,7 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task UpdateAgency(Guid id, AgencyViewModels model)
         {
-            var entity =  new Data.Models.Agency
+            var entity = new Data.Models.Agency
             {
                 Id = id,
                 Address = model.Address,
@@ -407,17 +408,17 @@ namespace BookingYacht.Business.Implement.Admin
             _unitOfWork.AgencyRepository.Update(entity);
             await _unitOfWork.SaveChangesAsync();
         }
-        
+
         public async Task<bool> DeleteAgency(Guid id)
         {
             var first = await _unitOfWork.AgencyRepository.Query()
                 .Where(x => x.Id.Equals(id))
                 .FirstOrDefaultAsync();
             if (first is null) return false;
-            
-            first.Status = (int) Status.DISABLE;
+
+            first.Status = (int)Status.DISABLE;
             await _unitOfWork.SaveChangesAsync();
-            
+
             return first.Status == 2;
         }
 
@@ -426,6 +427,4 @@ namespace BookingYacht.Business.Implement.Admin
             return await _unitOfWork.Context().Agencies.CountAsync();
         }
     }
-
-   
 }

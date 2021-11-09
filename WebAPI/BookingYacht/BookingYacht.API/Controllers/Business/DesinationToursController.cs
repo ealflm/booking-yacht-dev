@@ -16,7 +16,6 @@ namespace BookingYacht.API.Controllers.Business
     [ApiExplorerSettings(GroupName = Role)]
     public class DesinationToursController : BaseBusinessController
     {
-
         private readonly IDestinationTourService _destinationTourService;
 
         public DesinationToursController(IDestinationTourService destinationTourService)
@@ -38,6 +37,5 @@ namespace BookingYacht.API.Controllers.Business
             var destinationTour = await _destinationTourService.GetDestinationTourNavigation(id);
             return Success(destinationTour);
         }
-
     }
 }

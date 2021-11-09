@@ -15,6 +15,7 @@ namespace BookingYacht.API.Controllers.Admin
     public class VehicleTypesController : BaseAdminController
     {
         private readonly IVehicleTypeService _service;
+
         public VehicleTypesController(IVehicleTypeService service)
         {
             _service = service;
@@ -47,13 +48,12 @@ namespace BookingYacht.API.Controllers.Admin
             var res = await _service.UpdateVehicleType(id, model);
             return Success();
         }
-        
+
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var res = await _service.DeleteVehicleType(id);
             return Success();
         }
-        
     }
 }

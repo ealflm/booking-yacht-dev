@@ -17,14 +17,12 @@ namespace BookingYacht.API.Controllers.Admin
     [ApiExplorerSettings(GroupName = Role)]
     public class DesinationToursController : BaseAdminController
     {
-
         private readonly IDestinationTourService _destinationTourService;
 
         public DesinationToursController(IDestinationTourService destinationTourService)
         {
             _destinationTourService = destinationTourService;
         }
-
 
 
         // GET: api/<DesinationTourController>
@@ -47,12 +45,14 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] DestinationTourInsertModel model)
         {
-            var removeList = await _destinationTourService.SearchDestinationTours(new DestinationTourSearchModel() { IdTour = model.IdTour });
-            foreach(DestinationTourViewModel destination in removeList)
+            var removeList = await _destinationTourService.SearchDestinationTours(new DestinationTourSearchModel()
+                { IdTour = model.IdTour });
+            foreach (DestinationTourViewModel destination in removeList)
             {
                 await _destinationTourService.DeleteDestinationTour(destination.Id);
             }
-            for(int i=0; i<model.IdDestinationList.Count; i++)
+
+            for (int i = 0; i < model.IdDestinationList.Count; i++)
             {
                 DestinationTourViewModel destinationTour = new DestinationTourViewModel();
                 destinationTour.IdTour = model.IdTour;
@@ -60,6 +60,7 @@ namespace BookingYacht.API.Controllers.Admin
                 destinationTour.Order = i + 1;
                 await _destinationTourService.AddDestinationTour(destinationTour);
             }
+
             return Success();
         }
 

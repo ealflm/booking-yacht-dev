@@ -15,10 +15,8 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class TicketTypeService : BaseService, ITicketTypeService
     {
-
         public TicketTypeService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
 
         public async Task<TicketType> GetNavigation(Guid id)
@@ -26,7 +24,7 @@ namespace BookingYacht.Business.Implement.Admin
             var ticketType = await _unitOfWork.Context().TicketTypes
                 .Include(x => x.IdBusinessTourNavigation)
                 .Where(x => x.Id.Equals(id))
-                .Where(x => x.ServiceFeePercentage > 1.0 & x.ServiceFeePercentage < 10.0 )
+                .Where(x => x.ServiceFeePercentage > 1.0 & x.ServiceFeePercentage < 10.0)
                 .FirstOrDefaultAsync();
             return ticketType;
         }
@@ -54,8 +52,8 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     Name = x.Name,
                     Status = x.Status,
-                    IdBusinessTour= x.IdBusinessTour,
-                    Price= x.Price,
+                    IdBusinessTour = x.IdBusinessTour,
+                    Price = x.Price,
                     CommissionFeePercentage = x.CommissionFeePercentage,
                     ServiceFeePercentage = x.ServiceFeePercentage
                 }).FirstOrDefaultAsync();
@@ -63,7 +61,5 @@ namespace BookingYacht.Business.Implement.Admin
             _unitOfWork.TicketTypeRepository.Update(ticketType);
             await _unitOfWork.SaveChangesAsync();
         }
-
- 
     }
 }

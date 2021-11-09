@@ -54,6 +54,7 @@ namespace BookingYacht.API.Controllers.Business
             {
                 return Fail("This email address has already been registered");
             }
+
             return Success(result);
         }
 
@@ -64,6 +65,5 @@ namespace BookingYacht.API.Controllers.Business
             var result = await _adminService.SaveRegistrationToken(model);
             return result ? Success() : Fail("Token or id is invalid!!!");
         }
-        
     }
 }

@@ -9,8 +9,8 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IVehicleService
     {
-        Task<List<VehicleViewModel>> SearchVehicles(VehicleSearchModel model=null);
-        Task<List<Vehicle>> SearchVehiclesNavigation(VehicleSearchModel model=null);
+        Task<List<VehicleViewModel>> SearchVehicles(VehicleSearchModel model = null);
+        Task<List<Vehicle>> SearchVehiclesNavigation(VehicleSearchModel model = null);
         Task<VehicleViewModel> GetVehicle(Guid id);
         Task<Vehicle> GetVehicleNavigation(Guid id);
         Task<Guid> AddVehicle(VehicleViewModel model);

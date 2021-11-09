@@ -17,11 +17,10 @@ namespace BookingYacht.Business.Implement.Business
     {
         public TicketTypeService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
+
         public async Task<Guid> AddTicketType(TicketTypeViewModel model)
         {
-
             var businessTour = await _unitOfWork.BusinessTourRepository.Query()
                 .Where(x => x.IdBusiness.Equals(model.IdBusiness))
                 .Where(x => x.IdTour.Equals(model.IdTour))
@@ -36,12 +35,13 @@ namespace BookingYacht.Business.Implement.Business
                 };
                 _unitOfWork.BusinessTourRepository.Query().Add(businessTour);
             }
+
             await _unitOfWork.SaveChangesAsync();
             var ticketType = new TicketType()
             {
                 Id = model.Id,
                 Price = model.Price,
-                Name= model.Name,
+                Name = model.Name,
                 CommissionFeePercentage = model.CommissionFeePercentage,
                 ServiceFeePercentage = model.ServiceFeePercentage,
                 IdBusinessTour = businessTour.Id,
@@ -92,25 +92,26 @@ namespace BookingYacht.Business.Implement.Business
             model ??= new TicketTypeSearchModel();
             var ticketType = await _unitOfWork.TicketTypeRepository.Query()
                 .Where(x => model.Price == null || Equals(x.Price, model.Price))
-                .Where(x => model.CommissionFeePercentage == null || x.CommissionFeePercentage == model.CommissionFeePercentage)
+                .Where(x => model.CommissionFeePercentage == null ||
+                            x.CommissionFeePercentage == model.CommissionFeePercentage)
                 .Where(x => model.ServiceFeePercentage == null || x.ServiceFeePercentage == model.ServiceFeePercentage)
                 .Where(x => model.IdBusinessTour == null || x.IdBusinessTour.Equals(model.IdBusinessTour))
                 .Where(x => model.Status == Status.ALL || x.Status == (int)model.Status)
-                .Join(_unitOfWork.Context().BusinessTours, 
-                        type => type.IdBusinessTour,
-                        tour => tour.Id,
-                        (type, tour) => new {TicketType = type, BusinessTour = tour})
+                .Join(_unitOfWork.Context().BusinessTours,
+                    type => type.IdBusinessTour,
+                    tour => tour.Id,
+                    (type, tour) => new { TicketType = type, BusinessTour = tour })
                 .Join(_unitOfWork.Context().Businesses,
                     business => business.BusinessTour.IdBusiness,
                     arg => arg.Id,
-                    (__, business) => new {Business = business, __.TicketType, __.BusinessTour} )
-                .Join(_unitOfWork.Context().Tours, 
+                    (__, business) => new { Business = business, __.TicketType, __.BusinessTour })
+                .Join(_unitOfWork.Context().Tours,
                     arg => arg.BusinessTour.IdTour,
                     tour => tour.Id,
                     (__, tour) => new
                     {
-                        __.TicketType, 
-                        tour.Id, 
+                        __.TicketType,
+                        tour.Id,
                         tour.Title,
                         __.Business.Name,
                         IdBusiness = __.Business.Id
@@ -135,7 +136,7 @@ namespace BookingYacht.Business.Implement.Business
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
                 .Take((model.Page != 0) ? model.AmountItem : _unitOfWork.TicketTypeRepository.Query().Count())
                 .ToListAsync();
-            
+
             return ticketType;
         }
 

@@ -32,7 +32,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
             var admin = await _service.GetAdmin(id);
-           
+
             return Success(admin);
         }
 

@@ -20,7 +20,7 @@ namespace BookingYacht.API.Controllers.Admin
         {
             _service = service;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BusinessTourSearchModel model)
         {
@@ -55,6 +55,5 @@ namespace BookingYacht.API.Controllers.Admin
             var result = await _service.DeleteBusinessTour(id);
             return result ? Success() : Fail("The Business Tour not Exist!!!");
         }
-        
     }
 }

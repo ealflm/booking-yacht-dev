@@ -9,7 +9,7 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IBusinessTourService
     {
-        Task<List<BusinessTourViewModel>> SearchAgenciesNavigation(BusinessTourSearchModel model=null);
+        Task<List<BusinessTourViewModel>> SearchAgenciesNavigation(BusinessTourSearchModel model = null);
         Task<List<BusinessTourViewModel>> SearchBusinessTourForAgency(BusinessTourSearchModel model = null);
         Task<BusinessTour> GetBusinessTourNavigation(Guid id);
         Task<Guid> AddBusinessTour(BusinessTourViewModel model);

@@ -9,6 +9,7 @@ namespace BookingYacht.Business.Implement.Admin
     public class FileManagerLogic : IFileManagerLogic
     {
         private readonly BlobServiceClient _blobServiceClient;
+
         public FileManagerLogic(BlobServiceClient blobServiceClient)
         {
             _blobServiceClient = blobServiceClient;

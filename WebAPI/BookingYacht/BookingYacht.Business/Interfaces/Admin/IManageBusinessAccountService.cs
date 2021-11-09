@@ -12,7 +12,6 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IManageBusinessAccountService
     {
-
         #region Authorization
 
         Task<MessageResult> Login(LoginSearchModel model);
@@ -20,13 +19,14 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<Guid?> Register(RegisterSearchModel model);
 
         #endregion
-        Task<List<BusinessViewModel>> SearchBusinesses(BusinessSearchModel model=null);
+
+        Task<List<BusinessViewModel>> SearchBusinesses(BusinessSearchModel model = null);
         Task<BusinessViewModel> GetBusiness(Guid id);
         Task<Guid> AddBusiness(BusinessViewModel model);
         Task UpdateBusiness(Guid id, BusinessViewModel model);
         Task DeleteBusiness(Guid id);
         Task<List<BusinessPaymentModel>> GetPayment(PaymentSearchModel model);
-        Task<BusinessPaymentModel> GetPaymentById(Guid id,PaymentSearchModel model);
+        Task<BusinessPaymentModel> GetPaymentById(Guid id, PaymentSearchModel model);
 
         Task<bool> SaveRegistrationToken(RegistrationTokenModel model);
     }

@@ -17,18 +17,16 @@ namespace BookingYacht.Business.Implement.Business
     {
         public TripService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
 
         public async Task<Guid> AddTrip(TripViewModel model)
         {
-          
             var trip = new Trip()
             {
                 Id = model.Id,
-                Time= model.Time ,
-                IdBusinessTour= model.IdBusinessTour,
-                IdVehicle= model.IdVehicle,
+                Time = model.Time,
+                IdBusinessTour = model.IdBusinessTour,
+                IdVehicle = model.IdVehicle,
                 AmountTicket = model.AmountTicket,
                 Status = model.Status
             };
@@ -49,7 +47,7 @@ namespace BookingYacht.Business.Implement.Business
                     IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
                     Status = x.Status,
-                    AmountTicket=x.AmountTicket
+                    AmountTicket = x.AmountTicket
                 }).FirstOrDefaultAsync();
             trip.Status = (int)Status.DISABLE;
             _unitOfWork.TripRepository.Update(trip);
@@ -67,7 +65,7 @@ namespace BookingYacht.Business.Implement.Business
                     IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
                     Status = x.Status,
-                    AmountTicket=x.AmountTicket
+                    AmountTicket = x.AmountTicket
                 }).FirstOrDefaultAsync();
             return trip;
         }
@@ -78,6 +76,7 @@ namespace BookingYacht.Business.Implement.Business
             {
                 model = new TripSearchModel();
             }
+
             var trips = await _unitOfWork.TripRepository.Query()
                 .Where(x => model.IdBusinessTour == null | x.IdBusinessTour.Equals(model.IdBusinessTour))
                 .Where(x => model.IdVehicle == null | x.IdVehicle.Equals(model.IdVehicle))
@@ -89,8 +88,8 @@ namespace BookingYacht.Business.Implement.Business
                     IdBusinessTour = x.IdBusinessTour,
                     IdVehicle = x.IdVehicle,
                     Status = x.Status,
-                    AmountTicket=x.AmountTicket,
-                    Orders= _unitOfWork.OrderRepository.Query().Where(y=> y.IdTrip.Equals(x.Id)).ToList()
+                    AmountTicket = x.AmountTicket,
+                    Orders = _unitOfWork.OrderRepository.Query().Where(y => y.IdTrip.Equals(x.Id)).ToList()
                 })
                 .OrderBy(x => x.Time)
                 .Skip(model.AmountItem * ((model.Page != 0) ? (model.Page - 1) : model.Page))
@@ -108,7 +107,7 @@ namespace BookingYacht.Business.Implement.Business
                 IdBusinessTour = model.IdBusinessTour,
                 IdVehicle = model.IdVehicle,
                 Status = model.Status,
-                AmountTicket= model.AmountTicket
+                AmountTicket = model.AmountTicket
             };
             _unitOfWork.TripRepository.Update(trip);
             await _unitOfWork.SaveChangesAsync();

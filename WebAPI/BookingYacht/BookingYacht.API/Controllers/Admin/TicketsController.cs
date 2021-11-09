@@ -13,7 +13,6 @@ namespace BookingYacht.API.Controllers.Admin
     [ApiExplorerSettings(GroupName = Role)]
     public class TicketsController : BaseAdminController
     {
-        
         private readonly ITicketService _service;
 
         public TicketsController(ITicketService service)
@@ -32,7 +31,7 @@ namespace BookingYacht.API.Controllers.Admin
         public async Task<IActionResult> Get(Guid id)
         {
             var ticket = await _service.GetTicketNavigation(id);
-           
+
             return Success(ticket);
         }
 
@@ -41,6 +40,5 @@ namespace BookingYacht.API.Controllers.Admin
         {
             return Success(await _service.Count());
         }
-
     }
 }

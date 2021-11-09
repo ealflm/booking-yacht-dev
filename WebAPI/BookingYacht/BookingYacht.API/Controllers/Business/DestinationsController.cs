@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingYacht.API.Controllers.Business
 {
-    
     [Route(BusinessRoute)]
     [ApiController]
     [Authorize]
@@ -34,10 +33,8 @@ namespace BookingYacht.API.Controllers.Business
         public async Task<IActionResult> Get(Guid id)
         {
             var business = await _service.GetDestiny(id);
-           
+
             return Success(business);
         }
-
-        
     }
 }

@@ -26,7 +26,6 @@ namespace BookingYacht.API.Controllers.Business
         }
 
 
-
         // GET: api/<TicketTypesController>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TicketTypeSearchModel model)
@@ -39,7 +38,7 @@ namespace BookingYacht.API.Controllers.Business
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var ticketType  = await _tickettypeService.GetTicketType(id);
+            var ticketType = await _tickettypeService.GetTicketType(id);
             return Success(ticketType);
         }
 

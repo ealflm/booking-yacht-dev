@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace BookingYacht.API.Controllers.Admin
 {
-
     [Route(AdminRoute)]
     [ApiController]
     [Authorize]
@@ -45,6 +44,7 @@ namespace BookingYacht.API.Controllers.Admin
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] TicketTypeViewModel model)
         {
+            //Set -> Update
             await _ticketTypeService.UpdateTicketType(id, model);
             return Success();
         }

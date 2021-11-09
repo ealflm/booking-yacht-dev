@@ -6,9 +6,8 @@ using BookingYacht.Business.ViewModels;
 
 namespace BookingYacht.Business.Interfaces.Admin
 {
-    public interface IAgencyService : IBaseService 
+    public interface IAgencyService : IBaseService
     {
-
         #region Authorization
 
         Task<MessageResult> Login(LoginSearchModel model);
@@ -16,7 +15,8 @@ namespace BookingYacht.Business.Interfaces.Admin
         Task<Guid?> Register(RegisterSearchModel model);
 
         #endregion
-        Task<List<AgencyViewModels>> SearchAgencies(AgencySearchModel model=null);
+
+        Task<List<AgencyViewModels>> SearchAgencies(AgencySearchModel model = null);
         Task<AgencyViewModels> GetAgency(Guid id);
         Task<Guid> AddAgency(AgencyViewModels model);
         Task UpdateAgency(Guid id, AgencyViewModels model);

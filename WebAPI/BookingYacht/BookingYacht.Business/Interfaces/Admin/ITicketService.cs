@@ -9,7 +9,7 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface ITicketService
     {
-        Task<List<TicketViewModel>> SearchTickets(TicketSearchModel model=null);
+        Task<List<TicketViewModel>> SearchTickets(TicketSearchModel model = null);
         Task<List<Ticket>> SearchTicketsNavigation(TicketSearchModel model = null);
         Task<TicketViewModel> GetTicket(Guid id);
         Task<Ticket> GetTicketNavigation(Guid id);

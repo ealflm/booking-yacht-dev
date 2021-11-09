@@ -37,6 +37,5 @@ namespace BookingYacht.API.Controllers
             };
             return Ok(model);
         }
-
     }
 }

@@ -5,7 +5,7 @@ namespace BookingYacht.Business.ViewModels
     public class TicketTypeViewModel
     {
         public Guid Id { get; set; }
-        
+
         public String TourName { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
@@ -17,6 +17,5 @@ namespace BookingYacht.Business.ViewModels
         public Guid IdBusiness { get; set; }
 
         public string BusinessName { get; set; }
-
     }
 }

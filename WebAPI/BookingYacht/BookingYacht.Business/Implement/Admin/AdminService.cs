@@ -23,7 +23,6 @@ namespace BookingYacht.Business.Implement.Admin
 {
     public class AdminService : BaseService, IAdminService
     {
-
         private readonly IConfiguration _configuration;
         private readonly FirebaseApp _firebaseApp;
         private readonly FirebaseAuth _firebaseAuth;
@@ -113,6 +112,7 @@ namespace BookingYacht.Business.Implement.Admin
             {
                 token = GetToken((AdminViewModel)model.Data);
             }
+
             message = model.Message;
 
             return new MessageResult(token, message);
@@ -168,8 +168,8 @@ namespace BookingYacht.Business.Implement.Admin
                     var status = 0;
 
                     var model = await _unitOfWork.AdminRepository.Query()
-                    .Where(x => x.EmailAddress == adminModel.EmailAddress)
-                    .FirstOrDefaultAsync();
+                        .Where(x => x.EmailAddress == adminModel.EmailAddress)
+                        .FirstOrDefaultAsync();
 
                     if (model != null)
                     {
@@ -181,14 +181,17 @@ namespace BookingYacht.Business.Implement.Admin
                         status = model.Status;
 
                         _unitOfWork.AdminRepository.Update(model);
-                    } else
+                    }
+                    else
                     {
                         await _unitOfWork.AdminRepository.Add(adminModel);
                     }
 
-                    if (status != 1) { 
+                    if (status != 1)
+                    {
                         message = "The user doesn't have permission to access this resource";
-                    } else
+                    }
+                    else
                     {
                         result = new AdminViewModel()
                         {
@@ -258,7 +261,7 @@ namespace BookingYacht.Business.Implement.Admin
         {
             Guid? result = null;
             bool isExist = await _unitOfWork.AdminRepository.Query()
-                                    .AnyAsync(x => x.EmailAddress == model.EmailAddress);
+                .AnyAsync(x => x.EmailAddress == model.EmailAddress);
             if (!isExist)
             {
                 CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -277,6 +280,7 @@ namespace BookingYacht.Business.Implement.Admin
                 await _unitOfWork.SaveChangesAsync();
                 result = admin.Id;
             }
+
             return result;
         }
 
@@ -290,12 +294,13 @@ namespace BookingYacht.Business.Implement.Admin
         private static bool VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt);
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)); 
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             for (int i = 0; i < computedHash.Length; i++)
-            { 
-                if (computedHash[i] != passwordHash[i]) return false; 
+            {
+                if (computedHash[i] != passwordHash[i]) return false;
             }
-            return true; 
+
+            return true;
         }
 
         #endregion
@@ -306,15 +311,15 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => x.Id.Equals(id))
                 .Select(x => new AdminViewModel()
                 {
-                    Id  = x.Id,
-                    Uid  = x.Uid,
-                    Name  = x.Name,
-                    EmailAddress  = x.EmailAddress,
+                    Id = x.Id,
+                    Uid = x.Uid,
+                    Name = x.Name,
+                    EmailAddress = x.EmailAddress,
                     //Password  = x.Password,
                     //Salt  = x.Salt,
-                    PhoneNumber  = x.PhoneNumber,
-                    PhotoUrl  = x.PhotoUrl,
-                    Status  = x.Status
+                    PhoneNumber = x.PhoneNumber,
+                    PhotoUrl = x.PhotoUrl,
+                    Status = x.Status
                 }).FirstOrDefaultAsync();
             return admin;
         }
@@ -405,7 +410,5 @@ namespace BookingYacht.Business.Implement.Admin
             _unitOfWork.AdminRepository.Update(admin);
             await _unitOfWork.SaveChangesAsync();
         }
-        
-        
     }
 }

@@ -20,6 +20,7 @@ namespace BookingYacht.API.Controllers.Admin
     {
         private readonly ITourService _tourService;
         private readonly IFileManagerLogic _fileManagerLogic;
+
         public ToursController(ITourService tourService, IFileManagerLogic fileManagerLogic)
         {
             _tourService = tourService;
@@ -75,8 +76,8 @@ namespace BookingYacht.API.Controllers.Admin
             {
                 await _fileManagerLogic.Upload(model);
             }
-            return Success("https://swd3915.blob.core.windows.net/images/"+model.ImageFile.FileName);
-        }
 
+            return Success("https://swd3915.blob.core.windows.net/images/" + model.ImageFile.FileName);
+        }
     }
 }

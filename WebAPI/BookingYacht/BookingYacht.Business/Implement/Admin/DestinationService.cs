@@ -22,7 +22,7 @@ namespace BookingYacht.Business.Implement.Admin
                 Name = model.Name,
                 Address = model.Address,
                 IdPlaceType = model.IdPlaceType,
-                Status = (int) Status.ENABLE
+                Status = (int)Status.ENABLE
             };
             await _unitOfWork.DestinationRepository.Add(destiny);
             await _unitOfWork.SaveChangesAsync();
@@ -38,9 +38,9 @@ namespace BookingYacht.Business.Implement.Admin
                     Id = x.Id,
                     Address = x.Address,
                     Status = x.Status,
-                    IdPlaceType =  x.IdPlaceType
+                    IdPlaceType = x.IdPlaceType
                 }).FirstOrDefaultAsync();
-            destiny.Status =(int) Status.DISABLE;
+            destiny.Status = (int)Status.DISABLE;
             _unitOfWork.DestinationRepository.Update(destiny);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -48,7 +48,7 @@ namespace BookingYacht.Business.Implement.Admin
         public async Task<DestinyViewModel> GetDestiny(Guid id)
         {
             var destiny = await _unitOfWork.DestinationRepository.Query()
-                .Where(x=> x.Id.Equals(id))
+                .Where(x => x.Id.Equals(id))
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
@@ -69,20 +69,21 @@ namespace BookingYacht.Business.Implement.Admin
             return destiny;
         }
 
-        public async Task<List<DestinyViewModel>> SearchDestinies(DestinySearchModel model=null)
+        public async Task<List<DestinyViewModel>> SearchDestinies(DestinySearchModel model = null)
         {
             model ??= new DestinySearchModel();
             var destiny = await _unitOfWork.DestinationRepository.Query()
                 .Where(x => model.Address == null | x.Address.Contains(model.Address))
                 .Where(x => model.Name == null | x.Name.Contains(model.Name))
-                .Where(x => model.Status == null |x.Status == model.Status)
+                .Where(x => model.Status == null | x.Status == model.Status)
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem 
+                .Take(model.Page != 0
+                    ? model.AmountItem
                     // : 0 
                     : _unitOfWork.DestinationRepository.Query().Count()
-                    )
+                )
                 .Select(x => new DestinyViewModel()
                 {
                     Id = x.Id,
@@ -107,10 +108,11 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdPlaceType == null | x.IdPlaceType == model.IdPlaceType)
                 .OrderBy(x => x.Address)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
-                .Take(model.Page != 0 ? model.AmountItem 
+                .Take(model.Page != 0
+                    ? model.AmountItem
                     // : 0
                     : _unitOfWork.DestinationRepository.Query().Count()
-                    )
+                )
                 .OrderBy(x => x.Address)
                 .ToListAsync();
             return destiny;

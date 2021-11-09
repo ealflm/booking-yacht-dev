@@ -39,6 +39,5 @@ namespace BookingYacht.API.Controllers.Agency
             var tour = await _tourService.GetTour(id);
             return Success(tour);
         }
-
     }
 }

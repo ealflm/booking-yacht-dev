@@ -54,22 +54,21 @@ namespace BookingYacht.Business.VNPay
                     data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
                 }
             }
+
             string queryString = data.ToString();
 
             baseUrl += "?" + queryString;
             String signData = queryString;
             if (signData.Length > 0)
             {
-
                 signData = signData.Remove(data.Length - 1, 1);
             }
+
             string vnp_SecureHash = Utils.HmacSHA512(vnp_HashSecret, signData);
             baseUrl += "vnp_SecureHash=" + vnp_SecureHash;
 
             return baseUrl;
         }
-
-
 
         #endregion
 
@@ -81,30 +80,35 @@ namespace BookingYacht.Business.VNPay
             string myChecksum = Utils.HmacSHA512(secretKey, rspRaw);
             return myChecksum.Equals(inputHash, StringComparison.InvariantCultureIgnoreCase);
         }
+
         private string GetResponseData()
         {
-
             StringBuilder data = new StringBuilder();
             if (_responseData.ContainsKey("VnpSecureHashType"))
             {
                 _responseData.Remove("VnpSecureHashType");
             }
+
             if (_responseData.ContainsKey("VnpSecureHash"))
             {
                 _responseData.Remove("VnpSecureHash");
             }
+
             foreach (KeyValuePair<string, string> kv in _responseData)
             {
                 if (!String.IsNullOrEmpty(kv.Value))
                 {
-                    data.Append(WebUtility.UrlEncode("vnp_"+kv.Key.Substring(3)) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                    data.Append(WebUtility.UrlEncode("vnp_" + kv.Key.Substring(3)) + "=" +
+                                WebUtility.UrlEncode(kv.Value) + "&");
                 }
             }
+
             //remove last '&'
             if (data.Length > 0)
             {
                 data.Remove(data.Length - 1, 1);
             }
+
             return data.ToString();
         }
 
@@ -113,8 +117,6 @@ namespace BookingYacht.Business.VNPay
 
     public class Utils
     {
-
-
         public static String HmacSHA512(string key, String inputData)
         {
             var hash = new StringBuilder();

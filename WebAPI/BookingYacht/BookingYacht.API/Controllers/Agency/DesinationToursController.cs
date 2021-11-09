@@ -16,14 +16,12 @@ namespace BookingYacht.API.Controllers.Agency
     [ApiExplorerSettings(GroupName = Role)]
     public class DesinationToursController : BaseAgencyController
     {
-
         private readonly IDestinationTourService _destinationTourService;
 
         public DesinationToursController(IDestinationTourService destinationTourService)
         {
             _destinationTourService = destinationTourService;
         }
-
 
 
         // GET: api/<DesinationTourController>
@@ -41,6 +39,5 @@ namespace BookingYacht.API.Controllers.Agency
             var destinationTour = await _destinationTourService.GetDestinationTour(id);
             return Success(destinationTour);
         }
-
     }
 }

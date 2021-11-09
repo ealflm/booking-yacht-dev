@@ -21,7 +21,7 @@ namespace BookingYacht.API.Controllers.Business
         {
             _service = service;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BusinessTourSearchModel model)
         {
@@ -35,7 +35,5 @@ namespace BookingYacht.API.Controllers.Business
             var result = await _service.GetBusinessTourNavigation(id);
             return Success(result);
         }
-
-        
     }
 }

@@ -52,8 +52,8 @@ namespace BookingYacht.API.Controllers.Agency
             {
                 return Fail("Email này đã có người sử dụng");
             }
+
             return Success(result);
         }
-
     }
 }

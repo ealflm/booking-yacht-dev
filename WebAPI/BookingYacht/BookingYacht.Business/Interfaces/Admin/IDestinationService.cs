@@ -9,7 +9,7 @@ namespace BookingYacht.Business.Interfaces.Admin
 {
     public interface IDestinationService
     {
-        Task<List<DestinyViewModel>> SearchDestinies(DestinySearchModel model=null);
+        Task<List<DestinyViewModel>> SearchDestinies(DestinySearchModel model = null);
         Task<List<Destination>> SearchDestiniesNavigation(DestinySearchModel model = null);
         Task<DestinyViewModel> GetDestiny(Guid id);
         Task<Destination> GetDestinyNavigation(Guid id);

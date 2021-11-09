@@ -15,17 +15,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingYacht.Business.Implement.Admin
 {
-
     public class OrdersService : BaseService, IOrdersService
     {
-
         public OrdersService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
         public async Task<List<OrdersViewModel>> Search(OrdersSearchModel model)
         {
-            
             model ??= new OrdersSearchModel();
             var list = await _unitOfWork.OrderRepository.Query()
                 .Where(x => model.AgencyName == null || x.AgencyName.Contains(model.AgencyName))
@@ -33,28 +30,28 @@ namespace BookingYacht.Business.Implement.Admin
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 .Where(x => model.TotalPrice == null || x.TotalPrice == model.TotalPrice)
                 .Where(x => model.QuantityOfPerson == null || x.QuantityOfPerson == model.QuantityOfPerson)
-                .Where(x => model.Status == null || x.Status == (int) model.Status)
+                .Where(x => model.Status == null || x.Status == (int)model.Status)
                 .Join(
                     _unitOfWork.Context().Trips,
                     order => order.IdTrip,
-                    trip => trip.Id, 
-                    (order, trip) => new {Trip = trip, order})
-                .Join(_unitOfWork.Context().BusinessTours, 
+                    trip => trip.Id,
+                    (order, trip) => new { Trip = trip, order })
+                .Join(_unitOfWork.Context().BusinessTours,
                     arg => arg.Trip.IdBusinessTour,
                     businessTour => businessTour.Id,
-                    (__, businessTour) => new {BusinessTour = businessTour, __.order})
+                    (__, businessTour) => new { BusinessTour = businessTour, __.order })
                 .Join(_unitOfWork.Context().Tours,
                     arg => arg.BusinessTour.IdTour,
                     tour => tour.Id,
-                    (__, tour) => new {Tour = tour, __.order})
-                .Join(_unitOfWork.Context().Agencies, 
-                    arg => arg.order.IdAgency, 
+                    (__, tour) => new { Tour = tour, __.order })
+                .Join(_unitOfWork.Context().Agencies,
+                    arg => arg.order.IdAgency,
                     agency => agency.Id,
-                    (__, agencies) => new {Agency = agencies, __.order, __.Tour})
+                    (__, agencies) => new { Agency = agencies, __.order, __.Tour })
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
                 .Take(model.Page != 0 ? model.AmountItem : _unitOfWork.OrderRepository.Query().Count())
                 .OrderBy(x => x.Tour.Title)
-                .Select( arg => new OrdersViewModel
+                .Select(arg => new OrdersViewModel
                 {
                     Id = arg.order.Id,
                     Status = (Status)arg.order.Status,
@@ -90,10 +87,10 @@ namespace BookingYacht.Business.Implement.Admin
                     AgencyName = x.AgencyName,
                     IdAgency = x.IdAgency,
                     QuantityOfPerson = x.QuantityOfPerson,
-                    Status = (Status) x.Status,
+                    Status = (Status)x.Status,
                     OrderDate = x.DateOrder.GetValueOrDefault(),
                     TotalPrice = x.TotalPrice ?? 0,
-                    IdTrip= x.IdTrip
+                    IdTrip = x.IdTrip
                 })
                 .FirstOrDefaultAsync();
         }
@@ -109,20 +106,18 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task<Order> Add(OrderCreateModel model)
         {
-            
             //Add Order to DB
             var agency = await _unitOfWork.AgencyRepository.GetById(model.IdAgency);
-            
+
             var addOrder = new Order()
             {
-                
                 QuantityOfPerson = model.QuantityOfPerson ?? 0,
                 IdAgency = model.IdAgency,
                 IdTrip = model.IdTrip!,
                 AgencyName = agency.Name,
                 DateOrder = model.OrderDate,
                 Status = (int)Status.COMPLETELY_PAYMENT,
-                TotalPrice = model.TotalPrice 
+                TotalPrice = model.TotalPrice
             };
 
             var result = await _unitOfWork.Context().Orders.AddAsync(addOrder);
@@ -139,7 +134,7 @@ namespace BookingYacht.Business.Implement.Admin
                     business => business.Id,
                     (__, business) => business.FcmToken)
                 .FirstOrDefaultAsync();
-        
+
             //Send notification - FCM: 
             var name = FirebaseApp.DefaultInstance.Name;
             Console.WriteLine("Firebase:" + name);
@@ -148,35 +143,33 @@ namespace BookingYacht.Business.Implement.Admin
             return result.Entity;
         }
 
-      
-        
+
         public async Task<bool> Update(Guid id, OrdersViewModel model)
         {
             var order = await _unitOfWork.OrderRepository.GetById(id);
             if (order == null) return false;
-            order.Status =(int)model.Status;
+            order.Status = (int)model.Status;
             order.AgencyName = model.AgencyName;
             order.IdAgency = model.IdAgency;
             order.QuantityOfPerson = model.QuantityOfPerson;
             order.TotalPrice = model.TotalPrice;
             order.IdTrip = model.IdTrip;
             _unitOfWork.OrderRepository.Query().Update(order);
-            
+
             await _unitOfWork.SaveChangesAsync();
             return true;
-
         }
 
         public async Task<bool> Delete(Guid id)
         {
             var order = _unitOfWork.OrderRepository.GetById(id).Result;
-            
-            if (order== null) return false;
 
-            order.Status = (int) Status.DISABLE;
-            
+            if (order == null) return false;
+
+            order.Status = (int)Status.DISABLE;
+
             _unitOfWork.OrderRepository.Update(order);
-            
+
             await _unitOfWork.SaveChangesAsync();
             return true;
         }

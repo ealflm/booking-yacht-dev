@@ -15,6 +15,7 @@ namespace BookingYacht.API.Controllers.Business
     public class VehicleTypesController : BaseBusinessController
     {
         private readonly IVehicleTypeService _service;
+
         public VehicleTypesController(IVehicleTypeService service)
         {
             _service = service;
@@ -33,6 +34,5 @@ namespace BookingYacht.API.Controllers.Business
             var model = await _service.GetVehicleType(id);
             return Success(model);
         }
-        
     }
 }

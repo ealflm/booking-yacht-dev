@@ -27,7 +27,7 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdOrder == null | x.IdOrder.Equals(model.IdOrder))
                 .Where(x => model.IdTrip == null | x.IdTrip.Equals(model.IdTrip))
                 .Where(x => model.IdTicketType == null | x.IdTicketType.Equals(model.IdTicketType))
-                .Where(x => model.Status == null | x.Status == (int) model.Status)
+                .Where(x => model.Status == null | x.Status == (int)model.Status)
                 .Where(x => model.Price == null | x.Price == model.Price)
                 .OrderBy(x => x.NameCustomer)
                 .Skip(model.AmountItem * (model.Page != 0 ? model.Page - 1 : 0))
@@ -58,12 +58,12 @@ namespace BookingYacht.Business.Implement.Admin
                 .Where(x => model.IdOrder == null | x.IdOrder.Equals(model.IdOrder))
                 .Where(x => model.IdTrip == null | x.IdTrip.Equals(model.IdTrip))
                 .Where(x => model.IdTicketType == null | x.IdTicketType.Equals(model.IdTicketType))
-                .Where(x => model.Status == null | x.Status == (int) model.Status)
+                .Where(x => model.Status == null | x.Status == (int)model.Status)
                 .Where(x => model.Price == null | Equals(x.Price, model.Price))
                 .OrderBy(x => x.NameCustomer)
                 .Skip(model.AmountItem * (model.Page > 0 ? model.Page - 1 : 0))
-                .Take(model.Page > 0 ? model.AmountItem 
-                    : !_unitOfWork.TicketRepository.Query().Any() ? 1 
+                .Take(model.Page > 0 ? model.AmountItem
+                    : !_unitOfWork.TicketRepository.Query().Any() ? 1
                     : _unitOfWork.TicketRepository.Query().Count())
                 .ToListAsync();
             return list;
@@ -100,7 +100,8 @@ namespace BookingYacht.Business.Implement.Admin
 
         public async Task<Guid> AddTicket(TicketViewModel model)
         {
-            var ticketType = _unitOfWork.TicketTypeRepository.Query().Where(x => x.Id.Equals(model.IdTicketType)).Select(x => new TicketType() { Price = x.Price }).FirstOrDefault();
+            var ticketType = _unitOfWork.TicketTypeRepository.Query().Where(x => x.Id.Equals(model.IdTicketType))
+                .Select(x => new TicketType() { Price = x.Price }).FirstOrDefault();
             var entity = new Ticket()
             {
                 Id = model.Id,
@@ -146,7 +147,7 @@ namespace BookingYacht.Business.Implement.Admin
             if (ticket.Result == null) return false;
             //entity existed:
 
-            ticket.Result.Status = (int) Status.DISABLE;
+            ticket.Result.Status = (int)Status.DISABLE;
 
             _unitOfWork.TicketRepository.Update(ticket.Result);
             await _unitOfWork.SaveChangesAsync();
@@ -157,20 +158,21 @@ namespace BookingYacht.Business.Implement.Admin
         {
             var ticket = _unitOfWork.TicketRepository.GetById(id);
             string result = "";
-            if(ticket.Result != null && ticket.Result.Status==(int) Status.NOT_SCANNED)
+            if (ticket.Result != null && ticket.Result.Status == (int)Status.NOT_SCANNED)
             {
-                result = ticket.Result.Id+"|"+ "bookyacht";
+                result = ticket.Result.Id + "|" + "bookyacht";
                 result = Base64Encode(result);
             }
+
             return result;
         }
 
         public async Task<Ticket> CheckQRString(string qr)
         {
             qr = Base64Decode(qr);
-            string[] result= qr.Split('|');
+            string[] result = qr.Split('|');
             var ticket = _unitOfWork.TicketRepository.GetById(Guid.Parse(result[0]));
-            if(ticket!= null)
+            if (ticket != null)
             {
                 if (!result[1].Equals("bookyacht"))
                 {
@@ -182,6 +184,7 @@ namespace BookingYacht.Business.Implement.Admin
                     _unitOfWork.TicketRepository.Update(ticket.Result);
                 }
             }
+
             await _unitOfWork.SaveChangesAsync();
             return ticket.Result;
         }
@@ -202,6 +205,5 @@ namespace BookingYacht.Business.Implement.Admin
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
-        
     }
 }
