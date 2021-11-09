@@ -26,7 +26,6 @@ namespace BookingYacht.API.Controllers.Admin
         public DestinationsController(IDestinationService service
         ,IDistributedCache cache)
         {
-        // ){
             _service = service;
             _cache = cache;
         }
@@ -47,11 +46,11 @@ namespace BookingYacht.API.Controllers.Admin
         {
 
             var destinies = await _cache.GetRecordAsync<Destination>(Des + id);
-            // if (destinies is null)
-            // {
-            //     destinies = await _service.GetDestinyNavigation(id);
-            //     await _cache.SetRecordAsync(Des + id, destinies);
-            // }
+            if (destinies is null)
+            {
+                destinies = await _service.GetDestinyNavigation(id);
+                await _cache.SetRecordAsync(Des + id, destinies);
+            }
             return Success(destinies);
         }
 

@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingYacht.API.Extensions;
+using Microsoft.Extensions.Caching.Distributed;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,10 +22,12 @@ namespace BookingYacht.API.Controllers.Business
     {
 
         private readonly ITripService _tripService;
-
-        public TripsController(ITripService tripService)
+        private readonly IDistributedCache _cache;
+        private const string Trip = "Trip_";
+        public TripsController(ITripService tripService, IDistributedCache cache)
         {
             _tripService = tripService;
+            _cache = cache;
         }
 
 
@@ -31,7 +35,12 @@ namespace BookingYacht.API.Controllers.Business
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] TripSearchModel model)
         {
+            
             var trips = await _tripService.SearchTrip(model);
+            foreach (var trip in trips)
+            {
+                await _cache.SetRecordAsync(Trip + trip.Id, trip);
+            }
             return Success(trips);
         }
 
