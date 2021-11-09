@@ -180,10 +180,34 @@ namespace BookingYacht.Business.Implement.Admin
                         model.Status = 1;
 
                         _unitOfWork.BusinessRepository.Update(model);
+
+					    result = new BusinessViewModel()
+					    {
+							Id = model.Id,
+							Uid = model.Uid,
+							Name = model.Name,
+							EmailAddress = model.EmailAddress,
+							//Password = model.Password,
+							PhoneNumber = model.PhoneNumber,
+							PhotoUrl = model.PhotoUrl,
+							Status = model.Status
+					    };
                     }
                     else
                     {
                         await _unitOfWork.BusinessRepository.Add(adminModel);
+
+					    result = new BusinessViewModel()
+					    {
+							Id = adminModel.Id,
+							Uid = adminModel.Uid,
+							Name = adminModel.Name,
+							EmailAddress = adminModel.EmailAddress,
+                            //Password = adminModel.Password,
+                            PhoneNumber = adminModel.PhoneNumber,
+							PhotoUrl = adminModel.PhotoUrl,
+							Status = adminModel.Status
+					    };
                     }
 
                     //if (status != 1)
@@ -192,17 +216,17 @@ namespace BookingYacht.Business.Implement.Admin
                     //}
                     //else
                     //{
-                    result = new BusinessViewModel()
-                    {
-                        Id = model.Id,
-                        Uid = model.Uid,
-                        Name = model.Name,
-                        EmailAddress = model.EmailAddress,
-                        //Password = model.Password,
-                        PhoneNumber = model.PhoneNumber,
-                        PhotoUrl = model.PhotoUrl,
-                        Status = model.Status
-                    };
+                    //result = new BusinessViewModel()
+                    //{
+                    //    Id = model.Id,
+                    //    Uid = model.Uid,
+                    //    Name = model.Name,
+                    //    EmailAddress = model.EmailAddress,
+                    //    //Password = model.Password,
+                    //    PhoneNumber = model.PhoneNumber,
+                    //    PhotoUrl = model.PhotoUrl,
+                    //    Status = model.Status
+                    //};
                     //}
 
                     await _unitOfWork.SaveChangesAsync();

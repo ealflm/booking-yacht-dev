@@ -182,21 +182,8 @@ namespace BookingYacht.Business.Implement.Admin
                         status = 1;
 
                         _unitOfWork.AgencyRepository.Update(model);
-                    }
-                    else
-                    {
-                        await _unitOfWork.AgencyRepository.Add(adminModel);
-                    }
 
-
-                    //if (status != 1)
-                    //{
-                        //message = "The user doesn't have permission to access this resource";
-                    //}
-                    //else
-                    //{
                         result = new AgencyViewModels()
-
                         {
                             Id = model.Id,
                             Uid = model.Uid,
@@ -207,6 +194,43 @@ namespace BookingYacht.Business.Implement.Admin
                             PhotoUrl = model.PhotoUrl,
                             Status = model.Status
                         };
+                    }
+                    else
+                    {
+                        await _unitOfWork.AgencyRepository.Add(adminModel);
+
+                        result = new AgencyViewModels()
+                        {
+                            Id = adminModel.Id,
+                            Uid = adminModel.Uid,
+                            Name = adminModel.Name,
+                            EmailAddress = adminModel.EmailAddress,
+                            //Password = adminModel.Password,
+                            PhoneNumber = adminModel.PhoneNumber,
+                            PhotoUrl = adminModel.PhotoUrl,
+                            Status = adminModel.Status
+                        };
+                    }
+
+
+                    //if (status != 1)
+                    //{
+                        //message = "The user doesn't have permission to access this resource";
+                    //}
+                    //else
+                    //{
+                        //result = new AgencyViewModels()
+
+                        //{
+                        //    Id = model.Id,
+                        //    Uid = model.Uid,
+                        //    Name = model.Name,
+                        //    EmailAddress = model.EmailAddress,
+                        //    //Password = model.Password,
+                        //    PhoneNumber = model.PhoneNumber,
+                        //    PhotoUrl = model.PhotoUrl,
+                        //    Status = model.Status
+                        //};
                     //}
 
                     await _unitOfWork.SaveChangesAsync();
