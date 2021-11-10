@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         final routeFromMessage = message.data['route'];
-        _homeController.changeTabIndex(2);
+        _homeController.changeTabIndex(1);
         var _fcm = FirebaseMessaging.instance;
         _fcm.getToken().then((value) => print('The |||' + value!));
       }
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       final routeFromMessage = message.data['route'];
-      _homeController.changeTabIndex(2);
+      _homeController.changeTabIndex(1);
       var _fcm = FirebaseMessaging.instance;
       _fcm.getToken().then((value) => print('The|||' + value!));
     });
