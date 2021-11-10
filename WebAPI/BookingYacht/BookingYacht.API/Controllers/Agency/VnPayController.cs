@@ -47,9 +47,7 @@ namespace BookingYacht.API.Controllers.Agency
             double totalPrice = 0;
             foreach (Ticket ticket in ticketList)
             {
-                totalPrice += ticket.IdTicketTypeNavigation.Price * (100 -
-                                                                     ticket.IdTicketTypeNavigation.ServiceFeePercentage
-                                                                         .Value - ticket.IdTicketTypeNavigation
+                totalPrice += ticket.IdTicketTypeNavigation.Price * (100 - ticket.IdTicketTypeNavigation
                                                                          .CommissionFeePercentage.Value);
             }
 

@@ -115,6 +115,7 @@ namespace BookingYacht.Business.Implement.Admin
                         .ToList(),
                     TicketTypes = _unitOfWork.TicketTypeRepository.Query()
                         .Where(y => y.IdBusinessTour.Equals(x.Id))
+                        .Where(y => y.Status==(int) Status.ACCEPTED)
                         .OrderBy(y => y.Id)
                         .ToList(),
                     IdTourNavigation = _unitOfWork.TourRepository.Query()
