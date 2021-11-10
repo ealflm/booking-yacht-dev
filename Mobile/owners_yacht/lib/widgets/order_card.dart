@@ -21,7 +21,7 @@ class OrderCard extends StatelessWidget {
         // child:
         GestureDetector(
       onTap: () => showModalBottomSheet<void>(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.0),
                 topRight: Radius.circular(20.0)),
@@ -43,7 +43,7 @@ class OrderCard extends StatelessWidget {
                                 fontWeight: FontWeight.w600, fontSize: 14)),
                       ),
                       Text(
-                          'Vé vip(5%): ${NumberFormat.currency(locale: "vi-VN", symbol: "VND").format(order.totalPrice! - (order.totalPrice! * 5.0) / 100)} x${order.quantityOfPerson}'),
+                          'Giá: ${NumberFormat.currency(locale: "vi-VN", symbol: "VND").format(order.totalPrice!)}'),
                       Divider(),
                       const Center(
                           child: Text(
@@ -55,20 +55,21 @@ class OrderCard extends StatelessWidget {
                       Text(
                           'Số điện thoại: ${order.agencyViewModels!.phoneNumber.toString()}'),
                       Text('Email: ${order.agencyViewModels!.emailAddress}'),
+                      Text('Email: ${order.agencyViewModels!.address}'),
                       Divider(),
-                      SizedBox(
-                        height: 60,
-                      ),
-                      Center(
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.redAccent),
-                          ),
-                          onPressed: () =>
-                              _orderController.deleteOrder(order.id!),
-                          child: Text(
-                            "Từ chối đơn",
-                            style: TextStyle(color: Colors.redAccent),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Center(
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: Colors.redAccent),
+                            ),
+                            onPressed: () =>
+                                _orderController.deleteOrder(order.id!),
+                            child: const Text(
+                              "Từ chối đơn",
+                              style: TextStyle(color: Colors.redAccent),
+                            ),
                           ),
                         ),
                       )
@@ -82,7 +83,7 @@ class OrderCard extends StatelessWidget {
         elevation: 2,
         child: ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(
+            backgroundImage: NetworkImage(order.agencyViewModels!.photoUrl ??
                 'https://cdn5.vectorstock.com/i/1000x1000/01/69/businesswoman-character-avatar-icon-vector-12800169.jpg'),
           ),
           title: Text('Tour: ${order.tourName}'),

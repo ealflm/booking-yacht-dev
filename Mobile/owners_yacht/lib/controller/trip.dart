@@ -1,25 +1,39 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:owners_yacht/models/business_tour.dart';
-import 'package:owners_yacht/screens/trip_modify.dart';
 import '../screens/trips.dart';
 import '/models/trip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class TripController extends GetxController {
   var isLoading = true.obs;
+  var selectedYacht;
+  var time;
+  late DateTime focusedDay;
+  TextEditingController amountTicket = TextEditingController();
   // bool isAdding = true;
   String id = "";
   List<BusinessTour> listBusinessTour = <BusinessTour>[].obs;
   @override
   onInit() {
+    focusedDay = DateTime.now();
     getBusinessTour();
     super.onInit();
   }
 
+  void onSelected(String idYacht) {
+    selectedYacht = idYacht;
+    update();
+  }
+
   Future<List<BusinessTour>?> getBusinessTour() async {
+    print(focusedDay);
     isLoading(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -27,6 +41,7 @@ class TripController extends GetxController {
     try {
       Map<String, String> queryParams = {
         'idBusiness': idBusiness!,
+        'time': DateFormat('yyyy-MM-dd HH:mm:ss').format(focusedDay),
       };
 
       final response = await http.get(
@@ -44,7 +59,6 @@ class TripController extends GetxController {
         if (businessTour.data != null) {
           listBusinessTour = businessTour.data as List<BusinessTour>;
         }
-        print('load done');
         update();
       } else {
         return null;
@@ -54,6 +68,61 @@ class TripController extends GetxController {
       isLoading(false);
     }
     return listBusinessTour;
+  }
+
+  void save(String idBusinessTour) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    try {
+      //2021-11-09 22:59:59.000
+
+      var tmpDate = DateFormat('yyyy-MM-dd').format(focusedDay);
+      var tmpTime = DateFormat('HH:mm:ss').format(time);
+      String tmp = tmpDate + " " + tmpTime;
+
+      String body = json.encode({
+        "time": tmp,
+        "idVehicle": selectedYacht,
+        "idBusinessTour": idBusinessTour,
+        "amountTicket": amountTicket.text,
+      });
+      print('save');
+      print(tmp);
+      final response = await http.post(
+        Uri.parse(
+            "https://booking-yacht.azurewebsites.net/api/v1.0/business/trips"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        getBusinessTour();
+        update();
+        Get.back();
+        Fluttertoast.showToast(
+            msg: "Lưu thành công",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Lỗi rồi",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+      }
+    } catch (error) {
+      print(error);
+    }
   }
 
   // void editYacht(Trip trip) async {

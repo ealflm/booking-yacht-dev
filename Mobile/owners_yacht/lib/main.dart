@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:owners_yacht/controller/notification.dart';
+import 'package:owners_yacht/controller/ticket.dart';
 import 'package:owners_yacht/screens/menu.dart';
 import 'package:owners_yacht/screens/ticket.dart';
 import 'package:owners_yacht/screens/tours.dart';
@@ -22,6 +23,7 @@ void main() async {
   NotificationController.initialize();
   await Firebase.initializeApp();
   Binding().dependencies();
+  // Get.lazyPut(() => TicketController());
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -43,10 +45,15 @@ void main() async {
           binding: Binding(),
         ),
         GetPage(
-          name: '/qr-code',
+          name: '/ticket',
           page: () => QRScan(),
           binding: Binding(),
         ),
+        // GetPage(
+        //   name: '/ticket',
+        //   page: () => Tickets(),
+        //   binding: Binding(),
+        // ),
         GetPage(
           name: '/order',
           page: () => Orders(),
@@ -60,11 +67,6 @@ void main() async {
         GetPage(
           name: '/ticket_type',
           page: () => TicketType(),
-          binding: Binding(),
-        ),
-        GetPage(
-          name: '/ticket',
-          page: () => Tickets (),
           binding: Binding(),
         ),
         GetPage(

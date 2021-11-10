@@ -18,7 +18,6 @@ class Binding implements Bindings {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => OrderController());
     Get.lazyPut(() => YachtController());
-    Get.lazyPut(() => QRCodeController());
     Get.lazyPut(() => TripController());
     Get.lazyPut(() => TourController());
     Get.lazyPut(() => TicketTypeController());
